@@ -1,54 +1,42 @@
 <?= $this->extend('auth/templates/index');?>
 
 <?= $this->section('content');?>
-<div class="auth-main">
-	<div class="auth-wrapper v3">
-		<div class="auth-form">
-			<div class="card my-5">
-				<div class="card-body">
-					<div class="d-flex justify-content-between align-items-end mb-4">
-						<h3 class="mb-0"><b>Sign up</b></h3>
-						<a href="#" class="link-primary">Already have an account?</a>
-					</div>
-					<div class="form-group mb-3">
-						<label class="form-label">Name</label>
-						<input type="text" class="form-control" placeholder="Name" required>
-					</div>
-					<div class="form-group mb-3">
-						<label class="form-label">Email Address*</label>
-						<input type="email" class="form-control" placeholder="Email Address" required>
-					</div>
-					<div class="form-group mb-3">
-						<label class="form-label">Divisi</label>
-						<select class="form-select mb-3" aria-label="Default select example">
-							<option selected>Open this select menu</option>
-							<option value="1">One</option>
-							<option value="2">Two</option>
-							<option value="3">Three</option>
-					</select>
-					</div>
-					<div class="form-group mb-3">
-						<label class="form-label">Password</label>
-						<input type="password" class="form-control" placeholder="Password">
-					</div>
-					<div class="d-grid mt-3">
-						<button type="button" class="btn btn-primary">Create Account</button>
-					</div>
-				</div>
-			</div>
-			<div class="auth-footer row">
-				<!-- <div class=""> -->
-					<div class="col my-1">
-						<p class="m-0">Copyright © <a href="#"> PT Jayamas Medica Industri Tbk.</a></p>
-					</div>
-					<div class="col-auto my-1">
-						<ul class="list-inline footer-link mb-0">
-							<li class="list-inline-item"><a href="#">Department Information Technology</a></li> 
-						</ul>
-					</div>
-				<!-- </div> -->
-			</div>
+
+<div class="auth-header">
+	<!-- <a href="#"><img src="../assets/images/logo-dark.svg" alt="img"></a> -->
+</div>
+<div class="card my-5">
+	<div class="card-body">
+		<div class="d-flex justify-content-between align-items-end mb-4">
+			<h3 class="mb-0"><b><?=lang('Auth.register')?></b></h3>
+      <a class="link-primary" href="<?= url_to('login') ?>"><?=lang('Auth.alreadyRegistered')?> <?=lang('Auth.signIn')?></a>
 		</div>
+		<?= view('Myth\Auth\Views\_message_block') ?>
+
+		<form action="<?= url_to('register') ?>" method="post">
+      <?= csrf_field() ?>
+			<div class="form-group mb-3">
+				<label class="form-label" for="username"><?=lang('Auth.username')?></label>
+        <input type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" placeholder="<?=lang('Auth.username')?>" value="<?= old('username') ?>">
+      </div>
+			<div class="form-group mb-3">
+        <label class="form-label" for="email"><?=lang('Auth.email')?></label>
+				<input type="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" name="email" placeholder="<?=lang('Auth.email')?>" value="<?= old('email') ?>">
+        <small id="emailHelp" class="form-text text-muted"><?=lang('Auth.weNeverShare')?></small>
+			</div>
+			<div class="form-group mb-3">
+        <label class="form-label" for="password"><?=lang('Auth.password')?></label>
+        <input type="password" name="password" class="form-control <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?=lang('Auth.password')?>" autocomplete="off">
+      </div>
+			<div class="form-group mb-3">
+        <label class="form-label" for="pass_confirm"><?=lang('Auth.repeatPassword')?></label>
+				<input type="password" name="pass_confirm" class="form-control <?php if (session('errors.pass_confirm')) : ?>is-invalid<?php endif ?>" placeholder="<?=lang('Auth.repeatPassword')?>" autocomplete="off">
+			</div>                            
+			<div class="d-grid mt-3">
+        <button type="submit" class="btn btn-primary btn-block"><?=lang('Auth.register')?></button>
+
+			</div>
+		</form>
 	</div>
 </div>
 <?= $this->endSection();?>

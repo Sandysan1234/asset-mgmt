@@ -42,6 +42,7 @@
 
 <!-- [ Sidebar Menu ] start -->
 <?= $this->include('templates/sidebar');?>
+
 <!-- [ Sidebar Menu ] end -->
 
 <!-- [ Header Topbar ] start -->
