@@ -2,13 +2,15 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+class User extends BaseController
 {
     public function index(): string
     {
-        return view('welcome_message');
+        $data = [
+            'title' => 'User | Asset Managed',
+        ];
+        return view('user/index', $data);
     }
-
     // public function login(): string
     // {
     //     // return view('welcome_message');
@@ -35,12 +37,7 @@ class Home extends BaseController
     //     ];
     //     return view('auth/forgot', $data);
     // }
-    // public function user(): string
-    // {
-    //     // return view('welcome_message');
-    //     return view('user/index');
-    // }
-
-    // menit youtube 1:28:29 group and permission 
+    
+    
 
 }

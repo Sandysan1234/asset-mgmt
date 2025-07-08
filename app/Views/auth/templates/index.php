@@ -34,6 +34,16 @@
   <!-- [Body] Start -->
 
   <body>
+    <script>
+        let text = "  Auth | Asset Managed ";
+        let speed = 200;
+        function scrollTitle() {
+            document.title = text;
+            text = text.substring(1) + text.charAt(0);
+            setTimeout(scrollTitle, speed);
+        }
+        scrollTitle();
+    </script>
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
       <div class="loader-track">

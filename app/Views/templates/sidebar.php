@@ -12,7 +12,7 @@
     <div class="navbar-content">
       <ul class="pc-navbar">
         <li class="pc-item">
-          <a href="/home/user" class="pc-link">
+          <a href="/" class="pc-link">
             <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
             <span class="pc-mtext">Dashboard</span>
           </a>
@@ -23,7 +23,7 @@
           <i class="ti ti-dashboard"></i>
         </li>
         <li class="pc-item">
-          <a href="../other/sample-page.html" class="pc-link">
+          <a href="/mahasiswa" class="pc-link">
             <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
             <span class="pc-mtext">Approval</span>
           </a>
@@ -35,7 +35,7 @@
           <i class="ti ti-news"></i>
         </li>
         <li class="pc-item">
-          <a href="../other/sample-page.html" class="pc-link">
+          <a href="/pemasok" class="pc-link">
             <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
             <span class="pc-mtext">Vendor</span>
           </a>
