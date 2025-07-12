@@ -17,11 +17,23 @@ $routes->get('/', 'User::index');
 $routes->get('pages', 'Pages::index');
 $routes->get('pages/about', 'Pages::about');
 $routes->get('pages/contact', 'Pages::contact');
+
 $routes->get('komik', 'komik::index');
 $routes->get('komik/create', 'komik::create');
+$routes->get('komik/edit/(:segment)', 'komik::edit/$1');
 $routes->post('komik/save', 'komik::save');
-$routes->get('komik/(:segment)', 'komik::detail/$1');
+$routes->post('komik/update/(:any)', 'komik::update/$1');
+$routes->delete('komik/(:num)', 'komik::delete/$1');
+$routes->get('komik/(:any)', 'komik::detail/$1');
+
 $routes->get('pemasok', 'pemasok::index');
 $routes->get('pemasok/create', 'pemasok::create');
-// $routes->get('pemasok', 'pemasok::pemasok');
+$routes->delete('pemasok/(:num)', 'pemasok::delete/$1');
 $routes->post('pemasok/save', 'pemasok::save');
+
+$routes->get('costcenter', 'Costcenter::index');
+$routes->get('costcenter/create', 'Costcenter::create');
+$routes->delete('costcenter/(:num)','Costcenter::delete/$1');
+$routes->post('costcenter/save', 'Costcenter::save');
+
+

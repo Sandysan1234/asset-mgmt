@@ -28,13 +28,13 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Vendor</h5>
+            <h5>Cost Center</h5>
           </div>
           <div class="card tbl-card">
             <div class="card-body">
               <div class="table-responsive">
                 <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
-                <a href="/pemasok/create" class="btn btn-outline-primary mb-3">Tambah Data Vendor</a>
+                <a href="/costcenter/create" class="btn btn-outline-primary mb-3">Tambah Data Cost Center</a>
                 <?php if (session()->getFlashdata('pesan')): ?>
                   <div class="alert alert-success">
                     <?= session()->getFlashdata('pesan'); ?>
@@ -44,9 +44,8 @@
                   <thead class="bg-light">
                     <tr class="text-nowrap">
                       <th scope="col">No</th>
-                      <th scope="col">Kode Vendor</th>
-                      <th scope="col">Nama Vendor</th>
-                      <th scope="col">Alamat</th>
+                      <th scope="col">Kode Cost Center</th>
+                      <th scope="col">Nama Cost Center</th>
                       <th scope="col">Status</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
@@ -56,23 +55,22 @@
                   </thead>
                   <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($pemasok as $p) : ?>
+                    <?php foreach ($costcenter as $c) : ?>
                       <tr class="text-nowrap">
                         <th scope="row"><?= $i++; ?></th>
-                        <td><?= $p['kode_vendor']; ?></td>
-                        <td><?= $p['nama_vendor']; ?></td>
-                        <td><?= $p['alamat']; ?></td>
+                        <td><?= $c['kode_cost_center']; ?></td>
+                        <td><?= $c['nama_cost_center']; ?></td>
                         <td>
-                          <span class="badge <?= $p['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
-                            <?= $p['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
+                          <span class="badge <?= $c['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
+                            <?= $c['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
                           </span>
                         </td>
-                        <td><?= $p['created_at']; ?></td>
-                        <td><?= $p['updated_at']; ?></td>
-                        <td><?= $p['modified_by']; ?></td>
+                        <td><?= $c['created_at']; ?></td>
+                        <td><?= $c['updated_at']; ?></td>
+                        <td><?= $c['modified_by']; ?></td>
                         <td>
                           <a href="/komik/edit" class="btn btn-warning">Edit</a>
-                          <form action="/pemasok/<?= $p['id_vendor']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                          <form action="/costcenter/<?= $c['id_cost_center']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">delete</button>

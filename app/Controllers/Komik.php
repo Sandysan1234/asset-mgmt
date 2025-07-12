@@ -30,7 +30,7 @@ class Komik extends BaseController
         ];
 
         if (empty($data['komik'])) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Judul komik" . $slug . 'tidak ditemukan');
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Judul komik " . $slug . ' tidak ditemukan');
         }
 
 
@@ -54,7 +54,7 @@ class Komik extends BaseController
 
         $data = $this->request->getPost();
 
-        if (!$this->validateData($data,[
+        if (!$this->validateData($data, [
             'judul' => 'required|is_unique[komik.judul]',
 
 
@@ -74,6 +74,50 @@ class Komik extends BaseController
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
+
+        return redirect()->to('/komik');
+    }
+
+    public function delete($id)
+    {
+        $this->komikModel->delete($id);
+        return redirect()->to('/komik');
+    }
+
+    public function edit($slug)
+    {
+        $data = [
+            'title'      => 'Form Ubah Data Pemasok',
+            'validation' => \Config\Services::validation(),
+            'komik'      => $this->komikModel->getKomik($slug)
+        ];
+
+        return view('komik/edit', $data);
+    }
+    public function update($id)
+    {
+        $data = $this->request->getPost();
+        if (!$this->validateData($data, [
+            'judul' => 'required|is_unique[komik.judul,id,' . $id . ']',
+
+
+        ])) {
+            // $validation = \Config\Services::validation();
+            return redirect()->to('/komik/edit/'. $this->request->getPost('slug'))->withInput();
+        }
+        
+
+        $slug = url_title($this->request->getPost('judul'), '-', true);
+        $this->komikModel->save([
+            'id'        => $id,
+            'judul'     => $this->request->getPost('judul'),
+            'slug'      => $slug,
+            'penulis'   => $this->request->getPost('penulis'),
+            'penerbit'  => $this->request->getPost('penerbit'),
+            'sampul'    => $this->request->getPost('sampul'),
+        ]);
+
+        session()->setFlashdata('pesan', 'Data berhasil diubah.');
 
         return redirect()->to('/komik');
     }

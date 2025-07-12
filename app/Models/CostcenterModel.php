@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class CostcenterModel extends Model
+{
+    protected $table      = 'cost_center';
+    protected $primaryKey = 'id_costcenter';
+    protected $useTimestamps = true;
+    protected $allowedFields = ['kode_cost_center', 'nama_cost_center', 'status'];
+    protected $useSoftDeletes = true;
+}

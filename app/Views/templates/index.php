@@ -63,7 +63,7 @@
     <div class="footer-wrapper container-fluid">
       <div class="row">
         <div class="col-sm my-1">
-          <p class="m-0"> &copy; <?= date('Y'); ?> PT Jayamas Medica Industri Tbk. <span>All Rights Reserved</span></p>
+          <p class="m-0"> &copy; <?= date('Y'); ?> IT Department, PT Jayamas Medica Industri Tbk.  <span>All Rights Reserved</span></p>
         </div>
         <div class="col-auto my-1">
           <ul class="list-inline footer-link mb-0">
