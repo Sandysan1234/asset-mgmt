@@ -30,9 +30,8 @@ class Pemasok extends BaseController
     {
         // session();
         $data = [
-            'title'      => 'Form Tambah Data',
-            'validation' => session('validation') ?? \Config\Services::validation()
-
+            'title'      => 'Form Tambah Data Vendor | Asset Managed',
+            'validation' => \Config\Services::validation()
         ];
 
         // Ambil validasi dari session jika ada
@@ -101,6 +100,7 @@ class Pemasok extends BaseController
             ]
 
         ])) {
+
             return redirect()->to('/pemasok/create')->withInput();
         }
 
@@ -110,5 +110,16 @@ class Pemasok extends BaseController
             'alamat'        => $this->request->getPost('alamat'),
             'status'        => $this->request->getPost('status'),
         ]);
+        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+        return redirect()->to('pemasok');
+    }
+
+
+
+    public function delete($id)
+    {
+        $this->pemasokModel->delete($id);
+        session()->setFlashdata('pesan', 'Data berhasil dihapus');
+        return redirect()->to('/pemasok');
     }
 }

@@ -1,6 +1,6 @@
-<?= $this->extend('templates/index'); ?>
+<?= $this->extend('templates/index');?>
 
-<?= $this->section('page-content'); ?>
+<?= $this->section('page-content');?>
 <div class="pc-container">
   <div class="pc-content">
     <!-- [ breadcrumb ] start -->
@@ -46,7 +46,6 @@
                       <th scope="col">No</th>
                       <th scope="col">Kode Plant</th>
                       <th scope="col">Nama Plant</th>
-                      <th scope="col">Alamat</th>
                       <th scope="col">Status</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
@@ -56,23 +55,22 @@
                   </thead>
                   <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($pemasok as $p) : ?>
+                    <?php foreach ($plant as $pl) : ?>
                       <tr class="text-nowrap">
                         <th scope="row"><?= $i++; ?></th>
-                        <td><?= $p['kode_vendor']; ?></td>
-                        <td><?= $p['nama_vendor']; ?></td>
-                        <td><?= $p['alamat']; ?></td>
+                        <td><?= $pl['kode_plant']; ?></td>
+                        <td><?= $pl['nama_plant']; ?></td>
                         <td>
-                          <span class="badge <?= $p['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
-                            <?= $p['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
+                          <span class="badge <?= $pl['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
+                            <?= $pl['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
                           </span>
                         </td>
-                        <td><?= $p['created_at']; ?></td>
-                        <td><?= $p['updated_at']; ?></td>
-                        <td><?= $p['modified_by']; ?></td>
+                        <td><?= $pl['created_at']; ?></td>
+                        <td><?= $pl['updated_at']; ?></td>
+                        <td><?= $pl['modified_by']; ?></td>
                         <td>
                           <a href="/komik/edit" class="btn btn-warning">Edit</a>
-                          <form action="/pemasok/<?= $p['id_vendor']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                        <form action="/plant/<?= $pl['id_plant']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">delete</button>
@@ -97,4 +95,5 @@
 </div>
 
 <!-- [ Main Content ] end -->
-<?= $this->endSection('page-content'); ?>
+
+<?= $this->endSection();?>

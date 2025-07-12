@@ -35,9 +35,21 @@
           <i class="ti ti-news"></i>
         </li>
         <li class="pc-item">
+          <a href="/costcenter" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
+            <span class="pc-mtext">Cost Center</span>
+          </a>
+        </li>
+        <li class="pc-item">
           <a href="/pemasok" class="pc-link">
             <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
             <span class="pc-mtext">Vendor</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/plant" class="pc-link">
+            <span class="pc-micon"><i class="ti-map-alt"></i></span>
+            <span class="pc-mtext">Plant</span>
           </a>
         </li>
         <li class="pc-item">
@@ -56,12 +68,6 @@
           <a href="../other/sample-page.html" class="pc-link">
             <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
             <span class="pc-mtext">User Asset</span>
-          </a>
-        </li>
-        <li class="pc-item">
-          <a href="../other/sample-page.html" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-            <span class="pc-mtext">Cost Center</span>
           </a>
         </li>
         <li class="pc-item pc-hasmenu">

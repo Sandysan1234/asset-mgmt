@@ -10,4 +10,5 @@ class PemasokModel extends Model
     protected $primaryKey = 'id_vendor';
     protected $useTimestamps = true;
     protected $allowedFields = ['kode_vendor', 'nama_vendor', 'alamat', 'status'];
+    protected $useSoftDeletes = true;
 }

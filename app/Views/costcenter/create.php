@@ -1,3 +1,4 @@
+<!-- [ Main Content ] start -->
 <?= $this->extend('templates/index'); ?>
 
 <?= $this->section('page-content'); ?>
@@ -28,54 +29,51 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Pemasok</h5>
+            <h5>Cost Center</h5>
           </div>
-          <div class="card tbl-card">
-            <div class="card-body">
-              <?= validation_list_errors(); ?>
-              <?= form_open('form'); ?>
+          <div class="card-body">
+            <form action="/costcenter/save" method="post">
               <?= csrf_field(); ?>
               <div class="row mb-3">
-                <label for="kode_vendor" class="col-sm-3 col-form-label">Kode Vendor</label>
+                <label for="kode_cost_center" class="col-sm-3 col-form-label">Kode Cost Center</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" name="kode_vendor" id="kode_vendor" autofocus>
+                  <input type="text" class="form-control <?= (validation_show_error('kode_cost_center')) ? 'is-invalid' : ''; ?>" name="kode_cost_center" id="kode_cost_center" autofocus value="<?= old('kode_cost_center'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('kode_cost_center'); ?>
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="nama_vendor" class="col-sm-3 col-form-label">Nama Vendor</label>
+                <label for="nama_cost_center" class="col-sm-3 col-form-label">Nama Cost Center</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="nama_vendor" name="nama_vendor">
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
-                <div class="col-sm-8">
-                  <textarea class="form-control" id="alamat" name="alamat" aria-label="With textarea"></textarea>
+                  <input type="text" class="form-control <?= (validation_show_error('nama_cost_center')) ? 'is-invalid' : ''; ?>" id="nama_cost_center" name="nama_cost_center" value="<?= old('nama_cost_center'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('nama_cost_center'); ?>
+                  </div>
                 </div>
               </div>
               <fieldset class="row mb-3">
                 <legend class="col-form-label col-sm-3 pt-0">Status</legend>
                 <div class="col-sm-8">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="status" id="status1" value="1" checked>
-                    <label class="form-check-label" for="status1">
+                    <input class="form-check-input" type="radio" name="status" id="status" value="1" checked>
+                    <label class="form-check-label" for="gridRadios1">
                       Aktif
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="status" id="status0" value="0">
-                    <label class="form-check-label" for="status0">
+                    <input class="form-check-input" type="radio" name="status" id="status" value="0">
+                    <label class="form-check-label" for="gridRadios2">
                       Nonaktif
                     </label>
                   </div>
                 </div>
               </fieldset>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="/costcenter" class="btn btn-secondary me-3">Close</a>
                 <button type="submit" class="btn btn-primary">Tambah Data</button>
               </div>
-              <?= form_close(); ?>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -84,7 +82,6 @@
   </div>
   <!-- [ Main Content ] end -->
 </div>
-
-
+</div>
 <!-- [ Main Content ] end -->
-<?= $this->endSection('page-content'); ?>
+<?= $this->endSection(); ?>
