@@ -58,6 +58,7 @@
                     <?php foreach ($costcenter as $c) : ?>
                       <tr class="text-nowrap">
                         <th scope="row"><?= $i++; ?></th>
+
                         <td><?= esc($c['kode_cost_center']); ?></td>
                         <td><?= esc($c['nama_cost_center']); ?></td>
                         <td>
@@ -92,6 +93,17 @@
   </div>
   <!-- [ Main Content ] end -->
 </div>
+<<<<<<< HEAD
 
+=======
+</div>
+<script>
+  const vendorModal = document.getElementById('exampleModalCenter');
+
+  vendorModal.addEventListener('shown.bs.modal', function() {
+    document.getElementById('kode_vendor').focus();
+  });
+</script>
+>>>>>>> b5d62dd239d42a5b29f9628b2908be96eb80427d
 <!-- [ Main Content ] end -->
 <?= $this->endSection('page-content'); ?>

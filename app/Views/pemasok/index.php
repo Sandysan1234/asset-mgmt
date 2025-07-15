@@ -28,12 +28,13 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Pemasok</h5>
+            <h5>Vendor</h5>
           </div>
           <div class="card tbl-card">
             <div class="card-body">
               <div class="table-responsive">
                 <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
+
                 <a href="/pemasok/create" class="btn btn-outline-primary mb-3">Tambah Data Pemasok</a>
                 <?php if (session()->getFlashdata('pesan')): ?>
                   <div class="alert alert-success">
@@ -76,6 +77,7 @@
                             <?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Delete</button>
+
                             <!-- delete permanen karena model tidak disetting -->
                           </form>
 

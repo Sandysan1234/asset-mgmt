@@ -30,6 +30,7 @@ $routes->get('komik/(:any)', 'komik::detail/$1');
 
 $routes->get('pemasok', 'pemasok::index');
 $routes->get('pemasok/create', 'pemasok::create');
+
 $routes->post('pemasok/save', 'pemasok::save');
 $routes->post('pemasok/update/(:any)', 'pemasok::update/$1');
 $routes->get('pemasok/edit/(:segment)', 'pemasok::edit/$1');
