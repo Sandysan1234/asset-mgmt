@@ -17,6 +17,7 @@ class PlantSeeder extends Seeder
 
 				'kode_plant'    => $faker->regexify('[A-Z]{3}[0-4]{3}'),
 				'nama_plant'    => $faker->city(),
+				'alamat'		=> $faker->address(),
 				'status'              => $faker->numberBetween(0, 1),
 				'created_at'		  => Time::now(),
 				'updated_at'		  => Time::createFromTimestamp($faker->unixTime()),

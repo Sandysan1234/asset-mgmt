@@ -17,7 +17,7 @@ class PemasokSeeder extends Seeder
             $data = [
 
                 'kode_vendor' => $faker->regexify('[A-Z]{3}[0-4]{3}'),
-                'nama_vendor' => $faker->name('male' | 'female'),
+                'nama_vendor' => $faker->company(),
                 'alamat'      => $faker->address(),
                 'status'      => $faker->numberBetween(0, 1),
                 'created_at'  => Time::now(),

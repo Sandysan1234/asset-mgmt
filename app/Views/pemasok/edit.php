@@ -29,10 +29,10 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Form Ubah Data Pemasok</h5>
+            <h5>Form Ubah Data Vendor</h5>
           </div>
           <div class="card-body">
-            <form action="/pemasok/update" method="post">
+            <form action="/pemasok/update/<?= $pemasok['id_vendor']; ?>" method="post">
               <?= csrf_field(); ?>
               <div class="row mb-3">
                 <label for="kode_vendor" class="col-sm-3 col-form-label">Kode Vendor</label>
@@ -46,7 +46,7 @@
               <div class="row mb-3">
                 <label for="nama_vendor" class="col-sm-3 col-form-label">Nama Vendor</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control <?= (validation_show_error('nama_vendor')) ? 'is-invalid' : ''; ?>" id="nama_vendor" name="nama_vendor" value="<?= old('nama_vendor'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('nama_vendor')) ? 'is-invalid' : ''; ?>" id="nama_vendor" name="nama_vendor" value="<?= old('nama_vendor', $pemasok['nama_vendor']); ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('nama_vendor'); ?>
                   </div>
@@ -55,7 +55,7 @@
               <div class="row mb-3">
                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                 <div class="col-sm-8">
-                  <textarea class="form-control <?= (validation_show_error('alamat')) ? 'is-invalid' : ''; ?>" id="alamat" name="alamat" aria-label="With textarea"><?= old('alamat'); ?></textarea>
+                  <textarea class="form-control <?= (validation_show_error('alamat')) ? 'is-invalid' : ''; ?>" id="alamat" name="alamat" aria-label="With textarea"><?= old('alamat', $pemasok['alamat']); ?></textarea>
 
                   <div class="invalid-feedback">
                     <?= validation_show_error('alamat'); ?>
@@ -91,7 +91,6 @@
     <!-- [ sample-page ] end -->
   </div>
   <!-- [ Main Content ] end -->
-</div>
 </div>
 <!-- [ Main Content ] end -->
 <?= $this->endSection(); ?>

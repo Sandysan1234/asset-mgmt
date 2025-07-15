@@ -81,7 +81,6 @@
     <!-- [ sample-page ] end -->
   </div>
   <!-- [ Main Content ] end -->
-</div>
-</div>
+</div>  
 <!-- [ Main Content ] end -->
 <?= $this->endSection(); ?>

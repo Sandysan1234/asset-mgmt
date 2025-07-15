@@ -1,12 +1,10 @@
-
-
 <!-- [ Sidebar Menu ] start -->
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
     <div class="m-header">
       <a href="../dashboard/index.html" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
-        <img src="<?= base_url();?>assets/images/logo-jmi.svg" width="90" class="img-fluid-logo-lg" alt="logo">
+        <img src="<?= base_url(); ?>assets/images/logo-jmi.svg" width="90" class="img-fluid-logo-lg" alt="logo">
       </a>
     </div>
     <div class="navbar-content">
@@ -28,7 +26,7 @@
             <span class="pc-mtext">Approval</span>
           </a>
         </li>
-        
+
 
         <li class="pc-item pc-caption">
           <label>Pages</label>
@@ -41,35 +39,36 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="/pemasok" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-            <span class="pc-mtext">Vendor</span>
-          </a>
+          <a href="/lifetime" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-clock"></i></span>
+            <span class="pc-mtext">Lifetime</span>
+          </a>  
         </li>
         <li class="pc-item">
-          <a href="/plant" class="pc-link">
-            <span class="pc-micon"><i class="ti-map-alt"></i></span>
-            <span class="pc-mtext">Plant</span>
-          </a>
-        </li>
-        <li class="pc-item">
-          <a href="../other/sample-page.html" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
+          <a href="/location" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-map-pins"></i></span>
             <span class="pc-mtext">Location</span>
           </a>
         </li>
         <li class="pc-item">
-          <a href="../other/sample-page.html" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-            <span class="pc-mtext">PIC</span>
+          <a href="/plant" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-sitemap"></i></span>
+            <span class="pc-mtext">Plant</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/pemasok" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-affiliate"></i></span>
+            <span class="pc-mtext">Vendor</span>
           </a>
         </li>
         <li class="pc-item">
           <a href="../other/sample-page.html" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-            <span class="pc-mtext">User Asset</span>
+            <span class="pc-micon"><i class="ti ti-users"></i></span>
+            <span class="pc-mtext">Users</span>
           </a>
         </li>
+
         <li class="pc-item pc-hasmenu">
           <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span class="pc-mtext">Menu
               levels</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
@@ -104,7 +103,7 @@
               </ul>
             </li>
           </ul>
-        </li> 
+        </li>
         <li class="pc-item pc-caption">
           <label>Other</label>
           <i class="ti ti-brand-chrome"></i>
@@ -151,8 +150,8 @@
           </a>
         </li>
       </ul>
-      </div>
     </div>
+  </div>
   </div>
 </nav>
 <!-- [ Sidebar Menu ] end -->

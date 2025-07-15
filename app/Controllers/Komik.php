@@ -89,7 +89,7 @@ class Komik extends BaseController
         $data = [
             'title'      => 'Form Ubah Data Pemasok',
             'validation' => \Config\Services::validation(),
-            'komik'      => $this->komikModel->getKomik($slug)
+            'komik'      => $this->komikModel->getKomik($slug),
         ];
 
         return view('komik/edit', $data);

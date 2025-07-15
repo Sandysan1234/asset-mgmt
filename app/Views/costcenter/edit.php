@@ -29,36 +29,26 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Form Tambah Data Vendor</h5>
+            <h5>Cost Center</h5>
           </div>
           <div class="card-body">
-            <form action="/pemasok/save" method="post">
+            <form action="/costcenter/update/<?= $costcenter['id_cost_center'];?>" method="post">
               <?= csrf_field(); ?>
               <div class="row mb-3">
-                <label for="kode_vendor" class="col-sm-3 col-form-label">Kode Vendor</label>
+                <label for="kode_cost_center" class="col-sm-3 col-form-label">Kode Cost Center</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control <?= (validation_show_error('kode_vendor')) ? 'is-invalid' : ''; ?>" name="kode_vendor" id="kode_vendor" autofocus value="<?= old('kode_vendor'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('kode_cost_center')) ? 'is-invalid' : ''; ?>" name="kode_cost_center" id="kode_cost_center" autofocus value="<?= old('kode_cost_center', $costcenter['kode_cost_center']); ?>">
                   <div class="invalid-feedback">
-                    <?= validation_show_error('kode_vendor'); ?>
+                    <?= validation_show_error('kode_cost_center'); ?>
                   </div>
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="nama_vendor" class="col-sm-3 col-form-label">Nama Vendor</label>
+                <label for="nama_cost_center" class="col-sm-3 col-form-label">Nama Cost Center</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control <?= (validation_show_error('nama_vendor')) ? 'is-invalid' : ''; ?>" id="nama_vendor" name="nama_vendor" value="<?= old('nama_vendor'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('nama_cost_center')) ? 'is-invalid' : ''; ?>" id="nama_cost_center" name="nama_cost_center" value="<?= old('nama_cost_center', $costcenter['nama_cost_center']); ?>">
                   <div class="invalid-feedback">
-                    <?= validation_show_error('nama_vendor'); ?>
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
-                <div class="col-sm-8">
-                  <textarea class="form-control <?= (validation_show_error('alamat')) ? 'is-invalid' : ''; ?>" id="alamat" name="alamat" aria-label="With textarea"><?= old('alamat'); ?></textarea>
-
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('alamat'); ?>
+                    <?= validation_show_error('nama_cost_center'); ?>
                   </div>
                 </div>
               </div>
@@ -80,7 +70,7 @@
                 </div>
               </fieldset>
               <div class="modal-footer">
-                <a href="/pemasok" class="btn btn-secondary me-3">Close</a>
+                <a href="/costcenter" class="btn btn-secondary me-3">Close</a>
                 <button type="submit" class="btn btn-primary">Tambah Data</button>
               </div>
             </form>
@@ -92,6 +82,7 @@
   </div>
   <!-- [ Main Content ] end -->
 </div>
+
 
 <!-- [ Main Content ] end -->
 <?= $this->endSection(); ?>

@@ -1,6 +1,7 @@
 <?= $this->extend('templates/index'); ?>
 
-<?= $this->section('page-content'); ?>
+<?= $this->Section('page-content'); ?>
+
 <div class="pc-container">
   <div class="pc-content">
     <!-- [ breadcrumb ] start -->
@@ -28,13 +29,13 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Cost Center</h5>
+            <h5>Location</h5>
           </div>
           <div class="card tbl-card">
             <div class="card-body">
               <div class="table-responsive">
                 <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
-                <a href="/costcenter/create" class="btn btn-outline-primary mb-3">Tambah Data Cost Center</a>
+                <a href="/location/create" class="btn btn-outline-primary mb-3">Tambah Data Location</a>
                 <?php if (session()->getFlashdata('pesan')): ?>
                   <div class="alert alert-success">
                     <?= session()->getFlashdata('pesan'); ?>
@@ -54,32 +55,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($costcenter as $c) : ?>
-                      <tr class="text-nowrap">
-                        <th scope="row"><?= $i++; ?></th>
-                        <td><?= esc($c['kode_cost_center']); ?></td>
-                        <td><?= esc($c['nama_cost_center']); ?></td>
-                        <td>
-                          <span class="badge <?= $c['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
-                            <?= $c['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
-                          </span>
-                        </td>
-                        <td><?= (new DateTime($c['created_at']))->format('d-m-Y H:i');  ?></td>
-                        <td><?= (new DateTime($c['updated_at']))->format('d-m-Y H:i');  ?></td>
-                        <td><?= $c['modified_by']; ?></td>
-                        <td>
-                          <a href="/costcenter/edit/<?= $c['id_cost_center'];?>" class="btn btn-warning">Edit</a>
-                          <form action="/costcenter/<?= $c['id_cost_center']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                            <?= csrf_field(); ?>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                            <!-- delete permanen karena model tidak disetting -->
-                          </form>
-
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
+                    <tr>
+                      <td>no</td>
+                      <td>kode</td>
+                      <td>s</td>
+                      <td>s</td>
+                      <td>s</td>
+                      <td>s</td>
+                      <td>g</td>
+                      <td>g</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -92,6 +77,4 @@
   </div>
   <!-- [ Main Content ] end -->
 </div>
-
-<!-- [ Main Content ] end -->
-<?= $this->endSection('page-content'); ?>
+<?= $this->endSection(); ?>

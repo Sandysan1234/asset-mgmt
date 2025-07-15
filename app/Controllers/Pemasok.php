@@ -122,4 +122,60 @@ class Pemasok extends BaseController
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
         return redirect()->to('/pemasok');
     }
+    public function edit($id)
+    {
+        $data = [
+            'title'      => 'Form Ubah Data Vendor',
+            'validation' => \Config\Services::validation(),
+            'pemasok'      => $this->pemasokModel->find($id),
+        ];
+        return view('pemasok/edit', $data);
+    }
+    public function update($id)
+    {
+        $data = $this->request->getPost();
+        if (!$this->validateData($data, [
+            'kode_vendor' => [
+                'label'  => 'Kode Vendor',
+                'rules'  => 'required|is_unique[pemasok.kode_vendor,id_vendor,' . $id . ']',
+                'errors' => [
+                    'required'  => '{field} harus diisi',
+                    'is_unique'  => '{field} sudah terdaftar',
+                ]
+            ],
+            'nama_vendor' => [
+                'label'   => 'Nama Vendor',
+                'rules'   => 'required',
+                'errors'  => [
+                    'required' => '{field} harus diisi',
+                ]
+            ],
+            'alamat' => [
+                'label'   => 'Alamat',
+                'rules'   => 'required',
+                'errors'  => [
+                    'required' => '{field} harus diisi',
+                ]
+            ],
+            'status' => [
+                'label'   => 'Status',
+                'rules'   => 'required',
+                'errors'  => [
+                    'required' => '{field} harus diisi',
+                ]
+            ]
+
+        ])) {
+            return redirect()->to('/pemasok/edit/' . $id)->withInput();
+        }
+        $this->pemasokModel->save([
+            'id_vendor'     => $id,
+            'kode_vendor'   => $this->request->getPost('kode_vendor'),
+            'nama_vendor'   => $this->request->getPost('nama_vendor'),
+            'alamat'        => $this->request->getPost('alamat'),
+            'status'        => $this->request->getPost('status'),
+        ]);
+        session()->setFlashdata('pesan', 'Data Berhasil Diubah');
+        return redirect()->to('pemasok');
+    }
 }
