@@ -47,7 +47,6 @@ class CreateLifetimeTable extends Migration
                 'null' => true
             ]
         ]);
-
         $this->forge->addKey('id_lifetime', true); // primary key
         $this->forge->createTable('lifetime');
     }

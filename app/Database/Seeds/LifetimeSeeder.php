@@ -13,7 +13,7 @@ class LifetimeSeeder extends Seeder
 
         for ($i=0; $i <10 ; $i++) { 
             $data=[
-                'kode_lifetime'   => $faker->regexify('[A-Z]{3}[0-9]{3}'),
+                'kode_lifetime'   => $faker->regexify('[A-Z]{5}[0-4]{3}'),
                 'masa_berlaku'    => $faker->numberBetween(0, 20),
                 'status'          => $faker->numberBetween(0,1),
                 'created_at'      => Time::now(),

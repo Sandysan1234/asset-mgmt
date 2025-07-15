@@ -44,11 +44,11 @@
 								</div>
 							</div>
 							<div class="row mb-3">
-								<label for="nama_lifetime" class="col-sm-3 col-form-label">Masa Berlaku</label>
+								<label for="masa_berlaku" class="col-sm-3 col-form-label">Masa Berlaku</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control <?= (validation_show_error('nama_lifetime')) ? 'is-invalid' : ''; ?>" id="nama_lifetime" name="nama_lifetime" value="<?= old('nama_lifetime'); ?>">
+									<input type="text" class="form-control <?= (validation_show_error('masa_berlaku')) ? 'is-invalid' : ''; ?>" id="masa_berlaku" name="masa_berlaku" value="<?= old('masa_berlaku'); ?>">
 									<div class="invalid-feedback">
-										<?= validation_show_error('nama_lifetime'); ?>
+										<?= validation_show_error('masa_berlaku'); ?>
 									</div>
 								</div>
 							</div>

@@ -58,5 +58,9 @@ $routes->post('plant/update/(:any)', 'Plant::update/$1');
 
 $routes->get('lifetime', 'Lifetime::index');
 $routes->get('lifetime/create', 'Lifetime::create');
+$routes->post('lifetime/save', 'Lifetime::save');
+$routes->delete('lifetime/(:num)', 'Lifetime::delete/$1');
+$routes->get('lifetime/edit/(:segment)', 'Lifetime::edit/$1');
+$routes->post('lifetime/update/(:any)', 'Lifetime::update/$1');
 
 $routes->get('location', 'Location::index');
