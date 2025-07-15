@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Database\Seeds;
+
+use CodeIgniter\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    public function run()
+    {
+        $this->call('CostcenterSeeder');
+        $this->call('LifetimeSeeder');
+        $this->call('PemasokSeeder');
+        $this->call('PlantSeeder');
+    }
+}
