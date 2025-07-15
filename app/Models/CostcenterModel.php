@@ -12,4 +12,3 @@ class CostcenterModel extends Model
     protected $allowedFields = ['kode_cost_center', 'nama_cost_center', 'status'];
     protected $useSoftDeletes = true;
 }
-    

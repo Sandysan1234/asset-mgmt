@@ -33,6 +33,7 @@
           </div>
           <div class="card-body">
             <form action="/pemasok/update/<?= $pemasok['id_vendor']; ?>" method="post">
+
               <?= csrf_field(); ?>
               <div class="row mb-3">
                 <label for="kode_vendor" class="col-sm-3 col-form-label">Kode Vendor</label>
@@ -56,7 +57,6 @@
                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                 <div class="col-sm-8">
                   <textarea class="form-control <?= (validation_show_error('alamat')) ? 'is-invalid' : ''; ?>" id="alamat" name="alamat" aria-label="With textarea"><?= old('alamat', $pemasok['alamat']); ?></textarea>
-
                   <div class="invalid-feedback">
                     <?= validation_show_error('alamat'); ?>
                   </div>

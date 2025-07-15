@@ -6,6 +6,7 @@ use App\Models\CostcenterModel;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Stmt\Label;
 
+
 class Costcenter extends BaseController
 {
   protected $costcenterModel;
@@ -32,6 +33,7 @@ class Costcenter extends BaseController
     $data = [
       'title'      => 'Form Tambah Data Cost Center | Asset Managed',
       'validation' => \Config\Services::validation()
+
     ];
 
     return view('costcenter/create', $data);
@@ -86,6 +88,7 @@ class Costcenter extends BaseController
     session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/costcenter');
   }
+  
   public function edit($id)
   {
     $data = [
@@ -136,5 +139,6 @@ class Costcenter extends BaseController
     );
     session()->setFlashdata('pesan', 'Data berhasil diubah');
     return redirect()->to('/costcenter');
+
   }
 }

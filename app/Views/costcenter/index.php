@@ -58,6 +58,7 @@
                     <?php foreach ($costcenter as $c) : ?>
                       <tr class="text-nowrap">
                         <th scope="row"><?= $i++; ?></th>
+
                         <td><?= esc($c['kode_cost_center']); ?></td>
                         <td><?= esc($c['nama_cost_center']); ?></td>
                         <td>
@@ -93,5 +94,4 @@
   <!-- [ Main Content ] end -->
 </div>
 
-<!-- [ Main Content ] end -->
 <?= $this->endSection('page-content'); ?>
