@@ -35,7 +35,7 @@
             <div class="card-body">
               <div class="table-responsive">
                 <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
-                <a href="/location/create" class="btn btn-outline-primary mb-3">Tambah Data Location</a>
+                <a href="/location/create" class="btn btn-outline-primary mb-3">Tambah Data Lokasi</a>
                 <?php if (session()->getFlashdata('pesan')): ?>
                   <div class="alert alert-success">
                     <?= session()->getFlashdata('pesan'); ?>
@@ -45,8 +45,9 @@
                   <thead class="bg-light">
                     <tr class="text-nowrap">
                       <th scope="col">No</th>
-                      <th scope="col">Kode Cost Center</th>
-                      <th scope="col">Nama Cost Center</th>
+                      <th scope="col">Kode Lokasi</th>
+                      <th scope="col">Nama Lokasi</th>
+                      <th scope="col">Jenis Lokasi</th>
                       <th scope="col">Status</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
@@ -55,16 +56,34 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>no</td>
-                      <td>kode</td>
-                      <td>s</td>
-                      <td>s</td>
-                      <td>s</td>
-                      <td>s</td>
-                      <td>g</td>
-                      <td>g</td>
-                    </tr>
+                    <?php $i = 1; ?>
+                    <?php foreach ($location as $l) : ?>
+                      <tr class="text-nowrap">
+                        <th scope="row"><?= $i++; ?></th>
+                        <td><?= esc($l['kode_lokasi']); ?></td>
+                        <td><?= esc($l['nama_lokasi']); ?></td>
+                        <td><?= esc($l['jenis_lokasi']); ?></td>
+                        <td>
+                          <span class="badge <?= $l['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
+                            <?= $l['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
+                          </span>
+                        </td>
+                        <td><?= (new DateTime($l['created_at']))->format('d-m-Y H:i');  ?></td>
+                        <td><?= (new DateTime($l['updated_at']))->format('d-m-Y H:i');  ?></td>
+                        <td><?= $l['modified_by']; ?></td>
+                        <td>
+                          <a href="/location/edit/<?= $l['id_lokasi']; ?>" class="btn btn-warning">Edit</a>
+                          <form action="/location/<?= $l['id_lokasi']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            <?= csrf_field(); ?>
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+
+                            <!-- delete permanen karena model tidak disetting -->
+                          </form>
+
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
                   </tbody>
                 </table>
               </div>

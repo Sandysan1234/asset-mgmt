@@ -34,7 +34,7 @@
         </li>
         <li class="pc-item">
           <a href="/costcenter" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
+            <span class="pc-micon"><i class="ti ti-aperture"></i></span>
             <span class="pc-mtext">Cost Center</span>
           </a>
         </li>

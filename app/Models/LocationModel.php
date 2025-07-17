@@ -6,9 +6,9 @@ use CodeIgniter\Model;
 
 class LocationModel extends Model
 {
-    protected $table          = 'location';
-    protected $primaryKey     = 'id_lifet';
+    protected $table          = 'lokasi';
+    protected $primaryKey     = 'id_lokasi';
     protected $useTimestamps  = true;
-    protected $allowedFields  = ['kode_lifetime', 'masa_berlaku', 'status'];
+    protected $allowedFields  = ['kode_lokasi', 'nama_lokasi', 'jenis_lokasi', 'status'];
     protected $useSoftDeletes = true;
 }

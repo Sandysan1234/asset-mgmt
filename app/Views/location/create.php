@@ -29,36 +29,36 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Form Tambah Data Location</h5>
+            <h5>Form Tambah Data lokasi</h5>
           </div>
           <div class="card-body">
-            <form action="/Location/save" method="post">
+            <form action="/location/save" method="post">
               <?= csrf_field(); ?>
               <div class="row mb-3">
-                <label for="kode_location" class="col-sm-3 col-form-label">Kode Location</label>
+                <label for="kode_lokasi" class="col-sm-3 col-form-label">Kode Lokasi</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control <?= (validation_show_error('kode_location')) ? 'is-invalid' : ''; ?>" name="kode_location" id="kode_location" autofocus value="<?= old('kode_location'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('kode_lokasi')) ? 'is-invalid' : ''; ?>" name="kode_lokasi" id="kode_lokasi" autofocus value="<?= old('kode_lokasi'); ?>">
                   <div class="invalid-feedback">
-                    <?= validation_show_error('kode_location'); ?>
+                    <?= validation_show_error('kode_lokasi'); ?>
                   </div>
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="nama_location" class="col-sm-3 col-form-label">Nama Location</label>
+                <label for="nama_lokasi" class="col-sm-3 col-form-label">Nama lokasi</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control <?= (validation_show_error('nama_location')) ? 'is-invalid' : ''; ?>" id="nama_location" name="nama_location" value="<?= old('nama_location'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('nama_lokasi')) ? 'is-invalid' : ''; ?>" id="nama_lokasi" name="nama_lokasi" value="<?= old('nama_lokasi'); ?>">
                   <div class="invalid-feedback">
-                    <?= validation_show_error('nama_location'); ?>
+                    <?= validation_show_error('nama_lokasi'); ?>
                   </div>
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="lantai" class="col-sm-3 col-form-label">Lantai</label>
+                <label for="jenis_lokasi" class="col-sm-3 col-form-label">Jenis Lokasi</label>
                 <div class="col-sm-8">
-                  <textarea class="form-control <?= (validation_show_error('lantai')) ? 'is-invalid' : ''; ?>" id="lantai" name="lantai" aria-label="With textarea"><?= old('lantai'); ?></textarea>
+                  <textarea class="form-control <?= (validation_show_error('jenis_lokasi')) ? 'is-invalid' : ''; ?>" id="jenis_lokasi" name="jenis_lokasi" aria-label="With textarea"><?= old('jenis_lokasi'); ?></textarea>
 
                   <div class="invalid-feedback">
-                    <?= validation_show_error('lantai'); ?>
+                    <?= validation_show_error('jenis_lokasi'); ?>
                   </div>
                 </div>
               </div>
