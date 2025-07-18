@@ -12,5 +12,7 @@ class DatabaseSeeder extends Seeder
         $this->call('LifetimeSeeder');
         $this->call('PemasokSeeder');
         $this->call('PlantSeeder');
+        $this->call('LocationSeeder');
+        $this->call('AssetSeeder');
     }
 }

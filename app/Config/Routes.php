@@ -65,8 +65,14 @@ $routes->post('lifetime/update/(:any)', 'Lifetime::update/$1');
 
 $routes->get('location', 'Location::index');
 $routes->get('location/create', 'Location::create');
+$routes->post('location/save', 'Location::save');
 $routes->delete('location/(:num)', 'Location::delete/$1');
 $routes->get('location/edit/(:segment)', 'Location::edit/$1');
-$routes->post('location/save', 'Location::save');
 $routes->post('location/update/(:any)', 'Location::update/$1');
+
+$routes->get('assetclass', 'Assetclass::index');
+$routes->get('assetclass/create', 'Assetclass::create');
+$routes->post('assetclass/save', 'assetclass::save');
+$routes->delete('assetclass/(:num)', 'assetclass::delete/$1');
+
 

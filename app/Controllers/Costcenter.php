@@ -113,16 +113,17 @@ class Costcenter extends BaseController
       ],
       'nama_cost_center'  => [
         'label'   => 'Nama Cost Center',
-        'rules'   => 'required',
+        'rules'   => 'required|is_unique[cost_center.kode_cost_center,id_cost_center,' . $id . ']',
         'errors'  => [
           'required' => '{field} harus diisi',
+          'is_unique'=> '{field} sudah terdaftar',
         ]
       ],
       'status'    => [
         'label'   => 'Status',
         'rules'   => 'required',
         'errors'  => [
-          'required' => '{field} harus'
+          'required' => '{field} harus diisi'
         ]
       ]
 
