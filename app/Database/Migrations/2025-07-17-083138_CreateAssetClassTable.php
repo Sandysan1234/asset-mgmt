@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateAssetTable extends Migration
+class CreateAssetClassTable extends Migration
 {
   public function up()
   {

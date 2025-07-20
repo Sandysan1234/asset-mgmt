@@ -76,3 +76,10 @@ $routes->post('assetclass/save', 'assetclass::save');
 $routes->delete('assetclass/(:num)', 'assetclass::delete/$1');
 
 
+
+$routes->get('asset', 'Asset::index');
+$routes->get('asset/create', 'Asset::create');
+
+
+
+

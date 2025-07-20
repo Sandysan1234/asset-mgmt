@@ -33,6 +33,12 @@
           <i class="ti ti-news"></i>
         </li>
         <li class="pc-item">
+          <a href="/asset" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-zoom-money"></i></span>
+            <span class="pc-mtext">Asset</span>
+          </a>
+        </li>
+        <li class="pc-item">
           <a href="/assetclass" class="pc-link">
             <span class="pc-micon"><i class="ti ti-brand-google-analytics"></i></span>
             <span class="pc-mtext">Asset Class</span>

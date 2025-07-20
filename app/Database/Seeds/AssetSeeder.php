@@ -11,16 +11,29 @@ class AssetSeeder extends Seeder
     {
         $faker = \Faker\Factory::create('id_ID');
 
-		for ($i = 0; $i < 10; $i++) {
-			$data = [
-
-				'kode_assetclass'     => $faker->regexify('[A-Z]{3}[0-4]{3}'),
-				'nama_assetclass'     => $faker->word(),
-				'status'              => $faker->numberBetween(0, 1),
-				'created_at'		  => Time::now(),
-				'updated_at'		  => Time::createFromTimestamp($faker->unixTime()),
-			];
-			$this->db->table('assetclass')->insert($data);
-		}
+        for ($i=0; $i <10 ; $i++) { 
+            $data=[
+                'no_asset'      => $faker->regexify('[A-Z]{3}[0-9]{3}'),
+                'sub_asset'     => $faker->regexify('[A-Z]{3}[0-9]{3}'),
+                'nama_asset'    => $faker->word(),
+                'serial_number' => $faker->numberBetween(10000,99999),
+                'batch_number'  => $faker->regexify('[A-Z]{5}[0-9]{5}'),
+                'merek'         => $faker->word(),
+                'spek'          => $faker->sentence(5),
+                'tgl_perolehan' => Time::createFromTimestamp($faker->unixTime()),
+                'harga'         => $faker->randomFloat(2),
+                'no_po'         => $faker->regexify('[A-Z]{5}[0-9]{5}'),
+				'status'        => $faker->numberBetween(0, 3),
+                'id_assetclass' => $faker->numberBetween(0, 100),
+                'id_vendor'     => $faker->numberBetween(0, 100),
+                'id_cost_center'=> $faker->numberBetween(0, 100),
+                'id_plant'      => $faker->numberBetween(0, 100),
+                'id_lifetime'   => $faker->numberBetween(0, 100),
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::createFromTimestamp($faker->unixTime()),
+                'modified_by'   => $faker->name('male' | 'female'),
+            ];
+            $this->db->table('asset')->insert($data);
+        }
     }
 }

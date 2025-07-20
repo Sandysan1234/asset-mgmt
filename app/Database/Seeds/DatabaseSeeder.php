@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
         $this->call('PemasokSeeder');
         $this->call('PlantSeeder');
         $this->call('LocationSeeder');
+        $this->call('AssetClassSeeder');
         $this->call('AssetSeeder');
     }
 }
