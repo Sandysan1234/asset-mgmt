@@ -3,9 +3,9 @@
 
 <?= $this->section('page-content'); ?>
 <div class="pc-container">
-	<div class="pc-content">
-		<!-- [ breadcrumb ] start -->
-		<!-- <div class="page-header">
+  <div class="pc-content">
+    <!-- [ breadcrumb ] start -->
+    <!-- <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
             <div class="col-md-12">
@@ -21,75 +21,221 @@
           </div>
         </div>
       </div> -->
-		<!-- [ breadcrumb ] end -->
+    <!-- [ breadcrumb ] end -->
 
-		<!-- [ Main Content ] start -->
-		<div class="row">
-			<!-- [ sample-page ] start -->
-			<div class="col-sm-12">
-				<div class="card">
-					<div class="card-header">
-						<h5>Form Tambah Asset</h5>
-					</div>
-					<div class="card-body">
-						<form action="/asset/save" method="post">
-							<?= csrf_field(); ?>
-							<div class="row mb-3">
-								<label for="no_asset" class="col-sm-3 col-form-label">No Asset</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" autofocus value="<?= old('no_asset'); ?>">
-									<div class="invalid-feedback">
-										<?= validation_show_error('no_asset'); ?>
-									</div>
-								</div>
-							</div>
-							<div class="row mb-3">
-								<label for="nama_asset" class="col-sm-3 col-form-label">Nama Asset</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control <?= (validation_show_error('nama_asset')) ? 'is-invalid' : ''; ?>" id="nama_asset" name="nama_asset" value="<?= old('nama_asset'); ?>">
-									<div class="invalid-feedback">
-										<?= validation_show_error('nama_asset'); ?>
-									</div>
-								</div>
-							</div>
-							<div class="row mb-3">
-								<label for="nama_asset" class="col-sm-3 col-form-label">Nama Asset</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control <?= (validation_show_error('nama_asset')) ? 'is-invalid' : ''; ?>" id="nama_asset" name="nama_asset" value="<?= old('nama_asset'); ?>">
-									<div class="invalid-feedback">
-										<?= validation_show_error('nama_asset'); ?>
-									</div>
-								</div>
-							</div>
-							<fieldset class="row mb-3">
-								<legend class="col-form-label col-sm-3 pt-0">Status</legend>
-								<div class="col-sm-8">
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="status" id="status" value="1" checked>
-										<label class="form-check-label" for="gridRadios1">
-											Aktif
-										</label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="radio" name="status" id="status" value="0">
-										<label class="form-check-label" for="gridRadios2">
-											Nonaktif
-										</label>
-									</div>
-								</div>
-							</fieldset>
-							<div class="modal-footer">
-								<a href="/asset" class="btn btn-secondary me-3">Close</a>
-								<button type="submit" class="btn btn-primary">Tambah Data</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- [ sample-page ] end -->
-	</div>
-	<!-- [ Main Content ] end -->
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <!-- [ sample-page ] start -->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>Form Tambah Asset</h5>
+          </div>
+          <div class="card-body">
+            <form action="/asset/save" method="post">
+              <?= csrf_field(); ?>
+              <div class="row mb-3">
+                <label for="no_asset" class="col-sm-3 col-form-label">No Asset</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" autofocus value="<?= old('no_asset'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('no_asset'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="sub_asset" class="col-sm-3 col-form-label">Sub Asset</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control <?= (validation_show_error('sub_asset')) ? 'is-invalid' : ''; ?>" id="sub_asset" name="sub_asset" value="<?= old('sub_asset'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('sub_asset'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="nama_asset" class="col-sm-3 col-form-label">Nama Asset</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control <?= (validation_show_error('nama_asset')) ? 'is-invalid' : ''; ?>" id="nama_asset" name="nama_asset" value="<?= old('nama_asset'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('nama_asset'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="serial_number" class="col-sm-3 col-form-label">Serial Number</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control <?= (validation_show_error('serial_number')) ? 'is-invalid' : ''; ?>" id="serial_number" name="serial_number" value="<?= old('serial_number'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('serial_number'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="batch_number" class="col-sm-3 col-form-label">Batch Number</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control <?= (validation_show_error('batch_number')) ? 'is-invalid' : ''; ?>" id="batch_number" name="batch_number" value="<?= old('batch_number'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('batch_number'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="spek" class="col-sm-3 col-form-label">Spek</label>
+                <div class="col-sm-6">
+                  <textarea class="form-control <?= (validation_show_error('spek')) ? 'is-invalid' : ''; ?>" id="merek" name="merek" value="<?= old('merek'); ?>" id="spek"></textarea>
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('spek'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="tgl_perolehan" class="col-sm-3 col-form-label">Tanggal Perolehan</label>
+                <div class="col-sm-6">
+                  <input type="datetime-local" class="form-control <?= (validation_show_error('tgl_perolehan')) ? 'is-invalid' : ''; ?>" id="tgl_perolehan" name="tgl_perolehan" value="<?= old('tgl_perolehan'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('tgl_perolehan'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="harga" class="col-sm-3 col-form-label">Harga</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control <?= (validation_show_error('harga')) ? 'is-invalid' : ''; ?>" id="harga" name="harga" value="<?= old('harga'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('harga'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="no_po" class="col-sm-3 col-form-label">No. Purchase Order</label>
+                <div class="col-sm-6">
+                  <input type="number" class="form-control <?= (validation_show_error('no_po')) ? 'is-invalid' : ''; ?>" id="no_po" name="no_po" value="<?= old('no_po'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('no_po'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Asset Class</label>
+                <div class="col-sm-6">
+                  <select class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($assetclass as $as) :?>
+                    <option value="<?= $as['id_assetclass'];?>" <?= old('id_assetclass') == $as['id_assetclass'] ? 'selected': '';?>>
+                      <?= $as['nama_assetclass'];?>
+                    </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Cost Center</label>
+                <div class="col-sm-6">
+                  <select class="form-select col-sm-6" aria-label="Default select example">
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($cost_center as $cs) :?>
+                    <option value="<?= $cs['id_cost_center'];?>" <?= old('id_cost_center') == $cs['id_cost_center'] ? 'selected' : '' ;?>>
+                      <?= $cs['nama_cost_center'];?>
+                    </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Lifetime</label>
+                <div class="col-sm-6">
+                  <select class="form-select col-sm-6" aria-label="Default select example">
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($lifetime as $lf) :?>
+                    <option value="<?= $lf['id_lifetime'];?>" <?= old('id_lifetime') == $lf['id_lifetime'] ? 'selected' : '' ;?>>
+                      <?= $lf['masa_berlaku'];?>
+                    </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Plant</label>
+                <div class="col-sm-6">
+                  <select class="form-select col-sm-6" aria-label="Default select example">
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($plant as $pl) :?>
+                    <option value="<?= $pl['id_plant'];?>" <?= old('id_plant') == $pl['id_plant'] ? 'selected' : '' ;?>>
+                      <?= $pl['nama_plant'];?>
+                    </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Vendor</label>
+                <div class="col-sm-6">
+                  <select class="form-select col-sm-6" aria-label="Default select example">
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($pemasok as $p) :?>
+                    <option value="<?= $p['id_vendor'];?>" <?= old('id_vendor') == $p['id_vendor'] ? 'selected' : '' ;?>>
+                      <?= $p['nama_vendor'];?>
+                    </option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">PIC</label>
+                <div class="col-sm-6">
+                  <select class="form-select col-sm-6" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">User Asset</label>
+                <div class="col-sm-6">
+                  <select class="form-select col-sm-6" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a href="/asset" class="btn btn-secondary me-3">Close</a>
+                <button type="submit" class="btn btn-primary">Tambah Data</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [ sample-page ] end -->
+  </div>
+  <!-- [ Main Content ] end -->
 </div>
 <!-- [ Main Content ] end -->
+<script>
+  let harga = document.getElementById('harga');
+  harga.addEventListener('keyup', function(e) {
+    harga.value = formatRupiah(this.value);
+  });
+
+  function formatRupiah(angka, prefix) {
+    let number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split = number_string.split(','),
+      sisa = split[0].length % 3,
+      rupiah = split[0].substr(0, sisa),
+      ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+      separator = sisa ? '.' : '';
+      rupiah += separator + ribuan.join('.');
+    }
+
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+  }
+</script>
 <?= $this->endSection(); ?>

@@ -50,16 +50,19 @@
                       <th scope="col">Serial Number</th>
                       <th scope="col">Batch Number</th>
                       <th scope="col">Merek</th>
-                      <th scope="col">Spek</th>
+                      <th scope="col">Spek Asset</th>
                       <th scope="col">Tanggal Perolehan</th>
                       <th scope="col">Harga</th>
-                      <th scope="col">No PO</th>
+                      <th scope="col">No Purchase Order</th>
+                      <th scope="col">Asset Class</th>
+                      <th scope="col">Cost Center</th>
+                      <th scope="col">Plant</th>
+                      <!-- idvendor -->
+                      <th scope="col">Vendor</th>
+                      <th scope="col">Lifetime</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Id Asset Class</th>
-                      <th scope="col">Id Vendor</th>
-                      <th scope="col">Id Cost Center</th>
-                      <th scope="col">Id Plant</th>
-                      <th scope="col">Id Lifetime</th>
+                      <th scope="col">PIC</th>
+                      <th scope="col">User Asset</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
                       <th scope="col">Modified By</th>
@@ -71,7 +74,6 @@
                     <?php foreach ($asset as $as) : ?>
                       <tr class="text-nowrap">
                         <th scope="row"><?= $i++; ?></th>
-
                         <td><?= esc($as['no_asset']); ?></td>
                         <td><?= esc($as['sub_asset']); ?></td>
                         <td><?= esc($as['nama_asset']); ?></td>
@@ -80,30 +82,40 @@
                         <td><?= esc($as['merek']); ?></td>
                         <td><?= esc($as['spek']); ?></td>
                         <td><?= esc($as['tgl_perolehan']); ?></td>
-                        <td><?= esc($as['harga']); ?></td>
+                        <td>Rp <?= esc(number_format($as['harga'], 2, ',', '.')); ?></td>
                         <td><?= esc($as['no_po']); ?></td>
+                        <td><?= esc($as['id_assetclass'] . ' - ' . $as['nama_assetclass']); ?></td>
+                        <td><?= esc($as['id_cost_center'] . ' - ' . $as['nama_cost_center']); ?></td>
+                        <td><?= esc($as['id_plant'] .  ' -  ' . $as['nama_plant']); ?></td>
+                        <td><?= esc($as['id_vendor'] . ' - ' . $as['nama_vendor']); ?></td>
+                        <td><?= esc($as['masa_berlaku']); ?> Tahun</td>
+                        <?php
+                        $statusList = [
+                          0 => ['label' => 'Non-Aktif',     'class' => 'bg-danger'],
+                          1 => ['label' => 'Non-Aktif',   'class' => 'bg-danger'],
+                          2 => ['label' => 'Aktif',        'class' => 'bg-success'],
+                          3 => ['label' => 'Aktif ', 'class' => 'bg-success'],
+                        ];
+                        $currentStatus = $statusList[$as['status']] ?? ['label' => 'Unknown', 'class' => 'bg-dark'];
+                        ?>
                         <td>
-                          <span class="badge rounded-pill <?= $as['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
-                            <?= $as['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
+                          <span class="badge rounded-pill <?= $currentStatus['class'] ?> rounded-2">
+                            <?= $currentStatus['label'] ?>
                           </span>
                         </td>
-                        <td><?= $as['id_assetclass']; ?></td>
-                        <td><?= $as['id_vendor']; ?></td>
-                        <td><?= $as['id_cost_center']; ?></td>
-                        <td><?= $as['id_plant']; ?></td>
-                        <td><?= $as['id_lifetime']; ?></td>
+                        <td><?= esc($as['username']) . ' - ' . $as['fullname']; ?></td>
+                        <td><?= esc($as['username']) . ' - ' . $as['fullname']; ?></td>
                         <td><?= (new DateTime($as['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($as['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $as['modified_by']; ?></td>
                         <td>
-                          <a href="/asset/edit/<?= $as['id_asset']; ?>" class="btn btn-sm btn-warning">Edit</a>
+                          <a href="/asset/edit/<?= $as['id_asset']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-alert-triangle"></i></a>
                           <form action="/asset/<?= $as['id_asset']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
                             <!-- delete permanen karena model tidak disetting -->
                           </form>
-
                         </td>
                       </tr>
                     <?php endforeach; ?>

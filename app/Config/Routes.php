@@ -81,5 +81,8 @@ $routes->get('asset', 'Asset::index');
 $routes->get('asset/create', 'Asset::create');
 
 
+$routes->get('approval','Approval::index');
+
+
 
 

@@ -21,7 +21,7 @@
           <i class="ti ti-dashboard"></i>
         </li>
         <li class="pc-item">
-          <a href="/mahasiswa" class="pc-link">
+          <a href="/transaksi" class="pc-link">
             <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
             <span class="pc-mtext">Approval</span>
           </a>
@@ -32,17 +32,12 @@
           <label>Pages</label>
           <i class="ti ti-news"></i>
         </li>
-        <li class="pc-item">
-          <a href="/asset" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-zoom-money"></i></span>
-            <span class="pc-mtext">Asset</span>
-          </a>
-        </li>
-        <li class="pc-item">
-          <a href="/assetclass" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-brand-google-analytics"></i></span>
-            <span class="pc-mtext">Asset Class</span>
-          </a>
+        <li class="pc-item pc-hasmenu">
+          <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-zoom-money"></i></span><span class="pc-mtext">Assets</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+          <ul class="pc-submenu">
+            <li class="pc-item"><a class="pc-link" href="/asset">List All</a></li>
+            <li class="pc-item"><a class="pc-link" href="/assetclass">Asset Class</a></li>
+          </ul>
         </li>
         <li class="pc-item">
           <a href="/costcenter" class="pc-link">
@@ -54,7 +49,7 @@
           <a href="/lifetime" class="pc-link">
             <span class="pc-micon"><i class="ti ti-clock"></i></span>
             <span class="pc-mtext">Lifetime</span>
-          </a>  
+          </a>
         </li>
         <li class="pc-item">
           <a href="/location" class="pc-link">
@@ -86,9 +81,9 @@
             <span class="pc-mtext">User Asset</span>
           </a>
         </li>
+
         <li class="pc-item pc-hasmenu">
-          <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span class="pc-mtext">Menu
-              levels</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+          <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-menu"></i></span><span class="pc-mtext">Menu levels</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
           <ul class="pc-submenu">
             <li class="pc-item"><a class="pc-link" href="#!">Level 2.1</a></li>
             <li class="pc-item pc-hasmenu">
