@@ -34,15 +34,18 @@ class AssetModel extends Model
                 cc.nama_cost_center,
                 ac.nama_assetclass,
                 lf.masa_berlaku,
-                us.fullname,
-                us.username',
+                pic.fullname as pic_fullname,
+                pic.username as pic_username,
+                usr.fullname as user_fullname,
+                usr.username as user_username',
                 )
       ->join('plant p', 'p.id_plant = asset.id_plant', 'left')
       ->join('pemasok v', 'v.id_vendor = asset.id_vendor', 'left')
       ->join('cost_center cc', 'cc.id_cost_center = asset.id_cost_center', 'left')
       ->join('assetclass ac', 'ac.id_assetclass = asset.id_assetclass', 'left')
       ->join('lifetime lf', 'lf.id_lifetime = asset.id_lifetime', 'left')
-      ->join('users us', 'us.id = asset.id', 'left')
+      ->join('users pic', 'pic.id = asset.id_pic', 'left')
+      ->join('users usr', 'usr.id = asset.id_user_asset', 'left')
       ->findAll();
   }
 }

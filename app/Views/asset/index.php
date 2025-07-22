@@ -91,31 +91,28 @@
                         <td><?= esc($as['masa_berlaku']); ?> Tahun</td>
                         <?php
                         $statusList = [
-                          0 => ['label' => 'Non-Aktif',     'class' => 'bg-danger'],
-                          1 => ['label' => 'Non-Aktif',   'class' => 'bg-danger'],
-                          2 => ['label' => 'Aktif',        'class' => 'bg-success'],
-                          3 => ['label' => 'Aktif ', 'class' => 'bg-success'],
+                          0 => ['label' => 'Proses Pelepasan',     'class' => 'bg-primary'],
+                          1 => ['label' => 'Proses Penghentian',   'class' => 'bg-warning'],
+                          2 => ['label' => 'Penggabungan',         'class' => 'bg-secondary'],
+                          3 => ['label' => 'Proses Mutasi ',       'class' => 'bg-info'],
+                          4 => ['label' => 'Non-Aktif ',           'class' => 'bg-danger'],
+                          5 => ['label' => 'Aktif',                'class' => 'bg-success'],
                         ];
                         $currentStatus = $statusList[$as['status']] ?? ['label' => 'Unknown', 'class' => 'bg-dark'];
                         ?>
                         <td>
-                          <span class="badge rounded-pill <?= $currentStatus['class'] ?> rounded-2">
+                          <span class="badge <?= $currentStatus['class'] ?> rounded-2">
                             <?= $currentStatus['label'] ?>
                           </span>
                         </td>
-                        <td><?= esc($as['username']) . ' - ' . $as['fullname']; ?></td>
-                        <td><?= esc($as['username']) . ' - ' . $as['fullname']; ?></td>
+                        <td><?= esc($as['pic_username']) . ' - ' . $as['pic_fullname']; ?></td>
+                        <td><?= esc($as['user_username']) . ' - ' . $as['user_fullname']; ?></td>
                         <td><?= (new DateTime($as['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($as['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $as['modified_by']; ?></td>
                         <td>
+                          <a href="/asset/detail/<?= $as['id_asset'];?>" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail"><i class="ti ti-file-search"></i></a>
                           <a href="/asset/edit/<?= $as['id_asset']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-alert-triangle"></i></a>
-                          <form action="/asset/<?= $as['id_asset']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                            <?= csrf_field(); ?>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
-                            <!-- delete permanen karena model tidak disetting -->
-                          </form>
                         </td>
                       </tr>
                     <?php endforeach; ?>

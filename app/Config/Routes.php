@@ -72,13 +72,19 @@ $routes->post('location/update/(:any)', 'Location::update/$1');
 
 $routes->get('assetclass', 'Assetclass::index');
 $routes->get('assetclass/create', 'Assetclass::create');
-$routes->post('assetclass/save', 'assetclass::save');
-$routes->delete('assetclass/(:num)', 'assetclass::delete/$1');
+$routes->post('assetclass/save', 'Assetclass::save');
+$routes->delete('assetclass/(:num)', 'Assetclass::delete/$1');
+$routes->get('assetclass/edit/(:segment)', 'Assetclass::edit/$1');
+$routes->post('assetclass/update/(:any)', 'Assetclass::update/$1');
 
 
 
 $routes->get('asset', 'Asset::index');
 $routes->get('asset/create', 'Asset::create');
+$routes->post('asset/save', 'Asset::save');
+$routes->get('asset/edit/(:segment)', 'Asset::edit/$1');
+$routes->post('asset/update/(:any)', 'Asset::update/$1');
+$routes->get('asset/detail/(:num)', 'Asset::detail/$1');
 
 
 $routes->get('approval','Approval::index');

@@ -32,12 +32,12 @@
             <h5>Form Tambah Asset</h5>
           </div>
           <div class="card-body">
-            <form action="/asset/save" method="post">
+            <form action="/asset/update/<?= $asset['id_asset'];?>" method="post">
               <?= csrf_field(); ?>
               <div class="row mb-3">
                 <label for="no_asset" class="col-sm-3 col-form-label">No Asset</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" autofocus value="<?= old('no_asset'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" autofocus value="<?= old('no_asset'); ?>" readonly>
                   <div class="invalid-feedback">
                     <?= validation_show_error('no_asset'); ?>
                   </div>

@@ -23,11 +23,9 @@
         <li class="pc-item">
           <a href="/transaksi" class="pc-link">
             <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-            <span class="pc-mtext">Approval</span>
+            <span class="pc-mtext">Transaksi</span>
           </a>
         </li>
-
-
         <li class="pc-item pc-caption">
           <label>Pages</label>
           <i class="ti ti-news"></i>
