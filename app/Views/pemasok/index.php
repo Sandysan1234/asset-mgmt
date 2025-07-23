@@ -72,11 +72,11 @@
                         <td><?= (new DateTime($p['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $p['modified_by']; ?></td>
                         <td>
-                          <a href="/pemasok/edit/<?= $p['id_vendor'];?>" class="btn btn-warning">Edit</a>
+                          <a href="/pemasok/edit/<?= $p['id_vendor']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
                           <form action="/pemasok/<?= $p['id_vendor']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
 
                             <!-- delete permanen karena model tidak disetting -->
                           </form>

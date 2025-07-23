@@ -278,15 +278,16 @@ class Asset extends BaseController
       ],
       'serial_number' => [
         'label'               => 'Serial Number',
-        'rules'               => 'required|integer|is_unique[asset.serial_number,id_asset' . $id .']',
+        'rules'               => 'required|integer|is_unique[asset.serial_number,id_asset,' . $id .']',
         'errors'              => [
           'required'        => '{field} harus diisi',
-          'integer'         => '{field} harus angka'
+          'integer'         => '{field} harus angka',
+          'is_unique'       => '{field} sudah terdaftar'
         ]
       ],
       'batch_number' => [
         'label'               => 'Batch Number',
-        'rules'               => 'required|integer|is_unique[asset.batch_number,id_asset' . $id . ']',
+        'rules'               => 'required|integer|is_unique[asset.batch_number,id_asset,' . $id . ']',
         'errors'              => [
           'required'        => '{field} harus diisi',
           'is_unique'       => '{field} sudah terdafar',

@@ -32,12 +32,12 @@
             <h5>Form Tambah Asset</h5>
           </div>
           <div class="card-body">
-            <form action="/asset/update/<?= $asset['id_asset'];?>" method="post">
+            <form action="/asset/update/<?= $asset['id_asset']; ?>" method="post">
               <?= csrf_field(); ?>
               <div class="row mb-3">
                 <label for="no_asset" class="col-sm-3 col-form-label">No Asset</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" autofocus value="<?= old('no_asset'); ?>" readonly>
+                  <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" value="<?= old('no_asset', $asset['no_asset']); ?>" readonly>
                   <div class="invalid-feedback">
                     <?= validation_show_error('no_asset'); ?>
                   </div>
@@ -46,7 +46,7 @@
               <div class="row mb-3">
                 <label for="sub_asset" class="col-sm-3 col-form-label">Sub Asset</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('sub_asset')) ? 'is-invalid' : ''; ?>" id="sub_asset" name="sub_asset" value="<?= old('sub_asset'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('sub_asset')) ? 'is-invalid' : ''; ?>" id="sub_asset" name="sub_asset" value="<?= old('sub_asset', $asset['no_asset']); ?>" readonly>
                   <div class="invalid-feedback">
                     <?= validation_show_error('sub_asset'); ?>
                   </div>
@@ -55,7 +55,7 @@
               <div class="row mb-3">
                 <label for="nama_asset" class="col-sm-3 col-form-label">Nama Asset</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('nama_asset')) ? 'is-invalid' : ''; ?>" id="nama_asset" name="nama_asset" value="<?= old('nama_asset'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('nama_asset')) ? 'is-invalid' : ''; ?>" id="nama_asset" name="nama_asset" value="<?= old('nama_asset', $asset['nama_asset']); ?>" autofocus>
                   <div class="invalid-feedback">
                     <?= validation_show_error('nama_asset'); ?>
                   </div>
@@ -64,7 +64,7 @@
               <div class="row mb-3">
                 <label for="serial_number" class="col-sm-3 col-form-label">Serial Number</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('serial_number')) ? 'is-invalid' : ''; ?>" id="serial_number" name="serial_number" value="<?= old('serial_number'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('serial_number')) ? 'is-invalid' : ''; ?>" id="serial_number" name="serial_number" value="<?= old('serial_number', $asset['serial_number']); ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('serial_number'); ?>
                   </div>
@@ -73,7 +73,7 @@
               <div class="row mb-3">
                 <label for="batch_number" class="col-sm-3 col-form-label">Batch Number</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('batch_number')) ? 'is-invalid' : ''; ?>" id="batch_number" name="batch_number" value="<?= old('batch_number'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('batch_number')) ? 'is-invalid' : ''; ?>" id="batch_number" name="batch_number" value="<?= old('batch_number'), $asset['batch_number']; ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('batch_number'); ?>
                   </div>
@@ -82,7 +82,7 @@
               <div class="row mb-3">
                 <label for="merek" class="col-sm-3 col-form-label">Merek</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('merek')) ? 'is-invalid' : ''; ?>" id="merek" name="merek" value="<?= old('merek'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('merek')) ? 'is-invalid' : ''; ?>" id="merek" name="merek" value="<?= old('merek', $asset['merek']); ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('merek'); ?>
                   </div>
@@ -91,7 +91,7 @@
               <div class="row mb-3">
                 <label for="spek" class="col-sm-3 col-form-label">Spek</label>
                 <div class="col-sm-6">
-                  <textarea class="form-control <?= (validation_show_error('spek')) ? 'is-invalid' : ''; ?>" id="spek" name="spek"><?= old('spek'); ?></textarea>
+                  <textarea class="form-control <?= (validation_show_error('spek')) ? 'is-invalid' : ''; ?>" id="spek" name="spek"><?= old('spek', $asset['spek']); ?></textarea>
                   <div class="invalid-feedback">
                     <?= validation_show_error('spek'); ?>
                   </div>
@@ -100,7 +100,7 @@
               <div class="row mb-3">
                 <label for="tgl_perolehan" class="col-sm-3 col-form-label">Tanggal Perolehan</label>
                 <div class="col-sm-6">
-                  <input type="datetime-local" class="form-control <?= (validation_show_error('tgl_perolehan')) ? 'is-invalid' : ''; ?>" id="tgl_perolehan" name="tgl_perolehan" value="<?= old('tgl_perolehan'); ?>">
+                  <input type="datetime-local" class="form-control <?= (validation_show_error('tgl_perolehan')) ? 'is-invalid' : ''; ?>" id="tgl_perolehan" name="tgl_perolehan" value="<?= old('tgl_perolehan', date('Y-m-d\TH:i', strtotime($asset['tgl_perolehan']))); ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('tgl_perolehan'); ?>
                   </div>
@@ -109,7 +109,7 @@
               <div class="row mb-3">
                 <label for="harga" class="col-sm-3 col-form-label">Harga</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('harga')) ? 'is-invalid' : ''; ?>" id="harga" name="harga" value="<?= old('harga'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('harga')) ? 'is-invalid' : ''; ?>" id="harga" name="harga" value="<?= old('harga', $asset['harga']); ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('harga'); ?>
                   </div>
@@ -118,7 +118,7 @@
               <div class="row mb-3">
                 <label for="no_po" class="col-sm-3 col-form-label">No. Purchase Order</label>
                 <div class="col-sm-6">
-                  <input type="number" class="form-control <?= (validation_show_error('no_po')) ? 'is-invalid' : ''; ?>" id="no_po" name="no_po" value="<?= old('no_po'); ?>">
+                  <input type="number" class="form-control <?= (validation_show_error('no_po')) ? 'is-invalid' : ''; ?>" id="no_po" name="no_po" value="<?= old('no_po'), $asset['no_po']; ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('no_po'); ?>
                   </div>
@@ -130,7 +130,7 @@
                   <select name="id_assetclass" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($assetclass as $as) : ?>
-                      <option value="<?= $as['id_assetclass']; ?>" <?= old('id_assetclass') == $as['id_assetclass'] ? 'selected' : ''; ?>>
+                      <option value="<?= $as['id_assetclass']; ?>" <?= old('id_assetclass', $asset['id_assetclass']) == $as['id_assetclass'] ? 'selected' : ''; ?>>
                         <?= $as['nama_assetclass']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -143,10 +143,10 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Cost Center</label>
                 <div class="col-sm-6">
-                  <select name="id_cost_center" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                  <select name="id_cost_center" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($cost_center as $cs) : ?>
-                      <option value="<?= $cs['id_cost_center']; ?>" <?= old('id_cost_center') == $cs['id_cost_center'] ? 'selected' : ''; ?>>
+                      <option value="<?= $cs['id_cost_center']; ?>" <?= old('id_cost_center', $asset['id_cost_center']) == $cs['id_cost_center'] ? 'selected' : ''; ?>>
                         <?= $cs['nama_cost_center']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -162,7 +162,7 @@
                   <select name="id_lifetime" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($lifetime as $lf) : ?>
-                      <option value="<?= $lf['id_lifetime']; ?>" <?= old('id_lifetime') == $lf['id_lifetime'] ? 'selected' : ''; ?>>
+                      <option value="<?= $lf['id_lifetime']; ?>" <?= old('id_lifetime' , $asset['id_lifetime']) == $lf['id_lifetime'] ? 'selected' : ''; ?>>
                         <?= $lf['masa_berlaku']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -175,10 +175,10 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Plant</label>
                 <div class="col-sm-6">
-                  <select name="id_plant" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                  <select name="id_plant" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($plant as $pl) : ?>
-                      <option value="<?= $pl['id_plant']; ?>" <?= old('id_plant') == $pl['id_plant'] ? 'selected' : ''; ?>>
+                      <option value="<?= $pl['id_plant']; ?>" <?= old('id_plant', $asset['id_plant']) == $pl['id_plant'] ? 'selected' : ''; ?> readonly>
                         <?= $pl['nama_plant']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -194,7 +194,7 @@
                   <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($pemasok as $p) : ?>
-                      <option value="<?= $p['id_vendor']; ?>" <?= old('id_vendor') == $p['id_vendor'] ? 'selected' : ''; ?>>
+                      <option value="<?= $p['id_vendor']; ?>" <?= old('id_vendor', $asset['id_vendor']) == $p['id_vendor'] ? 'selected' : ''; ?>>
                         <?= $p['nama_vendor']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -207,7 +207,7 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">PIC</label>
                 <div class="col-sm-6">
-                  <select name="id_pic" class="form-select col-sm-6" aria-label="Default select example">
+                  <select name="id_pic" class="form-select col-sm-6" aria-label="Default select example" disabled>
                     <option selected>Open this select menu</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
@@ -218,7 +218,7 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">User Asset</label>
                 <div class="col-sm-6">
-                  <select name="id_user_asset" class="form-select col-sm-6" aria-label="Default select example">
+                  <select name="id_user_asset" class="form-select col-sm-6" aria-label="Default select example" disabled>
                     <option selected>Open this select menu</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>

@@ -58,7 +58,6 @@
                     <?php foreach ($assetclass as $ac) : ?>
                       <tr class="text-nowrap">
                         <th scope="row"><?= $i++; ?></th>
-
                         <td><?= esc($ac['kode_assetclass']); ?></td>
                         <td><?= esc($ac['nama_assetclass']); ?></td>
                         <td>
@@ -70,14 +69,13 @@
                         <td><?= (new DateTime($ac['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $ac['modified_by']; ?></td>
                         <td>
-                          <a href="/assetclass/edit/<?= $ac['id_assetclass']; ?>" class="btn btn-warning">Edit</a>
+                          <a href="/assetclass/edit/<?= $ac['id_assetclass']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
                           <form action="/assetclass/<?= $ac['id_assetclass']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
                             <!-- delete permanen karena model tidak disetting -->
                           </form>
-
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -88,10 +86,9 @@
           </div>
         </div>
       </div>
+      <!-- [ sample-page ] end -->
     </div>
-    <!-- [ sample-page ] end -->
+    <!-- [ Main Content ] end -->
   </div>
-  <!-- [ Main Content ] end -->
-</div>
 
-<?= $this->endSection('page-content'); ?>
+  <?= $this->endSection('page-content'); ?>

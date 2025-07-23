@@ -72,11 +72,11 @@
                         <td><?= (new DateTime($l['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $l['modified_by']; ?></td>
                         <td>
-                          <a href="/location/edit/<?= $l['id_lokasi']; ?>" class="btn btn-warning">Edit</a>
+                          <a href="/location/edit/<?= $l['id_lokasi']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
                           <form action="/location/<?= $l['id_lokasi']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
 
                             <!-- delete permanen karena model tidak disetting -->
                           </form>
