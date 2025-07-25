@@ -44,6 +44,7 @@
                 <table id="myTable" class="table table-hover table-borderless" style="width:100%">
                   <thead class="bg-light">
                     <tr class="text-nowrap">
+                      <th scope="col">Handle</th>
                       <th scope="col">No</th>
                       <th scope="col">Kode Lokasi</th>
                       <th scope="col">Nama Lokasi</th>
@@ -52,13 +53,23 @@
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
                       <th scope="col">Modified By</th>
-                      <th scope="col">Handle</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $i = 1; ?>
                     <?php foreach ($location as $l) : ?>
                       <tr class="text-nowrap">
+                        <td>
+                          <a href="/location/edit/<?= $l['id_lokasi']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
+                          <form action="/location/<?= $l['id_lokasi']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            <?= csrf_field(); ?>
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
+
+                            <!-- delete permanen karena model tidak disetting -->
+                          </form>
+
+                        </td>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= esc($l['kode_lokasi']); ?></td>
                         <td><?= esc($l['nama_lokasi']); ?></td>
@@ -71,17 +82,7 @@
                         <td><?= (new DateTime($l['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($l['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $l['modified_by']; ?></td>
-                        <td>
-                          <a href="/location/edit/<?= $l['id_lokasi']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
-                          <form action="/location/<?= $l['id_lokasi']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                            <?= csrf_field(); ?>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
-
-                            <!-- delete permanen karena model tidak disetting -->
-                          </form>
-
-                        </td>
+                        
                       </tr>
                     <?php endforeach; ?>
                   </tbody>

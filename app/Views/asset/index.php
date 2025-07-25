@@ -43,6 +43,7 @@
                 <table id="myTable" class="table table-hover table-borderless" style="width:100%">
                   <thead class="bg-light">
                     <tr class="text-nowrap">
+                      <th scope="col">Handle</th>
                       <th scope="col">No</th>
                       <th scope="col">No Asset</th>
                       <th scope="col">Sub Asset</th>
@@ -66,13 +67,17 @@
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
                       <th scope="col">Modified By</th>
-                      <th scope="col">Handle</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $i = 1; ?>
                     <?php foreach ($asset as $as) : ?>
                       <tr class="text-nowrap">
+                        <td>
+                          <a href="/asset/detail/<?= $as['id_asset']; ?>" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail"><i class="ti ti-file-search"></i></a>
+                          <a href="/qr/<?= $as['id_asset'];?>" class="btn btn-icon btn-outline-primary"data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-qrcode"></i></a>
+                          <a href="/asset/edit/<?= $as['id_asset']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
+                        </td>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= esc($as['no_asset']); ?></td>
                         <td><?= esc($as['sub_asset']); ?></td>
@@ -110,10 +115,7 @@
                         <td><?= (new DateTime($as['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($as['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $as['modified_by']; ?></td>
-                        <td>
-                          <a href="/asset/detail/<?= $as['id_asset'];?>" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail"><i class="ti ti-file-search"></i></a>
-                          <a href="/asset/edit/<?= $as['id_asset']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
-                        </td>
+
                       </tr>
                     <?php endforeach; ?>
                   </tbody>

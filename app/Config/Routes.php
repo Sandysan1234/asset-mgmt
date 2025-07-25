@@ -88,6 +88,8 @@ $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
 
 
 $routes->get('approval','Approval::index');
+$routes->get('qr', 'Qrbarcode::index');
+$routes->get('qr/(:num)', 'Qrbarcode::generate/$1');
 
 
 

@@ -43,6 +43,7 @@
                 <table id="myTable" class="table table-hover table-borderless" style="width:100%">
                   <thead class="bg-light">
                     <tr class="text-nowrap">
+                      <th scope="col">Handle</th>
                       <th scope="col">No</th>
                       <th scope="col">Kode Plant</th>
                       <th scope="col">Nama Plant</th>
@@ -51,13 +52,22 @@
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
                       <th scope="col">Modified By</th>
-                      <th scope="col">Handle</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $i = 1; ?>
                     <?php foreach ($plant as $pl) : ?>
                       <tr class="text-nowrap">
+                        <td>
+                          <a href="/plant/edit/<?= $pl['id_plant']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
+                          <form action="/plant/<?= $pl['id_plant']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            <?= csrf_field(); ?>
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
+                            <!-- delete permanen karena model tidak disetting -->
+                          </form>
+
+                        </td>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $pl['kode_plant']; ?></td>
                         <td><?= $pl['nama_plant']; ?></td>
@@ -70,16 +80,7 @@
                         <td><?= (new DateTime($pl['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($pl['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $pl['modified_by']; ?></td>
-                        <td>
-                          <a href="/plant/edit/<?= $pl['id_plant'];?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
-                          <form action="/plant/<?= $pl['id_plant']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                            <?= csrf_field(); ?>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit"  class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
-                            <!-- delete permanen karena model tidak disetting -->
-                          </form>
 
-                        </td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
