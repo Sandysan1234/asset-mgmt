@@ -23,26 +23,26 @@ class Qrbarcode extends BaseController
   {
     $data = [
       'title' => 'Generate QR Code | Asset Managed',
-      'qrList' => [] 
+      'qrList' => []
     ];
     return view('qrcode/index', $data);
   }
   public function multiple()
   {
     $jumlah = $this->request->getPost('jumlah');
-    
+
     // $assets = $this->assetModel->findAll($jumlah);
     $assets = $this->assetModel->getWithRelasi(null, $jumlah); // ambil 10 data
-    
+
     $writer = new PngWriter();
     $qrList = [];
-
+    // dd($assets);
     foreach ($assets as $as) {
       $qrcode = new QrCode(
         data: base_url('asset/detail/' . $as['id_asset']),
         encoding: new Encoding('UTF-8'),
         errorCorrectionLevel: ErrorCorrectionLevel::Low,
-        size: 300,
+        size: 200,
         margin: 10,
         roundBlockSizeMode: RoundBlockSizeMode::Margin,
         foregroundColor: new Color(0, 0, 0),
@@ -58,13 +58,15 @@ class Qrbarcode extends BaseController
 
       $result = $writer->write($qrcode, $logo, null);
       $qrList[] = [
-        'nama_asset' => $as['spek'],
+        'nama_asset'    => $as['nama_asset'],
+        'no_asset'      => $as['no_asset'],
+        'tgl_perolehan' => $as['tgl_perolehan'],
         'qr' => $result->getDataUri()
       ];
-      return view('qrcode/index', [
-        'title' => 'QR Code Asset',
-        'qrList' => $qrList
-      ]);
     }
+    return view('qrcode/index', [
+      'title' => 'QR Code Asset',
+      'qrList' => $qrList
+    ]);
   }
 }

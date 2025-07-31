@@ -85,7 +85,8 @@
                         <td><?= esc($as['batch_number']); ?></td>
                         <td><?= esc($as['merek']); ?></td>
                         <td><?= esc($as['spek']); ?></td>
-                        <td><?= esc($as['tgl_perolehan']); ?></td>
+                        
+                        <td><?= (new DateTime($as['tgl_perolehan']))->format('d-m-Y'); ?></td>
                         <td>Rp <?= esc(number_format($as['harga'], 2, ',', '.')); ?></td>
                         <td><?= esc($as['no_po']); ?></td>
                         <td><?= esc($as['id_assetclass'] . ' - ' . $as['nama_assetclass']); ?></td>

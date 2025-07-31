@@ -41,21 +41,33 @@
               </div>
               <div class="col-12 mt-3 p-3">
                 <h5 class="text-center">Tampilan Generate QR Code</h5>
-                <div class="row">
-                  <div class="container mt-4">
-                    
+                <button class="btn btn-success mb-3" onclick="window.print()" <?= empty($qrList) ? 'disabled' : '' ?>>
+                  Print QR Code
+                </button>
+                <div class="print-area">
+                  <div class="row">
                     <?php if (!empty($qrList)): ?>
                       <?php foreach ($qrList as $item): ?>
-                        <div class="text-center mb-5">
-                          <img src="<?= $item['qr']; ?>" alt="QR Code" style="width: 200px;">
-                          <h6 class="mt-2"><?= esc($item['nama_asset']); ?></h6>
+                        <div class="card mb-3 mx-2 mt-2" style="max-width: 500px;">
+                          <div class="row g-0">
+                            <div class="col-md-4">
+                              <img src="<?= $item['qr']; ?>" class="img-fluid rounded-start" alt="qrcode">
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <h5 class="card-title"><?= esc($item['nama_asset']); ?> </h5>
+                                <p class="card-text"><?= esc($item['no_asset']); ?></p>
+                                <p class="card-text"><?= esc($item['tgl_perolehan']); ?></p>
+                                <!-- <p class="card-text">lala<small class="text-body-secondary">Last updated 3 mins ago</small></p> -->
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       <?php endforeach; ?>
                     <?php else: ?>
                       <p class="text-center">Belum ada QR Code yang digenerate.</p>
                     <?php endif; ?>
                   </div>
-
                 </div>
               </div>
             </div>
