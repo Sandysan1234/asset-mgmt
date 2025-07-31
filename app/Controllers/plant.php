@@ -15,6 +15,16 @@ class Plant extends BaseController
   }
 
 
+  
+  public function coba()
+  {
+    $plant = $this->plantModel->findAll();
+    $data = [
+      'title'     => 'Plant | Asset Managed',
+      'plant' => $plant,
+    ];
+    return view('plant/create', $data);
+  }
   public function index()
   {
     $plant = $this->plantModel->findAll();

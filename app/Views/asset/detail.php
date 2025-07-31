@@ -3,13 +3,13 @@
 <?= $this->section('page-content'); ?>
 <div class="container">
   <div class="row">
-    <div class="col-md-4 bg-warning p-3">
+    <div class="col-md-3 bg-warning p-3">
       <h5 class="mb-3">Income Overview</h5>
       <div class="card my-4">
-        <!-- <img src="?= $img ?>" alt=""> -->
-        <img src="<?= base_url(); ?>assets/images/logo-jmi.png" class="card-img-top" alt="QR Code">
+        <img src="<?= $qr ?>" alt="">
+        <!-- <img src="<?= base_url(); ?>assets/images/logo-jmi.png" class="card-img-top" alt="QR Code"> -->
         <div class="card-body">
-          <p class="card-text text-center">6000000562</p>
+          <p class="card-text text-center"><?= $asset['no_asset'];?></p>
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@
         <!-- <img src="?= $img ?>" alt=""> -->
         <img src="<?= base_url(); ?>assets/images/logo-jmi.png" class="card-img-top" alt="QR Code">
         <div class="card-body">
-          <p class="card-text text-center">6000000562</p>
+          <p class="card-text text-center"><?= $asset['serial_number'];?></p>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\AssetModel;
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
@@ -13,65 +14,57 @@ use Endroid\QrCode\Writer\PngWriter;
 
 class Qrbarcode extends BaseController
 {
-    public function index()
-    {
-        $data = [
-            'title' => 'Generate QR Code | Asset Managed',
-            
-        ];
-        return view('qrcode/index' , $data);
+  protected $assetModel;
+  public function __construct()
+  {
+    $this->assetModel = new AssetModel();
+  }
+  public function index()
+  {
+    $data = [
+      'title' => 'Generate QR Code | Asset Managed',
+      'qrList' => [] 
+    ];
+    return view('qrcode/index', $data);
+  }
+  public function multiple()
+  {
+    $jumlah = $this->request->getPost('jumlah');
+    
+    // $assets = $this->assetModel->findAll($jumlah);
+    $assets = $this->assetModel->getWithRelasi(null, $jumlah); // ambil 10 data
+    
+    $writer = new PngWriter();
+    $qrList = [];
+
+    foreach ($assets as $as) {
+      $qrcode = new QrCode(
+        data: base_url('asset/detail/' . $as['id_asset']),
+        encoding: new Encoding('UTF-8'),
+        errorCorrectionLevel: ErrorCorrectionLevel::Low,
+        size: 300,
+        margin: 10,
+        roundBlockSizeMode: RoundBlockSizeMode::Margin,
+        foregroundColor: new Color(0, 0, 0),
+        backgroundColor: new Color(255, 255, 255)
+      );
+
+      $logoPath = FCPATH . 'assets/images/logo-jmi.png';
+      $logo = file_exists($logoPath) ? new Logo(
+        path: $logoPath,
+        resizeToWidth: 50,
+        punchoutBackground: true
+      ) : null;
+
+      $result = $writer->write($qrcode, $logo, null);
+      $qrList[] = [
+        'nama_asset' => $as['spek'],
+        'qr' => $result->getDataUri()
+      ];
+      return view('qrcode/index', [
+        'title' => 'QR Code Asset',
+        'qrList' => $qrList
+      ]);
     }
-    public function generate($id)
-    {
-        helper('filesystem'); // Pastikan helper ini aktif untuk save file
-        $asset = model('App\Models\AssetModel')->find($id);
-        if (!$asset) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException("Asset dengan ID $id tidak ditemukan");
-        }
-
-        $writer = new PngWriter();
-
-        // // URL menuju halaman detail asset
-        // $url = base_url('asset/detail/' . $id);
-
-        $qrCode = new QrCode(
-            data: base_url('asset/detail/' . $id),
-            encoding: new Encoding('UTF-8'),
-            errorCorrectionLevel: ErrorCorrectionLevel::Low,
-            size: 300,
-            margin: 10,
-            roundBlockSizeMode: RoundBlockSizeMode::Margin,
-            foregroundColor: new Color(0, 0, 0),
-            backgroundColor: new Color(255, 255, 255)
-        );
-
-        // Tambahkan logo jika file ada
-        $logoPath = FCPATH . 'assets/images/logo-jmi.png';
-        $logo = file_exists($logoPath) ? new Logo(
-            path: $logoPath,
-            resizeToWidth: 70,
-            punchoutBackground: true
-        ) : null;
-
-        // Tambahkan label
-        $label = new Label(
-            text: 'Scan Asset',
-            textColor: new Color(255, 0, 0)
-        );
-
-        // Generate QR
-        $result = $writer->write($qrCode, $logo, $label);
-
-        // Simpan ke file writable/qrcodes/asset-{id}.png
-        $savePath = WRITEPATH . 'qrcodes/';
-        if (!is_dir($savePath)) {
-            mkdir($savePath, 0755, true);
-        }
-
-        $result->saveToFile($savePath . 'asset-' . $id . '.png');
-
-        // Redirect kembali ke halaman detail
-        session()->setFlashdata('pesan', 'QR Code berhasil dibuat');
-        return redirect()->to('/asset');
-    }
+  }
 }

@@ -25,9 +25,10 @@ class AssetModel extends Model
     'id_vendor',
     'id_lifetime',
   ];
-  public function getWithRelasi()
+  public function getWithRelasi($id = null, $limit = null)
   {
-    return $this->select('
+    $builder =  $this->select(
+      '
                 asset.*,
                 p.nama_plant,
                 v.nama_vendor,
@@ -38,14 +39,21 @@ class AssetModel extends Model
                 pic.username as pic_username,
                 usr.fullname as user_fullname,
                 usr.username as user_username',
-                )
+    )
       ->join('plant p', 'p.id_plant = asset.id_plant', 'left')
       ->join('pemasok v', 'v.id_vendor = asset.id_vendor', 'left')
       ->join('cost_center cc', 'cc.id_cost_center = asset.id_cost_center', 'left')
       ->join('assetclass ac', 'ac.id_assetclass = asset.id_assetclass', 'left')
       ->join('lifetime lf', 'lf.id_lifetime = asset.id_lifetime', 'left')
       ->join('users pic', 'pic.id = asset.id_pic', 'left')
-      ->join('users usr', 'usr.id = asset.id_user_asset', 'left')
-      ->findAll();
+      ->join('users usr', 'usr.id = asset.id_user_asset', 'left');
+
+    if ($id !== null) {
+      return $builder->where('asset.id_asset', $id)->asArray()->first();
+    }
+    if ($limit !== null) {
+      return $builder->asArray()->findAll((int) $limit);
+    }
+    return $builder->asArray()->findAll();
   }
 }

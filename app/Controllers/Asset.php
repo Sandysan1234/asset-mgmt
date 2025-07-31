@@ -9,8 +9,19 @@ use App\Models\CostcenterModel;
 use App\Models\AssetclassModel;
 use App\Models\LifetimeModel;
 
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\QrCode;
+
+
+
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Stmt\Label;
+
 
 
 class Asset extends BaseController
@@ -278,7 +289,7 @@ class Asset extends BaseController
       ],
       'serial_number' => [
         'label'               => 'Serial Number',
-        'rules'               => 'required|integer|is_unique[asset.serial_number,id_asset,' . $id .']',
+        'rules'               => 'required|integer|is_unique[asset.serial_number,id_asset,' . $id . ']',
         'errors'              => [
           'required'        => '{field} harus diisi',
           'integer'         => '{field} harus angka',
@@ -355,7 +366,7 @@ class Asset extends BaseController
 
 
     ])) {
-      return redirect()->to('/asset/edit/'.$id)->withInput();
+      return redirect()->to('/asset/edit/' . $id)->withInput();
     }
 
 
@@ -382,11 +393,48 @@ class Asset extends BaseController
   }
   public function detail($id)
   {
+    
     $asset = $this->assetModel->getWithRelasi($id);
-    $data = [
-      'title'     => 'Detail | Asset Managed',
+    if (!$asset) {
+      throw new \CodeIgniter\Exceptions\PageNotFoundException("Asset dengan ID : $id tidak ditemukan");
+    }
+    $writer = new PngWriter();
+    $qrcode = new QrCode(
+      data: base_url('asset/detail/' . $id),
+      encoding: new Encoding('UTF-8'),
+      errorCorrectionLevel: ErrorCorrectionLevel::Low,
+      size: 300,
+      margin: 10,
+      roundBlockSizeMode: RoundBlockSizeMode::Margin,
+      foregroundColor: new Color(0, 0, 0),
+      backgroundColor: new Color(255, 255, 255)
+    );
+
+
+    //logo
+    $logoPath = FCPATH . 'assets/images/logo-jmi.png';
+    $logo = file_exists($logoPath) ? new Logo(
+      path: $logoPath,
+      resizeToWidth: 50,
+      punchoutBackground: true
+    ) : null;
+
+    $result = $writer->write($qrcode, $logo, null);
+    // $writer->validateResult($result, 'Life is too short to be generating QR codes');
+    $dataUri = $result->getDataUri();
+
+    return view('asset/detail', [
+      'title' => 'Detail Asset | Asset Managed',
       'asset' => $asset,
-    ];
-    return view('asset/detail', $data);
+      'qr'    => $dataUri,
+
+    ]);
+
+
+    // $data = [
+    //   'title'     => 'Detail | Asset Managed',
+    //   'asset' => $asset,
+    // ];
+    // return view('asset/detail', $data);
   }
 }

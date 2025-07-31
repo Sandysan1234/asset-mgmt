@@ -33,7 +33,7 @@
           <div class="card tbl-card">
             <div class="card-body">
               <div class="col-12">
-                <form action="<?= base_url('qr/generate-multiple') ?>" method="post">
+                <form action="<?= base_url('qr/save') ?>" method="post">
                   <label for="jumlah">Jumlah QR yang ingin digenerate:</label>
                   <input type="number" name="jumlah" id="jumlah" min="1" value="10" required>
                   <button type="submit" class="btn btn-primary">Generate QR</button>
@@ -42,16 +42,20 @@
               <div class="col-12 mt-3 p-3">
                 <h5 class="text-center">Tampilan Generate QR Code</h5>
                 <div class="row">
-                  <!-- ?php foreach ($assets as $asset): ?>
-                    <div class="col-md-3 text-center mb-4">
-                      <div class="card p-2">
-                        <img src="?= base_url('writable/qrcodes/asset-' . $asset['id_asset'] . '.png') ?>" alt="QR Code Asset ?= $asset['id_asset'] ?>" class="img-fluid mb-2" />
-                        <p class="m-0"><strong>?= esc($asset['nama_asset']) ?></strong></p>
-                        <small>ID: ?= $asset['id_asset'] ?></small><br>
-                        <a href="?= base_url('asset/detail/' . $asset['id_asset']) ?>" class="btn btn-sm btn-outline-primary mt-2">Lihat Detail</a>
-                      </div>
-                    </div>
-                  ?php endforeach; ?> -->
+                  <div class="container mt-4">
+                    
+                    <?php if (!empty($qrList)): ?>
+                      <?php foreach ($qrList as $item): ?>
+                        <div class="text-center mb-5">
+                          <img src="<?= $item['qr']; ?>" alt="QR Code" style="width: 200px;">
+                          <h6 class="mt-2"><?= esc($item['nama_asset']); ?></h6>
+                        </div>
+                      <?php endforeach; ?>
+                    <?php else: ?>
+                      <p class="text-center">Belum ada QR Code yang digenerate.</p>
+                    <?php endif; ?>
+                  </div>
+
                 </div>
               </div>
             </div>
