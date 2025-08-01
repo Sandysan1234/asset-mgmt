@@ -22205,13 +22205,15 @@ select.form-control[data-multiselectsplitter-firstselect-selector], select.form-
 }
 
 @media print {
-  print-area{
-    display: block;
-  }
-  /* .print-area, .print-area * {
-    display: block;
+  /* Sembunyikan semua kecuali area cetak */
+  body * {
+    visibility:hidden;
   }
 
+  .print-area, .print-area * {
+    visibility: visible;
+  }
+  
   .print-area {
     position: absolute;
     left: 0;
@@ -22220,10 +22222,71 @@ select.form-control[data-multiselectsplitter-firstselect-selector], select.form-
     padding: 10px;
   }
 
-  .btn, form, .card-header, .card-body > :not(.print-area) {
+  /* Elemen yang tidak perlu di-print */
+  .no-print, .btn, .card-header, form, nav, aside, header, footer {
     display: none !important;
-  } */
+    margin: 0px;
+  }
+
+  /* Tata letak QR dan teks sejajar horizontal */
+  .row.g-0 {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .col-md-4 {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto !important;
+    width: auto !important;
+  }
+
+  .col-md-4 img {
+    max-width: 150px !important;
+    /* height: auto !important; */
+  }
+
+  .col-md-8 {
+    flex: 1 !important;
+    padding: 0 10px;
+  }
+
+  /* Gaya teks */
+  .card-body {
+    padding: 8px !important;
+  }
+
+  .card-title {
+    font-size: 13px !important;
+    word-break: break-word;
+  }
+
+  .card-text {
+    font-size: 12px !important;
+    margin-top: 5px;
+  }
+
+  /* Cegah card pecah halaman */
+  .card.mb-3 {
+    page-break-inside: avoid;
+    margin-bottom: 10px !important;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  /* Atur margin halaman cetak */
+  @page {
+    margin: 10mm;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
 }
+
+
 
 /**  =====================
   23. Icon layouts css end

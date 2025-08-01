@@ -2,6 +2,54 @@
 
 <?= $this->section('page-content'); ?>
 <div class="pc-container">
+  <div class="card">
+    <div class="card-header">
+      <h5>Generate Qr Code</h5>
+    </div>
+    <div class="card tbl-card">
+      <div class="card-body">
+        <div class="col-12">
+          <form action="<?= base_url('qr/save') ?>" method="post">
+            <label for="jumlah">Jumlah QR yang ingin digenerate:</label>
+            <input type="number" name="jumlah" id="jumlah" min="1" value="10" required>
+            <button type="submit" class="btn btn-primary">Generate QR</button>
+          </form>
+        </div>
+        <div class="col-12 mt-3 p-3">
+          <h5 class="text-center">Tampilan Generate QR Code</h5>
+          <button class="btn btn-success mb-3" onclick="window.print()" <?= empty($qrList) ? 'disabled' : '' ?>>
+            Print QR Code
+          </button>
+          <div class="print-area">
+            <div class="row">
+              <?php if (!empty($qrList)): ?>
+                <?php foreach ($qrList as $item): ?>
+                  <div class="card mb-3 mx-2 mt-2 bg-info" style="max-width: 540px;">
+                    <div class="row g-0">
+                      <div class="col-md-4">
+                        <img src="<?= $item['qr']; ?>" class="img-fluid rounded-start" alt="qrcode">
+                      </div>
+                      <div class="col-md-8 bg-warning">
+                        <div class="card-body" style="width: 220px;">
+                          <h5 class="card-title"><?= esc($item['nama_asset']); ?></h5>
+                          <p class="card-text"><?= esc($item['no_asset']); ?></p>
+                          <p class="card-text"><?= (new DateTime($item['tgl_perolehan']))->format('d-m-Y'); ?></p>
+                          <!-- <p class="card-text">lala<small class="text-body-secondary">Last updated 3 mins ago</small></p> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <p class="text-center">Belum ada QR Code yang digenerate.</p>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
   <div class="pc-content">
     <!-- [ breadcrumb ] start -->
     <!-- <div class="page-header">
@@ -23,59 +71,7 @@
     <!-- [ breadcrumb ] end -->
 
     <!-- [ Main Content ] start -->
-    <div class="row">
-      <!-- [ sample-page ] start -->
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header">
-            <h5>Generate Qr Code</h5>
-          </div>
-          <div class="card tbl-card">
-            <div class="card-body">
-              <div class="col-12">
-                <form action="<?= base_url('qr/save') ?>" method="post">
-                  <label for="jumlah">Jumlah QR yang ingin digenerate:</label>
-                  <input type="number" name="jumlah" id="jumlah" min="1" value="10" required>
-                  <button type="submit" class="btn btn-primary">Generate QR</button>
-                </form>
-              </div>
-              <div class="col-12 mt-3 p-3">
-                <h5 class="text-center">Tampilan Generate QR Code</h5>
-                <button class="btn btn-success mb-3" onclick="window.print()" <?= empty($qrList) ? 'disabled' : '' ?>>
-                  Print QR Code
-                </button>
-                <div class="print-area">
-                  <div class="row">
-                    <?php if (!empty($qrList)): ?>
-                      <?php foreach ($qrList as $item): ?>
-                        <div class="card mb-3 mx-2 mt-2" style="max-width: 500px;">
-                          <div class="row g-0">
-                            <div class="col-md-4">
-                              <img src="<?= $item['qr']; ?>" class="img-fluid rounded-start" alt="qrcode">
-                            </div>
-                            <div class="col-md-8">
-                              <div class="card-body">
-                                <h5 class="card-title"><?= esc($item['nama_asset']); ?> </h5>
-                                <p class="card-text"><?= esc($item['no_asset']); ?></p>
-                                <p class="card-text"><?= esc($item['tgl_perolehan']); ?></p>
-                                <!-- <p class="card-text">lala<small class="text-body-secondary">Last updated 3 mins ago</small></p> -->
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      <?php endforeach; ?>
-                    <?php else: ?>
-                      <p class="text-center">Belum ada QR Code yang digenerate.</p>
-                    <?php endif; ?>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
+    
     <!-- [ sample-page ] end -->
   </div>
   <!-- [ Main Content ] end -->

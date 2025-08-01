@@ -42,7 +42,7 @@ class Qrbarcode extends BaseController
         data: base_url('asset/detail/' . $as['id_asset']),
         encoding: new Encoding('UTF-8'),
         errorCorrectionLevel: ErrorCorrectionLevel::Low,
-        size: 200,
+        size: 300,
         margin: 10,
         roundBlockSizeMode: RoundBlockSizeMode::Margin,
         foregroundColor: new Color(0, 0, 0),

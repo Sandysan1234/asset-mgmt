@@ -4,12 +4,14 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3 bg-warning p-3">
-      <h5 class="mb-3">Income Overview</h5>
-      <div class="card my-4">
-        <img src="<?= $qr ?>" alt="">
-        <!-- <img src="<?= base_url(); ?>assets/images/logo-jmi.png" class="card-img-top" alt="QR Code"> -->
-        <div class="card-body">
-          <p class="card-text text-center"><?= $asset['no_asset'];?></p>
+      <div class="print-area">
+        <h5 class="mb-3">Income Overview</h5>
+        <div class="card my-4">
+          <img src="<?= $qr ?>" alt="">
+          <!-- <img src="<?= base_url(); ?>assets/images/logo-jmi.png" class="card-img-top" alt="QR Code"> -->
+          <div class="card-body">
+            <p class="card-text text-center"><?= $asset['no_asset']; ?></p>
+          </div>
         </div>
       </div>
     </div>
@@ -27,7 +29,7 @@
       </div>
     </div>
 
-    
+
     <div class="col-md-12 col-xl-8">
       <h5 class="mb-3">Recent Orders</h5>
       <div class="card tbl-card">
@@ -39,13 +41,28 @@
       </div>
     </div>
 
-    
+
     <div class="col-2 bg-secondary">
       <div class="card my-4" style="width: 10rem;">
         <!-- <img src="?= $img ?>" alt=""> -->
         <img src="<?= base_url(); ?>assets/images/logo-jmi.png" class="card-img-top" alt="QR Code">
         <div class="card-body">
-          <p class="card-text text-center"><?= $asset['serial_number'];?></p>
+          <p class="card-text text-center"><?= $asset['serial_number']; ?></p>
+        </div>
+      </div>
+
+    </div>
+    <div class="card mb-3 bg-warning">
+      <div class="row g-0 bg-info">
+        <div class="col-md-4 p-4 bg-secondary">
+          <img src="<?= base_url(); ?>assets/images/logo-jmi.svg" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          </div>
         </div>
       </div>
     </div>
