@@ -422,7 +422,7 @@ class Asset extends BaseController
     $result = $writer->write($qrcode, $logo, null);
     // $writer->validateResult($result, 'Life is too short to be generating QR codes');
     $dataUri = $result->getDataUri();
-
+        // dd($asset);
     return view('asset/detail', [
       'title' => 'Detail Asset | Asset Managed',
       'asset' => $asset,
