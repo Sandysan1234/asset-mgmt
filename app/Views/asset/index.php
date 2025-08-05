@@ -43,6 +43,7 @@
                 <table id="myTable" class="table table-hover table-borderless" style="width:100%">
                   <thead class="bg-light">
                     <tr class="text-nowrap">
+                      <th scope="col">Lokasi</th>
                       <th scope="col">Handle</th>
                       <th scope="col">No</th>
                       <th scope="col">No Asset</th>
@@ -73,6 +74,7 @@
                     <?php $i = 1; ?>
                     <?php foreach ($asset as $as) : ?>
                       <tr class="text-nowrap">
+                        <td><?= esc($as['nama_lokasi']); ?></td>
                         <td>
                           <a href="/asset/detail/<?= $as['id_asset']; ?>" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail"><i class="ti ti-file-search"></i></a>
                           <a href="/asset/edit/<?= $as['id_asset']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>

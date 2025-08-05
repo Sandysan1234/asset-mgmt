@@ -30,6 +30,7 @@ class AssetSeeder extends Seeder
                 'id_plant'      => $faker->numberBetween(1, 10),
                 'id_lifetime'   => $faker->numberBetween(1, 10),
                 'id_pic'        => $faker->numberBetween(1, 10),
+                'id_lokasi'     => $faker->numberBetween(1, 10),
                 'id_user_asset' => $faker->numberBetween(1, 10),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::createFromTimestamp($faker->unixTime()),

@@ -18,6 +18,7 @@ class CreateLocationTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
                 'null'       => true,
+                'unique'     => true,
             ],
             'nama_lokasi' => [
                 'type'       => 'VARCHAR',
