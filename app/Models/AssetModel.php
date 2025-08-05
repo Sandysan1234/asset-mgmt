@@ -24,6 +24,7 @@ class AssetModel extends Model
     'id_assetclass',
     'id_vendor',
     'id_lifetime',
+    'id_lokasi',
   ];
   public function getWithRelasi($id = null, $limit = null)
   {
@@ -35,6 +36,7 @@ class AssetModel extends Model
                 cc.nama_cost_center,
                 ac.nama_assetclass,
                 lf.masa_berlaku,
+                lok.nama_lokasi,
                 pic.fullname as pic_fullname,
                 pic.username as pic_username,
                 usr.fullname as user_fullname,
@@ -45,6 +47,7 @@ class AssetModel extends Model
       ->join('cost_center cc', 'cc.id_cost_center = asset.id_cost_center', 'left')
       ->join('assetclass ac', 'ac.id_assetclass = asset.id_assetclass', 'left')
       ->join('lifetime lf', 'lf.id_lifetime = asset.id_lifetime', 'left')
+      ->join('lokasi lok', 'lok.id_lokasi = asset.id_lokasi', 'left')
       ->join('users pic', 'pic.id = asset.id_pic', 'left')
       ->join('users usr', 'usr.id = asset.id_user_asset', 'left');
 

@@ -84,6 +84,10 @@ class CreateAssetTable extends Migration
                 'type'     => 'INT',
                 'unsigned' => true,
             ],
+            'id_lokasi' => [
+                'type'     => 'INT',
+                'unsigned' => true,
+            ],
             'id_pic'    => [
                 'type'     => 'INT',
                 'unsigned' => true,

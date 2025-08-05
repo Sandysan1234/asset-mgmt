@@ -17,17 +17,17 @@ class CreateLocationTable extends Migration
             'kode_lokasi' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
-                'null'       => false,
+                'null'       => true,
             ],
             'nama_lokasi' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 200,
-                'null'       => false
+                'null'       => true
             ],
             'jenis_lokasi' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 200,
-                'null'       => false
+                'null'       => true
             ],
             'status' => [
                 'type'       => 'TINYINT',

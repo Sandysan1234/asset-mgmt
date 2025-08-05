@@ -87,7 +87,7 @@ $routes->post('asset/update/(:any)', 'Asset::update/$1');
 $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
 
 
-$routes->get('approval','Approval::index');
+$routes->get('transaksi','Transaksi::index');
 $routes->get('qr', 'Qrbarcode::index');
 $routes->post('qr/save', 'Qrbarcode::multiple');
 
