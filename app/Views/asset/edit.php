@@ -46,7 +46,7 @@
               <div class="row mb-3">
                 <label for="sub_asset" class="col-sm-3 col-form-label">Sub Asset</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('sub_asset')) ? 'is-invalid' : ''; ?>" id="sub_asset" name="sub_asset" value="<?= old('sub_asset', $asset['no_asset']); ?>" readonly>
+                  <input type="text" class="form-control <?= (validation_show_error('sub_asset')) ? 'is-invalid' : ''; ?>" id="sub_asset" name="sub_asset" value="<?= old('sub_asset', $asset['sub_asset']); ?>" readonly>
                   <div class="invalid-feedback">
                     <?= validation_show_error('sub_asset'); ?>
                   </div>
@@ -143,7 +143,7 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Cost Center</label>
                 <div class="col-sm-6">
-                  <select name="id_cost_center" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
+                  <select name="id_cost_center" class="form-select col-sm-6 <?= (validation_show_error('id_cost_center')) ? 'is-invalid' : ''; ?>" aria-label="Default select example"  >
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($cost_center as $cs) : ?>
                       <option value="<?= $cs['id_cost_center']; ?>" <?= old('id_cost_center', $asset['id_cost_center']) == $cs['id_cost_center'] ? 'selected' : ''; ?>>
@@ -159,7 +159,7 @@
               <div class="row mb-3">
                 <label for="id_lifetime" class="col-sm-3 col-form-label">Masa Berlaku</label>
                 <div class="col-sm-6">
-                  <select name="id_lifetime" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                  <select name="id_lifetime" class="form-select col-sm-6 <?= (validation_show_error('id_lifetime')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($lifetime as $lf) : ?>
                       <option value="<?= $lf['id_lifetime']; ?>" <?= old('id_lifetime' , $asset['id_lifetime']) == $lf['id_lifetime'] ? 'selected' : ''; ?>>
@@ -175,7 +175,7 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Plant</label>
                 <div class="col-sm-6">
-                  <select name="id_plant" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
+                  <select name="id_plant" class="form-select col-sm-6 <?= (validation_show_error('id_plant')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($plant as $pl) : ?>
                       <option value="<?= $pl['id_plant']; ?>" <?= old('id_plant', $asset['id_plant']) == $pl['id_plant'] ? 'selected' : ''; ?> readonly>
@@ -191,7 +191,7 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Vendor</label>
                 <div class="col-sm-6">
-                  <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                  <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_vendor')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($pemasok as $p) : ?>
                       <option value="<?= $p['id_vendor']; ?>" <?= old('id_vendor', $asset['id_vendor']) == $p['id_vendor'] ? 'selected' : ''; ?>>

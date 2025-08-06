@@ -43,7 +43,6 @@
                 <table id="myTable" class="table table-hover table-borderless" style="width:100%">
                   <thead class="bg-light">
                     <tr class="text-nowrap">
-                      <th scope="col">Lokasi</th>
                       <th scope="col">Handle</th>
                       <th scope="col">No</th>
                       <th scope="col">No Asset</th>
@@ -65,6 +64,9 @@
                       <th scope="col">Status</th>
                       <th scope="col">PIC</th>
                       <th scope="col">User Asset</th>
+                      <th scope="col">Area</th>
+                      <th scope="col">Gedung</th>
+                      <th scope="col">Lantai</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
                       <th scope="col">Modified By</th>
@@ -74,7 +76,6 @@
                     <?php $i = 1; ?>
                     <?php foreach ($asset as $as) : ?>
                       <tr class="text-nowrap">
-                        <td><?= esc($as['nama_lokasi']); ?></td>
                         <td>
                           <a href="/asset/detail/<?= $as['id_asset']; ?>" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail"><i class="ti ti-file-search"></i></a>
                           <a href="/asset/edit/<?= $as['id_asset']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
@@ -87,7 +88,7 @@
                         <td><?= esc($as['batch_number']); ?></td>
                         <td><?= esc($as['merek']); ?></td>
                         <td><?= esc($as['spek']); ?></td>
-                        
+
                         <td><?= (new DateTime($as['tgl_perolehan']))->format('d-m-Y'); ?></td>
                         <td>Rp <?= esc(number_format($as['harga'], 2, ',', '.')); ?></td>
                         <td><?= esc($as['no_po']); ?></td>
@@ -114,6 +115,10 @@
                         </td>
                         <td><?= esc($as['pic_username']) . ' - ' . $as['pic_fullname']; ?></td>
                         <td><?= esc($as['user_username']) . ' - ' . $as['user_fullname']; ?></td>
+                        <td><?= esc($as['la']);?></td>
+                        <td><?= esc($as['lg']);?></td>
+                        <td><?= esc($as['ll']);?></td>
+                    
                         <td><?= (new DateTime($as['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($as['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $as['modified_by']; ?></td>

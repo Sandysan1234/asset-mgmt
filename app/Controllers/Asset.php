@@ -8,6 +8,7 @@ use App\Models\PemasokModel;
 use App\Models\CostcenterModel;
 use App\Models\AssetclassModel;
 use App\Models\LifetimeModel;
+use App\Models\LocationModel;
 
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
@@ -30,6 +31,7 @@ class Asset extends BaseController
   protected $pemasokModel;
   protected $assetclassModel;
   protected $costcenterModel;
+  protected $locationModel;
   protected $plantModel;
   protected $lifetimeModel;
 
@@ -42,6 +44,7 @@ class Asset extends BaseController
     $this->costcenterModel  = new CostcenterModel();
     $this->assetclassModel  = new AssetClassModel();
     $this->lifetimeModel    = new LifetimeModel();
+    $this->locationModel    = new LocationModel();
   }
 
 
@@ -59,13 +62,16 @@ class Asset extends BaseController
   public function create()
   {
     $data = [
-      'title'      => 'Form Tambah Data Asset | Asset Managed',
-      'validation' => \Config\Services::validation(),
-      'plant'        => $this->plantModel->findAll(),
-      'pemasok'       => $this->pemasokModel->findAll(),
-      'cost_center'  => $this->costcenterModel->findAll(),
+      'title'       => 'Form Tambah Data Asset | Asset Managed',
+      'validation'  => \Config\Services::validation(),
+      'plant'       => $this->plantModel->findAll(),
+      'pemasok'     => $this->pemasokModel->findAll(),
+      'cost_center' => $this->costcenterModel->findAll(),
       'assetclass'  => $this->assetclassModel->findAll(),
-      'lifetime'     => $this->lifetimeModel->findAll(),
+      'lifetime'    => $this->lifetimeModel->findAll(),
+      'lokasi_area'      => $this->locationModel->where('jenis_lokasi', 'Area')->findAll(),
+      'lokasi_gedung'      => $this->locationModel->where('jenis_lokasi', 'Gedung')->findAll(),
+      'lokasi_lantai'      => $this->locationModel->where('jenis_lokasi', 'Lantai')->findAll(),
 
     ];
 
@@ -180,13 +186,13 @@ class Asset extends BaseController
           'required'          => 'Pilih {field} yang sesuai'
         ]
       ],
-      'id_plant' => [
-        'label'               => 'Plant',
-        'rules'               => 'required',
-        'errors'              => [
-          'required'          => 'Pilih {field} yang sesuai'
-        ]
-      ],
+      // 'id_plant' => [
+      //   'label'               => 'Plant',
+      //   'rules'               => 'required',
+      //   'errors'              => [
+      //     'required'          => 'Pilih {field} yang sesuai'
+      //   ]
+      // ],
       'id_vendor' => [
         'label'               => 'Vendor',
         'rules'               => 'required',
@@ -208,6 +214,13 @@ class Asset extends BaseController
           'required'          => 'Pilih {field} yang sesuai'
         ]
       ],
+      // 'id_lokasi' => [
+      //   'label'               => 'Lokasi Asset',
+      //   'rules'               => 'required',
+      //   'errors'              => [
+      //     'required'          => 'Pilih Minimal 1 {field} yang sesuai'
+      //   ]
+      // ],
 
 
     ])) {
@@ -227,6 +240,8 @@ class Asset extends BaseController
     // 'id_vendor',
     // 'id_lifetime',
 
+    
+
     $this->assetModel->save([
       'no_asset'        => $this->request->getPost('no_asset'),
       'sub_asset'       => $this->request->getPost('sub_asset'),
@@ -236,13 +251,16 @@ class Asset extends BaseController
       'merek'           => $this->request->getPost('merek'),
       'spek'            => $this->request->getPost('spek'),
       'tgl_perolehan'   => $this->request->getPost('tgl_perolehan'),
-      'harga'           => $this->request->getPost('harga'),
+      'harga'           => $data>['harga'],
       'no_po'           => $this->request->getPost('no_po'),
       'id_assetclass'   => $this->request->getPost('id_assetclass'),
       'id_cost_center'  => $this->request->getPost('id_cost_center'),
       'id_lifetime'     => $this->request->getPost('id_lifetime'),
       'id_vendor'       => $this->request->getPost('id_vendor'),
       'id_plant'        => $this->request->getPost('id_plant'),
+      'id_lokasi_area'   => $this->request->getPost('id_lokasi_area') ?: null,
+      'id_lokasi_gedung' => $this->request->getPost('id_lokasi_gedung') ?: null,
+      'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai') ?: null,
       'status'          => $this->request->getPost('status') ?: 5,
     ]);
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
@@ -375,7 +393,7 @@ class Asset extends BaseController
       'no_asset'        => $existing['no_asset'],
       'sub_asset'       => $existing['sub_asset'],
       'nama_asset'      => $this->request->getPost('nama_asset'),
-      'serial_number'   => $existing['no_asset'],
+      'serial_number'   => $existing['serial_number'],
       'batch_number'    => $this->request->getPost('batch_number'),
       'merek'           => $this->request->getPost('merek'),
       'spek'            => $this->request->getPost('spek'),
@@ -393,7 +411,7 @@ class Asset extends BaseController
   }
   public function detail($id)
   {
-    
+
     $asset = $this->assetModel->getWithRelasi($id);
     if (!$asset) {
       throw new \CodeIgniter\Exceptions\PageNotFoundException("Asset dengan ID : $id tidak ditemukan");
@@ -422,7 +440,7 @@ class Asset extends BaseController
     $result = $writer->write($qrcode, $logo, null);
     // $writer->validateResult($result, 'Life is too short to be generating QR codes');
     $dataUri = $result->getDataUri();
-        // dd($asset);
+    // dd($asset);
     return view('asset/detail', [
       'title' => 'Detail Asset | Asset Managed',
       'asset' => $asset,

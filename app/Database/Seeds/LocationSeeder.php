@@ -113,7 +113,7 @@ class LocationSeeder extends Seeder
             ],
             [
                 'kode_lokasi'   => 'G0012',
-                'nama_lokasi'   => 'Gedung 2',
+                'nama_lokasi'   => 'Gedung 12',
                 'jenis_lokasi'  => 'Gedung',
                 'status'        => $faker->numberBetween(0, 1),
                 'created_at'    => Time::now(),
@@ -121,7 +121,7 @@ class LocationSeeder extends Seeder
             ],
             [
                 'kode_lokasi'   => 'L001',
-                'nama_lokasi'   => '1',
+                'nama_lokasi'   => 'Lantai 1',
                 'jenis_lokasi'  => 'Lantai',
                 'status'        => $faker->numberBetween(0, 1),
                 'created_at'    => Time::now(),
@@ -129,7 +129,7 @@ class LocationSeeder extends Seeder
             ],
             [
                 'kode_lokasi'   => 'L002',
-                'nama_lokasi'   => '2',
+                'nama_lokasi'   => 'Lantai 2',
                 'jenis_lokasi'  => 'Lantai',
                 'status'        => $faker->numberBetween(0, 1),
                 'created_at'    => Time::now(),
@@ -137,7 +137,7 @@ class LocationSeeder extends Seeder
             ],
             [
                 'kode_lokasi'   => 'L003',
-                'nama_lokasi'   => '3',
+                'nama_lokasi'   => 'Lantai 3',
                 'jenis_lokasi'  => 'Lantai',
                 'status'        => $faker->numberBetween(0, 1),
                 'created_at'    => Time::now(),
@@ -145,7 +145,7 @@ class LocationSeeder extends Seeder
             ],
             [
                 'kode_lokasi'   => 'L004',
-                'nama_lokasi'   => '4',
+                'nama_lokasi'   => 'Lantai 4',
                 'jenis_lokasi'  => 'Lantai',
                 'status'        => $faker->numberBetween(0, 1),
                 'created_at'    => Time::now(),
@@ -153,7 +153,7 @@ class LocationSeeder extends Seeder
             ],
             [
                 'kode_lokasi'   => 'L005',
-                'nama_lokasi'   => '5',
+                'nama_lokasi'   => 'Lantai 5',
                 'jenis_lokasi'  => 'Lantai',
                 'status'        => $faker->numberBetween(0, 1),
                 'created_at'    => Time::now(),

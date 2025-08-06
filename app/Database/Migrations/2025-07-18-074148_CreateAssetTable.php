@@ -84,19 +84,33 @@ class CreateAssetTable extends Migration
                 'type'     => 'INT',
                 'unsigned' => true,
             ],
-            'id_lokasi' => [
-                'type'     => 'INT',
-                'unsigned' => true,
-            ],
             'id_pic'    => [
                 'type'     => 'INT',
                 'unsigned' => true,
                 'null'     => true,
             ],
-            'id_user_asset' =>[
+            'id_user_asset' => [
                 'type'     => 'INT',
                 'unsigned' => true,
                 'null'     => true
+            ],
+            'id_lokasi_area' => [
+                'type'     => 'INT',
+                'unsigned' => true,
+                'null'     => true,
+
+            ],
+            'id_lokasi_gedung' => [
+                'type'     => 'INT',
+                'unsigned' => true,
+                'null'     => true,
+
+            ],
+            'id_lokasi_lantai' => [
+                'type'     => 'INT',
+                'unsigned' => true,
+                'null'     => true,
+
             ],
             'created_at' => [
                 'type' => 'DATETIME',
