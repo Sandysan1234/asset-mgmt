@@ -118,7 +118,6 @@
                         <td><?= esc($as['la']);?></td>
                         <td><?= esc($as['lg']);?></td>
                         <td><?= esc($as['ll']);?></td>
-                    
                         <td><?= (new DateTime($as['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($as['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $as['modified_by']; ?></td>

@@ -239,10 +239,38 @@
                 <div class="flex-grow-1 ms-3">
                   <div class="row g-1">
                     <div class="col-6">
-                      <h6 class="text-secondary  mt-1">Lifetime</h6>
+                      <h6 class="text-secondary  mt-1">Area</h6>
                     </div>
                     <div class="col-6 text-end">
-                      <p class="fw-bold"><?= $asset['masa_berlaku']; ?> Tahun</p>
+                      <p class="fw-bold"><?= $asset['la']; ?></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item px-0">
+              <div class="d-flex align-items-center">
+                <div class="flex-grow-1 ms-3">
+                  <div class="row g-1">
+                    <div class="col-6">
+                      <h6 class="text-secondary  mt-1">Gedung</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      <p class="fw-bold"><?= $asset['lg']; ?></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item px-0">
+              <div class="d-flex align-items-center">
+                <div class="flex-grow-1 ms-3">
+                  <div class="row g-1">
+                    <div class="col-6">
+                      <h6 class="text-secondary  mt-1">Lantai</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      <p class="fw-bold"><?= $asset['ll']; ?></p>
                     </div>
                   </div>
                 </div>

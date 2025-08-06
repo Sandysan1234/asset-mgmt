@@ -186,13 +186,13 @@ class Asset extends BaseController
           'required'          => 'Pilih {field} yang sesuai'
         ]
       ],
-      // 'id_plant' => [
-      //   'label'               => 'Plant',
-      //   'rules'               => 'required',
-      //   'errors'              => [
-      //     'required'          => 'Pilih {field} yang sesuai'
-      //   ]
-      // ],
+      'id_plant' => [
+        'label'               => 'Plant',
+        'rules'               => 'required',
+        'errors'              => [
+          'required'          => 'Pilih {field} yang sesuai'
+        ]
+      ],
       'id_vendor' => [
         'label'               => 'Vendor',
         'rules'               => 'required',
@@ -286,6 +286,9 @@ class Asset extends BaseController
       'lifetime' => $this->lifetimeModel->findAll(),
       'plant'  => $this->plantModel->findAll(),
       'pemasok'  => $this->pemasokModel->findAll(),
+      'lokasi_area'      => $this->locationModel->where('jenis_lokasi', 'Area')->findAll(),
+      'lokasi_gedung'      => $this->locationModel->where('jenis_lokasi', 'Gedung')->findAll(),
+      'lokasi_lantai'      => $this->locationModel->where('jenis_lokasi', 'Lantai')->findAll(), 
     ];
     return view('asset/edit', $data);
   }

@@ -29,7 +29,7 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Form Tambah Asset</h5>
+            <h5>Form Ubah Asset</h5>
           </div>
           <div class="card-body">
             <form action="/asset/update/<?= $asset['id_asset']; ?>" method="post">
@@ -143,7 +143,7 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Cost Center</label>
                 <div class="col-sm-6">
-                  <select name="id_cost_center" class="form-select col-sm-6 <?= (validation_show_error('id_cost_center')) ? 'is-invalid' : ''; ?>" aria-label="Default select example"  >
+                  <select name="id_cost_center" class="form-select col-sm-6 <?= (validation_show_error('id_cost_center')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($cost_center as $cs) : ?>
                       <option value="<?= $cs['id_cost_center']; ?>" <?= old('id_cost_center', $asset['id_cost_center']) == $cs['id_cost_center'] ? 'selected' : ''; ?>>
@@ -178,7 +178,7 @@
                   <select name="id_plant" class="form-select col-sm-6 <?= (validation_show_error('id_plant')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($plant as $pl) : ?>
-                      <option value="<?= $pl['id_plant']; ?>" <?= old('id_plant', $asset['id_plant']) == $pl['id_plant'] ? 'selected' : ''; ?> readonly>
+                      <option value="<?= $pl['id_plant']; ?>" <?= old('id_plant', $asset['id_plant']) == $pl['id_plant'] ? 'selected' : ''; ?> aria-readonly="true">
                         <?= $pl['nama_plant']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -191,10 +191,10 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Vendor</label>
                 <div class="col-sm-6">
-                  <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_vendor')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                  <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_vendor')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" >
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($pemasok as $p) : ?>
-                      <option value="<?= $p['id_vendor']; ?>" <?= old('id_vendor', $asset['id_vendor']) == $p['id_vendor'] ? 'selected' : ''; ?>>
+                      <option value="<?= $p['id_vendor']; ?>" <?= old('id_vendor', $asset['id_vendor']) == $p['id_vendor'] ? 'selected' : ''; ?> >
                         <?= $p['nama_vendor']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -204,6 +204,55 @@
                   </div>
                 </div>
               </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Area</label>
+                <div class="col-sm-6">
+                  <select name="id_lokasi_area" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_area')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($lokasi_area as $la) : ?>
+                      <option value="<?= $la['id_lokasi']; ?>" <?= old('id_lokasi'), $asset['id_lokasi_area'] == $la['id_lokasi'] ? 'selected' : ''; ?>>
+                        <?= $la['nama_lokasi']; ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('id_lokasi'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Gedung</label>
+                <div class="col-sm-6">
+                  <select name="id_lokasi_gedung" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_gedung')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($lokasi_gedung as $lg) : ?>
+                      <option value="<?= $lg['id_lokasi']; ?>" <?= old('id_lokasi'), $asset['id_lokasi_gedung'] == $lg['id_lokasi'] ? 'selected' : ''; ?>>
+                        <?= $lg['nama_lokasi']; ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('id_lokasi'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Lantai</label>
+                <div class="col-sm-6">
+                  <select name="id_lokasi_lantai" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_lantai')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($lokasi_lantai as $ll) : ?>
+                      <option value="<?= $ll['id_lokasi']; ?>" <?= old('id_lokasi'), $asset['id_lokasi_lantai'] == $ll['id_lokasi'] ? 'selected' : ''; ?>>
+                        <?= $ll['nama_lokasi']; ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('id_lokasi'); ?>
+                  </div>
+                </div>
+              </div>
+              
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">PIC</label>
                 <div class="col-sm-6">
@@ -228,7 +277,7 @@
               </div>
               <div class="modal-footer">
                 <a href="/asset" class="btn btn-secondary me-3">Close</a>
-                <button type="submit" class="btn btn-primary">Tambah Data</button>
+                <button type="submit" class="btn btn-primary">Ubah Data</button>
               </div>
             </form>
           </div>
