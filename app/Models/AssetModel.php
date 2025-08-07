@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Controllers\Asset;
 use CodeIgniter\Model;
 
 class AssetModel extends Model
@@ -66,5 +67,26 @@ class AssetModel extends Model
       return $builder->asArray()->findAll((int) $limit);
     }
     return $builder->asArray()->findAll();
+  }
+  public function getWithRelasiByNoAsset($noasset)
+  {
+    return $this->select(
+      'asset.*,
+      ac.nama_assetclass,
+      p.nama_plant,
+      cc.nama_cost_center,
+      la.nama_lokasi as nama_area,
+      lg.nama_lokasi as nama_gedung,
+      ll.nama_lokasi as nama_lantai',
+    )
+      ->join('assetclass ac', 'ac.id_assetclass = asset.id_assetclass', 'left')
+      ->join('plant p', 'p.id_plant = asset.id_plant', 'left')
+      ->join('cost_center cc', 'cc.id_cost_center = asset.id_cost_center', 'left')
+      ->join('lokasi la', 'la.id_lokasi = asset.id_lokasi_area', 'left')
+      ->join('lokasi lg', 'lg.id_lokasi = asset.id_lokasi_gedung', 'left')
+      ->join('lokasi ll', 'll.id_lokasi = asset.id_lokasi_lantai', 'left')
+      ->where('asset.no_asset', $noasset)
+      ->asArray()
+      ->first();
   }
 }

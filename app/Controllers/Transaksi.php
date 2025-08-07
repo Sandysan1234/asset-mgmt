@@ -15,12 +15,35 @@ class Transaksi extends BaseController
     }
     public function index(): string
     {
+        // pr untuk data yang di load
         $asset = $this->assetModel->getWithRelasi();
+
 
         $data = [
             'title' => 'Perpindahan Asset | Asset Managed',
             'asset' => $asset,
+            'no_asset' => $this->assetModel->select('no_asset')->findAll()
+
         ];
         return view('transaksi/index', $data);
+    }
+    public function cari()
+    {
+        $noasset = $this->request->getGet('no_asset');
+        $asset = $this->assetModel->getWithRelasiByNoAsset($noasset);
+
+        if (!$asset) {
+
+            return $this->response->setJSON([
+                'status' => false,
+                'message' => 'asset tidak ditemukan.'
+            ]);
+        }
+        return $this->response->setJSON(
+            [
+                'status' => true,
+                'data'  => '$asset',
+            ]
+        );
     }
 }

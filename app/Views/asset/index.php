@@ -79,6 +79,7 @@
                         <td>
                           <a href="/asset/detail/<?= $as['id_asset']; ?>" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail"><i class="ti ti-file-search"></i></a>
                           <a href="/asset/edit/<?= $as['id_asset']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
+                          <a href="/asset/perbaikan/<?= $as['id_asset']; ?>" class="btn btn-icon btn-light-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repair"><i class="ti ti-tool"></i></a>
                         </td>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= esc($as['no_asset']); ?></td>

@@ -33,291 +33,299 @@
           <div class="card tbl-card">
             <div class="card-body">
               <div class="row">
-                <div class="col-md-6">
-                  <label for="" class="col-sm-3 col-form-label">Asset Class</label>
-                  <select class="form-select form-select-sm" aria-label="Small select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
+                <div class="col-md-12">
+                  <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Klik dan Cari No Asset
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                      <input type="text" class="form-control" placeholder="Cari..." id="dropdownSearchInput">
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <?php foreach ($no_asset as $na): ?>
+                      <li><a class="dropdown-item" href="#" onclick="selectAsset('<?= $na['no_asset']; ?>')"><?= $na['no_asset']; ?></a></li>
+                    <?php endforeach; ?>
+                  </ul>
                 </div>
-                <div class="col-md-6">
-                  <!-- <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
-                      <option selected disabled>Open this select menu</option>
-                      ?php foreach ($pemasok as $p) : ?>
-                        <option value="?= $p['id_vendor']; ?>" ?= old('id_vendor', $asset['id_vendor']) == $p['id_vendor'] ? 'selected' : ''; ?>>
-                          ?= $p['nama_vendor']; ?>
-                        </option>
-                      ?php endforeach; ?>
-                    </select>
-                    <div class="invalid-feedback">
-                      ?= validation_show_error('id_vendor'); ?>
+                <form class="row g-3">
+                  <div class="col-md-6">
+                    <label for="assetclass" class="form-label">Asset Class</label>
+                    <input type="text" class="form-control" id="assetclass" value="" readonly>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
                     </div> -->
-                  <label for="" class="col-sm-3 col-form-label">Tindakan</label>
-                  <select class="form-select form-select-sm" aria-label="Small select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">Mutasi Asset</option>
-                    <option value="2">Penghentian Asset</option>
-                    <option value="3">Pelepasan Asset</option>
-                    <option value="3">Penggabungan Asset</option>
-                  </select>
-                  <label for="" class="my-3">Tanggal Tindakan</label>
-                  <br>
-                  <input type="datetime-local" name="" id="">
-                </div>
-                <h6>Department Asal</h6>
-                <div class="col-md-12 mb-3">
-                  <input type="number" name="search" placeholder="Cari Asset yang dipindahkan berdasarkan No Asset" class="form-control">
-                </div>
-              </div>
-              <!-- <form action="/asset/update/ ?= $asset['id_asset']; ?>" method="post"> -->
-              <?= csrf_field(); ?>
-              <div class="row mb-3">
-                <label for="no_asset" class="col-sm-3 col-form-label">No Asset</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control  ?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" value=" ?= old('no_asset', $asset['no_asset']); ?>" readonly>
-                  <div class="invalid-feedback">
-                    ?= validation_show_error('no_asset'); ?>
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="sub_asset" class="col-sm-3 col-form-label">Sub Asset</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control ?= (validation_show_error('sub_asset')) ? 'is-invalid' : ''; ?>" id="sub_asset" name="sub_asset" value="?= old('sub_asset', $asset['no_asset']); ?>" readonly>
-                  <div class="invalid-feedback">
-                    ?= validation_show_error('sub_asset'); ?>
+                  <div class="col-md-6">
+                    <label for="validationServer04" class="form-label">Tindakan</label>
+                    <select class="form-select" id="validationServer04" aria-describedby="validationServer04Feedback" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option value="1">Mutasi Asset</option>
+                      <option value="2">Penghentian Asset</option>
+                      <option value="3">Pelepasan Asset</option>
+                      <option value="3">Penggabungan Asset</option>
+                    </select>
+                    </select>
+                    <!-- <div id="validationServer04Feedback" class="invalid-feedback">
+                      Please select a valid state.
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="nama_asset" class="col-sm-3 col-form-label">Nama Asset</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control ?= (validation_show_error('nama_asset')) ? 'is-invalid' : ''; ?>" id="nama_asset" name="nama_asset" value="?= old('nama_asset', $asset['nama_asset']); ?>" autofocus>
-                  <div class="invalid-feedback">
-                    ?= validation_show_error('nama_asset'); ?>
+                  <h5>Department Asal</h5>
+                  <div class="col-md-4">
+                    <label for="plant" class="form-label">Plant</label>
+                    <input type="text" class="form-control" name="" id="plant" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">Cost Center</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control ?= (validation_show_error('namacost_center')) ? 'is-invalid' : ''; ?>" id="namacost_center" name="namacost_center" value="?= old('namacost_center', $asset['nama_cost_center']); ?>" readonly>
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('id_cost_center'); ?>
+                  <div class="col-md-4">
+                    <label for="cost_center" class="form-label">Cost Center</label>
+                    <input type="text" class="form-control" name="" id="cost_center" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">Plant</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control ?= (validation_show_error('namacost_center')) ? 'is-invalid' : ''; ?>" id="namacost_center" name="namacost_center" value="?= old('namacost_center', $asset['nama_cost_center']); ?>" readonly>
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('id_plant'); ?>
+                  <div class="col-md-4">
+                    <label for="validationServer01" class="form-label">No Asset</label>
+                    <input type="text" class="form-control" name="" id="validationServer01" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="tgl_perolehan" class="col-sm-3 col-form-label">Tanggal Perolehan</label>
-                <div class="col-sm-6">
-                  <input type="datetime-local" class="form-control ?= (validation_show_error('tgl_perolehan')) ? 'is-invalid' : ''; ?>" id="tgl_perolehan" name="tgl_perolehan" value="?= old('tgl_perolehan', date('Y-m-d\TH:i', strtotime($asset['tgl_perolehan']))); ?>">
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('tgl_perolehan'); ?>
+                  <div class="col-md-4">
+                    <label for="validationServer02" class="form-label">Sub Asset</label>
+                    <input type="text" class="form-control" name="" id="validationServer02" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="alasan" class="col-sm-3 col-form-label">Alasan</label>
-                <div class="col-sm-6">
-                  <textarea class="form-control <?= (validation_show_error('alasan')) ? 'is-invalid' : ''; ?>" id="alasan" name="alasan"><?= old('alasan'); ?></textarea>
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('alasan'); ?>
+                  <div class="col-md-4">
+                    <label for="nama_asset" class="form-label">Nama Asset</label>
+                    <input type="text" class="form-control nama_asset" name="" id="nama_asset" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">Letak Asset</label>
-                <div class="col-sm-6">
-                  <p>sdf</p>
-                  <p>dsfds</p>
-                  <input type="text" class="form-control ?= (validation_show_error('namacost_center')) ? 'is-invalid' : ''; ?>" id="namacost_center" name="namacost_center" value="?= old('namacost_center', $asset['nama_cost_center']); ?>" readonly>
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('id_plant'); ?>
+                  <div class="col-md-4">
+                    <label for="validationServer02" class="form-label">Tanggal Perolehan</label>
+                    <input type="date" class="form-control" name="" id="validationServer02" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">PIC</label>
-                <div class="col-sm-6">
-                  <select name="id_pic" class="form-select col-sm-6" aria-label="Default select example" disabled>
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">User Asset</label>
-                <div class="col-sm-6">
-                  <select name="id_user_asset" class="form-select col-sm-6" aria-label="Default select example" disabled>
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-                </div>
-              </div>
-              <h6>Department Tujuan</h6>
-              <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">Plant</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control ?= (validation_show_error('namacost_center')) ? 'is-invalid' : ''; ?>" id="namacost_center" name="namacost_center" value="?= old('namacost_center', $asset['nama_cost_center']); ?>" readonly>
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('id_plant'); ?>
+                  <div class="col-md-4">
+                    <label for="area" class="form-label">Area</label>
+                    <input type="text" class="form-control" id="area" aria-describedby="areaFeedback" required>
+                    <!-- <div id="validationServer03Feedback" class="invalid-feedback">
+                      Please provide a valid city.
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">Cost Center</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control ?= (validation_show_error('namacost_center')) ? 'is-invalid' : ''; ?>" id="namacost_center" name="namacost_center" value="?= old('namacost_center', $asset['nama_cost_center']); ?>" readonly>
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('id_cost_center'); ?>
+                  <div class="col-md-4">
+                    <label for="gedung" class="form-label">Gedung</label>
+                    <input type="text" class="form-control" name="" id="gedung" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="no_asset" class="col-sm-3 col-form-label">No Asset</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control  ?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" value=" ?= old('no_asset', $asset['no_asset']); ?>">
-                  <div class="invalid-feedback">
-                    ?= validation_show_error('no_asset'); ?>
+                  <div class="col-md-4">
+                    <label for="lantai" class="form-label">Lantai</label>
+                    <input type="text" class="form-control" name="" id="lantai" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <label for="nama_asset" class="col-sm-3 col-form-label">Nama Asset</label>
-                <div class="col-sm-6">
-                  <input type="text" class="form-control ?= (validation_show_error('nama_asset')) ? 'is-invalid' : ''; ?>" id="nama_asset" name="nama_asset" value="?= old('nama_asset', $asset['nama_asset']); ?>">
-                  <div class="invalid-feedback">
-                    ?= validation_show_error('nama_asset'); ?>
+                  <div class="col-md-12">
+                    <label for="alasan" class="form-label">Alasan</label>
+                    <textarea class="form-control" name="" id="alasan"></textarea>
+                    <!-- <div id="validationServer03Feedback" class="invalid-feedback">
+                      Please provide a valid city.
+                    </div> -->
                   </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="card">
-                    <div class="card-body">
-                      <h6>Dept. Asal: <span></span></h6>
-                      <div class="form-check form-switch my-3">
-                        <input class="form-check-input" type="checkbox" value="" id="asal" switch>
-                        <label class="form-check-label" for="asal">
-                          Kabag
-                        </label>
+                  <h6>Department Tujuan</h6>
+                  <div class="col-md-3">
+                    <label for="plant" class="form-label">Plant</label>
+                    <select class="form-select plant" id="plant" aria-describedby="validationServer04Feedback" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                      <option>allala</option>
+                    </select>
+                    <!-- <div id="validationServer04Feedback" class="invalid-feedback">
+                      Please select a valid state.
+                    </div> -->
+                  </div>
+                  <div class="col-md-3">
+                    <label for="cost_center" class="form-label">Cost Center</label>
+                    <select class="form-select cost_center" id="cost_center" aria-describedby="validationServer04Feedback" required>
+                      <option selected disabled value="">Choose...</option>
+                      <option>...</option>
+                      <option>allala</option>
+                    </select>
+                    <!-- <div id="validationServer04Feedback" class="invalid-feedback">
+                      Please select a valid state.
+                    </div> -->
+                  </div>
+                  <div class="col-md-3">
+                    <label for="no_asset" class="form-label">No Asset</label>
+                    <input type="text" class="form-control no_asset" name="" id="no_asset" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
+                  </div>
+                  <div class="col-md-3">
+                    <label for="nama_asset" class="form-label">Nama Asset</label>
+                    <input type="text" class="form-control nama_asset" name="" id="nama_asset" value="" required>
+                    <!-- <div class="valid-feedback">
+                      Looks good!
+                    </div> -->
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card mb-0">
+                      <div class="card-body">
+                        <h6>Dept. Asal</h6>
+                        <div class="form-check form-switch custom-switch-v1 my-3">
+                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                        </div>
+                        <label class="form-check-label" for="switchCheckDefault">Kabag</label>
+                        <input type="date" class="form-control" name="" id="validationServer02" value="" required>
                       </div>
-                      <input type="datetime-local" name="" id="">
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="card">
-                    <div class="card-body">
-                      <h6>Dept Tujuan: <span></span></h6>
-                      <div class="form-check form-switch my-3">
-                        <input class="form-check-input" type="checkbox" value="" id="tujuan" switch>
-                        <label class="form-check-label" for="tujuan">
-                          Kabag
-                        </label>
+                  <div class="col-md-6">
+                    <div class="card mb-0">
+                      <div class="card-body">
+                        <h6>Dept. Tujuan:</h6>
+                        <div class="form-check form-switch custom-switch-v1 my-3">
+                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                        </div>
+                        <label class="form-check-label" for="switchCheckDefault">Kabag</label>
+                        <input type="date" class="form-control" name="" id="validationServer02" value="" required>
                       </div>
-                      <input type="datetime-local" name="" id="">
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="card">
-                    <div class="card-body">
-                      <h6>Menyetujui, <span></span></h6>
-                      <div class="form-check form-switch my-3">
-                        <input class="form-check-input" type="checkbox" value="" id="menyetujui_1" switch>
-                        <label class="form-check-label" for="menyetujui_1">
-                          Kabag
-                        </label>
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-body">
+                        <h6>Menyetujui,</h6>
+                        <div class="form-check form-switch custom-switch-v1 my-3">
+                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                        </div>
+                        <label class="form-check-label" for="switchCheckDefault">IT</label>
+                        <input type="date" class="form-control" name="" id="validationServer02" value="" required>
                       </div>
-                      <input type="datetime-local" name="" id="">
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="card">
-                    <div class="card-body">
-                      <h6>Menyetujui, <span></span></h6>
-                      <div class="form-check form-switch my-3">
-                        <input class="form-check-input" type="checkbox" value="" id="menyetujui_2" switch>
-                        <label class="form-check-label" for="menyetujui_2">
-                          Kabag
-                        </label>
+                  <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-body">
+                        <h6>Menyetujui,</h6>
+                        <div class="form-check form-switch custom-switch-v1 my-3">
+                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                        </div>
+                        <label class="form-check-label" for="switchCheckDefault">Direksi</label>
+                        <input type="date" class="form-control" name="" id="validationServer02" value="" required>
                       </div>
-                      <input type="datetime-local" name="" id="">
                     </div>
                   </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h6>Mengetahui, <span></span></h6>
-                      <div class="form-check form-switch my-3">
-                        <input class="form-check-input" type="checkbox" value="" id="mengetahui_1" switch>
-                        <label class="form-check-label" for="mengetahui_1">
-                          Kabag
-                        </label>
+                  <div class="col-md-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h6>Mengetahui,</h6>
+                        <div class="form-check form-switch custom-switch-v1 my-3">
+                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                        </div>
+                        <label class="form-check-label" for="switchCheckDefault">Manager Finance</label>
+                        <input type="date" class="form-control" name="" id="validationServer02" value="" required>
                       </div>
-                      <input type="datetime-local" name="" id="">
                     </div>
                   </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h6>Mengetahui, <span></span></h6>
-                      <div class="form-check form-switch my-3">
-                        <input class="form-check-input" type="checkbox" value="" id="mengetahui_2" switch>
-                        <label class="form-check-label" for="mengetahui_2">
-                          Kabag
-                        </label>
+                  <div class="col-md-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h6>Mengetahui,</h6>
+                        <div class="form-check form-switch custom-switch-v1 my-3">
+                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                        </div>
+                        <label class="form-check-label" for="switchCheckDefault">Accounting</label>
+                        <input type="date" class="form-control" name="" id="validationServer02" value="" required>
                       </div>
-                      <input type="datetime-local" name="" id="">
                     </div>
                   </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h6>Mengetahui, <span></span></h6>
-                      <div class="form-check form-switch my-3">
-                        <input class="form-check-input" type="checkbox" value="" id="mengetahui_3" switch>
-                        <label class="form-check-label" for="mengetahui_3">
-                          Kabag
-                        </label>
+                  <div class="col-md-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h6>Mengetahui,</h6>
+                        <div class="form-check form-switch custom-switch-v1 my-3">
+                          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                        </div>
+                        <label class="form-check-label" for="switchCheckDefault">Controlling</label>
+                        <input type="date" class="form-control" name="" id="validationServer02" value="" required>
                       </div>
-                      <input type="datetime-local" name="" id="">
                     </div>
                   </div>
-                </div>
+                  <div class="col-md-12">
+                    <textarea class="form-control" aria-label="With textarea" placeholder="Catatan Pojok"></textarea>
+                  </div>
+
+                  <div class="col-12">
+                    <button class="btn btn-primary" type="submit">Submit form</button>
+                  </div>
+                </form>
+                <!-- -- ==================== =============================== -->
+
               </div>
-              <div class="modal-footer">
-                <a href="/asset" class="btn btn-secondary me-3">Close</a>
-                <button type="submit" class="btn btn-primary">Tambah Data</button>
-              </div>
-              </form>
             </div>
           </div>
         </div>
       </div>
+      <script>
+        document.getElementById('dropdownSearchInput').addEventListener('keyup', function() {
+          const filter = this.value.toUpperCase();
+          const items = document.querySelectorAll('.dropdown-menu .dropdown-item');
+
+          items.forEach(item => {
+            const text = item.textContent || item.innerText;
+            item.style.display = text.toUpperCase().indexOf(filter) > -1 ? '' : 'none';
+          });
+        });
+      </script>
+      <script>
+        document.getElementById('search').addEventListener('change', function() {
+          const noAsset = this.value;
+
+          fetch(`/transaksi/cari?no_asset=${noAsset}`)
+            .then(response => response.json())
+            .then(result => {
+              if (result.status) {
+                const d = result.data;
+                document.querySelector('.asset_class').value = d.nama_assetclass || '';
+                document.querySelector('.plant').value = d.nama_plant || '';
+                document.querySelector('.cost_center').value = d.nama_cost_center || '';
+                document.getElementById('sub_asset').value = d.sub_asset || '';
+                document.querySelector('.nama_asset').forEach(el => {
+                  el.value = d.nama_asset || '';
+                });
+                document.getElementById('tgl_perolehan').value = d.tgl_perolehan?.substring(0, 10) || '';
+                document.getElementById('area').value = d.nama_area || '';
+                document.getElementById('gedung').value = d.nama_gedung || '';
+                document.getElementById('lantai').value = d.nama_lantai || '';
+              } else {
+                alert(result.message);
+              }
+            });
+        });
+      </script>
+      <script>
+        document.getElementById('search').addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            this.dispatchEvent(new Event('change'));
+            e.preventDefault();
+          }
+        });
+      </script>
+
+      <!-- [ sample-page ] end -->
     </div>
-    <!-- [ sample-page ] end -->
+    <!-- [ Main Content ] end -->
   </div>
-  <!-- [ Main Content ] end -->
-</div>
-<?= $this->endSection(); ?>
+  <?= $this->endSection(); ?>
