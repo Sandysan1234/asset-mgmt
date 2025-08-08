@@ -3,7 +3,7 @@
 <!-- [Head] start -->
 
 <head>
-  <title><?= $title;?> </title>
+  <title><?= $title; ?> </title>
   <!-- [Meta] -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -30,6 +30,9 @@
   <!-- DataTables Bootstrap 5 hanya butuh komponen bootstrap minimal -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
 
 
 </head>
@@ -63,7 +66,7 @@
     <div class="footer-wrapper container-fluid">
       <div class="row">
         <div class="col-sm my-1">
-          <p class="m-0"> &copy; <?= date('Y'); ?> IT Department, PT Jayamas Medica Industri Tbk.  <span>All Rights Reserved</span></p>
+          <p class="m-0"> &copy; <?= date('Y'); ?> IT Department, PT Jayamas Medica Industri Tbk. <span>All Rights Reserved</span></p>
         </div>
         <div class="col-auto my-1">
           <ul class="list-inline footer-link mb-0">
@@ -103,6 +106,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
   <script>
     $(document).ready(function() {
       $('#myTable').DataTable({
@@ -118,6 +123,10 @@
       });
     });
   </script>
+
+  <?= $this->renderSection('scripts-extra'); ?>
+
+  
 
 
 

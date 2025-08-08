@@ -68,25 +68,65 @@ class AssetModel extends Model
     }
     return $builder->asArray()->findAll();
   }
-  public function getWithRelasiByNoAsset($noasset)
+  public function suggestByNoAsset(string $term, int $limit = 10): array
   {
-    return $this->select(
-      'asset.*,
-      ac.nama_assetclass,
-      p.nama_plant,
-      cc.nama_cost_center,
-      la.nama_lokasi as nama_area,
-      lg.nama_lokasi as nama_gedung,
-      ll.nama_lokasi as nama_lantai',
-    )
+    $builder = $this->db->table('asset')
+      ->select("
+                asset.*,
+                ac.nama_assetclass   AS asset_class,
+                p.nama_plant         AS plant,
+                cc.nama_cost_center  AS cost_center,
+                la.nama_lokasi       AS area,
+                lg.nama_lokasi       AS gedung,
+                ll.nama_lokasi       AS lantai
+            ")
       ->join('assetclass ac', 'ac.id_assetclass = asset.id_assetclass', 'left')
-      ->join('plant p', 'p.id_plant = asset.id_plant', 'left')
-      ->join('cost_center cc', 'cc.id_cost_center = asset.id_cost_center', 'left')
-      ->join('lokasi la', 'la.id_lokasi = asset.id_lokasi_area', 'left')
-      ->join('lokasi lg', 'lg.id_lokasi = asset.id_lokasi_gedung', 'left')
-      ->join('lokasi ll', 'll.id_lokasi = asset.id_lokasi_lantai', 'left')
-      ->where('asset.no_asset', $noasset)
-      ->asArray()
-      ->first();
+      ->join('plant p',       'p.id_plant       = asset.id_plant', 'left')
+      ->join('cost_center cc', 'cc.id_cost_center= asset.id_cost_center', 'left')
+      ->join('lokasi la',     'la.id_lokasi     = asset.id_lokasi_area', 'left')
+      ->join('lokasi lg',     'lg.id_lokasi     = asset.id_lokasi_gedung', 'left')
+      ->join('lokasi ll',     'll.id_lokasi     = asset.id_lokasi_lantai', 'left')
+      ->groupStart()
+      ->like('asset.no_asset', $term, 'after')
+      ->orLike('asset.nama_asset', $term, 'both')
+      ->groupEnd()
+      ->orderBy('asset.no_asset', 'ASC')
+      ->limit($limit);
+    // hormati soft delete (kalau pakai)
+    if ($this->useSoftDeletes && ! empty($this->deletedField)) {
+      $builder->where('asset.' . $this->deletedField, null);
+    }
+
+    return $builder->get()->getResultArray();
+  }
+
+  /**
+   * Optional: ambil detail satu asset by no_asset (untuk kebutuhan non-autocomplete)
+   */
+  public function getWithRelasiByNoAsset(string $noasset): ?array
+  {
+    $builder = $this->db->table('asset')
+      ->select("
+                asset.*,
+                ac.nama_assetclass   AS asset_class,
+                p.nama_plant         AS plant,
+                cc.nama_cost_center  AS cost_center,
+                la.nama_lokasi       AS area,
+                lg.nama_lokasi       AS gedung,
+                ll.nama_lokasi       AS lantai
+            ")
+      ->join('assetclass ac', 'ac.id_assetclass = asset.id_assetclass', 'left')
+      ->join('plant p',       'p.id_plant       = asset.id_plant', 'left')
+      ->join('cost_center cc', 'cc.id_cost_center= asset.id_cost_center', 'left')
+      ->join('lokasi la',     'la.id_lokasi     = asset.id_lokasi_area', 'left')
+      ->join('lokasi lg',     'lg.id_lokasi     = asset.id_lokasi_gedung', 'left')
+      ->join('lokasi ll',     'll.id_lokasi     = asset.id_lokasi_lantai', 'left')
+      ->where('asset.no_asset', $noasset);
+
+    if ($this->useSoftDeletes && ! empty($this->deletedField)) {
+      $builder->where('asset.' . $this->deletedField, null);
+    }
+
+    return $builder->get()->getRowArray() ?: null;
   }
 }

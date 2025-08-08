@@ -88,7 +88,7 @@ $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
 
 
 $routes->get('transaksi','Transaksi::index');
-$routes->get('transaksi/cari','Transaksi::cari');
+$routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
 $routes->get('qr', 'Qrbarcode::index');
 $routes->post('qr/save', 'Qrbarcode::multiple');
 
