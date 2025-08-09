@@ -108,7 +108,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
-  <script>
+  <!-- <script>
     $(document).ready(function() {
       $('#myTable').DataTable({
         dom: 'Bfrtipl',
@@ -122,7 +122,7 @@
         scrollX: true
       });
     });
-  </script>
+  </script> -->
 
   <?= $this->renderSection('scripts-extra'); ?>
 

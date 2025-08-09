@@ -50,13 +50,41 @@ class Asset extends BaseController
 
   public function index()
   {
-    $asset = $this->assetModel->getWithRelasi();
-    $data = [
+    // $asset = $this->assetModel->getWithRelasi();
+    // $data = [
+    //   'title'     => 'Asset | Asset Managed',
+    //   'asset' => $asset,
+    // ];
+    return view('asset/index', [
       'title'     => 'Asset | Asset Managed',
-      'asset' => $asset,
-    ];
-    return view('asset/index', $data);
+    ]);
   }
+  // Endpoint server-side DataTables
+  public function dt()
+  {
+    $req  = $this->request->getGet();
+    $draw = (int)($req['draw'] ?? 1);
+
+    try {
+      $data  = $this->assetModel->dtData($req);
+      $total = $this->assetModel->dtCountAll();
+      $filt  = $this->assetModel->dtCountFiltered($req);
+
+      return $this->response->setJSON([
+        'draw' => $draw,
+        'recordsTotal' => $total,
+        'recordsFiltered' => $filt,
+        'data' => $data
+      ]);
+    } catch (\Throwable $e) {
+      // kirim pesan error ke client untuk dilihat di Network -> Response
+      return $this->response->setStatusCode(500)->setJSON([
+        'error' => true,
+        'message' => $e->getMessage()
+      ]);
+    }
+  }
+
   // ===============create======//
 
   public function create()
@@ -240,7 +268,7 @@ class Asset extends BaseController
     // 'id_vendor',
     // 'id_lifetime',
 
-    
+
 
     $this->assetModel->save([
       'no_asset'        => $this->request->getPost('no_asset'),
@@ -251,7 +279,7 @@ class Asset extends BaseController
       'merek'           => $this->request->getPost('merek'),
       'spek'            => $this->request->getPost('spek'),
       'tgl_perolehan'   => $this->request->getPost('tgl_perolehan'),
-      'harga'           => $data>['harga'],
+      'harga'           => $data > ['harga'],
       'no_po'           => $this->request->getPost('no_po'),
       'id_assetclass'   => $this->request->getPost('id_assetclass'),
       'id_cost_center'  => $this->request->getPost('id_cost_center'),
@@ -288,7 +316,7 @@ class Asset extends BaseController
       'pemasok'  => $this->pemasokModel->findAll(),
       'lokasi_area'      => $this->locationModel->where('jenis_lokasi', 'Area')->findAll(),
       'lokasi_gedung'      => $this->locationModel->where('jenis_lokasi', 'Gedung')->findAll(),
-      'lokasi_lantai'      => $this->locationModel->where('jenis_lokasi', 'Lantai')->findAll(), 
+      'lokasi_lantai'      => $this->locationModel->where('jenis_lokasi', 'Lantai')->findAll(),
     ];
     return view('asset/edit', $data);
   }

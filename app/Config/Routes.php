@@ -85,13 +85,11 @@ $routes->post('asset/save', 'Asset::save');
 $routes->get('asset/edit/(:segment)', 'Asset::edit/$1');
 $routes->post('asset/update/(:any)', 'Asset::update/$1');
 $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
+$routes->match(['get', 'post'], 'asset/dt', 'Asset::dt');   // endpoint server-side
 
 
-$routes->get('transaksi','Transaksi::index');
+
+$routes->get('transaksi', 'Transaksi::index');
 $routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
 $routes->get('qr', 'Qrbarcode::index');
 $routes->post('qr/save', 'Qrbarcode::multiple');
-
-
-
-

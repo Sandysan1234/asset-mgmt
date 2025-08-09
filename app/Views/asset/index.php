@@ -3,139 +3,296 @@
 <?= $this->section('page-content'); ?>
 <div class="pc-container">
   <div class="pc-content">
-    <!-- [ breadcrumb ] start -->
-    <!-- <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Sample Page</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="javascript: void(0)">Other</a></li>
-                <li class="breadcrumb-item" aria-current="page">Sample Page</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    <!-- [ breadcrumb ] end -->
-
-    <!-- [ Main Content ] start -->
     <div class="row">
-      <!-- [ sample-page ] start -->
       <div class="col-sm-12">
         <div class="card">
-          <div class="card-header">
-            <h5>Asset</h5>
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Asset</h5>
+            <a href="/asset/create" class="btn btn-outline-primary">Tambah Data Asset</a>
           </div>
+
           <div class="card tbl-card">
             <div class="card-body">
+              <a href="/asset/create" class="btn btn-outline-primary mb-3">Tambah Data Asset</a>
+
+              <?php if (session()->getFlashdata('pesan')): ?>
+                <div class="alert alert-success mb-3">
+                  <?= session()->getFlashdata('pesan'); ?>
+                </div>
+              <?php endif; ?>
+
               <div class="table-responsive">
-                <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
-                <a href="/asset/create" class="btn btn-outline-primary mb-3">Tambah Data Asset</a>
-                <?php if (session()->getFlashdata('pesan')): ?>
-                  <div class="alert alert-success">
-                    <?= session()->getFlashdata('pesan'); ?>
-                  </div>
-                <?php endif; ?>
-                <table id="myTable" class="table table-hover table-borderless" style="width:100%">
+                <table id="myTable" class="table table-hover table-borderless w-100">
                   <thead class="bg-light">
                     <tr class="text-nowrap">
-                      <th scope="col">Handle</th>
-                      <th scope="col">No</th>
-                      <th scope="col">No Asset</th>
-                      <th scope="col">Sub Asset</th>
-                      <th scope="col">Nama Asset</th>
-                      <th scope="col">Serial Number</th>
-                      <th scope="col">Batch Number</th>
-                      <th scope="col">Merek</th>
-                      <th scope="col">Spek Asset</th>
-                      <th scope="col">Tanggal Perolehan</th>
-                      <th scope="col">Harga</th>
-                      <th scope="col">No Purchase Order</th>
-                      <th scope="col">Asset Class</th>
-                      <th scope="col">Cost Center</th>
-                      <th scope="col">Plant</th>
-                      <!-- idvendor -->
-                      <th scope="col">Vendor</th>
-                      <th scope="col">Lifetime</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">PIC</th>
-                      <th scope="col">User Asset</th>
-                      <th scope="col">Area</th>
-                      <th scope="col">Gedung</th>
-                      <th scope="col">Lantai</th>
-                      <th scope="col">Created At</th>
-                      <th scope="col">Updated At</th>
-                      <th scope="col">Modified By</th>
+                      <th>Handle</th>
+                      <th>No</th>
+                      <th>No Asset</th>
+                      <th>Sub Asset</th>
+                      <th>Nama Asset</th>
+                      <th>Serial Number</th>
+                      <th>Batch Number</th>
+                      <th>Merek</th>
+                      <th>Spek Asset</th>
+                      <th>Tanggal Perolehan</th>
+                      <th>Harga</th>
+                      <th>No Purchase Order</th>
+                      <th>Asset Class</th>
+                      <th>Cost Center</th>
+                      <th>Plant</th>
+                      <th>Vendor</th>
+                      <th>Lifetime</th>
+                      <th>Status</th>
+                      <th>PIC</th>
+                      <th>User Asset</th>
+                      <th>Area</th>
+                      <th>Gedung</th>
+                      <th>Lantai</th>
+                      <th>Created At</th>
+                      <th>Updated At</th>
+                      <th>Modified By</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($asset as $as) : ?>
-                      <tr class="text-nowrap">
-                        <td>
-                          <a href="/asset/detail/<?= $as['id_asset']; ?>" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Detail"><i class="ti ti-file-search"></i></a>
-                          <a href="/asset/edit/<?= $as['id_asset']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
-                          <a href="/asset/perbaikan/<?= $as['id_asset']; ?>" class="btn btn-icon btn-light-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Repair"><i class="ti ti-tool"></i></a>
-                        </td>
-                        <th scope="row"><?= $i++; ?></th>
-                        <td><?= esc($as['no_asset']); ?></td>
-                        <td><?= esc($as['sub_asset']); ?></td>
-                        <td><?= esc($as['nama_asset']); ?></td>
-                        <td><?= esc($as['serial_number']); ?></td>
-                        <td><?= esc($as['batch_number']); ?></td>
-                        <td><?= esc($as['merek']); ?></td>
-                        <td><?= esc($as['spek']); ?></td>
-
-                        <td><?= (new DateTime($as['tgl_perolehan']))->format('d-m-Y'); ?></td>
-                        <td>Rp <?= esc(number_format($as['harga'], 2, ',', '.')); ?></td>
-                        <td><?= esc($as['no_po']); ?></td>
-                        <td><?= esc($as['id_assetclass'] . ' - ' . $as['nama_assetclass']); ?></td>
-                        <td><?= esc($as['id_cost_center'] . ' - ' . $as['nama_cost_center']); ?></td>
-                        <td><?= esc($as['id_plant'] .  ' -  ' . $as['nama_plant']); ?></td>
-                        <td><?= esc($as['id_vendor'] . ' - ' . $as['nama_vendor']); ?></td>
-                        <td><?= esc($as['masa_berlaku']); ?> Tahun</td>
-                        <?php
-                        $statusList = [
-                          0 => ['label' => 'Proses Pelepasan',     'class' => 'bg-primary'],
-                          1 => ['label' => 'Proses Penghentian',   'class' => 'bg-warning'],
-                          2 => ['label' => 'Penggabungan',         'class' => 'bg-secondary'],
-                          3 => ['label' => 'Proses Mutasi ',       'class' => 'bg-info'],
-                          4 => ['label' => 'Non-Aktif ',           'class' => 'bg-danger'],
-                          5 => ['label' => 'Aktif',                'class' => 'bg-success'],
-                        ];
-                        $currentStatus = $statusList[$as['status']] ?? ['label' => 'Unknown', 'class' => 'bg-dark'];
-                        ?>
-                        <td>
-                          <span class="badge <?= $currentStatus['class'] ?> rounded-2">
-                            <?= $currentStatus['label'] ?>
-                          </span>
-                        </td>
-                        <td><?= esc($as['pic_username']) . ' - ' . $as['pic_fullname']; ?></td>
-                        <td><?= esc($as['user_username']) . ' - ' . $as['user_fullname']; ?></td>
-                        <td><?= esc($as['la']);?></td>
-                        <td><?= esc($as['lg']);?></td>
-                        <td><?= esc($as['ll']);?></td>
-                        <td><?= (new DateTime($as['created_at']))->format('d-m-Y H:i');  ?></td>
-                        <td><?= (new DateTime($as['updated_at']))->format('d-m-Y H:i');  ?></td>
-                        <td><?= $as['modified_by']; ?></td>
-
-                      </tr>
-                    <?php endforeach; ?>
-                  </tbody>
+                  <tbody class="text-nowrap"></tbody> <!-- tbody dikosongkan: DataTables yang isi -->
                 </table>
               </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- [ sample-page ] end -->
-  </div>
-  <!-- [ Main Content ] end -->
-</div>
 
-<?= $this->endSection('page-content'); ?>
+  </div>
+</div>
+<?= $this->endSection(); ?>
+
+<?= $this->section('scripts-extra'); ?>
+<!-- DataTables CDN -->
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script> -->
+
+<script>
+  $(function() {
+    // mapping status -> badge
+    const statusMap = {
+      0: {
+        label: 'Proses Pelepasan',
+        cls: 'bg-primary'
+      },
+      1: {
+        label: 'Proses Penghentian',
+        cls: 'bg-warning'
+      },
+      2: {
+        label: 'Penggabungan',
+        cls: 'bg-secondary'
+      },
+      3: {
+        label: 'Proses Mutasi',
+        cls: 'bg-info'
+      },
+      4: {
+        label: 'Non-Aktif',
+        cls: 'bg-danger'
+      },
+      5: {
+        label: 'Aktif',
+        cls: 'bg-success'
+      }
+    };
+
+    // helper format
+    const fmtDate = d => d ? new Date(d).toLocaleDateString('id-ID') : '';
+    const fmtDateTime = d => d ? new Date(d).toLocaleString('id-ID', {
+      hour12: false
+    }) : '';
+    const fmtRupiah = n => (n === null || n === undefined) ? '' : new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 2
+    }).format(n);
+
+    const table = $('#myTable').DataTable({
+      processing: true,
+      serverSide: true,
+      deferRender: true,
+      pageLength: 25,
+      scrollX: true,
+      lengthMenu: [10, 25, 50, 100, 200],
+      ajax: {
+        url: "<?= site_url('asset/dt') ?>", // pastikan route ini ada
+        type: "GET"
+      },
+      order: [
+        [2, 'asc']
+      ], // default urut berdasarkan No Asset
+      dom: 'Bfrtipl',
+      buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print',
+        {
+          extend: 'colvis',
+          text: 'Column Visibility'
+        }
+      ],
+      columns: [
+        // Handle (aksi)
+        {
+          data: 'id_asset',
+          orderable: false,
+          searchable: true,
+          render: function(id) {
+            return `
+            <a href="/asset/detail/${id}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" title="Detail"><i class="ti ti-file-search"></i></a>
+            <a href="/asset/edit/${id}" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" title="Edit"><i class="ti ti-edit"></i></a>
+            <a href="/asset/perbaikan/${id}" class="btn btn-icon btn-light-danger" data-bs-toggle="tooltip" title="Repair"><i class="ti ti-tool"></i></a>
+          `;
+          }
+        },
+        // No (nomor urut)
+        {
+          data: null,
+          orderable: false,
+          searchable: false,
+          render: function(data, type, row, meta) {
+            return meta.row + meta.settings._iDisplayStart + 1;
+          }
+        },
+
+        // Kolom data (pastikan server kirim field-field ini)
+        {
+          data: 'no_asset',
+          name: 'asset.no_asset'
+        },
+        {
+          data: 'sub_asset',
+          name: 'asset.sub_asset'
+        },
+        {
+          data: 'nama_asset',
+          name: 'asset.nama_asset'
+        },
+        {
+          data: 'serial_number',
+          name: 'asset.serial_number'
+        },
+        {
+          data: 'batch_number',
+          name: 'asset.batch_number'
+        },
+        {
+          data: 'merek',
+          name: 'asset.merek'
+        },
+        {
+          data: 'spek',
+          name: 'asset.spek'
+        },
+
+        {
+          data: 'tgl_perolehan',
+          name: 'asset.tgl_perolehan',
+          render: (d) => fmtDate(d)
+        },
+        {
+          data: 'harga',
+          name: 'asset.harga',
+          render: (n) => fmtRupiah(n)
+        },
+        {
+          data: 'no_po',
+          name: 'asset.no_po'
+        },
+
+        {
+          data: 'nama_assetclass',
+          name: 'ac.nama_assetclass',
+          render: (d, _, row) => `${row.id_assetclass ?? ''} - ${d ?? ''}`
+        },
+        {
+          data: 'nama_cost_center',
+          name: 'cc.nama_cost_center',
+          render: (d, _, row) => `${row.id_cost_center ?? ''} - ${d ?? ''}`
+        },
+        {
+          data: 'nama_plant',
+          name: 'p.nama_plant',
+          render: (d, _, row) => `${row.id_plant ?? ''} - ${d ?? ''}`
+        },
+
+        {
+          data: 'nama_vendor',
+          name: 'v.nama_vendor',
+          render: (d, _, row) => `${row.id_vendor ?? ''} - ${d ?? ''}`
+        },
+
+        {
+          data: 'masa_berlaku',
+          name: 'lf.masa_berlaku',
+          render: (d) => (d ? `${d} Tahun` : '')
+        },
+
+        {
+          data: 'status',
+          name: 'asset.status',
+          render: function(s) {
+            const m = statusMap[s] || {
+              label: 'Unknown',
+              cls: 'bg-dark'
+            };
+            return `<span class="badge ${m.cls} rounded-2">${m.label}</span>`;
+          }
+        },
+
+        {
+          data: null,
+          name: 'pic.username',
+          render: (__, _, row) => `${row.pic_username ?? ''} - ${row.pic_fullname ?? ''}`
+        },
+        {
+          data: null,
+          name: 'usr.username',
+          render: (__, _, row) => `${row.user_username ?? ''} - ${row.user_fullname ?? ''}`
+        },
+
+        {
+          data: 'la',
+          name: 'la.nama_lokasi'
+        },
+        {
+          data: 'lg',
+          name: 'lg.nama_lokasi'
+        },
+        {
+          data: 'll',
+          name: 'll.nama_lokasi'
+        },
+
+        {
+          data: 'created_at',
+          name: 'asset.created_at',
+          render: (d) => fmtDateTime(d)
+        },
+        {
+          data: 'updated_at',
+          name: 'asset.updated_at',
+          render: (d) => fmtDateTime(d)
+        },
+        {
+          data: 'modified_by',
+          name: 'asset.modified_by'
+        }
+      ]
+    });
+
+    // debounce pencarian biar nggak spam server
+    let t;
+    $('#myTable_filter input').off().on('keyup', function() {
+      clearTimeout(t);
+      const v = this.value;
+      t = setTimeout(() => table.search(v).draw(), 300);
+    });
+  });
+</script>
+<?= $this->endSection(); ?>

@@ -107,11 +107,11 @@
                 </select>
               </div>
               <div class="col-md-3">
-                <label for="no_asset_tujuan" class="form-label">No Asset (Tujuan)</label>
+                <label for="no_asset_tujuan" class="form-label">No Asset</label>
                 <input type="text" id="no_asset_tujuan" name="no_asset_tujuan" class="form-control" readonly>
               </div>
               <div class="col-md-3">
-                <label for="nama_asset_tujuan" class="form-label">Nama Asset (Tujuan)</label>
+                <label for="nama_asset_tujuan" class="form-label">Nama Asset</label>
                 <input type="text" id="nama_asset_tujuan" name="nama_asset_tujuan" class="form-control" readonly>
               </div>
               <hr class="mt-4">
@@ -127,7 +127,7 @@
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
                             id="approve_kabag_asal" name="approve_kabag_asal" readonly>
-                          <label class="form-check-label" for="approve_kabag_asal">Kabag Asal Menyetujui</label>
+                          <label class="form-check-label" for="approve_kabag_asal"><i class="ti ti-writing-sign fs-4"></i> Kabag Asal Menyetujui</label>
                         </div>
                       </div>
                       <div class="col-6">
@@ -158,7 +158,7 @@
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
                             id="approve_kabag_tujuan" name="approve_kabag_tujuan">
-                          <label class="form-check-label" for="approve_kabag_tujuan">Kabag Tujuan Menyetujui</label>
+                          <label class="form-check-label" for="approve_kabag_tujuan"> <i class="ti ti-writing-sign fs-4"></i> Kabag Tujuan Menyetujui</label>
                         </div>
                       </div>
                       <div class="col-6">
@@ -188,7 +188,7 @@
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input no-click" type="checkbox" role="switch"
                             id="approve_it" name="approve_it" readonly>
-                          <label class="form-check-label" for="approve_it">IT Menyetujui</label>
+                          <label class="form-check-label" for="approve_it"><i class="ti ti-writing-sign fs-4"></i> IT Menyetujui</label>
                         </div>
                       </div>
                       <div class="col-6">
@@ -217,7 +217,7 @@
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input no-click" type="checkbox" role="switch"
                             id="approve_dir" name="approve_dir" readonly>
-                          <label class="form-check-label" for="approve_dir">Direksi Menyetujui</label>
+                          <label class="form-check-label" for="approve_dir"><i class="ti ti-writing-sign fs-4"></i> Direksi Menyetujui</label>
                         </div>
                       </div>
                       <div class="col-6">
@@ -242,7 +242,7 @@
                     <div class="form-check form-switch custom-switch-v1 my-3">
                       <input class="form-check-input" type="checkbox" role="switch"
                         id="ack_fin" name="ack_fin">
-                      <label class="form-check-label" for="ack_fin">Manager Finance</label>
+                      <label class="form-check-label" for="ack_fin"><i class="ti ti-writing-sign fs-4"></i> Manager Finance Mengetahui</label>
                     </div>
                     <input type="date" class="form-control"
                       id="date_ack_fin" name="date_ack_fin" readonly>
@@ -258,7 +258,7 @@
                     <div class="form-check form-switch custom-switch-v1 my-3">
                       <input class="form-check-input" type="checkbox" role="switch"
                         id="ack_acc" name="ack_acc">
-                      <label class="form-check-label" for="ack_acc">Accounting</label>
+                      <label class="form-check-label" for="ack_acc"><i class="ti ti-writing-sign fs-4"></i> Accounting Mengetahui</label>
                     </div>
                     <input type="date" class="form-control"
                       id="date_ack_acc" name="date_ack_acc" readonly>
@@ -274,7 +274,7 @@
                     <div class="form-check form-switch custom-switch-v1 my-3">
                       <input class="form-check-input" type="checkbox" role="switch"
                         id="ack_ctrl" name="ack_ctrl">
-                      <label class="form-check-label" for="ack_ctrl">Controlling</label>
+                      <label class="form-check-label" for="ack_ctrl"> <i class="ti ti-writing-sign fs-4"></i> Controlling Mengetahui </label>
                     </div>
                     <input type="date" class="form-control"
                       id="date_ack_ctrl" name="date_ack_ctrl" readonly>
@@ -332,5 +332,32 @@
     });
   });
 </script>
+<script>
+  jQuery(function($) {
 
+    // Fungsi helper: isi atau hapus tanggal
+    function toggleDate(checkboxSelector, dateInputSelector) {
+      $(checkboxSelector).on('change', function() {
+        if ($(this).is(':checked')) {
+          let today = new Date().toISOString().split('T')[0];
+          $(dateInputSelector).val(today);
+        } else {
+          $(dateInputSelector).val('');
+        }
+      });
+    }
+
+    // Panggil untuk semua pasangan switch & tanggal
+    toggleDate('#approve_kabag_asal', '#approve_date_kabag_asal');
+    toggleDate('#approve_kabag_tujuan', '#approve_date_kabag_tujuan');
+    toggleDate('#approve_it', '#approve_date_it');
+    toggleDate('#approve_dir', '#approve_date_dir');
+    toggleDate('#ack_fin', '#date_ack_fin');
+    toggleDate('#ack_acc', '#date_ack_acc');
+    toggleDate('#ack_ctrl', '#date_ack_ctrl');
+
+  });
+</script>
+
+</script>
 <?= $this->endSection(); ?>
