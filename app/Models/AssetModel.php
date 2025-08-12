@@ -155,9 +155,6 @@ class AssetModel extends Model
 
 
 
-
-
-
   public function getWithRelasi($id = null, $limit = null)
   {
     $builder =  $this->select(

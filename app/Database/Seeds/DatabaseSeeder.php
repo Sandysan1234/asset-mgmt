@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
         $this->call('LifetimeSeeder');
         $this->call('PemasokSeeder');
         $this->call('PlantSeeder');
-        $this->call('LocationSeeder');
+        // $this->call('LocationSeeder');
         $this->call('AssetClassSeeder');
         $this->call('AssetSeeder');
     }

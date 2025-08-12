@@ -68,7 +68,7 @@
                 <input type="text" id="lantai" name="lantai" class="form-control" readonly>
               </div>
               <div class="col-md-4">
-                <label for="id_cost_center_baru" class="form-label">Tindakan</label>
+                <label for="id_cost_center_baru" class="form-label">Transaksi</label>
                 <select id="id_cost_center_baru" name="id_cost_center_baru" class="form-select" required>
                   <option value="">Pilih Tindakan</option>
                   <option value="3">Mutasi</option>
@@ -121,7 +121,6 @@
                 <div class="card mb-0">
                   <div class="card-body">
                     <h6>Dept. Asal</h6>
-
                     <div class="row g-3 align-items-end">
                       <div class="col-6">
                         <div class="form-check form-switch custom-switch-v1 my-3">
@@ -280,6 +279,10 @@
                       id="date_ack_ctrl" name="date_ack_ctrl" readonly>
                   </div>
                 </div>
+              </div>
+              <div class="col-12 mt-0">
+                <label for="catatan" class="form-label">Catatan Pojok</label>
+                <textarea id="catatan" name="catatan" class="form-control"></textarea>
               </div>
 
               <div class="col-12">

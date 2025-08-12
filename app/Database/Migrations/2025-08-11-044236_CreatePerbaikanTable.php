@@ -4,68 +4,41 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateAssetTable extends Migration
+class CreatePerbaikanTable extends Migration
 {
+
     public function up()
     {
         $this->forge->addField([
-            'id_asset' => ['type'           => 'INT',  'unsigned'       => true,
+            'id_perbaikan' => [
+                'type'           => 'INT',
+                'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'no_asset' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 50,
-            ],
-            'sub_asset' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 50,
-                'null'       => true,
-            ],
-            'nama_asset' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 200,
-            ],
-            'serial_number' => [
+            'kode_perbaikan' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
-                'null'       => true,
+                'null'       => false,
             ],
-            'batch_number' => [
+            'nama_transaksi' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'null'       => true,
+                'constraint' => '100',
             ],
-            'merek' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'null'       => true,
+            'jenis_perbaikan' => [
+                'type'       => 'INT',
+                'unsigned'   => true,
             ],
-            'spek' => [
-                'type' => 'TEXT',
-                'null' => true,
-            ],
-            'tgl_perolehan' => [
-                'type' => 'DATE',
-            ],
-            'harga' => [
+            'nominal' => [
                 'type'       => 'DECIMAL',
                 'constraint' => '15,2',
                 'default'    => 0.00,
             ],
-            'no_po' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 100,
-                'null'       => true,
+            'jenis_perbaikan'  => [
+                'type' => 'ENUM',
+                'constraint' => ['division', 'role', 'user'],
+                'default' => 'division'
             ],
-            'status' => [
-                'type'       => 'TINYINT',
-                'constraint' => 1,
-                'default'    => 0
-            ],
-            'id_assetclass' => [
-                'type'       => 'INT',
-                'unsigned'   => true,
-            ],
+
             'id_vendor' => [
                 'type'     => 'INT',
                 'unsigned' => true,
@@ -78,19 +51,9 @@ class CreateAssetTable extends Migration
                 'type'     => 'INT',
                 'unsigned' => true,
             ],
-            'id_lifetime' => [
+            'id_asset' => [
                 'type'     => 'INT',
                 'unsigned' => true,
-            ],
-            'id_pic'    => [
-                'type'     => 'INT',
-                'unsigned' => true,
-                'null'     => true,
-            ],
-            'id_user_asset' => [
-                'type'     => 'INT',
-                'unsigned' => true,
-                'null'     => true
             ],
             'id_lokasi_area' => [
                 'type'     => 'INT',
@@ -110,6 +73,14 @@ class CreateAssetTable extends Migration
                 'null'     => true,
 
             ],
+            'alasan' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'catatan' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
@@ -128,13 +99,12 @@ class CreateAssetTable extends Migration
                 'null' => true,
             ],
         ]);
-
-        $this->forge->addKey('id_asset', true); // primary key
-        $this->forge->createTable('asset');
+        $this->forge->addKey('id_perbaikan', true);
+        $this->forge->createTable('perbaikan');
     }
 
     public function down()
     {
-        $this->forge->dropTable('asset');
+        $this->forge->dropTable('perbaikan');
     }
 }
