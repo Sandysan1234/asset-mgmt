@@ -86,7 +86,6 @@ $routes->get('asset/edit/(:segment)', 'Asset::edit/$1');
 $routes->post('asset/update/(:any)', 'Asset::update/$1');
 $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
 $routes->match(['get', 'post'], 'asset/dt', 'Asset::dt');   // endpoint server-side
-$routes->get('debug-auth', 'Plant::check');
 
 
 

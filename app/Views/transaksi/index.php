@@ -68,9 +68,9 @@
                 <input type="text" id="lantai" name="lantai" class="form-control" readonly>
               </div>
               <div class="col-md-4">
-                <label for="id_cost_center_baru" class="form-label">Transaksi</label>
-                <select id="id_cost_center_baru" name="id_cost_center_baru" class="form-select" required>
-                  <option value="">Pilih Tindakan</option>
+                <label for="transaksi" class="form-label">Transaksi</label>
+                <select id="transaksi" name="transaksi" class="form-select" required>
+                  <option value="">Pilih Transaksi</option>
                   <option value="3">Mutasi</option>
                   <option value="0">Pelepasan</option>
                   <option value="1">Penghentian</option>
@@ -78,8 +78,8 @@
                 </select>
               </div>
               <div class="col-md-4">
-                <label for="tgl_tindakan" class="form-label">Tanggal Tindakan</label>
-                <input type="date" id="tgl_tindakan" name="tgl_tindakan" class="form-control">
+                <label for="tgl_transaksi" class="form-label">Tanggal Transaksi</label>
+                <input type="date" id="tgl_transaksi" name="tgl_transaksi" class="form-control">
               </div>
               <div class="col-12">
                 <label for="alasan" class="form-label">Alasan Pemindahan</label>

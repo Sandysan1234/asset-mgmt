@@ -3,17 +3,19 @@
 namespace App\Controllers;
 
 use App\Models\AssetModel;
-use App\Models\perbaikanModel;
+use App\Models\PerbaikanModel;
 
 use PhpParser\Node\Expr\FuncCall;
 
 class Plant extends BaseController
 {
     protected $assetModel;
+    protected $perbaikanModel;
 
     public function __construct()
     {
         $this->assetModel = new AssetModel();
+        $this->perbaikanModel = new PerbaikanModel();
     }
 
 
