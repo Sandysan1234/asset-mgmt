@@ -2,7 +2,7 @@
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
     <div class="m-header">
-      <a href="../dashboard/index.html" class="b-brand text-primary">
+      <a href="/" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
         <img src="<?= base_url(); ?>assets/images/logo-jmi.svg" width="90" class="img-fluid-logo-lg" alt="logo">
       </a>
@@ -59,6 +59,12 @@
           <a href="/plant" class="pc-link">
             <span class="pc-micon"><i class="ti ti-sitemap"></i></span>
             <span class="pc-mtext">Plant</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/qr" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-qrcode"></i></span>
+            <span class="pc-mtext">QR Code</span>
           </a>
         </li>
         <li class="pc-item">

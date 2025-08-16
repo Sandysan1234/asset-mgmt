@@ -8,7 +8,6 @@
         <div class="card">
           <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Asset</h5>
-            <a href="/asset/create" class="btn btn-outline-primary">Tambah Data Asset</a>
           </div>
 
           <div class="card tbl-card">
@@ -83,7 +82,7 @@
       },
       1: {
         label: 'Proses Penghentian',
-        cls: 'bg-warning'
+        cls: 'text-dark bg-warning'
       },
       2: {
         label: 'Penggabungan',

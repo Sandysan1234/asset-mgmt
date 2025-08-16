@@ -35,7 +35,6 @@
       
     </div> -->
     <?= $this->include('layouts/navbar');?>
-    
     <?= $this-> renderSection('content');?>
     
 

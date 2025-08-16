@@ -8,14 +8,18 @@ use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\AssetModel;
 use App\Models\PlantModel;
 use App\Models\CostcenterModel;
+use App\Models\TransactionModel;
+use App\Models\TransactionStepsModel;
 
 
 
 class Transaksi extends BaseController
 {
+
   protected $assetModel;
   protected $plantModel;
   protected $costcenterModel;
+
 
   public function __construct()
   {
@@ -31,8 +35,10 @@ class Transaksi extends BaseController
     // $asset = $this->assetModel->getWithRelasi();
 
 
+
     $data = [
       'title' => 'Perpindahan Asset | Asset Managed',
+      'validation'  => \Config\Services::validation(),
       'plants' => $plants,
       'costcenters' => $costcenters
       // 'asset' => $asset,
@@ -47,7 +53,6 @@ class Transaksi extends BaseController
     if (mb_strlen($term) < 2) {
       return $this->response->setJSON([]);
     }
-
 
     // >>>> Panggil MODEL (semua query ada di Model)
     $rows = $this->assetModel->suggestByNoAsset($term, 10);
@@ -75,9 +80,73 @@ class Transaksi extends BaseController
         'id_lokasi_lantai'  => $r['id_lokasi_lantai'] ?? null,
       ];
     }, $rows);
-
-
     return $this->response->setJSON($out);
   }
-  public function save() {}
+
+  public function save()
+  {
+    $data = $this->request->getPost();
+
+    $rules = [
+      'no_asset' => [
+        'label'               => 'Lokasi Asset',
+        'rules'               => 'required',
+        'errors'              => [
+          'required'          => '{field} harus diisi'
+        ]
+      ],
+
+    ];
+
+    if (! $this->validateData($data, $rules)) {
+      return redirect()->to('/transaksi')->withInput();
+    }
+  }
+
+  // public function lala()
+  // {
+  //     $data = $this->request->getPost();
+
+  //     if (!$this->validateData($data, [
+
+  //         'id_lokasi' => [
+  //             'label'               => 'Lokasi Asset',
+  //             'rules'               => 'required',
+  //             'errors'              => [
+  //                 'required'          => 'Pilih Minimal 1 {field} yang sesuai'
+  //             ]
+  //         ],
+
+
+  //     ])) {
+  //         return redirect()->to('/asset/create')->withInput();
+  //     }
+  //     //    
+
+
+  //     $this->assetModel->save([
+  //         'no_asset'        => $this->request->getPost('no_asset'),
+  //         'sub_asset'       => $this->request->getPost('sub_asset'),
+  //         'nama_asset'      => $this->request->getPost('nama_asset'),
+  //         'serial_number'   => $this->request->getPost('serial_number'),
+  //         'batch_number'    => $this->request->getPost('batch_number'),
+  //         'merek'           => $this->request->getPost('merek'),
+  //         'spek'            => $this->request->getPost('spek'),
+  //         'tgl_perolehan'   => $this->request->getPost('tgl_perolehan'),
+  //         'harga'           => $data > ['harga'],
+  //         'no_po'           => $this->request->getPost('no_po'),
+  //         'id_assetclass'   => $this->request->getPost('id_assetclass'),
+  //         'id_cost_center'  => $this->request->getPost('id_cost_center'),
+  //         'id_lifetime'     => $this->request->getPost('id_lifetime'),
+  //         'id_vendor'       => $this->request->getPost('id_vendor'),
+  //         'id_plant'        => $this->request->getPost('id_plant'),
+  //         'id_lokasi_area'   => $this->request->getPost('id_lokasi_area') ?: null,
+  //         'id_lokasi_gedung' => $this->request->getPost('id_lokasi_gedung') ?: null,
+  //         'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai') ?: null,
+  //         'status'          => $this->request->getPost('status') ?: 5,
+  //     ]);
+  //     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+  //     return redirect()->to('/asset');
+  // }
+
 }

@@ -26,7 +26,7 @@ class CreateTransactionSteps extends Migration
         ]);
         $this->forge->addKey('id_step', true);
         $this->forge->addKey(['id_transfer', 'step_order']);
-        $this->forge->addForeignKey('id_transfer', 'transaksi', 'id_transfer', 'CASCADE', 'CASCADE');
+        // $this->forge->addForeignKey('id_transfer', 'transaksi', 'id_transfer', 'CASCADE', 'CASCADE');
         $this->forge->createTable('transaksi_steps', true);
     }
     public function down()

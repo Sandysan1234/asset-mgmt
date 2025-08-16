@@ -4,28 +4,20 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TransactionModel extends Model
+class TransactionStepsModel extends Model
 {
-    protected $table      = 'transaksi';
-    protected $primaryKey = 'id_transaksi';
+    protected $table      = 'transaksi_steps';
+    protected $primaryKey = 'id_step';
     protected $useTimestamps = true;
     protected $useSoftDeletes = true;
     protected $allowedFields = [
         'id_asset',
-        'tindakan',
-        'tgl_tindakan',
-        'alasan',
-        'id_plant_asal',
-        'id_cost_center_asal',
-        'id_lokasi_area_asal',
-        'id_lokasi_gedung_asal',
-        'id_lokasi_lantai_asal',
-        'id_plant_baru',
-        'id_cost_center_baru',
-        'id_lokasi_area_baru',
-        'id_lokasi_gedung_baru',
-        'id_lokasi_lantai_baru',
+        'from_dept_id',
+        'to_dept_id',
+        'jenis_transaksi',
         'status',
+        'alasan',
+        'tgl_tindakan',
         'created_by'
     ];
 

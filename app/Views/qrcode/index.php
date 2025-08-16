@@ -10,6 +10,7 @@
       <div class="card-body">
         <div class="col-12">
           <form action="<?= base_url('qr/save') ?>" method="post">
+            <?= csrf_field() ?>
             <label for="jumlah">Jumlah QR yang ingin digenerate:</label>
             <input type="number" name="jumlah" id="jumlah" min="1" value="10" required>
             <button type="submit" class="btn btn-primary">Generate QR</button>
@@ -24,12 +25,12 @@
             <div class="row">
               <?php if (!empty($qrList)): ?>
                 <?php foreach ($qrList as $item): ?>
-                  <div class="card mb-3 mx-2 mt-2 bg-info" style="max-width: 540px;">
+                  <div class="card mb-3 mx-2 mt-2" style="max-width: 540px;">
                     <div class="row g-0">
                       <div class="col-md-4">
                         <img src="<?= $item['qr']; ?>" class="img-fluid rounded-start" alt="qrcode">
                       </div>
-                      <div class="col-md-8 bg-warning">
+                      <div class="col-md-8">
                         <div class="card-body" style="width: 220px;">
                           <h5 class="card-title"><?= esc($item['nama_asset']); ?></h5>
                           <p class="card-text"><?= esc($item['no_asset']); ?></p>
@@ -71,7 +72,7 @@
     <!-- [ breadcrumb ] end -->
 
     <!-- [ Main Content ] start -->
-    
+
     <!-- [ sample-page ] end -->
   </div>
   <!-- [ Main Content ] end -->

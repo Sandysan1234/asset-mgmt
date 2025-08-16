@@ -60,13 +60,14 @@
           <?= $this-> renderSection('content');?>
           <div class="auth-footer row">
           <!-- <div class=""> -->
-            <div class="col my-1">
+            <div class="col-auto my-1">
               <p class="m-0"><a href="#">&copy; <?= date('Y');?> PT Jayamas Medica Industri Tbk. All Rights Reserved</a></p>
             </div>
             <div class="col-auto my-1">
-              <ul class="list-inline footer-link mb-0">
+              <p class="m-0"><a href="#">Department Information Technology</a></p>
+              <!-- <ul class="list-inline footer-link mb-0">
                 <li class="list-inline-item"><a href="#">Department Information Technology</a></li> 
-              </ul>
+              </ul> -->
             </div>
           <!-- </div> -->
           </div>

@@ -16,7 +16,8 @@
           </div>
 
           <div class="card-body">
-            <form action="<?= site_url('transaksi/store') ?>" method="post" class="row g-3">
+            <form action="<?= site_url('transaksi/save') ?>" method="post" class="row g-3">
+              <?= csrf_field(); ?>
 
               <!-- hidden ids untuk relasi -->
               <input type="hidden" id="id_asset" name="id_asset">
@@ -70,7 +71,11 @@
               <div class="col-md-4">
                 <label for="transaksi" class="form-label">Transaksi</label>
                 <select id="transaksi" name="transaksi" class="form-select" required>
+<<<<<<< HEAD
                   <option value="">Pilih Transaksi</option>
+=======
+                  <option value="">Pilih Tindakan</option>
+>>>>>>> cf0e93a (make form transaction)
                   <option value="3">Mutasi</option>
                   <option value="0">Pelepasan</option>
                   <option value="1">Penghentian</option>
@@ -83,7 +88,7 @@
               </div>
               <div class="col-12">
                 <label for="alasan" class="form-label">Alasan Pemindahan</label>
-                <textarea id="alasan" name="alasan" class="form-control"></textarea>
+                <textarea id="alasan" name="alasan" class="form-control" required></textarea>
               </div>
 
               <hr class="mt-4">
