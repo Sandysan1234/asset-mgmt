@@ -25,10 +25,10 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'afif@example.com',
-				'username'      => 'afif',
-				'password_hash' => Password::hash('Jayamas2025'),
+				'email'         => 'santi@example.com',
+				'username'      => 'santi',
 				'fullname'      => null,
+				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -45,10 +45,10 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'santi@example.com',
-				'username'      => 'santi',
+				'email'         => 'afif@example.com',
+				'username'      => 'afif',
+				'password_hash' => Password::hash('Jayamas2025'),
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -77,6 +77,16 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'annisa@example.com',
 				'username'      => 'annisa',
+				'fullname'      => null,
+				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'sasa@example.com',
+				'username'      => 'sasa',
 				'fullname'      => null,
 				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
 				'active'        => 1,
@@ -165,8 +175,8 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'sasa@example.com',
-				'username'      => 'sasa',
+				'email'         => 'ana@example.com',
+				'username'      => 'ana',
 				'fullname'      => null,
 				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
 				'active'        => 1,
@@ -174,6 +184,17 @@ class CreateUsers extends Seeder
 				'created_at'    => Time::now(),
 				'updated_at'    => Time::now()
 			],
+			[
+				'email'         => 'sony@example.com',
+				'username'      => 'sony',
+				'fullname'      => null,
+				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+
 		];
 		$this->db->table('users')->insertBatch($data);
 	}
