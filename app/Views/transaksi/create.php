@@ -1,0 +1,367 @@
+<?= $this->extend('templates/index'); ?>
+<?= $this->section('page-content'); ?>
+
+<!-- jQuery UI (kalau belum ada di layout) -->
+<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script> -->
+
+<div class="pc-container">
+    <div class="pc-content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Form Pemindahan Asset</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <form action="<?= site_url('transaksi/save') ?>" method="post" class="row g-3">
+                            <?= csrf_field(); ?>
+
+                            <!-- hidden ids untuk relasi -->
+                            <input type="hidden" id="id_asset" name="id_asset">
+                            <input type="hidden" id="id_assetclass" name="id_assetclass">
+                            <input type="hidden" id="id_plant_asal" name="id_plant_asal">
+                            <input type="hidden" id="id_cost_center_asal" name="id_cost_center_asal">
+                            <input type="hidden" id="id_lokasi_area" name="id_lokasi_area">
+                            <input type="hidden" id="id_lokasi_gedung" name="id_lokasi_gedung">
+                            <input type="hidden" id="id_lokasi_lantai" name="id_lokasi_lantai">
+                            <h5>Department Asal</h5>
+                            <div class="col-md-4">
+                                <label for="no_asset" class="form-label">No Asset</label>
+                                <input type="text" id="no_asset" name="no_asset" class="form-control" placeholder="Cari No Asset..." required value="<?= old('no_asset'); ?>">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="asset_class" class="form-label">Asset Class</label>
+                                <input type="text" id="asset_class" name="asset_class" class="form-control" readonly value="<?= old('asset_class'); ?>">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="plant_asal" class="form-label">Plant</label>
+                                <input type="text" id="plant_asal" name="plant_asal" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="cost_center_asal" class="form-label">Cost Center</label>
+                                <input type="text" id="cost_center_asal" name="cost_center_asal" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="sub_asset" class="form-label">Sub Asset</label>
+                                <input type="text" id="sub_asset" name="sub_asset" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="nama_asset" class="form-label">Nama Asset</label>
+                                <input type="text" id="nama_asset" name="nama_asset" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tgl_perolehan" class="form-label">Tanggal Perolehan</label>
+                                <input type="date" id="tgl_perolehan" name="tgl_perolehan" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="area" class="form-label">Area</label>
+                                <input type="text" id="area" name="area" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="gedung" class="form-label">Gedung</label>
+                                <input type="text" id="gedung" name="gedung" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="lantai" class="form-label">Lantai</label>
+                                <input type="text" id="lantai" name="lantai" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="transaksi" class="form-label">Transaksi</label>
+                                <select id="transaksi" name="transaksi" class="form-select" required>
+                                    <option value="">Pilih Transaksi</option>
+                                    <option value="3">Mutasi</option>
+                                    <option value="0">Pelepasan</option>
+                                    <option value="1">Penghentian</option>
+                                    <option value="2">Penggabungan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tgl_transaksi" class="form-label">Tanggal Transaksi</label>
+                                <input type="datetime-local" id="tgl_transaksi" name="tgl_transaksi" class="form-control">
+                            </div>
+                            <div class="col-12">
+                                <label for="alasan" class="form-label">Alasan Pemindahan</label>
+                                <textarea id="alasan" name="alasan" class="form-control" required></textarea>
+                            </div>
+
+                            <hr class="mt-4">
+                            <h5>Department Tujuan</h5>
+                            <div class="col-md-3">
+                                <label for="id_plant_baru" class="form-label">Plant Tujuan</label>
+                                <select id="id_plant_baru" name="id_plant_baru" class="form-select" required>
+                                    <option value="">Pilih Plant</option>
+                                    <?php foreach ($plants as $p): ?>
+                                        <option value="<?= esc($p['id_plant']) ?>"><?= esc($p['nama_plant']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="id_cost_center_baru" class="form-label">Cost Center Tujuan</label>
+                                <select id="id_cost_center_baru" name="id_cost_center_baru" class="form-select" required>
+                                    <option value="">Pilih Cost Center</option>
+                                    <?php foreach ($costcenters as $cc): ?>
+                                        <option value="<?= esc($cc['id_cost_center']) ?>"><?= esc($cc['nama_cost_center']) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="no_asset_tujuan" class="form-label">No Asset</label>
+                                <input type="text" id="no_asset_tujuan" name="no_asset_tujuan" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="nama_asset_tujuan" class="form-label">Nama Asset</label>
+                                <input type="text" id="nama_asset_tujuan" name="nama_asset_tujuan" class="form-control" readonly>
+                            </div>
+                            <hr class="mt-4">
+
+                            <!-- Dept. Asal -->
+                            <div class="col-md-6">
+                                <div class="card mb-0">
+                                    <div class="card-body">
+                                        <h6>Dept. Asal</h6>
+                                        <div class="row g-3 align-items-end">
+                                            <div class="col-6">
+                                                <div class="form-check form-switch custom-switch-v1 my-3">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="approve_kabag_asal" name="approve_kabag_asal" readonly>
+                                                    <label class="form-check-label" for="approve_kabag_asal"><i class="ti ti-writing-sign fs-4"></i> Kabag Asal Menyetujui</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="approve_date_kabag_asal" class="form-label">Tanggal</label>
+                                                <input type="date" class="form-control"
+                                                    id="approve_date_kabag_asal" name="approve_date_kabag_asal" readonly>
+                                            </div>
+
+                                            <!-- opsional: pilih pejabat -->
+                                            <div class="col-12">
+                                                <label for="approve_user_kabag_asal" class="form-label">Nama Pejabat (opsional)</label>
+                                                <input type="text" class="form-control"
+                                                    id="approve_user_kabag_asal" name="approve_user_kabag_asal" placeholder="Mis. Budi Santoso" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dept. Tujuan -->
+                            <div class="col-md-6">
+                                <div class="card mb-0">
+                                    <div class="card-body">
+                                        <h6>Dept. Tujuan</h6>
+
+                                        <div class="row g-3 align-items-end">
+                                            <div class="col-6">
+                                                <div class="form-check form-switch custom-switch-v1 my-3">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="approve_kabag_tujuan" name="approve_kabag_tujuan">
+                                                    <label class="form-check-label" for="approve_kabag_tujuan"> <i class="ti ti-writing-sign fs-4"></i> Kabag Tujuan Menyetujui</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="approve_date_kabag_tujuan" class="form-label">Tanggal</label>
+                                                <input type="date" class="form-control"
+                                                    id="approve_date_kabag_tujuan" name="approve_date_kabag_tujuan" readonly>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="approve_user_kabag_tujuan" class="form-label">Nama Pejabat (opsional)</label>
+                                                <input type="text" class="form-control"
+                                                    id="approve_user_kabag_tujuan" name="approve_user_kabag_tujuan" placeholder="Mis. Siti Rahma" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Menyetujui: IT -->
+                            <div class="col-md-6">
+                                <div class="card mb-0">
+                                    <div class="card-body">
+                                        <h6>Menyetujui: IT</h6>
+
+                                        <div class="row g-3 align-items-end">
+                                            <div class="col-6">
+                                                <div class="form-check form-switch custom-switch-v1 my-3">
+                                                    <input class="form-check-input no-click" type="checkbox" role="switch"
+                                                        id="approve_it" name="approve_it" readonly>
+                                                    <label class="form-check-label" for="approve_it"><i class="ti ti-writing-sign fs-4"></i> IT Menyetujui</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="approve_date_it" class="form-label">Tanggal</label>
+                                                <input type="date" class="form-control no-click"
+                                                    id="approve_date_it" name="approve_date_it" readonly>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="approve_user_it" class="form-label">Nama Pejabat (opsional)</label>
+                                                <input type="text" class="form-control no-click"
+                                                    id="approve_user_it" name="approve_user_it" placeholder="Mis. Admin IT" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Menyetujui: Direksi -->
+                            <div class="col-md-6">
+                                <div class="card mb-0">
+                                    <div class="card-body">
+                                        <h6>Menyetujui: Direksi</h6>
+
+                                        <div class="row g-3 align-items-end">
+                                            <div class="col-6">
+                                                <div class="form-check form-switch custom-switch-v1 my-3">
+                                                    <input class="form-check-input no-click" type="checkbox" role="switch"
+                                                        id="approve_dir" name="approve_dir" readonly>
+                                                    <label class="form-check-label" for="approve_dir"><i class="ti ti-writing-sign fs-4"></i> Direksi Menyetujui</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="approve_date_dir" class="form-label">Tanggal</label>
+                                                <input type="date" class="form-control no-click"
+                                                    id="approve_date_dir" name="approve_date_dir" readonly>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="approve_user_dir" class="form-label">Nama Pejabat (opsional)</label>
+                                                <input type="text" class="form-control no-click"
+                                                    id="approve_user_dir" name="approve_user_dir" placeholder="Mis. Direktur Operasional" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Mengetahui: Manager Finance -->
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6>Mengetahui</h6>
+                                        <div class="form-check form-switch custom-switch-v1 my-3">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                id="ack_fin" name="ack_fin">
+                                            <label class="form-check-label" for="ack_fin"><i class="ti ti-writing-sign fs-4"></i> Manager Finance Mengetahui</label>
+                                        </div>
+                                        <input type="date" class="form-control"
+                                            id="date_ack_fin" name="date_ack_fin" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mengetahui: Accounting -->
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6>Mengetahui</h6>
+                                        <div class="form-check form-switch custom-switch-v1 my-3">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                id="ack_acc" name="ack_acc">
+                                            <label class="form-check-label" for="ack_acc"><i class="ti ti-writing-sign fs-4"></i> Accounting Mengetahui</label>
+                                        </div>
+                                        <input type="date" class="form-control"
+                                            id="date_ack_acc" name="date_ack_acc" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mengetahui: Controlling -->
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6>Mengetahui</h6>
+                                        <div class="form-check form-switch custom-switch-v1 my-3">
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                id="ack_ctrl" name="ack_ctrl">
+                                            <label class="form-check-label" for="ack_ctrl"> <i class="ti ti-writing-sign fs-4"></i> Controlling Mengetahui </label>
+                                        </div>
+                                        <input type="date" class="form-control"
+                                            id="date_ack_ctrl" name="date_ack_ctrl" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-0">
+                                <label for="catatan" class="form-label">Catatan Pojok</label>
+                                <textarea id="catatan" name="catatan" class="form-control"></textarea>
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?= $this->endSection(); ?>
+
+<?= $this->section('scripts-extra');; ?>
+<script>
+    jQuery(function($) {
+        if (!$('#no_asset').length) return; // <— guard
+        if (!$.ui || !$.ui.autocomplete) return; // UI must be loaded
+
+        $("#no_asset").autocomplete({
+            source: "<?= base_url('api/assets/suggest') ?>",
+            minLength: 2,
+            delay: 200,
+            select: function(event, ui) {
+                if (!ui.item) return false;
+                $("#no_asset").val(ui.item.no_asset);
+                $("#asset_class").val(ui.item.asset_class);
+                $("#plant_asal").val(ui.item.plant);
+                $("#cost_center_asal").val(ui.item.cost_center);
+                $("#sub_asset").val(ui.item.sub_asset);
+                $("#nama_asset").val(ui.item.nama_asset);
+                $("#tgl_perolehan").val(ui.item.tgl_perolehan);
+                $("#area").val(ui.item.area);
+                $("#gedung").val(ui.item.gedung);
+                $("#lantai").val(ui.item.lantai);
+                $("#id_asset").val(ui.item.id_asset);
+                $("#id_assetclass").val(ui.item.id_assetclass);
+                $("#id_plant_asal").val(ui.item.id_plant);
+                $("#id_cost_center_asal").val(ui.item.id_cost_center);
+                $("#id_lokasi_area").val(ui.item.id_lokasi_area);
+                $("#id_lokasi_gedung").val(ui.item.id_lokasi_gedung);
+                $("#id_lokasi_lantai").val(ui.item.id_lokasi_lantai);
+                $("#no_asset_tujuan").val(ui.item.no_asset);
+                $("#nama_asset_tujuan").val(ui.item.nama_asset);
+                return false;
+            }
+        });
+    });
+</script>
+<script>
+    jQuery(function($) {
+
+        // Fungsi helper: isi atau hapus tanggal
+        function toggleDate(checkboxSelector, dateInputSelector) {
+            $(checkboxSelector).on('change', function() {
+                if ($(this).is(':checked')) {
+                    let today = new Date().toISOString().split('T')[0];
+                    $(dateInputSelector).val(today);
+                } else {
+                    $(dateInputSelector).val('');
+                }
+            });
+        }
+
+        // Panggil untuk semua pasangan switch & tanggal
+        toggleDate('#approve_kabag_asal', '#approve_date_kabag_asal');
+        toggleDate('#approve_kabag_tujuan', '#approve_date_kabag_tujuan');
+        toggleDate('#approve_it', '#approve_date_it');
+        toggleDate('#approve_dir', '#approve_date_dir');
+        toggleDate('#ack_fin', '#date_ack_fin');
+        toggleDate('#ack_acc', '#date_ack_acc');
+        toggleDate('#ack_ctrl', '#date_ack_ctrl');
+
+    });
+</script>
+
+</script>
+<?= $this->endSection(); ?>

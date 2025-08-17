@@ -37,7 +37,7 @@ class Transaksi extends BaseController
 
 
     $data = [
-      'title' => 'Perpindahan Asset | Asset Managed',
+      'title' => 'Transaksi | Asset Managed',
       'validation'  => \Config\Services::validation(),
       'plants' => $plants,
       'costcenters' => $costcenters
@@ -46,6 +46,26 @@ class Transaksi extends BaseController
 
     ];
     return view('transaksi/index', $data);
+  }
+  public function create(): string
+  {
+    // pr untuk data yang di load
+    $plants = $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll();
+    $costcenters = $this->costcenterModel->select('id_cost_center, nama_cost_center')->orderBy('nama_cost_center')->findAll();
+    // $asset = $this->assetModel->getWithRelasi();
+
+
+
+    $data = [
+      'title' => 'Form Perpindahan | Asset Managed',
+      'validation'  => \Config\Services::validation(),
+      'plants' => $plants,
+      'costcenters' => $costcenters
+      // 'asset' => $asset,
+      // 'no_asset' => $this->assetModel->select('no_asset')->findAll()
+
+    ];
+    return view('transaksi/create', $data);
   }
   public function suggestAsset(): ResponseInterface
   {
@@ -85,22 +105,25 @@ class Transaksi extends BaseController
 
   public function save()
   {
+
     $data = $this->request->getPost();
+    // dd($data);
 
     $rules = [
-      'no_asset' => [
-        'label'               => 'Lokasi Asset',
-        'rules'               => 'required',
-        'errors'              => [
-          'required'          => '{field} harus diisi'
-        ]
-      ],
+      // 'no_asset' => [
+      //   'label'               => 'No Asset',
+      //   'rules'               => 'required',
+      //   'errors'              => [
+      //     'required'          => '{field} harus diisi'
+      //   ]
+      // ],
 
     ];
 
     if (! $this->validateData($data, $rules)) {
       return redirect()->to('/transaksi')->withInput();
     }
+
   }
 
   // public function lala()

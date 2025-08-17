@@ -61,7 +61,7 @@
     </div>
     <hr>
     <div class="d-grid mt-4">
-      <button type="submit" class="btn btn-primary"><a href="https://www.jmiis.com/" class="text-white">Kembali ke JMIIS Home</a></button>
+      <button type="submit" class="btn btn-success"><a href="https://www.jmiis.com/" class="text-white">Kembali ke JMIIS Home</a></button>
     </div>
 
   </div>
