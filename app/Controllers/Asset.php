@@ -139,20 +139,20 @@ class Asset extends BaseController
       ],
       'serial_number' => [
         'label'               => 'Serial Number',
-        'rules'               => 'required|integer|is_unique[asset.serial_number]',
+        'rules'               => 'required|is_unique[asset.serial_number]',
         'errors'              => [
           'required'        => '{field} harus diisi',
           'is_unique'       => '{field} sudah terdafar',
-          'integer'         => '{field} harus angka'
+          // 'integer'         => '{field} harus angka'
         ]
       ],
       'batch_number' => [
         'label'               => 'Batch Number',
-        'rules'               => 'required|integer|is_unique[asset.batch_number]',
+        'rules'               => 'required|is_unique[asset.batch_number]',
         'errors'              => [
           'required'        => '{field} harus diisi',
           'is_unique'       => '{field} sudah terdafar',
-          'integer'         => '{field} harus angka'
+          // 'integer'         => '{field} harus angka'
         ]
       ],
       'merek'    =>  [
@@ -422,7 +422,7 @@ class Asset extends BaseController
       'no_asset'        => $existing['no_asset'],
       'sub_asset'       => $existing['sub_asset'],
       'nama_asset'      => $this->request->getPost('nama_asset'),
-      'serial_number'   =>  $this->request->getPost('serial_number'),
+      'serial_number'   => $this->request->getPost('serial_number'),
       'batch_number'    => $this->request->getPost('batch_number'),
       'merek'           => $this->request->getPost('merek'),
       'spek'            => $this->request->getPost('spek'),
@@ -435,6 +435,9 @@ class Asset extends BaseController
       'id_vendor'       => $this->request->getPost('id_vendor'),
       'id_plant'        => $existing['id_plant'],
     ]);
+
+    
+    
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
     return redirect()->to('/asset');
   }

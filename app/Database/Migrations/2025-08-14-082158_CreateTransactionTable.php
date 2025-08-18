@@ -18,7 +18,7 @@ class CreateTransactionTable extends Migration
             ],
 
             // identitas
-            'no_asset' => [
+            'id_asset' => [
                 'type'       => 'BIGINT',
                 'constraint' => 20,
                 'unsigned'   => true,
@@ -30,22 +30,22 @@ class CreateTransactionTable extends Migration
                 'null'       => false,
                 'comment'    => '0=pelepasan,1=penghentian,2=penggabungan,3=mutasi',
             ],
-            'tgl_transaksi' => ['type' => 'DATE', 'null' => true],
+            'tgl_transaksi' => ['type' => 'DATETIME', 'null' => true],
             'alasan'       => ['type' => 'TEXT', 'null' => true],
 
             // asal (snapshot)
             'id_plant_asal'         => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
             'id_cost_center_asal'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            'id_lokasi_area_asal'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            'id_lokasi_gedung_asal' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            'id_lokasi_lantai_asal' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
+            // 'id_lokasi_area_asal'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
+            // 'id_lokasi_gedung_asal' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
+            // 'id_lokasi_lantai_asal' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
 
             // tujuan (rencana)
             'id_plant_baru'         => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
             'id_cost_center_baru'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            'id_lokasi_area_baru'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            'id_lokasi_gedung_baru' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            'id_lokasi_lantai_baru' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
+            // 'id_lokasi_area_baru'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
+            // 'id_lokasi_gedung_baru' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
+            // 'id_lokasi_lantai_baru' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
 
             // status umum transaksi
             // 0=onprogress,1=approve,2=complete,3=cancelled
@@ -58,17 +58,17 @@ class CreateTransactionTable extends Migration
             'catatan' => ['type' => 'TEXT', 'null' => true],
 
             // audit trail
-            'created_by' => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'null' => true],
-            'created_at' => ['type' => 'DATETIME', 'null' => true],
-            'updated_at' => ['type' => 'DATETIME', 'null' => true],
-            'deleted_at' => ['type' => 'DATETIME', 'null' => true],
+            'created_at'    => ['type' => 'DATETIME', 'null' => true],
+            'updated_at'    => ['type' => 'DATETIME', 'null' => true],
+            'modified_by'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null'=> true],
+            'deleted_at'    => ['type' => 'DATETIME', 'null' => true]
         ]);
 
         // Primary key
         $this->forge->addKey('id_transaksi', true);
 
         // Index (tanpa nama khusus — biarkan CI/MySQL memberi nama otomatis)
-        $this->forge->addKey('no_asset');
+        $this->forge->addKey('id_asset');
         $this->forge->addKey(['id_plant_asal', 'id_cost_center_asal']);
         $this->forge->addKey(['id_plant_baru', 'id_cost_center_baru']);
         $this->forge->addKey('transaksi');

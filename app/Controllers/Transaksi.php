@@ -19,6 +19,8 @@ class Transaksi extends BaseController
   protected $assetModel;
   protected $plantModel;
   protected $costcenterModel;
+  protected $transactionModel;
+  protected $transactionstepsModel;
 
 
   public function __construct()
@@ -26,47 +28,25 @@ class Transaksi extends BaseController
     $this->assetModel = new AssetModel();
     $this->costcenterModel  = new CostcenterModel();
     $this->plantModel  = new PlantModel();
+    $this->transactionModel  = new TransactionModel();
+    $this->transactionstepsModel  = new TransactionStepsModel();
   }
   public function index(): string
   {
-    // pr untuk data yang di load
-    $plants = $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll();
-    $costcenters = $this->costcenterModel->select('id_cost_center, nama_cost_center')->orderBy('nama_cost_center')->findAll();
-    // $asset = $this->assetModel->getWithRelasi();
-
-
 
     $data = [
       'title' => 'Transaksi | Asset Managed',
       'validation'  => \Config\Services::validation(),
-      'plants' => $plants,
-      'costcenters' => $costcenters
+      // 'plants' => $plants,
+      // 'costcenters' => $costcenters
       // 'asset' => $asset,
       // 'no_asset' => $this->assetModel->select('no_asset')->findAll()
 
     ];
     return view('transaksi/index', $data);
   }
-  public function create(): string
-  {
-    // pr untuk data yang di load
-    $plants = $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll();
-    $costcenters = $this->costcenterModel->select('id_cost_center, nama_cost_center')->orderBy('nama_cost_center')->findAll();
-    // $asset = $this->assetModel->getWithRelasi();
 
 
-
-    $data = [
-      'title' => 'Form Perpindahan | Asset Managed',
-      'validation'  => \Config\Services::validation(),
-      'plants' => $plants,
-      'costcenters' => $costcenters
-      // 'asset' => $asset,
-      // 'no_asset' => $this->assetModel->select('no_asset')->findAll()
-
-    ];
-    return view('transaksi/create', $data);
-  }
   public function suggestAsset(): ResponseInterface
   {
     $term = trim((string) $this->request->getGet('term'));
@@ -103,73 +83,222 @@ class Transaksi extends BaseController
     return $this->response->setJSON($out);
   }
 
-  public function save()
+  public function create(): string
   {
+    // pr untuk data yang di load
+    $plants = $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll();
+    $costcenters = $this->costcenterModel->select('id_cost_center, nama_cost_center')->orderBy('nama_cost_center')->findAll();
+    // $asset = $this->assetModel->getWithRelasi();
 
-    $data = $this->request->getPost();
-    // dd($data);
 
-    $rules = [
-      // 'no_asset' => [
-      //   'label'               => 'No Asset',
-      //   'rules'               => 'required',
-      //   'errors'              => [
-      //     'required'          => '{field} harus diisi'
-      //   ]
-      // ],
+
+    $data = [
+      'title' => 'Form Perpindahan | Asset Managed',
+      'validation'  => \Config\Services::validation(),
+      'plants' => $plants,
+      'costcenters' => $costcenters
+      // 'asset' => $asset,
+      // 'no_asset' => $this->assetModel->select('no_asset')->findAll()
 
     ];
-
-    if (! $this->validateData($data, $rules)) {
-      return redirect()->to('/transaksi')->withInput();
-    }
-
+    return view('transaksi/create', $data);
   }
 
-  // public function lala()
+  // public function save()
   // {
-  //     $data = $this->request->getPost();
 
-  //     if (!$this->validateData($data, [
+  //   $data = $this->request->getPost();
 
-  //         'id_lokasi' => [
-  //             'label'               => 'Lokasi Asset',
-  //             'rules'               => 'required',
-  //             'errors'              => [
-  //                 'required'          => 'Pilih Minimal 1 {field} yang sesuai'
-  //             ]
-  //         ],
+  //   $rules = [
 
+  //     'transaksi' => [
+  //       'label'               => 'No Asset',
+  //       'rules'               => 'required',
+  //       'errors'              => [
+  //         'required'          => '{field} harus diisi'
+  //       ]
+  //     ],
 
-  //     ])) {
-  //         return redirect()->to('/asset/create')->withInput();
-  //     }
-  //     //    
+  //   ];
 
-
-  //     $this->assetModel->save([
-  //         'no_asset'        => $this->request->getPost('no_asset'),
-  //         'sub_asset'       => $this->request->getPost('sub_asset'),
-  //         'nama_asset'      => $this->request->getPost('nama_asset'),
-  //         'serial_number'   => $this->request->getPost('serial_number'),
-  //         'batch_number'    => $this->request->getPost('batch_number'),
-  //         'merek'           => $this->request->getPost('merek'),
-  //         'spek'            => $this->request->getPost('spek'),
-  //         'tgl_perolehan'   => $this->request->getPost('tgl_perolehan'),
-  //         'harga'           => $data > ['harga'],
-  //         'no_po'           => $this->request->getPost('no_po'),
-  //         'id_assetclass'   => $this->request->getPost('id_assetclass'),
-  //         'id_cost_center'  => $this->request->getPost('id_cost_center'),
-  //         'id_lifetime'     => $this->request->getPost('id_lifetime'),
-  //         'id_vendor'       => $this->request->getPost('id_vendor'),
-  //         'id_plant'        => $this->request->getPost('id_plant'),
-  //         'id_lokasi_area'   => $this->request->getPost('id_lokasi_area') ?: null,
-  //         'id_lokasi_gedung' => $this->request->getPost('id_lokasi_gedung') ?: null,
-  //         'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai') ?: null,
-  //         'status'          => $this->request->getPost('status') ?: 5,
-  //     ]);
-  //     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
-  //     return redirect()->to('/asset');
+  //   if (!$this->validateData($data, $rules)) {
+  //     return redirect()->to('/transaksi/create')->withInput();
+  //   }
+  //   $this->transactionModel->save([
+  //     'id_asset'              => $this->request->getPost('id_asset'),
+  //     'transaksi'             => $this->request->getPost('transaksi'),
+  //     'tgl_transaksi'         => $this->request->getPost('tgl_transaksi'),
+  //     'alasan'                => $this->request->getPost('alasan'),
+  //     'id_plant_asal'         => $this->request->getPost('id_plant_asal'),
+  //     'id_cost_center_asal'   => $this->request->getPost('id_cost_center_asal'),
+  //     'id_lokasi_area_asal'   => $this->request->getPost('id_lokasi_area_asal'),
+  //     'id_lokasi_gedung_asal' => $this->request->getPost('id_lokasi_gedung_asal'),
+  //     'id_lokasi_lantai_asal' => $this->request->getPost('id_lokasi_lantai_asal'),
+  //     'id_plant_baru'         => $this->request->getPost('id_plant_baru'),
+  //     'id_cost_center_baru'   => $this->request->getPost('id_cost_center_baru'),
+  //     'id_lokasi_area_baru'   => $this->request->getPost('id_lokasi_area_baru'),
+  //     'id_lokasi_gedung_baru' => $this->request->getPost('id_lokasi_gedung_baru'),
+  //     'id_lokasi_lantai_baru' => $this->request->getPost('id_lokasi_lantai_baru'),
+  //     'status'                => $this->request->getPost('status') ?: 0,
+  //     'catatan'               => $this->request->getPost('catatan'),
+  //   ]);
+  //   session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+  //   return redirect()->to('/transaksi');
   // }
 
+  public function save()
+  {
+    $post = $this->request->getPost();
+
+    // 1) Validasi minimal: transaksi wajib
+    $rules = [
+      'transaksi' => [
+        'label'  => 'Transaksi',
+        'rules'  => 'required',
+        'errors' => ['required' => '{field} harus diisi']
+      ],
+      'tgl_transaksi' => [
+        'label'  => 'Tanggal Transaksi',
+        'rules'  => 'required',
+        'errors' => [
+          'required'            => '{field} harus diisi',
+        ]
+      ],
+      'alasan' => [
+        'label'  => 'Alasan',
+        'rules'  => 'required',
+        'errors' => [
+          'required'            => '{field} harus diisi',
+        ]
+      ],
+      'id_plant_baru' => [
+        'label'  => 'Plant Tujuan',
+        'rules'  => 'required',
+        'errors' => [
+          'required'            => '{field} harus diisi',
+        ]
+      ],
+      'id_cost_center_baru' => [
+        'label'  => 'Cost Center Tujuan',
+        'rules'  => 'required',
+        'errors' => [
+          'required'            => '{field} harus diisi',
+        ]
+      ],
+    ];
+    if (!$this->validateData($post, $rules)) {
+      return redirect()->to('/transaksi/create')->withInput();
+    }
+
+    // 2) Ambil snapshot ASAL dari tabel assets (jangan dari POST)
+    $idAsset = (int)$post['id_asset'];
+    $asset = $this->assetModel
+      ->select('id_asset,id_plant,id_cost_center') // bisa ditambah ini jika perlu: id_lokasi_area,id_lokasi_gedung,id_lokasi_lantai//
+      ->find($idAsset);
+
+    if (!$asset) {
+      return redirect()->back()->withInput()->with('error', 'Asset tidak ditemukan.');
+    }
+
+
+    // 4) Jika bukan mutasi (3), kosongkan tujuan agar konsisten
+    $isMutasi = ((int)$post['transaksi'] === 3);
+    $idPlantBaru        = $isMutasi ? ($post['id_plant_baru']        ?? null) : null;
+    $idCostCenterBaru   = $isMutasi ? ($post['id_cost_center_baru']  ?? null) : null;
+    // $idLokAreaBaru      = $isMutasi ? ($post['id_lokasi_area_baru']  ?? null) : null;
+    // $idLokGedungBaru    = $isMutasi ? ($post['id_lokasi_gedung_baru'] ?? null) : null;
+    // $idLokLantaiBaru    = $isMutasi ? ($post['id_lokasi_lantai_baru'] ?? null) : null;
+
+    // Opsional: guard mutasi asal≠tujuan
+
+    // if ($isMutasi && !empty($idPlantBaru) && (int)$idPlantBaru === (int)$asset['id_plant']) {
+    //   return redirect()->back()->withInput()->with('error', 'Plant asal & tujuan tidak boleh sama.');
+    // }
+
+    // 5) Payload akhir — tetap pola save() milikmu
+    $ok = $this->transactionModel->save([
+      'id_asset'               => $idAsset,
+      'transaksi'              => $post['transaksi'],
+      'alasan'          => $post['tgl_transaksi'],
+      'alasan'                 => $post['alasan'] ?? null,
+
+      // ASAL diambil dari DB (snapshot)
+      'id_plant_asal'          => $asset['id_plant'],
+      'id_cost_center_asal'    => $asset['id_cost_center'],
+      // 'id_lokasi_area_asal'    => $asset['id_lokasi_area'],
+      // 'id_lokasi_gedung_asal'  => $asset['id_lokasi_gedung'],
+      // 'id_lokasi_lantai_asal'  => $asset['id_lokasi_lantai'],
+
+      // TUJUAN dari form (atau null jika bukan mutasi)
+      'id_plant_baru'          => $idPlantBaru,
+      'id_cost_center_baru'    => $idCostCenterBaru,
+      // 'id_lokasi_area_baru'    => $idLokAreaBaru,
+      // 'id_lokasi_gedung_baru'  => $idLokGedungBaru,
+      // 'id_lokasi_lantai_baru'  => $idLokLantaiBaru,
+
+      'status'                 => $post['status'] ?? 0, // 0=onprogress
+      'catatan'                => $post['catatan'] ?? null,
+    ]);
+
+
+    if (!$ok) {
+      return redirect()->back()->withInput()
+        ->with('error', 'Gagal simpan: ' . json_encode($this->transactionModel->errors()));
+    }
+
+    session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+    return redirect()->to('/transaksi');
+  }
+  public function edit($id)
+  {
+
+    $data = [
+      'title' => 'Approval | Asset Managed',
+      'validation' => \Config\Services::validation(),
+      'transaksi'   => $this->transactionModel->find($id),
+      'plant'  => $this->plantModel->findAll(),
+      'cost_center' => $this->costcenterModel->findAll(),
+
+
+
+    ];
+    return view('transaksi/edit', $data);
+  }
+
+  public function update($id)
+  {
+    $data = $this->request->getPost();
+    $existing = $this->transactionModel->find($id);
+
+    // $rules[
+    //   ''
+    // ]
+
+    // if (!$this->validateData($data,$rules)) {
+    //   # code...
+    // }
+
+    $this->transactionModel->save([
+      'id_transaksi'        => $id,
+      'id_asset'            => $existing['id_asset'],
+      'transaksi'           => $existing['transaksi'],
+      'tgl_transaksi'       => $existing['tgl_transaksi'],
+      'alasan'              => $existing['alasan'],
+      'id_plant_asal'       => $existing['id_plant_asal'],
+      'id_cost_center_asal' => $existing['id_cost_center_asal'],
+      'id_plant_baru'       => $existing['id_plant_baru'],
+      'id_cost_center_baru' => $existing['id_cost_center_baru'],
+      'status'              => $existing['status'],
+      'catatan'             => $existing['catatan'],
+
+    ]);
+
+    $this->transactionModel->save([
+      
+    ]);
+
+
+    session()->setFlashdata('pesan', 'Data berhasil Ditambahkan');
+    return redirect()->to('/transaksi');
+  }
 }

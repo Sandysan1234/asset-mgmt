@@ -210,7 +210,7 @@
                   <select name="id_lokasi_area" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_area')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($lokasi_area as $la) : ?>
-                      <option value="<?= $la['id_lokasi']; ?>" <?= old('id_lokasi') == $la['id_lokasi'] ? 'selected' : ''; ?>>
+                      <option value="<?= $la['id_lokasi']; ?>" <?= old('id_lokasi_area') == $la['id_lokasi'] ? 'selected' : ''; ?>>
                         <?= $la['nama_lokasi']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -226,7 +226,7 @@
                   <select name="id_lokasi_gedung" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_gedung')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($lokasi_gedung as $lg) : ?>
-                      <option value="<?= $lg['id_lokasi']; ?>" <?= old('id_lokasi') == $lg['id_lokasi'] ? 'selected' : ''; ?>>
+                      <option value="<?= $lg['id_lokasi']; ?>" <?= old('id_lokasi_gedung') == $lg['id_lokasi'] ? 'selected' : ''; ?>>
                         <?= $lg['nama_lokasi']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -242,7 +242,7 @@
                   <select name="id_lokasi_lantai" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_lantai')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($lokasi_lantai as $ll) : ?>
-                      <option value="<?= $ll['id_lokasi']; ?>" <?= old('id_lokasi') == $ll['id_lokasi'] ? 'selected' : ''; ?>>
+                      <option value="<?= $ll['id_lokasi']; ?>" <?= old('id_lokasi_lantai') == $ll['id_lokasi'] ? 'selected' : ''; ?>>
                         <?= $ll['nama_lokasi']; ?>
                       </option>
                     <?php endforeach; ?>

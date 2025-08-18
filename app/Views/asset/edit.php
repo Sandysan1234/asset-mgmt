@@ -207,8 +207,8 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Area</label>
                 <div class="col-sm-6">
-                  <select name="id_lokasi_area" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_area')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
-                    <option selected disabled>Open this select menu</option>
+                  <select name="id_lokasi_area" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_area')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" >
+                    <option selected>Open this select menu</option>
                     <?php foreach ($lokasi_area as $la) : ?>
                       <option value="<?= $la['id_lokasi']; ?>" <?= old('id_lokasi'), $asset['id_lokasi_area'] == $la['id_lokasi'] ? 'selected' : ''; ?>>
                         <?= $la['nama_lokasi']; ?>
@@ -223,8 +223,8 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Gedung</label>
                 <div class="col-sm-6">
-                  <select name="id_lokasi_gedung" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_gedung')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
-                    <option selected disabled>Open this select menu</option>
+                  <select name="id_lokasi_gedung" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_gedung')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" >
+                    <option selected >Open this select menu</option>
                     <?php foreach ($lokasi_gedung as $lg) : ?>
                       <option value="<?= $lg['id_lokasi']; ?>" <?= old('id_lokasi'), $asset['id_lokasi_gedung'] == $lg['id_lokasi'] ? 'selected' : ''; ?>>
                         <?= $lg['nama_lokasi']; ?>
@@ -239,8 +239,8 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Lantai</label>
                 <div class="col-sm-6">
-                  <select name="id_lokasi_lantai" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_lantai')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" disabled>
-                    <option selected disabled>Open this select menu</option>
+                  <select name="id_lokasi_lantai" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_lantai')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" >
+                    <option selected>Open this select menu</option>
                     <?php foreach ($lokasi_lantai as $ll) : ?>
                       <option value="<?= $ll['id_lokasi']; ?>" <?= old('id_lokasi'), $asset['id_lokasi_lantai'] == $ll['id_lokasi'] ? 'selected' : ''; ?>>
                         <?= $ll['nama_lokasi']; ?>
