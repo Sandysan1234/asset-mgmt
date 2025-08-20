@@ -41,7 +41,7 @@
                     <?= session()->getFlashdata('pesan'); ?>
                   </div>
                 <?php endif; ?>
-                <table id="myTable" class="table table-hover table-borderless" style="width:100%">
+                <table id="myTable-client" class="table table-hover table-borderless" style="width:100%">
                   <thead class="bg-light">
                     <tr class="text-nowrap">
                       <th scope="col">Handle</th>

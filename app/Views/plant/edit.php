@@ -41,7 +41,7 @@
                                     <div class="invalid-feedback">
                                         <?= validation_show_error('kode_plant'); ?>
                                     </div>
-                                </div>
+                                </div>                      
                             </div>
                             <div class="row mb-3">
                                 <label for="nama_plant" class="col-sm-3 col-form-label">Nama Plant</label>

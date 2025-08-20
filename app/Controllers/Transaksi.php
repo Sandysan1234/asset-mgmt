@@ -20,7 +20,6 @@ class Transaksi extends BaseController
   protected $plantModel;
   protected $costcenterModel;
   protected $transactionModel;
-  protected $transactionstepsModel;
 
 
   public function __construct()
@@ -29,18 +28,18 @@ class Transaksi extends BaseController
     $this->costcenterModel  = new CostcenterModel();
     $this->plantModel  = new PlantModel();
     $this->transactionModel  = new TransactionModel();
-    $this->transactionstepsModel  = new TransactionStepsModel();
   }
   public function index(): string
   {
 
+    $transaksi = $this->transactionModel->baseRelasi()->findAll();
     $data = [
       'title' => 'Transaksi | Asset Managed',
       'validation'  => \Config\Services::validation(),
       // 'plants' => $plants,
       // 'costcenters' => $costcenters
       // 'asset' => $asset,
-      // 'no_asset' => $this->assetModel->select('no_asset')->findAll()
+      'transaksi' => $transaksi,
 
     ];
     return view('transaksi/index', $data);
@@ -86,8 +85,8 @@ class Transaksi extends BaseController
   public function create(): string
   {
     // pr untuk data yang di load
-    $plants = $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll();
-    $costcenters = $this->costcenterModel->select('id_cost_center, nama_cost_center')->orderBy('nama_cost_center')->findAll();
+    $plant = $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll();
+    $cost_center = $this->costcenterModel->select('id_cost_center, nama_cost_center')->orderBy('nama_cost_center')->findAll();
     // $asset = $this->assetModel->getWithRelasi();
 
 
@@ -95,8 +94,10 @@ class Transaksi extends BaseController
     $data = [
       'title' => 'Form Perpindahan | Asset Managed',
       'validation'  => \Config\Services::validation(),
-      'plants' => $plants,
-      'costcenters' => $costcenters
+      'plant' => $plant,
+      'cost_center' => $cost_center,
+      'user'          => user(),
+
       // 'asset' => $asset,
       // 'no_asset' => $this->assetModel->select('no_asset')->findAll()
 
@@ -171,20 +172,6 @@ class Transaksi extends BaseController
           'required'            => '{field} harus diisi',
         ]
       ],
-      'id_plant_baru' => [
-        'label'  => 'Plant Tujuan',
-        'rules'  => 'required',
-        'errors' => [
-          'required'            => '{field} harus diisi',
-        ]
-      ],
-      'id_cost_center_baru' => [
-        'label'  => 'Cost Center Tujuan',
-        'rules'  => 'required',
-        'errors' => [
-          'required'            => '{field} harus diisi',
-        ]
-      ],
     ];
     if (!$this->validateData($post, $rules)) {
       return redirect()->to('/transaksi/create')->withInput();
@@ -219,7 +206,7 @@ class Transaksi extends BaseController
     $ok = $this->transactionModel->save([
       'id_asset'               => $idAsset,
       'transaksi'              => $post['transaksi'],
-      'alasan'          => $post['tgl_transaksi'],
+      'tgl_transaksi'          => $post['tgl_transaksi'],
       'alasan'                 => $post['alasan'] ?? null,
 
       // ASAL diambil dari DB (snapshot)
@@ -235,9 +222,11 @@ class Transaksi extends BaseController
       // 'id_lokasi_area_baru'    => $idLokAreaBaru,
       // 'id_lokasi_gedung_baru'  => $idLokGedungBaru,
       // 'id_lokasi_lantai_baru'  => $idLokLantaiBaru,
+      'date_pic'            => date('Y-m-d H:i:s', strtotime($post['date_pic'])),
+      'nama_pic'            => $post['nama_pic'],
 
       'status'                 => $post['status'] ?? 0, // 0=onprogress
-      'catatan'                => $post['catatan'] ?? null,
+      'catatan'                 => $post['catatan'] ?? null,
     ]);
 
 
@@ -252,13 +241,15 @@ class Transaksi extends BaseController
   public function edit($id)
   {
 
-    $data = [
-      'title' => 'Approval | Asset Managed',
-      'validation' => \Config\Services::validation(),
-      'transaksi'   => $this->transactionModel->find($id),
-      'plant'  => $this->plantModel->findAll(),
-      'cost_center' => $this->costcenterModel->findAll(),
 
+    $data = [
+      'title'         => 'Approval | Asset Managed',
+      'validation'    => \Config\Services::validation(),
+      'transaksi'     => $this->transactionModel->baseRelasi()->find($id),
+      'plants'        => $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll(),
+      'cost_center'   => $this->costcenterModel->select('id_cost_center, nama_cost_center')->orderBy('nama_cost_center')->findAll(),
+      'user'          => user(),
+      // 'assets'        => $this->assetModel->findAll(),
 
 
     ];
@@ -267,8 +258,10 @@ class Transaksi extends BaseController
 
   public function update($id)
   {
+
     $data = $this->request->getPost();
-    $existing = $this->transactionModel->find($id);
+    // dd($data);   
+    // $existing = $this->transactionModel->find($id);
 
     // $rules[
     //   ''
@@ -279,23 +272,27 @@ class Transaksi extends BaseController
     // }
 
     $this->transactionModel->save([
+
       'id_transaksi'        => $id,
-      'id_asset'            => $existing['id_asset'],
-      'transaksi'           => $existing['transaksi'],
-      'tgl_transaksi'       => $existing['tgl_transaksi'],
-      'alasan'              => $existing['alasan'],
-      'id_plant_asal'       => $existing['id_plant_asal'],
-      'id_cost_center_asal' => $existing['id_cost_center_asal'],
-      'id_plant_baru'       => $existing['id_plant_baru'],
-      'id_cost_center_baru' => $existing['id_cost_center_baru'],
-      'status'              => $existing['status'],
-      'catatan'             => $existing['catatan'],
+      // 'alasan'              => $existing['alasan'],
+      'date_ttd_asal'       => date('Y-m-d H:i:s', strtotime($data['date_ttd_asal'])),
+      'user_kabag_asal'     => $data['user_kabag_asal'],
+
+      'date_ttd_tujuan'     => date('Y-m-d H:i:s', strtotime($data['date_ttd_tujuan'])),
+      'user_kabag_tujuan'   => $data['user_kabag_tujuan'],
+      'date_pic'            => date('Y-m-d H:i:s', strtotime($data['date_pic'])),
+      'nama_pic'            => $data['nama_pic'],
+      'date_direksi'        => date('Y-m-d H:i:s', strtotime($data['date_direksi'])),
+      'nama_direksi'        => $data['nama_direksi'],
+      'date_ack_fin'        => date('Y-m-d H:i:s', strtotime($data['date_ack_fin'])),
+      'date_ack_acc'        => date('Y-m-d H:i:s', strtotime($data['date_ack_acc'])),
+      'date_ack_ctrl'       => date('Y-m-d H:i:s', strtotime($data['date_ack_ctrl'])),
+      // 'nama_direksi'        => $data['nama_direksi'],
+      // 'nama_direksi'        => $data['nama_direksi'],
+      // 'nama_direksi'        => $data['nama_direksi'],
 
     ]);
 
-    $this->transactionModel->save([
-      
-    ]);
 
 
     session()->setFlashdata('pesan', 'Data berhasil Ditambahkan');

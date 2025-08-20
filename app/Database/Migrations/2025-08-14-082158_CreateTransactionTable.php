@@ -55,12 +55,37 @@ class CreateTransactionTable extends Migration
                 'default'    => 0,
                 'comment'    => '0=onprogress,1=approve,2=complete,3=cancelled',
             ],
+            'date_ttd_asal' => ['type' => 'DATETIME', 'null' => true],
+            'user_kabag_asal'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
+
+            'date_ttd_tujuan' => ['type' => 'DATETIME', 'null' => true],
+            'user_kabag_tujuan'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
+
+            
+            'date_pic' => ['type' => 'DATETIME', 'null' => true],
+            'nama_pic'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
+
+            'date_direksi' => ['type' => 'DATETIME', 'null' => true],
+            'nama_direksi'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
+
+
+            'date_ack_fin' => ['type' => 'DATETIME', 'null' => true],
+            'date_ack_acc' => ['type' => 'DATETIME', 'null' => true],
+            'date_ack_ctrl' => ['type' => 'DATETIME', 'null' => true],
+
+
+
+            
+
+
+
             'catatan' => ['type' => 'TEXT', 'null' => true],
+
 
             // audit trail
             'created_at'    => ['type' => 'DATETIME', 'null' => true],
             'updated_at'    => ['type' => 'DATETIME', 'null' => true],
-            'modified_by'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null'=> true],
+            'modified_by'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
             'deleted_at'    => ['type' => 'DATETIME', 'null' => true]
         ]);
 

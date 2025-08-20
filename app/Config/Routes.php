@@ -92,6 +92,11 @@ $routes->match(['get', 'post'], 'asset/dt', 'Asset::dt');   // endpoint server-s
 $routes->get('transaksi', 'Transaksi::index');
 $routes->get('transaksi/create', 'Transaksi::create');
 $routes->post('transaksi/save', 'Transaksi::save');
+$routes->get('transaksi/edit/(:segment)', 'Transaksi::edit/$1');
+$routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
 $routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
+
+
+
 $routes->get('qr', 'Qrbarcode::index');
 $routes->post('qr/save', 'Qrbarcode::multiple');

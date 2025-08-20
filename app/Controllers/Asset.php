@@ -306,15 +306,15 @@ class Asset extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'      => 'Form Ubah Data Asset',
-      'validation' => \Config\Services::validation(),
-      'asset'      => $this->assetModel->find($id),
+      'title'        => 'Form Ubah Data Asset',
+      'validation'   => \Config\Services::validation(),
+      'asset'        => $this->assetModel->find($id),
       'assetclass'   => $this->assetclassModel->findAll(),
-      'cost_center' => $this->costcenterModel->findAll(),
-      'lifetime' => $this->lifetimeModel->findAll(),
-      'plant'  => $this->plantModel->findAll(),
-      'pemasok'  => $this->pemasokModel->findAll(),
-      'lokasi_area'      => $this->locationModel->where('jenis_lokasi', 'Area')->findAll(),
+      'cost_center'  => $this->costcenterModel->findAll(),
+      'lifetime'     => $this->lifetimeModel->findAll(),
+      'plant'        => $this->plantModel->findAll(),
+      'pemasok'      => $this->pemasokModel->findAll(),
+      'lokasi_area'        => $this->locationModel->where('jenis_lokasi', 'Area')->findAll(),
       'lokasi_gedung'      => $this->locationModel->where('jenis_lokasi', 'Gedung')->findAll(),
       'lokasi_lantai'      => $this->locationModel->where('jenis_lokasi', 'Lantai')->findAll(),
     ];
@@ -324,6 +324,7 @@ class Asset extends BaseController
   {
 
     $data = $this->request->getPost();
+    // dd($data)
     $existing = $this->assetModel->find($id);
 
 

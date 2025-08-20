@@ -28,8 +28,10 @@
                             <input type="hidden" id="id_lokasi_area" name="id_lokasi_area">
                             <input type="hidden" id="id_lokasi_gedung" name="id_lokasi_gedung">
                             <input type="hidden" id="id_lokasi_lantai" name="id_lokasi_lantai"> -->
+                  <input type="hidden" id="login_user" data-fullname="<?= esc($user->fullname ?? $user['fullname']) ?>">
+
                   <h5>Department Asal</h5>
-                  
+
                   <div class="col-md-4">
                     <label for="no_asset" class="form-label">No Asset</label>
                     <input type="text" id="no_asset" name="no_asset" class="form-control" placeholder="Cari No Asset..." required value="<?= old('no_asset'); ?>">
@@ -59,20 +61,8 @@
                     <input type="date" id="tgl_perolehan" name="tgl_perolehan" class="form-control" readonly>
                   </div>
                   <div class="col-md-4">
-                    <label for="area" class="form-label">Area</label>
-                    <input type="text" id="area" name="area" class="form-control" readonly>
-                  </div>
-                  <div class="col-md-4">
-                    <label for="gedung" class="form-label">Gedung</label>
-                    <input type="text" id="gedung" name="gedung" class="form-control" readonly>
-                  </div>
-                  <div class="col-md-4">
-                    <label for="lantai" class="form-label">Lantai</label>
-                    <input type="text" id="lantai" name="lantai" class="form-control" readonly>
-                  </div>
-                  <div class="col-md-4">
                     <label for="transaksi" class="form-label">Transaksi</label>
-                    <select id="transaksi" name="transaksi" class="form-select <?= (validation_show_error('transaksi')) ? 'is-invalid' : ''; ?>">
+                    <select id="transaksi" name="transaksi" required class="form-select <?= (validation_show_error('transaksi')) ? 'is-invalid' : ''; ?>">
                       <option value="">Pilih Transaksi</option>
                       <option value="3">Mutasi</option>
                       <option value="0">Pelepasan</option>
@@ -80,8 +70,8 @@
                       <option value="2">Penggabungan</option>
                     </select>
                     <div class="invalid-feedback">
-                    <?= validation_show_error('transaksi'); ?>
-                  </div>
+                      <?= validation_show_error('transaksi'); ?>
+                    </div>
                   </div>
                   <div class="col-md-4">
                     <label for="tgl_transaksi" class="form-label">Tanggal Transaksi</label>
@@ -96,18 +86,18 @@
                   <h5>Department Tujuan</h5>
                   <div class="col-md-3">
                     <label for="id_plant_baru" class="form-label">Plant Tujuan</label>
-                    <select id="id_plant_baru" name="id_plant_baru" class="form-select" required>
+                    <select id="id_plant_baru" name="id_plant_baru" class="form-select">
                       <option value="">Pilih Plant</option>
-                      <?php foreach ($plants as $p): ?>
+                      <?php foreach ($plant as $p): ?>
                         <option value="<?= esc($p['id_plant']) ?>"><?= esc($p['nama_plant']) ?></option>
                       <?php endforeach; ?>
                     </select>
                   </div>
                   <div class="col-md-3">
                     <label for="id_cost_center_baru" class="form-label">Cost Center Tujuan</label>
-                    <select id="id_cost_center_baru" name="id_cost_center_baru" class="form-select" required>
+                    <select id="id_cost_center_baru" name="id_cost_center_baru" class="form-select">
                       <option value="">Pilih Cost Center</option>
-                      <?php foreach ($costcenters as $cc): ?>
+                      <?php foreach ($cost_center as $cc): ?>
                         <option value="<?= esc($cc['id_cost_center']) ?>"><?= esc($cc['nama_cost_center']) ?></option>
                       <?php endforeach; ?>
                     </select>
@@ -121,31 +111,33 @@
                     <input type="text" id="nama_asset_tujuan" name="nama_asset_tujuan" class="form-control" readonly>
                   </div>
                   <hr class="mt-4">
+                  <h3 class="text-center">Signature</h3>
 
                   <!-- Dept. Asal -->
                   <div class="col-md-6">
                     <div class="card mb-0">
                       <div class="card-body">
                         <h6>Dept. Asal</h6>
+                        <p>Menyetujui,</p>
                         <div class="row g-3 align-items-end">
-                          <div class="col-6">
-                            <div class="form-check form-switch custom-switch-v1 my-3">
+                          <div class="col-12">
+                            <div class="d-flex justify-content-between form-check form-switch  form-check-reverse custom-switch-v1">
+                              <label class="form-check-label ps-0" for="approve_kabag_asal"> Kabag </label>
                               <input class="form-check-input" type="checkbox" role="switch"
-                                id="approve_kabag_asal" name="approve_kabag_asal" readonly>
-                              <label class="form-check-label" for="approve_kabag_asal"><i class="ti ti-writing-sign fs-4"></i> Kabag Asal Menyetujui</label>
+                                id="approve_kabag_asal" name="approve_kabag_asal" >
                             </div>
                           </div>
-                          <div class="col-6">
-                            <label for="approve_date_kabag_asal" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control"
-                              id="approve_date_kabag_asal" name="approve_date_kabag_asal" readonly>
+                          <div class="col-12">
+                            <label for="date_ttd_asal" class="form-label">Tanggal</label>
+                            <input type="datetime-local" class="form-control"
+                              id="date_ttd_asal" name="date_ttd_asal" readonly>
                           </div>
 
                           <!-- opsional: pilih pejabat -->
                           <div class="col-12">
-                            <label for="approve_user_kabag_asal" class="form-label">Nama Pejabat (opsional)</label>
+                            <label for="user_kabag_asal" class="form-label">Nama Kabag</label>
                             <input type="text" class="form-control"
-                              id="approve_user_kabag_asal" name="approve_user_kabag_asal" placeholder="Mis. Budi Santoso" readonly>
+                              id="user_kabag_asal" name="user_kabag_asal" placeholder="Mis. Budi Santoso" readonly>
                           </div>
                         </div>
                       </div>
@@ -157,25 +149,25 @@
                     <div class="card mb-0">
                       <div class="card-body">
                         <h6>Dept. Tujuan</h6>
-
+                        <p>Menyetujui,</p>
                         <div class="row g-3 align-items-end">
-                          <div class="col-6">
-                            <div class="form-check form-switch custom-switch-v1 my-3">
-                              <input class="form-check-input" type="checkbox" role="switch"
-                                id="approve_kabag_tujuan" name="approve_kabag_tujuan">
-                              <label class="form-check-label" for="approve_kabag_tujuan"> <i class="ti ti-writing-sign fs-4"></i> Kabag Tujuan Menyetujui</label>
-                            </div>
-                          </div>
-                          <div class="col-6">
-                            <label for="approve_date_kabag_tujuan" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control"
-                              id="approve_date_kabag_tujuan" name="approve_date_kabag_tujuan" readonly>
-                          </div>
 
                           <div class="col-12">
-                            <label for="approve_user_kabag_tujuan" class="form-label">Nama Pejabat (opsional)</label>
+                            <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1">
+                              <label class="form-check-label" for="approve_kabag_tujuan"> Kabag </label>
+                              <input class="form-check-input" type="checkbox" role="switch"
+                                id="approve_kabag_tujuan" name="approve_kabag_tujuan">
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <label for="date_ttd_tujuan" class="form-label">Tanggal</label>
+                            <input type="datetime-local" class="form-control"
+                              id="date_ttd_tujuan" name="date_ttd_tujuan" readonly>
+                          </div>
+                          <div class="col-12">
+                            <label for="user_kabag_tujuan" class="form-label">Nama Kabag</label>
                             <input type="text" class="form-control"
-                              id="approve_user_kabag_tujuan" name="approve_user_kabag_tujuan" placeholder="Mis. Siti Rahma" readonly>
+                              id="user_kabag_tujuan" name="user_kabag_tujuan" placeholder="Mis. Siti Rahma" readonly>
                           </div>
                         </div>
                       </div>
@@ -186,25 +178,25 @@
                   <div class="col-md-6">
                     <div class="card mb-0">
                       <div class="card-body">
-                        <h6>Menyetujui: IT</h6>
+                        <h6>Menyetujui: </h6>
 
                         <div class="row g-3 align-items-end">
-                          <div class="col-6">
-                            <div class="form-check form-switch custom-switch-v1 my-3">
+                          <div class="col-12">
+                            <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
+                              <label class="form-check-label" for="approve_it"> PIC </label>
                               <input class="form-check-input no-click" type="checkbox" role="switch"
-                                id="approve_it" name="approve_it" readonly>
-                              <label class="form-check-label" for="approve_it"><i class="ti ti-writing-sign fs-4"></i> IT Menyetujui</label>
+                                id="approve_it" name="approve_it" required>
                             </div>
                           </div>
-                          <div class="col-6">
-                            <label for="approve_date_it" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control no-click"
-                              id="approve_date_it" name="approve_date_it" readonly>
+                          <div class="col-12  ">
+                            <label for="date_pic" class="form-label">Tanggal</label>
+                            <input type="datetime-local" class="form-control no-click"
+                              id="date_pic" name="date_pic" readonly>
                           </div>
                           <div class="col-12">
-                            <label for="approve_user_it" class="form-label">Nama Pejabat (opsional)</label>
+                            <label for="nama_pic" class="form-label">Nama PIC</label>
                             <input type="text" class="form-control no-click"
-                              id="approve_user_it" name="approve_user_it" placeholder="Mis. Admin IT" readonly>
+                              id="nama_pic" name="nama_pic" placeholder="Mis. Admin IT" readonly>
                           </div>
                         </div>
                       </div>
@@ -215,25 +207,26 @@
                   <div class="col-md-6">
                     <div class="card mb-0">
                       <div class="card-body">
-                        <h6>Menyetujui: Direksi</h6>
+                        <h6>Menyetujui: <span class="penyetuju">-</span></h6>
 
                         <div class="row g-3 align-items-end">
-                          <div class="col-6">
-                            <div class="form-check form-switch custom-switch-v1 my-3">
+
+                          <div class="col-12">
+                            <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
+                              <label class="form-check-label penyetuju" for="approve_dir"></label>
                               <input class="form-check-input no-click" type="checkbox" role="switch"
                                 id="approve_dir" name="approve_dir" readonly>
-                              <label class="form-check-label" for="approve_dir"><i class="ti ti-writing-sign fs-4"></i> Direksi Menyetujui</label>
                             </div>
                           </div>
-                          <div class="col-6">
-                            <label for="approve_date_dir" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control no-click"
-                              id="approve_date_dir" name="approve_date_dir" readonly>
+                          <div class="col-12">
+                            <label for="date_direksi" class="form-label">Tanggal</label>
+                            <input type="datetime-local" class="form-control no-click"
+                              id="date_direksi" name="date_direksi" readonly>
                           </div>
                           <div class="col-12">
-                            <label for="approve_user_dir" class="form-label">Nama Pejabat (opsional)</label>
+                            <label for="nama_direksi" class="form-label">Nama <span class="penyetuju"></span> </label>
                             <input type="text" class="form-control no-click"
-                              id="approve_user_dir" name="approve_user_dir" placeholder="Mis. Direktur Operasional" readonly>
+                              id="nama_direksi" name="nama_direksi" placeholder="Mis. Direktur Operasional" readonly>
                           </div>
                         </div>
                       </div>
@@ -247,9 +240,9 @@
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
                             id="ack_fin" name="ack_fin">
-                          <label class="form-check-label" for="ack_fin"><i class="ti ti-writing-sign fs-4"></i> Manager Finance Mengetahui</label>
+                          <label class="form-check-label" for="ack_fin"> Manager Finance</label>
                         </div>
-                        <input type="date" class="form-control"
+                        <input type="datetime-local" class="form-control"
                           id="date_ack_fin" name="date_ack_fin" readonly>
                       </div>
                     </div>
@@ -263,9 +256,9 @@
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
                             id="ack_acc" name="ack_acc">
-                          <label class="form-check-label" for="ack_acc"><i class="ti ti-writing-sign fs-4"></i> Accounting Mengetahui</label>
+                          <label class="form-check-label" for="ack_acc"> Accounting </label>
                         </div>
-                        <input type="date" class="form-control"
+                        <input type="datetime-local" class="form-control"
                           id="date_ack_acc" name="date_ack_acc" readonly>
                       </div>
                     </div>
@@ -279,9 +272,9 @@
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
                             id="ack_ctrl" name="ack_ctrl">
-                          <label class="form-check-label" for="ack_ctrl"> <i class="ti ti-writing-sign fs-4"></i> Controlling Mengetahui </label>
+                          <label class="form-check-label" for="ack_ctrl"> Controlling </label>
                         </div>
-                        <input type="date" class="form-control"
+                        <input type="datetime-local" class="form-control"
                           id="date_ack_ctrl" name="date_ack_ctrl" readonly>
                       </div>
                     </div>
@@ -305,7 +298,7 @@
 
     <?= $this->endSection(); ?>
 
-    <?= $this->section('scripts-extra');; ?>
+    <?= $this->section('scripts-extra'); ?>
     <script>
       jQuery(function($) {
         if (!$('#no_asset').length) return; // <— guard
@@ -342,31 +335,61 @@
       });
     </script>
     <script>
+      document.getElementById('transaksi').addEventListener('change', function() {
+        const val = this.value;
+        const penyetuju = document.querySelectorAll('.penyetuju');
+
+        let text = "Direksi"; // default
+        if (val == '3') {
+          text = "Plan Manager";
+        }
+
+        penyetuju.forEach(el => {
+          el.textContent = text;
+        });
+      });
+    </script>
+
+    <script>
       jQuery(function($) {
 
-        // Fungsi helper: isi atau hapus tanggal
-        function toggleDate(checkboxSelector, dateInputSelector) {
+        // Ambil fullname dari hidden input
+        const fullname = $("#login_user").data("fullname");
+
+        // Fungsi helper: isi atau hapus tanggal + nama
+        function toggleDateName(checkboxSelector, dateInputSelector, nameInputSelector) {
           $(checkboxSelector).on('change', function() {
             if ($(this).is(':checked')) {
-              let today = new Date().toISOString().split('T')[0];
-              $(dateInputSelector).val(today);
+              let now = new Date();
+
+              let y = now.getFullYear();
+              let m = String(now.getMonth() + 1).padStart(2, '0');
+              let d = String(now.getDate()).padStart(2, '0');
+              let h = String(now.getHours()).padStart(2, '0');
+              let i = String(now.getMinutes()).padStart(2, '0');
+
+              let formatted = `${y}-${m}-${d}T${h}:${i}`;
+              $(dateInputSelector).val(formatted);
+
+              // isi nama user login
+              $(nameInputSelector).val(fullname);
             } else {
               $(dateInputSelector).val('');
+              $(nameInputSelector).val('');
             }
           });
         }
 
-        // Panggil untuk semua pasangan switch & tanggal
-        toggleDate('#approve_kabag_asal', '#approve_date_kabag_asal');
-        toggleDate('#approve_kabag_tujuan', '#approve_date_kabag_tujuan');
-        toggleDate('#approve_it', '#approve_date_it');
-        toggleDate('#approve_dir', '#approve_date_dir');
-        toggleDate('#ack_fin', '#date_ack_fin');
-        toggleDate('#ack_acc', '#date_ack_acc');
-        toggleDate('#ack_ctrl', '#date_ack_ctrl');
+        
+        
+        toggleDateName('#approve_it', '#date_pic', '#nama_pic');
+        toggleDateName('#approve_dir', '#date_direksi', '#nama_direksi');
+        toggleDateName('#approve_kabag_asal', '#date_ttd_asal', '#user_kabag_asal');
+        toggleDateName('#approve_kabag_tujuan', '#date_ttd_tujuan', '#user_kabag_tujuan');
+        toggleDateName('#ack_fin', '#date_ack_fin', null);
+        toggleDateName('#ack_acc', '#date_ack_acc', null);
+        toggleDateName('#ack_ctrl', '#date_ack_ctrl', null);
 
       });
-    </script>
-
     </script>
     <?= $this->endSection(); ?>

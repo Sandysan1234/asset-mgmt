@@ -143,9 +143,9 @@
           searchable: true,
           render: function(id) {
             return `
-            <a href="/asset/detail/${id}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" title="Detail"><i class="ti ti-file-search"></i></a>
-            <a href="/asset/edit/${id}" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" title="Edit"><i class="ti ti-edit"></i></a>
-            <a href="/asset/perbaikan/${id}" class="btn btn-icon btn-light-danger" data-bs-toggle="tooltip" title="Repair"><i class="ti ti-tool"></i></a>
+            <a href="/asset/detail/${id}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-file-search"></i></a>
+            <a href="/asset/edit/${id}" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-edit"></i></a>
+            <a href="/asset/perbaikan/${id}" class="btn btn-icon btn-light-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Repair"><i class="ti ti-tool"></i></a>
           `;
           }
         },
