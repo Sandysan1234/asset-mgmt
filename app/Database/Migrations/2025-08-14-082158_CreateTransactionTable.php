@@ -84,6 +84,7 @@ class CreateTransactionTable extends Migration
 
             // audit trail
             'created_at'    => ['type' => 'DATETIME', 'null' => true],
+            'created_by'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
             'updated_at'    => ['type' => 'DATETIME', 'null' => true],
             'modified_by'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
             'deleted_at'    => ['type' => 'DATETIME', 'null' => true]

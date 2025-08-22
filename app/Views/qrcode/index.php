@@ -11,8 +11,14 @@
         <div class="col-12">
           <form action="<?= base_url('qr/save') ?>" method="post">
             <?= csrf_field() ?>
-            <label for="jumlah">Jumlah QR yang ingin digenerate:</label>
-            <input type="number" name="jumlah" id="jumlah" min="1" value="10" required>
+            <div class="mb-3">
+              <label for="no_asset" class="form-label">Cari QR berdasarkan Nomor Asset</label>
+              <input type="text" class="form-control" id="no_asset" name="no_asset" placeholder="Masukkan nomor asset">
+            </div>
+            <div class="mb-3">
+              <label for="jumlah" class="form-label">Atau generate banyak sekaligus</label>
+              <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Misal: 10">
+            </div>
             <button type="submit" class="btn btn-primary">Generate QR</button>
           </form>
         </div>

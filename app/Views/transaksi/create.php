@@ -16,7 +16,7 @@
               </div>
 
               <div class="card-body">
-                <form action="<?= site_url('transaksi/save') ?>" method="post" class="row g-3">
+                <form action="/transaksi/save" method="post" class="row g-3">
                   <?= csrf_field(); ?>
 
                   <!-- hidden ids untuk relasi -->
@@ -124,7 +124,7 @@
                             <div class="d-flex justify-content-between form-check form-switch  form-check-reverse custom-switch-v1">
                               <label class="form-check-label ps-0" for="approve_kabag_asal"> Kabag </label>
                               <input class="form-check-input" type="checkbox" role="switch"
-                                id="approve_kabag_asal" name="approve_kabag_asal" >
+                                id="approve_kabag_asal" name="approve_kabag_asal">
                             </div>
                           </div>
                           <div class="col-12">
@@ -215,7 +215,7 @@
                             <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
                               <label class="form-check-label penyetuju" for="approve_dir"></label>
                               <input class="form-check-input no-click" type="checkbox" role="switch"
-                                id="approve_dir" name="approve_dir" readonly>
+                                id="approve_dir" name="approve_dir" <?= has_permission('transaksi') ? '' : 'disabled' ?> readonly>
                             </div>
                           </div>
                           <div class="col-12">
@@ -380,8 +380,8 @@
           });
         }
 
-        
-        
+
+
         toggleDateName('#approve_it', '#date_pic', '#nama_pic');
         toggleDateName('#approve_dir', '#date_direksi', '#nama_direksi');
         toggleDateName('#approve_kabag_asal', '#date_ttd_asal', '#user_kabag_asal');
@@ -392,4 +392,31 @@
 
       });
     </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const transaksi = document.getElementById("transaksi");
+        const plant = document.getElementById("id_plant_baru");
+        const costCenter = document.getElementById("id_cost_center_baru");
+
+        function toggleFields() {
+          if (transaksi.value === "3") { // 3 = Mutasi
+            plant.removeAttribute("disabled");
+            costCenter.removeAttribute("disabled");
+          } else {
+            plant.setAttribute("disabled", "disabled");
+            costCenter.setAttribute("disabled", "disabled");
+            plant.value = "";
+            costCenter.value = "";
+          }
+        }
+
+        // cek saat halaman pertama kali load
+        toggleFields();
+
+        // cek setiap kali user ubah dropdown transaksi
+        transaksi.addEventListener("change", toggleFields);
+      });
+    </script>
+
     <?= $this->endSection(); ?>

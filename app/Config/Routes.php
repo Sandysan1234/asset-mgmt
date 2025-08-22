@@ -28,14 +28,13 @@ $routes->post('komik/update/(:any)', 'komik::update/$1');
 $routes->delete('komik/(:num)', 'komik::delete/$1');
 $routes->get('komik/(:any)', 'komik::detail/$1');
 
-$routes->get('pemasok', 'pemasok::index');
-$routes->get('pemasok/create', 'pemasok::create');
+$routes->get('pemasok', 'Pemasok::index');
+$routes->get('pemasok/create', 'Pemasok::create');
 
-$routes->post('pemasok/save', 'pemasok::save');
-$routes->post('pemasok/update/(:any)', 'pemasok::update/$1');
-$routes->get('pemasok/edit/(:segment)', 'pemasok::edit/$1');
-$routes->delete('pemasok/(:num)', 'pemasok::delete/$1');
-
+$routes->post('pemasok/save', 'Pemasok::save');
+$routes->post('pemasok/update/(:any)', 'Pemasok::update/$1');
+$routes->get('pemasok/edit/(:segment)', 'Pemasok::edit/$1');
+$routes->delete('pemasok/(:num)', 'Pemasok::delete/$1');
 
 
 $routes->get('costcenter', 'Costcenter::index');

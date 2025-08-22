@@ -29,10 +29,27 @@ class Qrbarcode extends BaseController
     }
     public function multiple()
     {
-        $jumlah = $this->request->getPost('jumlah');
+        $jumlah   = $this->request->getPost('jumlah');
+        $noAssets = $this->request->getPost('no_asset');
 
-        // $assets = $this->assetModel->findAll($jumlah);
-        $assets = $this->assetModel->getWithRelasi(null, $jumlah); // ambil 10 data
+        if ($noAssets) {
+            // pecah string input jadi array
+            $noAssetsArr = array_map('trim', explode(',', $noAssets));
+
+            // ambil semua asset dengan no_asset dalam array
+            $assets = $this->assetModel
+                ->whereIn('no_asset', $noAssetsArr)
+                ->findAll();
+
+            if (!$assets) {
+                return redirect()->back()->with('error', 'Asset dengan nomor tersebut tidak ditemukan');
+            }
+        } elseif ($jumlah) {
+            $assets = $this->assetModel->getWithRelasi(null, $jumlah);
+        } else {
+            return redirect()->back()->with('error', 'Harap isi jumlah atau nomor asset');
+        }
+
 
         $writer = new PngWriter();
         $qrList = [];

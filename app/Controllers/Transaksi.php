@@ -150,6 +150,7 @@ class Transaksi extends BaseController
   public function save()
   {
     $post = $this->request->getPost();
+    // dd($post);
 
     // 1) Validasi minimal: transaksi wajib
     $rules = [
@@ -227,6 +228,7 @@ class Transaksi extends BaseController
 
       'status'                 => $post['status'] ?? 0, // 0=onprogress
       'catatan'                 => $post['catatan'] ?? null,
+      'created_by'          =>  user_id(),
     ]);
 
 
@@ -298,4 +300,6 @@ class Transaksi extends BaseController
     session()->setFlashdata('pesan', 'Data berhasil Ditambahkan');
     return redirect()->to('/transaksi');
   }
+
+  
 }

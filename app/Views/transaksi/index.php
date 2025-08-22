@@ -104,21 +104,25 @@
                         <td><?= (new DateTime($tr['tgl_transaksi']))->format('d-m-Y H:i'); ?></td>
                         <td><?= $tr['alasan']; ?></td>
                         <td>
-                          <span class="badge <?= $tr['status'] == 0 ? 'bg-danger' : 'bg-success'; ?> rounded-2">
+                          <span class="badge <?= $tr['status'] == 0 ? 'bg-warning' : 'bg-success'; ?> rounded-2">
                             <?= $tr['status'] == 0 ? 'On Progress' : 'Selesai'; ?>
                           </span>
                         </td>
-                        <td><?= (new DateTime($tr['date_ttd_asal']))->format('d-m-Y H:i') ; ?></td>
+                        <!-- <td>?= (new DateTime($tr['date_ttd_asal']))->format('d-m-Y H:i') ; ?></td> -->
+                        <td><?= $tr['date_ttd_asal'] ? (new DateTime($tr['date_ttd_asal']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
                         <td><?= $tr['user_kabag_asal']; ?></td>
-                        <td><?= (new DateTime($tr['date_ttd_tujuan']))->format('d-m-Y H:i'); ?></td>
+                        <td><?= $tr['date_ttd_tujuan'] ? (new DateTime($tr['date_ttd_tujuan']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
                         <td><?= $tr['user_kabag_tujuan']; ?></td>
-                        <td><?= (new DateTime($tr['date_pic']))->format('d-m-Y H:i'); ?></td>
+                        <td><?= $tr['date_pic'] ? (new DateTime($tr['date_pic']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
+                        <!-- <td>?= (new DateTime($tr['date_ttd_tujuan']))->format('d-m-Y H:i'); ?></td> -->
+                        <!-- <td>?= (new DateTime($tr['date_pic']))->format('d-m-Y H:i'); ?></td> -->
                         <td><?= $tr['nama_pic']; ?></td>
-                        <td><?= (new DateTime($tr['date_direksi']))->format('d-m-Y H:i'); ?></td>
+                        <!-- <td>?= (new DateTime($tr['date_direksi']))->format('d-m-Y H:i'); ?></td> -->
+                        <td><?= $tr['date_direksi'] ? (new DateTime($tr['date_direksi']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
                         <td><?= $tr['nama_direksi']; ?></td>
-                        <td><?= (new DateTime($tr['date_ack_fin']))->format('d-m-Y H:i'); ?></td>
-                        <td><?= (new DateTime($tr['date_ack_acc']))->format('d-m-Y H:i'); ?></td>
-                        <td><?= (new DateTime($tr['date_ack_ctrl']))->format('d-m-Y H:i'); ?></td>
+                        <td><?= $tr['date_ack_fin'] ? (new DateTime($tr['date_ack_fin']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
+                        <td><?= $tr['date_ack_acc'] ? (new DateTime($tr['date_ack_acc']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
+                        <td><?= $tr['date_ack_ctrl'] ? (new DateTime($tr['date_ack_ctrl']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
                         <td><?= (new DateTime($tr['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($tr['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $tr['modified_by']; ?></td>

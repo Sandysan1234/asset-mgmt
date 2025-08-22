@@ -36,7 +36,8 @@ class TransactionModel extends Model
 
         'date_ack_fin',
         'date_ack_acc',
-        'date_ack_ctrl'
+        'date_ack_ctrl',
+        'created_by'
 
     ];
 
