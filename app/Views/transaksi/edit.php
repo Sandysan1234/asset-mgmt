@@ -62,18 +62,7 @@
                     <label for="tgl_perolehan" class="form-label">Tanggal Perolehan</label>
                     <input type="date" id="tgl_perolehan" name="tgl_perolehan" class="form-control" disabled value="<?= old('tgl_perolehan', $transaksi['tgl_perolehan']); ?>" readonly>
                   </div>
-                  <!-- <div class="col-md-4">
-            <label for="area" class="form-label">Area</label>
-            <input type="text" id="area" name="area" class="form-control" readonly>
-           </div>
-           <div class="col-md-4">
-            <label for="gedung" class="form-label">Gedung</label>
-            <input type="text" id="gedung" name="gedung" class="form-control" readonly>
-           </div>
-           <div class="col-md-4">
-            <label for="lantai" class="form-label">Lantai</label>
-            <input type="text" id="lantai" name="lantai" class="form-control" readonly>
-           </div> -->
+                  
                   <div class="col-md-4">
                     <label for="transaksi" class="form-label">Transaksi</label>
                     <select id="transaksi" name="transaksi" class="form-select  <?= (validation_show_error('transaksi')) ? 'is-invalid' : ''; ?>" disabled>
@@ -137,21 +126,21 @@
                           <div class="col-12">
                             <div class="d-flex justify-content-between form-check form-switch  form-check-reverse custom-switch-v1">
                               <label class="form-check-label ps-0" for="approve_kabag_asal"> Kabag </label>
-                              <input class="form-check-input" type="checkbox" role="switch"
-                                id="approve_kabag_asal" name="approve_kabag_asal" <?= ($transaksi['created_by'] == session('id')) ? '' : 'disabled'; ?> readonly>
+                              <input class="form-check-input" type="radio" role="switch"
+                                id="approve_kabag_asal" name="approve_kabag_asal" <?= $transaksi['date_ttd_asal'] ? 'checked' : '' ?> <?= has_permission('approve_kabag_asal') ? '' : 'disabled' ?>>
                             </div>
                           </div>
                           <div class="col-12">
                             <label for="date_ttd_asal" class="form-label">Tanggal</label>
                             <input type="datetime-local" class="form-control"
-                              id="date_ttd_asal" name="date_ttd_asal" readonly>
+                              id="date_ttd_asal" name="date_ttd_asal" value="<?= old('date_ttd_asal', $transaksi['date_ttd_asal']); ?>" readonly>
                           </div>
 
                           <!-- opsional: pilih pejabat -->
                           <div class="col-12">
                             <label for="user_kabag_asal" class="form-label">Nama Kabag</label>
                             <input type="text" class="form-control"
-                              id="user_kabag_asal" name="user_kabag_asal" placeholder="Mis. Budi Santoso" readonly>
+                              id="user_kabag_asal" name="user_kabag_asal" placeholder="Mis. Budi Santoso" value="<?= old('user_kabag_asal', $transaksi['user_kabag_asal']); ?>" readonly>
                           </div>
                         </div>
                       </div>
@@ -169,19 +158,19 @@
                           <div class="col-12">
                             <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1">
                               <label class="form-check-label" for="approve_kabag_tujuan"> Kabag </label>
-                              <input class="form-check-input" type="checkbox" role="switch"
-                                id="approve_kabag_tujuan" name="approve_kabag_tujuan">
+                              <input class="form-check-input" type="radio" role="switch"
+                                id="approve_kabag_tujuan" name="approve_kabag_tujuan" <?= $transaksi['date_ttd_tujuan'] ? 'checked' : ''; ?> <?= has_permission('approve_kabag_tujuan') ? '' : 'disabled' ?>>
                             </div>
                           </div>
                           <div class="col-12">
                             <label for="date_ttd_tujuan" class="form-label">Tanggal</label>
                             <input type="datetime-local" class="form-control"
-                              id="date_ttd_tujuan" name="date_ttd_tujuan" readonly>
+                              id="date_ttd_tujuan" name="date_ttd_tujuan" value="<?= $transaksi['date_ttd_tujuan']; ?>" readonly>
                           </div>
                           <div class="col-12">
                             <label for="user_kabag_tujuan" class="form-label">Nama Kabag</label>
                             <input type="text" class="form-control"
-                              id="user_kabag_tujuan" name="user_kabag_tujuan" placeholder="Mis. Siti Rahma" readonly>
+                              id="user_kabag_tujuan" name="user_kabag_tujuan" placeholder="Mis. Siti Rahma" value="<?= old('user_kabag_tujuan', $transaksi['user_kabag_tujuan']); ?>" readonly>
                           </div>
                         </div>
                       </div>
@@ -199,18 +188,19 @@
                             <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
                               <label class="form-check-label" for="approve_it"> PIC </label>
                               <input class="form-check-input no-click" type="checkbox" role="switch"
-                                id="approve_it" name="approve_it" readonly>
+                                id="approve_it" name="approve_it" <?= $transaksi['date_pic'] ? 'checked' : '' ?>
+                                <?= has_permission('approve_pic') && $transaksi['created_by'] == user_id() ? '' : 'disabled' ?>>
                             </div>
                           </div>
                           <div class="col-12  ">
                             <label for="date_pic" class="form-label">Tanggal</label>
                             <input type="datetime-local" class="form-control no-click"
-                              id="date_pic" name="date_pic" readonly>
+                              id="date_pic" name="date_pic" value="<?= old('date_pic', $transaksi['date_pic']); ?>" readonly>
                           </div>
                           <div class="col-12">
                             <label for="nama_pic" class="form-label">Nama PIC</label>
                             <input type="text" class="form-control no-click"
-                              id="nama_pic" name="nama_pic" placeholder="Mis. Admin IT" readonly>
+                              id="nama_pic" name="nama_pic" placeholder="Mis. Admin IT" value="<?= old('nama_pic', $transaksi['nama_pic']); ?>" readonly>
                           </div>
                         </div>
                       </div>
@@ -229,18 +219,27 @@
                             <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
                               <label class="form-check-label penyetuju" for="approve_dir"></label>
                               <input class="form-check-input no-click" type="checkbox" role="switch"
-                                id="approve_dir" name="approve_dir" readonly>
+                                id="approve_dir" name="approve_dir" <?= $transaksi['date_direksi'] ? 'checked' : ''; ?>
+                                <?php
+                                $allowed = false;
+                                if ($transaksi['transaksi'] == '3') {
+                                  $allowed = has_permission('approve_plan_manager');
+                                } else {
+                                  $allowed = has_permission('approve_direksi');
+                                }
+                                echo $allowed ? '' : 'disabled';
+                                ?> readonly>
                             </div>
                           </div>
                           <div class="col-12">
                             <label for="date_direksi" class="form-label">Tanggal</label>
                             <input type="datetime-local" class="form-control no-click"
-                              id="date_direksi" name="date_direksi" readonly>
+                              id="date_direksi" name="date_direksi" value="<?= old('date_direksi', $transaksi['date_direksi']); ?>" readonly>
                           </div>
                           <div class="col-12">
                             <label for="nama_direksi" class="form-label">Nama <span class="penyetuju"></span> </label>
                             <input type="text" class="form-control no-click"
-                              id="nama_direksi" name="nama_direksi" placeholder="Mis. Direktur Operasional" readonly>
+                              id="nama_direksi" name="nama_direksi" placeholder="Mis. Direktur Operasional" value="<?= old('nama_direksi', $transaksi['nama_direksi']); ?>" readonly>
                           </div>
                         </div>
                       </div>
@@ -253,11 +252,11 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_fin" name="ack_fin">
+                            id="ack_fin" name="ack_fin" <?= $transaksi['date_ack_fin'] ? 'checked' : '' ;?> <?= has_permission('ack_fin') ? '' : 'disabled' ?>>
                           <label class="form-check-label" for="ack_fin"> Manager Finance</label>
                         </div>
                         <input type="datetime-local" class="form-control"
-                          id="date_ack_fin" name="date_ack_fin" readonly>
+                          id="date_ack_fin" name="date_ack_fin" value="<?= old('date_ack_fin', $transaksi['date_ack_fin']); ?>" readonly>
                       </div>
                     </div>
                   </div>
@@ -269,7 +268,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_acc" name="ack_acc">
+                            id="ack_acc" name="ack_acc" <?= $transaksi['date_ack_acc'] ? 'checked' : '';?> <?= has_permission('ack_acc') ? '' :'disabled';?>>
                           <label class="form-check-label" for="ack_acc"> Accounting </label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -285,7 +284,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_ctrl" name="ack_ctrl">
+                            id="ack_ctrl" name="ack_ctrl" <?= $transaksi['date_ack_ctrl'] ? 'checked' : '';?> <?= has_permission('ack_ctrl') ? '' : 'disabled';?>>
                           <label class="form-check-label" for="ack_ctrl"> Controlling </label>
                         </div>
                         <input type="datetime-local" class="form-control"

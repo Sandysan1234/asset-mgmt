@@ -28,7 +28,7 @@
                             <input type="hidden" id="id_lokasi_area" name="id_lokasi_area">
                             <input type="hidden" id="id_lokasi_gedung" name="id_lokasi_gedung">
                             <input type="hidden" id="id_lokasi_lantai" name="id_lokasi_lantai"> -->
-                  <input type="hidden" id="login_user" data-fullname="<?= esc($user->fullname ?? $user['fullname']) ?>">
+                  <input type="hidden" id="login_user" data-fullname="<?= esc($user->fullname ?? '') ?>">
 
                   <h5>Department Asal</h5>
 
@@ -121,11 +121,11 @@
                         <p>Menyetujui,</p>
                         <div class="row g-3 align-items-end">
                           <div class="col-12">
-                            <div class="d-flex justify-content-between form-check form-switch  form-check-reverse custom-switch-v1">
-                              <label class="form-check-label ps-0" for="approve_kabag_asal"> Kabag </label>
-                              <input class="form-check-input" type="checkbox" role="switch"
-                                id="approve_kabag_asal" name="approve_kabag_asal">
-                            </div>
+                              <div class="d-flex justify-content-between form-check form-switch  form-check-reverse custom-switch-v1">
+                                <label class="form-check-label ps-0" for="approve_kabag_asal"> Kabag </label>
+                                <input class="form-check-input" type="checkbox" role="switch"
+                                  id="approve_kabag_asal" name="approve_kabag_asal" <?= has_permission('approve_kabag_asal') ? '' : 'disabled' ?>>
+                              </div>
                           </div>
                           <div class="col-12">
                             <label for="date_ttd_asal" class="form-label">Tanggal</label>
@@ -156,7 +156,8 @@
                             <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1">
                               <label class="form-check-label" for="approve_kabag_tujuan"> Kabag </label>
                               <input class="form-check-input" type="checkbox" role="switch"
-                                id="approve_kabag_tujuan" name="approve_kabag_tujuan">
+                                id="approve_kabag_tujuan" name="approve_kabag_tujuan"
+                                <?= has_permission('approve_kabag_tujuan') ? '' : 'disabled' ?>>
                             </div>
                           </div>
                           <div class="col-12">
@@ -182,16 +183,17 @@
 
                         <div class="row g-3 align-items-end">
                           <div class="col-12">
-                            <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
-                              <label class="form-check-label" for="approve_it"> PIC </label>
-                              <input class="form-check-input no-click" type="checkbox" role="switch"
-                                id="approve_it" name="approve_it" required>
-                            </div>
+                              <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
+                                <label class="form-check-label" for="approve_it"> PIC </label>
+                                <input class="form-check-input no-click" type="checkbox" role="switch"
+                                  id="approve_it" name="approve_it" required
+                                  <?= has_permission('approve_pic') ? '' : 'disabled' ?>>
+                              </div>
                           </div>
                           <div class="col-12  ">
                             <label for="date_pic" class="form-label">Tanggal</label>
                             <input type="datetime-local" class="form-control no-click"
-                              id="date_pic" name="date_pic" readonly>
+                              id="date_pic" name="date_pic" required readonly>
                           </div>
                           <div class="col-12">
                             <label for="nama_pic" class="form-label">Nama PIC</label>
@@ -215,7 +217,7 @@
                             <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
                               <label class="form-check-label penyetuju" for="approve_dir"></label>
                               <input class="form-check-input no-click" type="checkbox" role="switch"
-                                id="approve_dir" name="approve_dir" <?= has_permission('transaksi') ? '' : 'disabled' ?> readonly>
+                                id="approve_dir" name="approve_dir" <?= has_permission('approve_direksi') ? '' : 'disabled' ?> readonly>
                             </div>
                           </div>
                           <div class="col-12">
@@ -239,7 +241,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_fin" name="ack_fin">
+                            id="ack_fin" name="ack_fin" <?= has_permission('ack_finance') ? '' : 'disabled' ?>>
                           <label class="form-check-label" for="ack_fin"> Manager Finance</label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -255,7 +257,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_acc" name="ack_acc">
+                            id="ack_acc" name="ack_acc" <?= has_permission('ack_accounting') ? '' : 'disabled' ?>>
                           <label class="form-check-label" for="ack_acc"> Accounting </label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -271,7 +273,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_ctrl" name="ack_ctrl">
+                            id="ack_ctrl" name="ack_ctrl" <?= has_permission('ack_controlling') ? '' : 'disabled' ?>>
                           <label class="form-check-label" for="ack_ctrl"> Controlling </label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -285,7 +287,7 @@
                   </div>
 
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
+                    <button type="submit" <?= has_permission('approve_pic') ? '' : '';?> class="btn btn-primary">Simpan Transaksi</button>
                   </div>
                 </form>
               </div>

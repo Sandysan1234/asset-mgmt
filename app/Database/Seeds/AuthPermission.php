@@ -26,6 +26,38 @@ class AuthPermission extends Seeder
                 'name' => 'printqr',
                 'description' => 'Mencetak barcode'
             ],
+            [
+                'name' => 'approve_kabag_asal',
+                'description' => 'Menyetujui Dept Asal'
+            ],
+            [
+                'name' => 'approve_kabag_tujuan',
+                'description' => 'Menyetujui Dept Tujuan'
+            ],
+            [
+                'name'        => 'approve_pic',
+                'description' => 'Boleh menandatangani sebagai PIC',
+            ],
+            [
+                'name' => 'approve_plan_manager',
+                'description' => 'Menyetujui oleh Plan Manager'
+            ],
+            [
+                'name' => 'approve_direksi',
+                'description' => 'Menyetujui oleh Direksi'
+            ],
+            [
+                'name' => 'ack_finance',
+                'description' => 'Finance Manager Acknowledge'
+            ],
+            [
+                'name' => 'ack_accounting',
+                'description' => 'Accounting Acknowledge'
+            ],
+            [
+                'name' => 'ack_controlling',
+                'description' => 'Controlling Acknowledge'
+            ],
             
         ];
         $this->db->table('auth_permissions')->insertBatch($data);

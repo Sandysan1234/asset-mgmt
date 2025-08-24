@@ -32,7 +32,7 @@ class Transaksi extends BaseController
   public function index(): string
   {
 
-    $transaksi = $this->transactionModel->baseRelasi()->findAll();
+    $transaksi = $this->transactionModel->baseRelasi()->orderBy('nama_asset')->findAll();
     $data = [
       'title' => 'Transaksi | Asset Managed',
       'validation'  => \Config\Services::validation(),
@@ -93,6 +93,7 @@ class Transaksi extends BaseController
 
     $data = [
       'title' => 'Form Perpindahan | Asset Managed',
+      'transaksi' => $this->transactionModel->baseRelasi()->findAll(),
       'validation'  => \Config\Services::validation(),
       'plant' => $plant,
       'cost_center' => $cost_center,
@@ -223,7 +224,9 @@ class Transaksi extends BaseController
       // 'id_lokasi_area_baru'    => $idLokAreaBaru,
       // 'id_lokasi_gedung_baru'  => $idLokGedungBaru,
       // 'id_lokasi_lantai_baru'  => $idLokLantaiBaru,
-      'date_pic'            => date('Y-m-d H:i:s', strtotime($post['date_pic'])),
+      // 'date_pic'            => date('Y-m-d H:i:s', strtotime($post['date_pic'])),
+      'date_pic'            => !empty($post['date_pic']) ? $post['date_pic'] : null,
+
       'nama_pic'            => $post['nama_pic'],
 
       'status'                 => $post['status'] ?? 0, // 0=onprogress
@@ -258,48 +261,131 @@ class Transaksi extends BaseController
     return view('transaksi/edit', $data);
   }
 
-  public function update($id)
+  // public function update($id)
+  // {
+
+  //   $data = $this->request->getPost();
+  //   // dd($data);   
+  //   // $existing = $this->transactionModel->find($id);
+
+  //   // $rules[
+  //   //   ''
+  //   // ]
+
+  //   // if (!$this->validateData($data,$rules)) {
+  //   //   # code...
+  //   // }
+
+  //   $this->transactionModel->save([
+
+  //     'id_transaksi'        => $id,
+  //     // 'alasan'              => $existing['alasan'],
+  //     'date_ttd_asal'       => !empty($data['date_ttd_asal']) ? $data['date_ttd_asal'] : null,
+  //     'user_kabag_asal'     => $data['user_kabag_asal'],
+
+  //     'date_ttd_tujuan'     => !empty($data['date_ttd_tujuan']) ? $data['date_ttd_tujuan'] : null,
+  //     'user_kabag_tujuan'   => $data['user_kabag_tujuan'],
+  //     'date_pic'            => !empty($data['date_pic']) ? $data['date_pic'] : null,
+  //     'nama_pic'            => $data['nama_pic'],
+  //     'date_direksi'        => !empty($data['date_direksi']) ? $data['date_direksi'] : null,
+  //     'nama_direksi'        => $data['nama_direksi'],
+  //     'date_ack_fin'        => !empty($data['date_ack_fin']) ? $data['date_ack_fin'] : null,
+  //     'date_ack_acc'        => !empty($data['date_ack_acc']) ? $data['date_ack_acc'] : null,
+  //     'date_ack_ctrl'       => !empty($data['date_ack_ctrl']) ? $data['date_ack_ctrl'] : null,
+  //     // 'nama_direksi'        => $data['nama_direksi'],
+  //     // 'nama_direksi'        => $data['nama_direksi'],
+  //     // 'nama_direksi'        => $data['nama_direksi'],
+
+  //   ]);
+
+
+
+  //   session()->setFlashdata('pesan', 'Data berhasil Ditambahkan');
+  //   return redirect()->to('/transaksi');
+  // }
+  private function isApprovalComplete($transaksi)
   {
+    $required = [
+      'date_ttd_asal',
+      'date_ttd_tujuan',
+      'date_pic',
+      'date_direksi',
+      'date_ack_fin',
+      'date_ack_acc',
+      'date_ack_ctrl',
+    ];
 
-    $data = $this->request->getPost();
-    // dd($data);   
-    // $existing = $this->transactionModel->find($id);
-
-    // $rules[
-    //   ''
-    // ]
-
-    // if (!$this->validateData($data,$rules)) {
-    //   # code...
-    // }
-
-    $this->transactionModel->save([
-
-      'id_transaksi'        => $id,
-      // 'alasan'              => $existing['alasan'],
-      'date_ttd_asal'       => date('Y-m-d H:i:s', strtotime($data['date_ttd_asal'])),
-      'user_kabag_asal'     => $data['user_kabag_asal'],
-
-      'date_ttd_tujuan'     => date('Y-m-d H:i:s', strtotime($data['date_ttd_tujuan'])),
-      'user_kabag_tujuan'   => $data['user_kabag_tujuan'],
-      'date_pic'            => date('Y-m-d H:i:s', strtotime($data['date_pic'])),
-      'nama_pic'            => $data['nama_pic'],
-      'date_direksi'        => date('Y-m-d H:i:s', strtotime($data['date_direksi'])),
-      'nama_direksi'        => $data['nama_direksi'],
-      'date_ack_fin'        => date('Y-m-d H:i:s', strtotime($data['date_ack_fin'])),
-      'date_ack_acc'        => date('Y-m-d H:i:s', strtotime($data['date_ack_acc'])),
-      'date_ack_ctrl'       => date('Y-m-d H:i:s', strtotime($data['date_ack_ctrl'])),
-      // 'nama_direksi'        => $data['nama_direksi'],
-      // 'nama_direksi'        => $data['nama_direksi'],
-      // 'nama_direksi'        => $data['nama_direksi'],
-
-    ]);
-
-
-
-    session()->setFlashdata('pesan', 'Data berhasil Ditambahkan');
-    return redirect()->to('/transaksi');
+    foreach ($required as $field) {
+      if (empty($transaksi[$field])) {
+        return false;
+      }
+    }
+    return true;
   }
 
-  
+  // ✅ TAMBAHAN: Update data aset jika transaksi adalah mutasi
+  private function updateAssetAfterMutation($transaksi)
+  {
+    if ($transaksi['transaksi'] != '3') {
+      return;
+    }
+
+    $assetModel = new AssetModel();
+    $dataUpdate = [
+      'id_plant'         => $transaksi['id_plant_baru'],
+      'id_cost_center'   => $transaksi['id_cost_center_baru'],
+      // tambahkan field lain jika perlu (lokasi, dll)
+    ];
+
+    $assetModel->update($transaksi['id_asset'], $dataUpdate);
+  }
+
+  // ✅ MODIFIKASI: Fungsi update() dengan tambahan otomatisasi
+  public function update($id)
+  {
+    $data = $this->request->getPost();
+    $transaksiLama = $this->transactionModel->find($id);
+
+    if (!$transaksiLama) {
+      session()->setFlashdata('error', 'Transaksi tidak ditemukan.');
+      return redirect()->to('/transaksi');
+    }
+
+    // Siapkan data untuk disimpan
+    $updateData = [
+      'id_transaksi'        => $id,
+      'date_ttd_asal'       => !empty($data['date_ttd_asal']) ? $data['date_ttd_asal'] : null,
+      'user_kabag_asal'     => $data['user_kabag_asal'],
+      'date_ttd_tujuan'     => !empty($data['date_ttd_tujuan']) ? $data['date_ttd_tujuan'] : null,
+      'user_kabag_tujuan'   => $data['user_kabag_tujuan'],
+      'date_pic'            => !empty($data['date_pic']) ? $data['date_pic'] : null,
+      'nama_pic'            => $data['nama_pic'],
+      'date_direksi'        => !empty($data['date_direksi']) ? $data['date_direksi'] : null,
+      'nama_direksi'        => $data['nama_direksi'],
+      'date_ack_fin'        => !empty($data['date_ack_fin']) ? $data['date_ack_fin'] : null,
+      'date_ack_acc'        => !empty($data['date_ack_acc']) ? $data['date_ack_acc'] : null,
+      'date_ack_ctrl'       => !empty($data['date_ack_ctrl']) ? $data['date_ack_ctrl'] : null,
+    ];
+
+    // Simpan perubahan approval
+    $this->transactionModel->save($updateData);
+
+    // Ambil data terbaru setelah update
+    $transaksiBaru = $this->transactionModel->find($id);
+
+    // ✅ Cek apakah semua approval sudah lengkap
+    if ($this->isApprovalComplete($transaksiBaru)) {
+      // Ubah status ke "Complete"
+      $this->transactionModel->update($id, ['status' => 2]);
+
+      // Update data aset jika mutasi
+      $this->updateAssetAfterMutation($transaksiBaru);
+
+      session()->setFlashdata('pesan', 'Semua approval selesai! Data aset berhasil diperbarui.');
+    } else {
+      session()->setFlashdata('pesan', 'Approval berhasil disimpan.');
+    }
+
+    return redirect()->to('/transaksi');
+  }
 }

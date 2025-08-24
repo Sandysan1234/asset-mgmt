@@ -46,6 +46,7 @@
                     <tr class="text-nowrap">
                       <th scope="col">Handle</th>
                       <th scope="col">No</th>
+                      <th scope="col">No Asset</th>
                       <th scope="col">Nama Asset</th>
                       <th scope="col">Transaksi</th>
                       <th scope="col">Tanggal Transaksi</th>
@@ -65,6 +66,7 @@
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
                       <th scope="col">Modified By</th>
+                      <th scope="col">Created By</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -83,6 +85,7 @@
 
                         </td>
                         <th scope="row"><?= $i++; ?></th>
+                        <td><?= $tr['no_asset']; ?></td>
                         <td><?= $tr['nama_asset']; ?></td>
 
 
@@ -126,6 +129,7 @@
                         <td><?= (new DateTime($tr['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($tr['updated_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= $tr['modified_by']; ?></td>
+                        <td><?= $tr['username']; ?></td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
