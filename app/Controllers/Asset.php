@@ -9,6 +9,10 @@ use App\Models\CostcenterModel;
 use App\Models\AssetclassModel;
 use App\Models\LifetimeModel;
 use App\Models\LocationModel;
+use Myth\Auth\Models\UserModel;
+use Myth\Auth\Models\GroupModel;
+use Myth\Auth\Models\PermissionModel;
+
 
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
@@ -34,6 +38,11 @@ class Asset extends BaseController
   protected $locationModel;
   protected $plantModel;
   protected $lifetimeModel;
+  protected $userModel;
+  protected $groupModel;
+  protected $permissionModel;
+  
+
 
 
   public function __construct()
@@ -45,6 +54,9 @@ class Asset extends BaseController
     $this->assetclassModel  = new AssetClassModel();
     $this->lifetimeModel    = new LifetimeModel();
     $this->locationModel    = new LocationModel();
+    $this->userModel    = new UserModel();
+    $this->groupModel    = new GroupModel();
+    $this->permissionModel    = new PermissionModel();
   }
 
 
@@ -89,6 +101,20 @@ class Asset extends BaseController
 
   public function create()
   {
+    $picGroup = $this->groupModel->where('name', 'pic')->first();
+    $picUsers = [];
+
+    if ($picGroup) {
+
+        $picUsers = $this->userModel
+            ->select('users.id, users.fullname, users.username, users.email')
+            ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
+            ->where('auth_groups_users.group_id', $picGroup->id) // pastikan field: group_id
+            ->where('users.active', 1) // hanya user aktif
+            ->findAll();
+    }
+
+
     $data = [
       'title'       => 'Form Tambah Data Asset | Asset Managed',
       'validation'  => \Config\Services::validation(),
@@ -100,6 +126,7 @@ class Asset extends BaseController
       'lokasi_area'      => $this->locationModel->where('jenis_lokasi', 'Area')->findAll(),
       'lokasi_gedung'      => $this->locationModel->where('jenis_lokasi', 'Gedung')->findAll(),
       'lokasi_lantai'      => $this->locationModel->where('jenis_lokasi', 'Lantai')->findAll(),
+      'pic_users'       => $picUsers
 
     ];
 

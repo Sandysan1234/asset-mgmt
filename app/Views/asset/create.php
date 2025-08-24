@@ -256,10 +256,15 @@
                 <label for="" class="col-sm-3 col-form-label">PIC</label>
                 <div class="col-sm-6">
                   <select name="id_pic" class="form-select col-sm-6" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($pic_users as $user): ?>
+                      <option value="<?= $user->id ?>">
+                        <?= esc($user-> fullname ?? $user->username) ?>
+                        <?php if (!empty($user->email)): ?>
+                          (<?= esc($user->email) ?>)
+                        <?php endif ?>
+                      </option>
+                    <?php endforeach; ?>
                   </select>
                 </div>
               </div>

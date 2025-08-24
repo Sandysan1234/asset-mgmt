@@ -38,7 +38,6 @@ class CreatePerbaikanTable extends Migration
                 'constraint' => ['division', 'role', 'user'],
                 'default' => 'division'
             ],
-
             'id_vendor' => [
                 'type'     => 'INT',
                 'unsigned' => true,
