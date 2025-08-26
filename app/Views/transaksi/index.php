@@ -28,7 +28,7 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Plant</h5>
+            <h5>Transaksi</h5>
           </div>
           <div class="card tbl-card">
             <div class="card-body">

@@ -16,7 +16,7 @@ class Location extends BaseController
     {
         $location  = $this->locationModel->findAll();
         $data = [
-            'title'     => 'Location | Asset Managed',
+            'title'     => 'Location | Asset Management System',
             'location'  => $location,
         ];
         return view('location/index', $data);
@@ -24,7 +24,7 @@ class Location extends BaseController
     public function create()
     {
         $data = [
-            'title'        => 'Form Tambah Location | Asset managed',
+            'title'        => 'Form Tambah Location | Asset Management System',
             'validation'   => \Config\Services::validation(),
         ];
         return view('location/create', $data);
@@ -88,7 +88,7 @@ class Location extends BaseController
     public function edit($id)
     {
         $data = [
-            'title'        => 'Form Tambah Location | Asset managed',
+            'title'        => 'Form Tambah Location | Asset Management System',
             'validation'   => \Config\Services::validation(),
             'location'     => $this->locationModel->find($id),
         ];

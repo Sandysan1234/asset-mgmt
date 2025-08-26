@@ -41,7 +41,7 @@ class Asset extends BaseController
   protected $userModel;
   protected $groupModel;
   protected $permissionModel;
-  
+
 
 
 
@@ -64,11 +64,11 @@ class Asset extends BaseController
   {
     // $asset = $this->assetModel->getWithRelasi();
     // $data = [
-    //   'title'     => 'Asset | Asset Managed',
+    //   'title'     => 'Asset | Asset Management System',
     //   'asset' => $asset,
     // ];
     return view('asset/index', [
-      'title'     => 'Asset | Asset Managed',
+      'title'     => 'Asset | Asset Management System',
     ]);
   }
   // Endpoint server-side DataTables
@@ -106,17 +106,17 @@ class Asset extends BaseController
 
     if ($picGroup) {
 
-        $picUsers = $this->userModel
-            ->select('users.id, users.fullname, users.username, users.email')
-            ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
-            ->where('auth_groups_users.group_id', $picGroup->id) // pastikan field: group_id
-            ->where('users.active', 1) // hanya user aktif
-            ->findAll();
+      $picUsers = $this->userModel
+        ->select('users.id, users.fullname, users.username, users.email')
+        ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
+        ->where('auth_groups_users.group_id', $picGroup->id) // pastikan field: group_id
+        ->where('users.active', 1) // hanya user aktif
+        ->findAll();
     }
 
 
     $data = [
-      'title'       => 'Form Tambah Data Asset | Asset Managed',
+      'title'       => 'Form Tambah Data Asset | Asset Management System',
       'validation'  => \Config\Services::validation(),
       'plant'       => $this->plantModel->findAll(),
       'pemasok'     => $this->pemasokModel->findAll(),
@@ -316,9 +316,16 @@ class Asset extends BaseController
       'id_lokasi_area'   => $this->request->getPost('id_lokasi_area') ?: null,
       'id_lokasi_gedung' => $this->request->getPost('id_lokasi_gedung') ?: null,
       'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai') ?: null,
+      'id_pic'       => $this->request->getPost('id_pic'),
       'status'          => $this->request->getPost('status') ?: 5,
     ]);
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+    return redirect()->to('/asset');
+  }
+  public function delete($id)
+  {
+    $this->assetModel->delete($id);
+    session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/asset');
   }
 
@@ -464,8 +471,8 @@ class Asset extends BaseController
       'id_plant'        => $existing['id_plant'],
     ]);
 
-    
-    
+
+
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
     return redirect()->to('/asset');
   }
@@ -502,7 +509,7 @@ class Asset extends BaseController
     $dataUri = $result->getDataUri();
     // dd($asset);
     return view('asset/detail', [
-      'title' => 'Detail Asset | Asset Managed',
+      'title' => 'Detail Asset | Asset Management System',
       'asset' => $asset,
       'qr'    => $dataUri,
 
@@ -510,7 +517,7 @@ class Asset extends BaseController
 
 
     // $data = [
-    //   'title'     => 'Detail | Asset Managed',
+    //   'title'     => 'Detail | Asset Management System',
     //   'asset' => $asset,
     // ];
     // return view('asset/detail', $data);

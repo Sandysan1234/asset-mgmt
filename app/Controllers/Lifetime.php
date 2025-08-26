@@ -17,7 +17,7 @@ class Lifetime extends BaseController
     {
         $lifetime = $this->lifetimeModel->findAll();
         $data = [
-            'title'     => 'Lifetime | Asset Managed',
+            'title'     => 'Lifetime | Asset Management System',
             'lifetime'  => $lifetime,
 
         ];
@@ -27,7 +27,7 @@ class Lifetime extends BaseController
     public function create()
     {
         $data = [
-            'title'      => 'Form Tambah Data lifetime | Asset Managed',
+            'title'      => 'Form Tambah Data lifetime | Asset Management System',
             'validation' =>  \Config\Services::validation()
         ];
 
@@ -83,7 +83,7 @@ class Lifetime extends BaseController
     public function edit($id)
     {
         $data = [
-            'title' => 'Form Ubah Data Lifetime | Asset Managed',
+            'title' => 'Form Ubah Data Lifetime | Asset Management System',
             'validation' => \Config\services::validation(),
             'lifetime'   => $this->lifetimeModel->find($id),
         ];

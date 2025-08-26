@@ -21,7 +21,7 @@ class Plant extends BaseController
   {
     $plant = $this->plantModel->findAll();
     $data = [
-      'title'     => 'Plant | Asset Managed',
+      'title'     => 'Plant | Asset Management System',
       'plant' => $plant,
     ];
     return view('plant/index', $data);
@@ -31,7 +31,7 @@ class Plant extends BaseController
   public function create()
   {
     $data = [
-      'title'      => 'Form Tambah Data Plant | Asset Managed',
+      'title'      => 'Form Tambah Data Plant | Asset Management System',
       'validation' =>  \Config\Services::validation()
     ];
 
@@ -100,7 +100,7 @@ class Plant extends BaseController
   public function edit($id)
   {
     $data = [
-      'title'   => 'Form Tambah Data Plant | Asset Managed',
+      'title'   => 'Form Tambah Data Plant | Asset Management System',
       'validation' =>  \Config\Services::validation(),
       'plant'      => $this->plantModel->find($id),
     ];

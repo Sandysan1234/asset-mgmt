@@ -30,6 +30,7 @@ class AssetModel extends Model
     'id_lokasi_area',
     'id_lokasi_gedung',
     'id_lokasi_lantai',
+    'id_pic',
   ];
   // untuk search
   private array $allowedCols = [

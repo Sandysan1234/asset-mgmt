@@ -141,7 +141,9 @@
           data: 'id_asset',
           orderable: false,
           searchable: true,
-          render: function(id) {
+          render: function(id, type, row) {
+            const assetId = row.id_asset;
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             return `
             <a href="/asset/detail/${id}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-file-search"></i></a>
             <a href="/asset/edit/${id}" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-edit"></i></a>

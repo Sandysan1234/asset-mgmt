@@ -21,7 +21,7 @@ class Assetclass extends BaseController
   {
     $assetclass = $this->assetclassModel->findAll();
     $data = [
-      'title'     => 'Asset Class | Asset Managed',
+      'title'     => 'Asset Class | Asset Management System',
       'assetclass' => $assetclass,
     ];
     return view('assetclass/index', $data);
@@ -31,7 +31,7 @@ class Assetclass extends BaseController
   public function create()
   {
     $data = [
-      'title'      => 'Form Tambah Data Asset Class | Asset Managed',
+      'title'      => 'Form Tambah Data Asset Class | Asset Management System',
       'validation' => \Config\Services::validation()
 
     ];
@@ -88,7 +88,7 @@ class Assetclass extends BaseController
     session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/assetclass');
   }
-  
+
   public function edit($id)
   {
     $data = [
@@ -116,7 +116,7 @@ class Assetclass extends BaseController
         'rules'   => 'required|is_unique[assetclass.kode_assetclass,id_assetclass,' . $id . ']',
         'errors'  => [
           'required' => '{field} harus diisi',
-          'is_unique'=> '{field} sudah terdaftar'
+          'is_unique' => '{field} sudah terdaftar'
         ]
       ],
       'status'    => [
@@ -128,7 +128,7 @@ class Assetclass extends BaseController
       ]
 
     ])) {
-      return redirect()->to('/assetclass/edit/'.$id)->withInput();
+      return redirect()->to('/assetclass/edit/' . $id)->withInput();
     }
     $this->assetclassModel->save(
       [
@@ -140,6 +140,5 @@ class Assetclass extends BaseController
     );
     session()->setFlashdata('pesan', 'Data berhasil diubah');
     return redirect()->to('/assetclass');
-
   }
 }

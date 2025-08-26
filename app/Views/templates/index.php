@@ -8,9 +8,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Asset Managed Satu platform untuk semua aset: terpusat, efisien, dan terpercaya.">
+  <meta name="description" content="Asset Management System Satu platform untuk semua aset: terpusat, efisien, dan terpercaya.">
   <meta name="keywords" content="Asset, Managed, inventaris, sim asset">
   <meta name="author" content="sandysan1234">
+  <meta name="csrf-token" content="<?= csrf_hash() ?>">
 
   <!-- [Favicon] icon -->
   <link rel="icon" href="<?= base_url(); ?>assets/images/logo-jmi.svg" type="image/x-icon"> <!-- [Google Font] Family -->

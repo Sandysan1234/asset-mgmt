@@ -29,7 +29,7 @@
                             <input type="hidden" id="id_lokasi_area" name="id_lokasi_area">
                             <input type="hidden" id="id_lokasi_gedung" name="id_lokasi_gedung">
                             <input type="hidden" id="id_lokasi_lantai" name="id_lokasi_lantai"> -->
-                  <input type="hidden" id="login_user" data-fullname="<?= esc($user->fullname ?? $user['fullname']) ?>">
+                  <input type="hidden" id="login_user" data-fullname="<?= esc($user->fullname ?? $user->email) ?>">
 
                   <h5>Department Asal</h5>
 

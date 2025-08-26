@@ -22,7 +22,7 @@ class Qrbarcode extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Generate QR Code | Asset Managed',
+            'title' => 'Generate QR Code | Asset Management System',
             'qrList' => []
         ];
         return view('qrcode/index', $data);

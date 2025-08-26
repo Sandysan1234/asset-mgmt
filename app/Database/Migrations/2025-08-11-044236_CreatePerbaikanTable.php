@@ -15,28 +15,35 @@ class CreatePerbaikanTable extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'kode_perbaikan' => [
+            'jenis_perbaikan' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
-                'null'       => false,
+                'null'       => true
             ],
-            'nama_transaksi' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '100',
+            'keterangan' => [
+                'type' => 'TEXT',
+                'null' => true,
             ],
-            'jenis_perbaikan' => [
-                'type'       => 'INT',
-                'unsigned'   => true,
-            ],
-            'nominal' => [
+            'biaya' => [
                 'type'       => 'DECIMAL',
                 'constraint' => '15,2',
                 'default'    => 0.00,
             ],
-            'jenis_perbaikan'  => [
-                'type' => 'ENUM',
-                'constraint' => ['division', 'role', 'user'],
-                'default' => 'division'
+            'teknisi' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => true
+            ],
+            'durasi' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => true,
+            ],
+            'status' => [
+                'type'       => 'TINYINT',
+                'constraint' => 1,
+                'default'    => 0,
+                'comment'    => '0=sedang diperbaiki, 1 = selesai diperbaiki'
             ],
             'id_vendor' => [
                 'type'     => 'INT',
@@ -58,28 +65,21 @@ class CreatePerbaikanTable extends Migration
                 'type'     => 'INT',
                 'unsigned' => true,
                 'null'     => true,
-
             ],
             'id_lokasi_gedung' => [
                 'type'     => 'INT',
                 'unsigned' => true,
                 'null'     => true,
-
             ],
             'id_lokasi_lantai' => [
                 'type'     => 'INT',
                 'unsigned' => true,
                 'null'     => true,
-
             ],
-            'alasan' => [
-                'type' => 'TEXT',
-                'null' => true,
-            ],
-            'catatan' => [
-                'type' => 'TEXT',
-                'null' => true,
-            ],
+            // 'catatan' => [
+            //     'type' => 'TEXT',
+            //     'null' => true,
+            // ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,

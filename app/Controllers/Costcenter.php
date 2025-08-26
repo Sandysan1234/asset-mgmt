@@ -21,7 +21,7 @@ class Costcenter extends BaseController
   {
     $costcenter = $this->costcenterModel->findAll();
     $data = [
-      'title'     => 'Cost Center | Asset Managed',
+      'title'     => 'Cost Center | Asset Management System',
       'costcenter' => $costcenter,
     ];
     return view('costcenter/index', $data);
@@ -31,7 +31,7 @@ class Costcenter extends BaseController
   public function create()
   {
     $data = [
-      'title'      => 'Form Tambah Data Cost Center | Asset Managed',
+      'title'      => 'Form Tambah Data Cost Center | Asset Management System',
       'validation' => \Config\Services::validation()
 
     ];
@@ -88,7 +88,7 @@ class Costcenter extends BaseController
     session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/costcenter');
   }
-  
+
   public function edit($id)
   {
     $data = [
@@ -116,7 +116,7 @@ class Costcenter extends BaseController
         'rules'   => 'required|is_unique[cost_center.kode_cost_center,id_cost_center,' . $id . ']',
         'errors'  => [
           'required' => '{field} harus diisi',
-          'is_unique'=> '{field} sudah terdaftar',
+          'is_unique' => '{field} sudah terdaftar',
         ]
       ],
       'status'    => [
@@ -128,7 +128,7 @@ class Costcenter extends BaseController
       ]
 
     ])) {
-      return redirect()->to('/costcenter/edit/'.$id)->withInput();
+      return redirect()->to('/costcenter/edit/' . $id)->withInput();
     }
     $this->costcenterModel->save(
       [
@@ -140,6 +140,5 @@ class Costcenter extends BaseController
     );
     session()->setFlashdata('pesan', 'Data berhasil diubah');
     return redirect()->to('/costcenter');
-
   }
 }

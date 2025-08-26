@@ -25,6 +25,10 @@ class AuthGroups extends Seeder
         'name'   => 'manager',
         'description'  => 'Semua Manager Department',
       ],
+      [
+        'name'   => 'View',
+        'description'  => 'Hanya Melihat',
+      ],
 
     ];
     $this->db->table('auth_groups')->insertBatch($data);

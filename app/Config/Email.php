@@ -7,7 +7,7 @@ use CodeIgniter\Config\BaseConfig;
 class Email extends BaseConfig
 {
     public string $fromEmail  = 'noreplyemailtojmi@gmail.com';
-    public string $fromName   = 'Asset Managed JMI';
+    public string $fromName   = 'Asset Management System JMI';
     public string $recipients = '';
 
     /**

@@ -19,7 +19,7 @@ class Pemasok extends BaseController
         $pemasok = $this->pemasokModel->findAll();
 
         $data = [
-            'title'   => 'Vendor | Asset Managed',
+            'title'   => 'Vendor | Asset Management System',
             'pemasok' => $pemasok,
         ];
 
@@ -30,7 +30,7 @@ class Pemasok extends BaseController
     {
         // session();
         $data = [
-            'title'      => 'Form Tambah Data Vendor | Asset Managed',
+            'title'      => 'Form Tambah Data Vendor | Asset Management System',
             'validation' => \Config\Services::validation()
         ];
 

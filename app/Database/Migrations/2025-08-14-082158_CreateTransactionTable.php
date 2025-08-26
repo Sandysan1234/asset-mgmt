@@ -36,17 +36,11 @@ class CreateTransactionTable extends Migration
             // asal (snapshot)
             'id_plant_asal'         => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
             'id_cost_center_asal'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            // 'id_lokasi_area_asal'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            // 'id_lokasi_gedung_asal' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            // 'id_lokasi_lantai_asal' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
 
             // tujuan (rencana)
             'id_plant_baru'         => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
             'id_cost_center_baru'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            // 'id_lokasi_area_baru'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            // 'id_lokasi_gedung_baru' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-            // 'id_lokasi_lantai_baru' => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-
+        
             // status umum transaksi
             // 0=onprogress,1=approve,2=complete,3=cancelled
             'status'  => [
@@ -73,15 +67,7 @@ class CreateTransactionTable extends Migration
             'date_ack_acc' => ['type' => 'DATETIME', 'null' => true],
             'date_ack_ctrl' => ['type' => 'DATETIME', 'null' => true],
 
-
-
-            
-
-
-
             'catatan' => ['type' => 'TEXT', 'null' => true],
-
-
             // audit trail
             'created_at'    => ['type' => 'DATETIME', 'null' => true],
             'created_by'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],

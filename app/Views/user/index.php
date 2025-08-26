@@ -1,11 +1,11 @@
 <!-- [ Main Content ] start -->
-<?= $this->extend('templates/index');?>
+<?= $this->extend('templates/index'); ?>
 
-<?= $this->section('page-content');?>
-  <div class="pc-container">
-    <div class="pc-content">
-      <!-- [ breadcrumb ] start -->
-      <!-- <div class="page-header">
+<?= $this->section('page-content'); ?>
+<div class="pc-container">
+  <div class="pc-content">
+    <!-- [ breadcrumb ] start -->
+    <!-- <div class="page-header">
         <div class="page-block">
           <div class="row align-items-center">
             <div class="col-md-12">
@@ -21,131 +21,45 @@
           </div>
         </div>
       </div> -->
-      <!-- [ breadcrumb ] end -->
+    <!-- [ breadcrumb ] end -->
 
-      <!-- [ Main Content ] start -->
-      <div class="row">
-        <!-- [ sample-page ] start -->
-        <div class="col-sm-12">
-          <div class="card">
-            <div class="card-header">
-              <h5>Hello card</h5>
-            </div>
-            <div class="card-body">
-            </div>
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <!-- [ sample-page ] start -->
+      <div class="col-sm-12">
+        <!-- <div class="card">
+          <div class="card-header">
+            <h5>Hello card</h5>
           </div>
-          <h5 class="mb-3">Recent Orders</h5>
-          <div class="card tbl-card">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-hover table-borderless mb-0">
-                  <thead>
-                    <tr >
-                      <th>TRACKING NO.</th>
-                      <th>PRODUCT NAME</th>
-                      <th>TOTAL ORDER</th>
-                      <th>STATUS</th>
-                      <th class="text-end">TOTAL AMOUNT</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Camera Lens</td>
-                      <td>40</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                      </td>
-                      <td class="text-end">$40,570</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Laptop</td>
-                      <td>300</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                      </td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Camera Lens</td>
-                      <td>40</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                      </td>
-                      <td class="text-end">$40,570</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Laptop</td>
-                      <td>300</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                      </td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Camera Lens</td>
-                      <td>40</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-danger f-10 m-r-5"></i>Rejected</span>
-                      </td>
-                      <td class="text-end">$40,570</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Laptop</td>
-                      <td>300</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-warning f-10 m-r-5"></i>Pending</span>
-                      </td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                    <tr>
-                      <td><a href="#" class="text-muted">84564564</a></td>
-                      <td>Mobile</td>
-                      <td>355</td>
-                      <td><span class="d-flex align-items-center gap-2"><i
-                            class="fas fa-circle text-success f-10 m-r-5"></i>Approved</span></td>
-                      <td class="text-end">$180,139</td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div class="card-body">
+          </div>
+        </div> -->
+        <h5 class="mb-3">Dashboard</h5>
+        <div class="card tbl-card">
+          <div class="card-body">
+            <div class="col-lg-3 col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-8">
+                      <h3 class="mb-1"><?= $total_asset; ?></h3>
+                      <p class="mb-0">Jumlah Aset</p>
+                    </div>
+                    <div class="col-4 text-end">
+                      <i class="ti ti-chart-bar text-primary f-36"></i>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
-        <!-- [ sample-page ] end -->
       </div>
-      <!-- [ Main Content ] end -->
     </div>
+    <!-- [ sample-page ] end -->
   </div>
   <!-- [ Main Content ] end -->
-<?= $this->endSection();?>
+</div>
+</div>
+<!-- [ Main Content ] end -->
+<?= $this->endSection(); ?>

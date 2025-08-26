@@ -258,7 +258,7 @@
                   <select name="id_pic" class="form-select col-sm-6" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($pic_users as $user): ?>
-                      <option value="<?= $user->id ?>">
+                      <option value="<?= $user->id ?>" <?= old('id_pic')== $user->id ? 'selected' : '';?>>
                         <?= esc($user-> fullname ?? $user->username) ?>
                         <?php if (!empty($user->email)): ?>
                           (<?= esc($user->email) ?>)

@@ -28,14 +28,13 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Vendor</h5>
+            <h5>Users</h5>
           </div>
           <div class="card tbl-card">
             <div class="card-body">
               <div class="table-responsive">
                 <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
-
-                <a href="/pemasok/create" class="btn btn-outline-primary mb-3">Tambah Data Vendor</a>
+                <!-- <a href="/plant/create" class="btn btn-outline-primary mb-3">Tambah Data Plant</a> -->
                 <?php if (session()->getFlashdata('pesan')): ?>
                   <div class="alert alert-success">
                     <?= session()->getFlashdata('pesan'); ?>
@@ -44,44 +43,54 @@
                 <table id="myTable-client" class="table table-hover table-borderless" style="width:100%">
                   <thead class="bg-light">
                     <tr class="text-nowrap">
-                      <th scope="col">Handle</th>
+                      <!-- <th scope="col">Handle</th> -->
                       <th scope="col">No</th>
-                      <th scope="col">Kode Vendor</th>
-                      <th scope="col">Nama Vendor</th>
-                      <th scope="col">Alamat</th>
+                      <th scope="col">Username</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Fullname</th>
+                      <th scope="col">Group</th>
+                      <th scope="col">Permissions</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Created At</th>
-                      <th scope="col">Updated At</th>
-                      <th scope="col">Modified By</th>
+
                     </tr>
                   </thead>
                   <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($pemasok as $p) : ?>
+                    <?php foreach ($users as $user) : ?>
                       <tr class="text-nowrap">
-                        <td>
-                          <a href="/pemasok/edit/<?= $p['id_vendor']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
-                          <form action="/pemasok/<?= $p['id_vendor']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                            <?= csrf_field(); ?>
+                        <!-- <td>
+                          <a href="/plant/edit/?= $user['id_plant']; ?>" class="btn btn-icon btn-warning disabled" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
+                          <form action="/plant/?= $user['id_plant']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            ?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
-
-                            <!-- delete permanen karena model tidak disetting -->
+                            delete permanen karena model tidak disetting
                           </form>
-                        </td>
+
+                        </td> -->
                         <th scope="row"><?= $i++; ?></th>
-                        <td><?= esc($p['kode_vendor']); ?></td>
-                        <td><?= esc($p['nama_vendor']); ?></td>
-                        <td><?= esc($p['alamat']); ?></td>
+                        <td><?= esc($user['username']) ?></td>
+                        <td><?= esc($user['email']) ?></td>
+                        <td><?= esc($user['fullname'] ?? '–') ?></td>
                         <td>
-                          <span class="badge <?= $p['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
-                            <?= $p['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
+                          <strong class="text-capitalize"><?= esc($user['group_name']) ?></strong><br>
+                          <small class="text-muted"><?= esc($user['group_description']) ?></small>
+                        </td>
+                        <td>
+                          <?php if (empty($user['permissions_list'])): ?>
+                            <span class="text-muted">Tidak ada permission</span>
+                          <?php else: ?>
+                            <?php foreach ($user['permissions_list'] as $perm): ?>
+                              <h5><span class="badge bg-primary rounded-2 mb-1"><?= esc(trim($perm)) ?></span></h5>
+                            <?php endforeach; ?>
+                          <?php endif; ?>
+                        </td>
+                        <td>
+                          <span class="badge rounded-2 <?= $user['active'] ? 'bg-success' : 'bg-danger' ?>">
+                            <?= $user['active'] ? 'Aktif' : 'Nonaktif' ?>
                           </span>
                         </td>
-                        <td><?= (new DateTime($p['created_at']))->format('d-m-Y H:i');  ?></td>
-                        <td><?= (new DateTime($p['updated_at']))->format('d-m-Y H:i');  ?></td>
-                        <td><?= $p['modified_by']; ?></td>
-                        
+
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
@@ -98,4 +107,5 @@
 </div>
 
 <!-- [ Main Content ] end -->
-<?= $this->endSection('page-content'); ?>
+
+<?= $this->endSection(); ?>

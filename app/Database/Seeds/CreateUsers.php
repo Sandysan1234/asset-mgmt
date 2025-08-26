@@ -27,8 +27,8 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'santi@example.com',
 				'username'      => 'santi',
-				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'fullname'      => 'santi',
+				'password_hash' => Password::hash('Jayamas2025'), // password di-hash
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -58,7 +58,7 @@ class CreateUsers extends Seeder
 				'email'         => 'ayunda@example.com',
 				'username'      => 'ayunda',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'), // password di-hash
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -68,7 +68,7 @@ class CreateUsers extends Seeder
 				'email'         => 'baktiar@example.com',
 				'username'      => 'baktiar',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -78,7 +78,7 @@ class CreateUsers extends Seeder
 				'email'         => 'annisa@example.com',
 				'username'      => 'annisa',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -88,7 +88,7 @@ class CreateUsers extends Seeder
 				'email'         => 'sasa@example.com',
 				'username'      => 'sasa',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -98,7 +98,7 @@ class CreateUsers extends Seeder
 				'email'         => 'okmah@example.com',
 				'username'      => 'okmah',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -108,7 +108,7 @@ class CreateUsers extends Seeder
 				'email'         => 'ferdy@example.com',
 				'username'      => 'ferdy',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -118,7 +118,7 @@ class CreateUsers extends Seeder
 				'email'         => 'dian@example.com',
 				'username'      => 'dian',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -128,7 +128,7 @@ class CreateUsers extends Seeder
 				'email'         => 'rinda@example.com',
 				'username'      => 'rinda',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -138,7 +138,7 @@ class CreateUsers extends Seeder
 				'email'         => 'hazmi@example.com',
 				'username'      => 'hazmi',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -148,7 +148,7 @@ class CreateUsers extends Seeder
 				'email'         => 'iswatun@example.com',
 				'username'      => 'iswatun',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -158,7 +158,7 @@ class CreateUsers extends Seeder
 				'email'         => 'nia@example.com',
 				'username'      => 'nia',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -168,7 +168,7 @@ class CreateUsers extends Seeder
 				'email'         => 'dwiky@example.com',
 				'username'      => 'dwiky',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -178,7 +178,7 @@ class CreateUsers extends Seeder
 				'email'         => 'ana@example.com',
 				'username'      => 'ana',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -188,7 +188,7 @@ class CreateUsers extends Seeder
 				'email'         => 'sony@example.com',
 				'username'      => 'sony',
 				'fullname'      => null,
-				'password_hash' => password_hash('Jayamas2025', PASSWORD_DEFAULT), // password di-hash
+				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),

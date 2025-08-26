@@ -81,6 +81,7 @@ $routes->post('assetclass/update/(:any)', 'Assetclass::update/$1');
 $routes->get('asset', 'Asset::index');
 $routes->get('asset/create', 'Asset::create');
 $routes->post('asset/save', 'Asset::save');
+$routes->delete('asset/(:num)', 'Asset::delete/$1');
 $routes->get('asset/edit/(:segment)', 'Asset::edit/$1');
 $routes->post('asset/update/(:any)', 'Asset::update/$1');
 $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
@@ -93,9 +94,13 @@ $routes->get('transaksi/create', 'Transaksi::create');
 $routes->post('transaksi/save', 'Transaksi::save');
 $routes->get('transaksi/edit/(:segment)', 'Transaksi::edit/$1');
 $routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
+$routes->delete('transaksi/(:num)', 'Transaksi::delete/$1');
+
 $routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
 
 
 
 $routes->get('qr', 'Qrbarcode::index');
 $routes->post('qr/save', 'Qrbarcode::multiple');
+
+$routes->get('/users', 'Users::index');

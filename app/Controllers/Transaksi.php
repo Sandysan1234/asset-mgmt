@@ -34,7 +34,7 @@ class Transaksi extends BaseController
 
     $transaksi = $this->transactionModel->baseRelasi()->orderBy('nama_asset')->findAll();
     $data = [
-      'title' => 'Transaksi | Asset Managed',
+      'title' => 'Transaksi | Asset Management System',
       'validation'  => \Config\Services::validation(),
       // 'plants' => $plants,
       // 'costcenters' => $costcenters
@@ -92,7 +92,7 @@ class Transaksi extends BaseController
 
 
     $data = [
-      'title' => 'Form Perpindahan | Asset Managed',
+      'title' => 'Form Perpindahan | Asset Management System',
       'transaksi' => $this->transactionModel->baseRelasi()->findAll(),
       'validation'  => \Config\Services::validation(),
       'plant' => $plant,
@@ -106,6 +106,12 @@ class Transaksi extends BaseController
     return view('transaksi/create', $data);
   }
 
+  public function delete($id)
+  {
+    $this->transactionModel->delete($id);
+    session()->setFlashdata('pesan', 'Data berhasil dihapus');
+    return redirect()->to('/transaksi');
+  }
   // public function save()
   // {
 
@@ -248,7 +254,7 @@ class Transaksi extends BaseController
 
 
     $data = [
-      'title'         => 'Approval | Asset Managed',
+      'title'         => 'Approval | Asset Management System',
       'validation'    => \Config\Services::validation(),
       'transaksi'     => $this->transactionModel->baseRelasi()->find($id),
       'plants'        => $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll(),

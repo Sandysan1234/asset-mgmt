@@ -74,9 +74,9 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="../other/sample-page.html" class="pc-link">
-            <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-            <span class="pc-mtext">PIC</span>
+          <a href="../users" class="pc-link">
+            <span class="pc-micon"><i class="ti ti-users"></i></span>
+            <span class="pc-mtext">Users</span>
           </a>
         </li>
         <li class="pc-item">
