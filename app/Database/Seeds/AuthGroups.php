@@ -11,23 +11,23 @@ class AuthGroups extends Seeder
     $data = [
       [
         'name'   => 'admin',
-        'description'  => 'Site Administrator',
+        'description'  => 'Melakukan Semuanya',
+      ],
+      [
+        'name'   => 'pic',
+        'description'  => 'Buat Transaksi, Approve PIC, CRU List Aset, Perbaikan IT',
+      ],
+      [
+        'name'   => 'approval',
+        'description'  => 'yang bisa ttd',
+      ],
+      [
+        'name'   => 'kabag',
+        'description'  => 'approve dept asal/tujuan, List Asset All',
       ],
       [
         'name'   => 'user',
         'description'  => 'Regular user',
-      ],
-      [
-        'name'   => 'pic',
-        'description'  => 'PIC department',
-      ],
-      [
-        'name'   => 'manager',
-        'description'  => 'Semua Manager Department',
-      ],
-      [
-        'name'   => 'View',
-        'description'  => 'Hanya Melihat',
       ],
 
     ];

@@ -10,17 +10,37 @@ class AuthPermission extends Seeder
     {
         $data = [
             [
-                'name' => 'asset.view',
-                'description' => 'melihat data asset'
+                'name' => 'asset_view',
+                'description' => 'Melihat Asset'
+            ],
+            [
+                'name' => 'asset_edit',
+                'description' => 'Edit Data Asset'
+            ],
+            [
+                'name' => 'asset_create',
+                'description' => 'Membuat Data Asset'
+            ],
+            [
+                'name' => 'asset_repair',
+                'description' => 'Membuat Data Asset'
+            ],
+            [
+                'name' => 'crud',
+                'description' => 'crud semuanya'
             ],
             
             [
-                'name' => 'transaksi',
-                'description' => 'Melakukan Transaksi'
+                'name' => 'transaksi_update',
+                'description' => 'melakukan edit Transaksi'
             ],
             [
-                'name' => 'ttd',
-                'description' => 'Menandatangani Transaksi'
+                'name' => 'transaksi_create',
+                'description' => 'melakukan buat Transaksi'
+            ],
+            [
+                'name' => 'transaksi_delete',
+                'description' => 'melakukan hapus Transaksi'
             ],
             [
                 'name' => 'printqr',
@@ -57,6 +77,10 @@ class AuthPermission extends Seeder
             [
                 'name' => 'ack_controlling',
                 'description' => 'Controlling Acknowledge'
+            ],
+            [
+                'name' => 'transaksi_view',
+                'description' => 'Melihat Transaksi'
             ],
             
         ];

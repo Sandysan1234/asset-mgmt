@@ -7,7 +7,7 @@ use App\Models\PerbaikanModel;
 
 use PhpParser\Node\Expr\FuncCall;
 
-class Plant extends BaseController
+class Perbaikan extends BaseController
 {
     protected $assetModel;
     protected $perbaikanModel;
@@ -23,7 +23,7 @@ class Plant extends BaseController
 
     public function index()
     {
-        $plant = $this->plantModel->findAll();
+        $plant = $this->perbaikanModel->findAll();
         $data = [
             'title'     => 'Plant | Asset Management System',
             'plant' => $plant,
@@ -82,7 +82,7 @@ class Plant extends BaseController
             return redirect()->to('/plant/create')->withInput();
         }
 
-        $this->plantModel->save([
+        $this->perbaikanModel->save([
             'kode_plant'        => $this->request->getPost('kode_plant'),
             'nama_plant'        => $this->request->getPost('nama_plant'),
             'alamat'            => $this->request->getPost('alamat'),
@@ -95,7 +95,7 @@ class Plant extends BaseController
     //===========delete===========
     public function delete($id)
     {
-        $this->plantModel->delete($id);
+        $this->perbaikanModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
         return redirect()->to('/plant');
     }

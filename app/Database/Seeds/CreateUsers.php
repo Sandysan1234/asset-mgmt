@@ -185,8 +185,78 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
+				'email'         => 'retno@example.com',
+				'username'      => 'retno',
+				'fullname'      => null,
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'ariesta@example.com',
+				'username'      => 'ariesta',
+				'fullname'      => null,
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
 				'email'         => 'sony@example.com',
 				'username'      => 'sony',
+				'fullname'      => null,
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'herlien@example.com',
+				'username'      => 'herlien',
+				'fullname'      => null,
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'sudar@example.com',
+				'username'      => 'sudar',
+				'fullname'      => 'Sudar Wiyono',
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'riza@example.com',
+				'username'      => 'riza',
+				'fullname'      => null,
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'apit@example.com',
+				'username'      => 'apit',
+				'fullname'      => null,
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'hanif@example.com',
+				'username'      => 'hanif',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
