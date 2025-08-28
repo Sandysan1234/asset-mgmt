@@ -34,7 +34,9 @@
             <div class="card-body">
               <div class="table-responsive">
                 <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
-                <a href="/transaksi/create" class="btn btn-outline-primary mb-3">Buat Transaksi</a>
+                <?php if (has_permission('transaksi_create')): ?>
+                  <a href="/transaksi/create" class="btn btn-outline-primary mb-3">Buat Transaksi</a>
+                <?php endif; ?>
                 <?php if (session()->getFlashdata('pesan')): ?>
                   <div class="alert alert-success">
                     <?= session()->getFlashdata('pesan'); ?>
@@ -73,16 +75,16 @@
                     <?php $i = 1; ?>
                     <?php foreach ($transaksi as $tr) : ?>
                       <tr class="text-nowrap">
-
                         <td>
                           <a href="/transaksi/edit/<?= $tr['id_transaksi']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
-                          <form action="/transaksi/<?= $tr['id_transaksi']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                            <?= csrf_field(); ?>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
-                            <!-- delete permanen karena model tidak disetting -->
-                          </form>
-
+                          <?php if (in_groups('pic')): ?>
+                            <form action="/transaksi/<?= $tr['id_transaksi']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                              <?= csrf_field(); ?>
+                              <input type="hidden" name="_method" value="DELETE">
+                              <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
+                              <!-- delete permanen karena model tidak disetting -->
+                            </form>
+                          <?php endif; ?>
                         </td>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $tr['no_asset']; ?></td>

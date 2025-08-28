@@ -248,11 +248,11 @@
                   <!-- Mengetahui: Manager Finance -->
                   <div class="col-md-4">
                     <div class="card">
-                      <div class="card-body">
+                      <div class="card-body border ">
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_fin" name="ack_fin" <?= $transaksi['date_ack_fin'] ? 'checked' : '' ;?> <?= has_permission('ack_fin') ? '' : 'disabled' ?>>
+                            id="ack_fin" name="ack_fin" <?= $transaksi['date_ack_fin'] ? 'checked' : '' ;?> <?= has_permission('ack_finance') ? '' : 'disabled' ?>>
                           <label class="form-check-label" for="ack_fin"> Manager Finance</label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -268,7 +268,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_acc" name="ack_acc" <?= $transaksi['date_ack_acc'] ? 'checked' : '';?> <?= has_permission('ack_acc') ? '' :'disabled';?>>
+                            id="ack_acc" name="ack_acc" <?= $transaksi['date_ack_acc'] ? 'checked' : '';?> <?= has_permission('ack_accounting') ? '' :'disabled';?>>
                           <label class="form-check-label" for="ack_acc"> Accounting </label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -284,7 +284,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_ctrl" name="ack_ctrl" <?= $transaksi['date_ack_ctrl'] ? 'checked' : '';?> <?= has_permission('ack_ctrl') ? '' : 'disabled';?>>
+                            id="ack_ctrl" name="ack_ctrl" <?= $transaksi['date_ack_ctrl'] ? 'checked' : '';?> <?= has_permission('ack_controlling') ? '' : 'disabled';?>>
                           <label class="form-check-label" for="ack_ctrl"> Controlling </label>
                         </div>
                         <input type="datetime-local" class="form-control"

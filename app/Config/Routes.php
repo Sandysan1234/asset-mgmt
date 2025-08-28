@@ -110,4 +110,4 @@ $routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
 $routes->get('qr', 'Qrbarcode::index');
 $routes->post('qr/save', 'Qrbarcode::multiple');
 
-$routes->get('/users', 'Users::index', ['filter' => 'role:admin']);
+$routes->get('users', 'Users::index', ['filter' => 'role:admin']);
