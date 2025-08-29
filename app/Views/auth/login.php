@@ -2,7 +2,7 @@
 
 <?= $this->section('content'); ?>
 <div class="auth-header">
-  <!-- <a href="#"><img src="<?= base_url(); ?>/assets/images/logo-dark.svg" alt="img"></a> -->
+  <!-- <a href="#"><img src="?= base_url(); ?>/assets/images/logo-dark.svg" alt="img"></a> -->
 </div>
 <div class="card my-5">
   <div class="card-body">

@@ -82,6 +82,10 @@ class AuthPermission extends Seeder
                 'name' => 'transaksi_view',
                 'description' => 'Melihat Transaksi'
             ],
+            [
+                'name' => 'it',
+                'description' => 'Melakukan Perbaikan'
+            ],
             
         ];
         $this->db->table('auth_permissions')->insertBatch($data);

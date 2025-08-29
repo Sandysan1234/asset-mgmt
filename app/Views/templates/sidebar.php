@@ -26,7 +26,7 @@
             <label>Form</label>
             <i class="ti ti-dashboard"></i>
           </li>
-          <?php if (in_groups(['pic', 'kabag', 'approval'])): ?>
+          <?php if (in_groups(['pic', 'kabag', 'approval', 'admin'])): ?>
             <li class="pc-item">
               <a href="/transaksi" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
@@ -78,6 +78,12 @@
               <a href="/plant" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-sitemap"></i></span>
                 <span class="pc-mtext">Plant</span>
+              </a>
+            </li>
+            <li class="pc-item">
+              <a href="/perbaikan" class="pc-link">
+                <span class="pc-micon"><i class="ti ti-sitemap"></i></span>
+                <span class="pc-mtext">Perbaikan</span>
               </a>
             </li>
             <li class="pc-item">

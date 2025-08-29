@@ -23,23 +23,32 @@ class Perbaikan extends BaseController
 
     public function index()
     {
-        $plant = $this->perbaikanModel->findAll();
+        $repairs = $this->perbaikanModel->findAll();
         $data = [
-            'title'     => 'Plant | Asset Management System',
-            'plant' => $plant,
+            'title'     => 'repair | Asset Management System',
+            'repairs' => $repairs,
         ];
-        return view('plant/index', $data);
+        return view('perbaikan/index', $data);
     }
     // ===============create======//
 
+    public function edit($id)
+    {
+        $data = [
+            'title'   => 'Form Tambah Data Plant | Asset Management System',
+            'validation' =>  \Config\Services::validation(),
+            'repair'      => $this->perbaikanModel->find($id),
+        ];
+        return view('perbaikan/index', $data);
+    }
     public function create()
     {
         $data = [
-            'title'      => 'Form Tambah Data Plant | Asset Management System',
+            'title'      => 'Form Tambah Data Perbaikan | Asset Management System',
             'validation' =>  \Config\Services::validation()
         ];
 
-        return view('plant/create', $data);
+        return view('perbaikan/create', $data);
     }
 
     // ===============save======//

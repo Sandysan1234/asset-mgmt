@@ -264,6 +264,16 @@ class CreateUsers extends Seeder
 				'created_at'    => Time::now(),
 				'updated_at'    => Time::now()
 			],
+			[
+				'email'         => 'mervin@example.com',
+				'username'      => 'mervin',
+				'fullname'      => null,
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
 
 		];
 		$this->db->table('users')->insertBatch($data);

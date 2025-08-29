@@ -35,6 +35,22 @@
             <form action="/asset/save" method="post">
               <?= csrf_field(); ?>
               <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Asset Class</label>
+                <div class="col-sm-6">
+                  <select name="id_assetclass" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($assetclass as $as) : ?>
+                      <option value="<?= $as['id_assetclass']; ?>" <?= old('id_assetclass') == $as['id_assetclass'] ? 'selected' : ''; ?>>
+                        <?= $as['nama_assetclass']; ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('id_assetclass'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
                 <label for="no_asset" class="col-sm-3 col-form-label">No Asset</label>
                 <div class="col-sm-6">
                   <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" autofocus value="<?= old('no_asset'); ?>">
@@ -89,7 +105,7 @@
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="spek" class="col-sm-3 col-form-label">Spek</label>
+                <label for="spek" class="col-sm-3 col-form-label">Spesifikasi</label>
                 <div class="col-sm-6">
                   <textarea class="form-control <?= (validation_show_error('spek')) ? 'is-invalid' : ''; ?>" id="spek" name="spek"><?= old('spek'); ?></textarea>
                   <div class="invalid-feedback">
@@ -124,22 +140,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">Asset Class</label>
-                <div class="col-sm-6">
-                  <select name="id_assetclass" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
-                    <option selected disabled>Open this select menu</option>
-                    <?php foreach ($assetclass as $as) : ?>
-                      <option value="<?= $as['id_assetclass']; ?>" <?= old('id_assetclass') == $as['id_assetclass'] ? 'selected' : ''; ?>>
-                        <?= $as['nama_assetclass']; ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('id_assetclass'); ?>
-                  </div>
-                </div>
-              </div>
+
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Cost Center</label>
                 <div class="col-sm-6">
@@ -258,8 +259,8 @@
                   <select name="id_pic" class="form-select col-sm-6" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($pic_users as $user): ?>
-                      <option value="<?= $user->id ?>" <?= old('id_pic')== $user->id ? 'selected' : '';?>>
-                        <?= esc($user-> fullname ?? $user->username) ?>
+                      <option value="<?= $user->id ?>" <?= old('id_pic') == $user->id ? 'selected' : ''; ?>>
+                        <?= esc($user->fullname ?? $user->username) ?>
                         <?php if (!empty($user->email)): ?>
                           (<?= esc($user->email) ?>)
                         <?php endif ?>

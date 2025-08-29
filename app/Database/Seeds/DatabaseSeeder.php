@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
     $this->call('LocationSeeder');
     $this->call('AssetClassSeeder');
     $this->call('AssetSeeder');
-    $this->call('AuthGroups');
-    $this->call('CreateUsers');
-    $this->call('AuthPermission');
-    $this->call('AuthUsersPermission');
+    // $this->call('AuthGroups');
+    // $this->call('CreateUsers');
+    // $this->call('AuthPermission');
+    // $this->call('AuthUsersPermission');
   }
 }

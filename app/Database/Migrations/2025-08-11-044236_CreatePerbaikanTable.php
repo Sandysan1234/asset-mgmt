@@ -39,6 +39,19 @@ class CreatePerbaikanTable extends Migration
                 'constraint' => 100,
                 'null'       => true,
             ],
+            'tgl_awal' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'tgl_akhir' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'place' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => true,
+            ],
             'status' => [
                 'type'       => 'TINYINT',
                 'constraint' => 1,

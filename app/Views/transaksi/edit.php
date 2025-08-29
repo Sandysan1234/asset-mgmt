@@ -125,7 +125,7 @@
                         <div class="row g-3 align-items-end">
                           <div class="col-12">
                             <div class="d-flex justify-content-between form-check form-switch  form-check-reverse custom-switch-v1">
-                              <label class="form-check-label ps-0" for="approve_kabag_asal"> Kabag </label>
+                              <label class="form-check-label ps-0" for="approve_kabag_asal"> Kepala Bagian</label>
                               <input class="form-check-input" type="radio" role="switch"
                                 id="approve_kabag_asal" name="approve_kabag_asal" <?= $transaksi['date_ttd_asal'] ? 'checked' : '' ?> <?= has_permission('approve_kabag_asal') ? '' : 'disabled' ?>>
                             </div>
@@ -138,7 +138,7 @@
 
                           <!-- opsional: pilih pejabat -->
                           <div class="col-12">
-                            <label for="user_kabag_asal" class="form-label">Nama Kabag</label>
+                            <label for="user_kabag_asal" class="form-label">Nama Kepala Bagian</label>
                             <input type="text" class="form-control"
                               id="user_kabag_asal" name="user_kabag_asal" placeholder="Mis. Budi Santoso" value="<?= old('user_kabag_asal', $transaksi['user_kabag_asal']); ?>" readonly>
                           </div>
@@ -157,7 +157,7 @@
 
                           <div class="col-12">
                             <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1">
-                              <label class="form-check-label" for="approve_kabag_tujuan"> Kabag </label>
+                              <label class="form-check-label" for="approve_kabag_tujuan"> Kepala Bagian</label>
                               <input class="form-check-input" type="radio" role="switch"
                                 id="approve_kabag_tujuan" name="approve_kabag_tujuan" <?= $transaksi['date_ttd_tujuan'] ? 'checked' : ''; ?> <?= has_permission('approve_kabag_tujuan') ? '' : 'disabled' ?>>
                             </div>
@@ -168,7 +168,7 @@
                               id="date_ttd_tujuan" name="date_ttd_tujuan" value="<?= $transaksi['date_ttd_tujuan']; ?>" readonly>
                           </div>
                           <div class="col-12">
-                            <label for="user_kabag_tujuan" class="form-label">Nama Kabag</label>
+                            <label for="user_kabag_tujuan" class="form-label">Nama Kepala Bagian</label>
                             <input type="text" class="form-control"
                               id="user_kabag_tujuan" name="user_kabag_tujuan" placeholder="Mis. Siti Rahma" value="<?= old('user_kabag_tujuan', $transaksi['user_kabag_tujuan']); ?>" readonly>
                           </div>

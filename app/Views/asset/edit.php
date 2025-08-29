@@ -35,6 +35,22 @@
             <form action="/asset/update/<?= $asset['id_asset']; ?>" method="post">
               <?= csrf_field(); ?>
               <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Asset Class</label>
+                <div class="col-sm-6">
+                  <select name="id_assetclass" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                    <option selected disabled>Open this select menu</option>
+                    <?php foreach ($assetclass as $as) : ?>
+                      <option value="<?= $as['id_assetclass']; ?>" <?= old('id_assetclass', $asset['id_assetclass']) == $as['id_assetclass'] ? 'selected' : ''; ?>>
+                        <?= $as['nama_assetclass']; ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('id_assetclass'); ?>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
                 <label for="no_asset" class="col-sm-3 col-form-label">No Asset</label>
                 <div class="col-sm-6">
                   <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" value="<?= old('no_asset', $asset['no_asset']); ?>" readonly>
@@ -89,7 +105,7 @@
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="spek" class="col-sm-3 col-form-label">Spek</label>
+                <label for="spek" class="col-sm-3 col-form-label">Spesifikasi</label>
                 <div class="col-sm-6">
                   <textarea class="form-control <?= (validation_show_error('spek')) ? 'is-invalid' : ''; ?>" id="spek" name="spek"><?= old('spek', $asset['spek']); ?></textarea>
                   <div class="invalid-feedback">
@@ -124,22 +140,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">Asset Class</label>
-                <div class="col-sm-6">
-                  <select name="id_assetclass" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
-                    <option selected disabled>Open this select menu</option>
-                    <?php foreach ($assetclass as $as) : ?>
-                      <option value="<?= $as['id_assetclass']; ?>" <?= old('id_assetclass', $asset['id_assetclass']) == $as['id_assetclass'] ? 'selected' : ''; ?>>
-                        <?= $as['nama_assetclass']; ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('id_assetclass'); ?>
-                  </div>
-                </div>
-              </div>
+
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Cost Center</label>
                 <div class="col-sm-6">
@@ -162,7 +163,7 @@
                   <select name="id_lifetime" class="form-select col-sm-6 <?= (validation_show_error('id_lifetime')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($lifetime as $lf) : ?>
-                      <option value="<?= $lf['id_lifetime']; ?>" <?= old('id_lifetime' , $asset['id_lifetime']) == $lf['id_lifetime'] ? 'selected' : ''; ?>>
+                      <option value="<?= $lf['id_lifetime']; ?>" <?= old('id_lifetime', $asset['id_lifetime']) == $lf['id_lifetime'] ? 'selected' : ''; ?>>
                         <?= $lf['masa_berlaku']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -191,10 +192,10 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Vendor</label>
                 <div class="col-sm-6">
-                  <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_vendor')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" >
+                  <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_vendor')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Open this select menu</option>
                     <?php foreach ($pemasok as $p) : ?>
-                      <option value="<?= $p['id_vendor']; ?>" <?= old('id_vendor', $asset['id_vendor']) == $p['id_vendor'] ? 'selected' : ''; ?> >
+                      <option value="<?= $p['id_vendor']; ?>" <?= old('id_vendor', $asset['id_vendor']) == $p['id_vendor'] ? 'selected' : ''; ?>>
                         <?= $p['nama_vendor']; ?>
                       </option>
                     <?php endforeach; ?>
@@ -207,7 +208,7 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Area</label>
                 <div class="col-sm-6">
-                  <select name="id_lokasi_area" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_area')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" >
+                  <select name="id_lokasi_area" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_area')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected>Open this select menu</option>
                     <?php foreach ($lokasi_area as $la) : ?>
                       <option value="<?= $la['id_lokasi']; ?>" <?= old('id_lokasi'), $asset['id_lokasi_area'] == $la['id_lokasi'] ? 'selected' : ''; ?>>
@@ -223,8 +224,8 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Gedung</label>
                 <div class="col-sm-6">
-                  <select name="id_lokasi_gedung" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_gedung')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" >
-                    <option selected >Open this select menu</option>
+                  <select name="id_lokasi_gedung" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_gedung')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                    <option selected>Open this select menu</option>
                     <?php foreach ($lokasi_gedung as $lg) : ?>
                       <option value="<?= $lg['id_lokasi']; ?>" <?= old('id_lokasi'), $asset['id_lokasi_gedung'] == $lg['id_lokasi'] ? 'selected' : ''; ?>>
                         <?= $lg['nama_lokasi']; ?>
@@ -239,7 +240,7 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Lantai</label>
                 <div class="col-sm-6">
-                  <select name="id_lokasi_lantai" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_lantai')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" >
+                  <select name="id_lokasi_lantai" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_lantai')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected>Open this select menu</option>
                     <?php foreach ($lokasi_lantai as $ll) : ?>
                       <option value="<?= $ll['id_lokasi']; ?>" <?= old('id_lokasi'), $asset['id_lokasi_lantai'] == $ll['id_lokasi'] ? 'selected' : ''; ?>>
@@ -252,7 +253,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">PIC</label>
                 <div class="col-sm-6">

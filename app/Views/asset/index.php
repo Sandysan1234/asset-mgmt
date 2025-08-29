@@ -32,7 +32,7 @@
                       <th>Serial Number</th>
                       <th>Batch Number</th>
                       <th>Merek</th>
-                      <th>Spek Asset</th>
+                      <th>Spesifikasi</th>
                       <th>Tanggal Perolehan</th>
                       <th>Harga</th>
                       <th>No Purchase Order</th>

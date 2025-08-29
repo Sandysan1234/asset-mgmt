@@ -1,140 +1,107 @@
 <?= $this->extend('templates/index'); ?>
+
 <?= $this->section('page-content'); ?>
-
-<!-- jQuery UI (kalau belum ada di layout) -->
-<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script> -->
-
 <div class="pc-container">
-	<div class="pc-content">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="card">
-					<div class="card-header">
-						<h5>Form perbaikan Asset</h5>
-					</div>
+  <div class="pc-content">
+    <!-- [ breadcrumb ] start -->
+    <!-- <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h5 class="m-b-10">Sample Page</h5>
+              </div>
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0)">Other</a></li>
+                <li class="breadcrumb-item" aria-current="page">Sample Page</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    <!-- [ breadcrumb ] end -->
 
-					<div class="card-body">
-						<form action="<?= site_url('transaksi/store') ?>" method="post" class="row g-3">
+    <!-- [ Main Content ] start -->
+    <div class="row">
+      <!-- [ sample-page ] start -->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>Perbaikan</h5>
+          </div>
+          <div class="card tbl-card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
+                <a href="/perbaikan/create" class="btn btn-outline-primary mb-3">Tambah Data Perbaikan</a>
+                <?php if (session()->getFlashdata('pesan')): ?>
+                  <div class="alert alert-success">
+                    <?= session()->getFlashdata('pesan'); ?>
+                  </div>
+                <?php endif; ?>
+                <table id="myTable-client" class="table table-hover table-borderless" style="width:100%">
+                  <thead class="bg-light">
+                    <tr class="text-nowrap">
+                      <th scope="col">Handle</th>
+                      <th scope="col">No</th>
+                      <th scope="col">Jenis Perbaikan</th>
+                      <th scope="col">Keterangan</th>
+                      <th scope="col">Biaya</th>
+                      <th scope="col">Teknisi</th>
+                      <th scope="col">Durasi</th>
+                      <th scope="col">Tempat Service</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Created At</th>
+                      <th scope="col">Updated At</th>
+                      <th scope="col">Modified By</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $i = 1; ?>
+                    <?php foreach ($repairs as $repair) : ?>
+                      <tr class="text-nowrap">
+                        <td>
+                          <a href="/perbaikan/edit/<?= $repair['id_perbaikan']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
+                          <form action="/perbaikan/<?= $repair['id_perbaikan']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            <?= csrf_field(); ?>
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
+                            <!-- delete permanen karena model tidak disetting -->
+                          </form>
 
-							<!-- hidden ids untuk relasi -->
-							<input type="hidden" id="id_asset" name="id_asset">
-							<input type="hidden" id="id_assetclass" name="id_assetclass">
-							<input type="hidden" id="id_plant_asal" name="id_plant_asal">
-							<input type="hidden" id="id_cost_center_asal" name="id_cost_center_asal">
-							<input type="hidden" id="id_lokasi_area" name="id_lokasi_area">
-							<input type="hidden" id="id_lokasi_gedung" name="id_lokasi_gedung">
-							<input type="hidden" id="id_lokasi_lantai" name="id_lokasi_lantai">
-							<h5>Department Asal</h5>
-							<div class="col-md-4">
-								<label for="no_asset" class="form-label">No Asset</label>
-								<input type="text" id="no_asset" name="no_asset" class="form-control" placeholder="Cari No Asset..." required>
-							</div>
-							<div class="col-md-4">
-								<label for="asset_class" class="form-label">Asset Class</label>
-								<input type="text" id="asset_class" name="asset_class" class="form-control" readonly>
-							</div>
-							<div class="col-md-4">
-								<label for="plant_asal" class="form-label">Plant</label>
-								<input type="text" id="plant_asal" name="plant_asal" class="form-control" readonly>
-							</div>
-							<div class="col-md-4">
-								<label for="cost_center_asal" class="form-label">Cost Center</label>
-								<input type="text" id="cost_center_asal" name="cost_center_asal" class="form-control" readonly>
-							</div>
-							<div class="col-md-4">
-								<label for="sub_asset" class="form-label">Sub Asset</label>
-								<input type="text" id="sub_asset" name="sub_asset" class="form-control" readonly>
-							</div>
-							<div class="col-md-4">
-								<label for="nama_asset" class="form-label">Nama Asset</label>
-								<input type="text" id="nama_asset" name="nama_asset" class="form-control" readonly>
-							</div>
-							<div class="col-md-4">
-								<label for="tgl_perolehan" class="form-label">Tanggal Pengerjaan</label>
-								<input type="date" id="tgl_perolehan" name="tgl_perolehan" class="form-control" readonly>
-							</div>
-							<div class="col-md-4">
-								<label for="tgl_tindakan" class="form-label">Tanggal Tindakan</label>
-								<input type="date" id="tgl_tindakan" name="tgl_tindakan" class="form-control">
-							</div>
-							<div class="col-12">
-								<button type="submit" class="btn btn-primary">Simpan Transaksi</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        </td>
+                        <th scope="row"><?= $i++; ?></th>
+                        <td><?= $repair['jenis_perbaikan ']; ?></td>
+                        <td><?= $repair['keterangan']; ?></td>
+                        <td><?= $repair['biaya']; ?></td>
+                        <td><?= $repair['teknisi']; ?></td>
+                        <td><?= $repair['durasi']; ?></td>
+                        <td><?= $repair['place']; ?></td>
+                        <td>
+                          <span class="badge <?= $repair['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
+                            <?= $repair['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
+                          </span>
+                        </td>
+                        <td><?= (new DateTime($repair['created_at']))->format('d-m-Y H:i');  ?></td>
+                        <td><?= (new DateTime($repair['updated_at']))->format('d-m-Y H:i');  ?></td>
+                        <td><?= $repair['modified_by']; ?></td>
+
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [ sample-page ] end -->
+  </div>
+  <!-- [ Main Content ] end -->
 </div>
 
+<!-- [ Main Content ] end -->
 
-<?= $this->endSection(); ?>
-
-<?= $this->section('scripts-extra');; ?>
-<script>
-	jQuery(function($) {
-		if (!$('#no_asset').length) return; // <— guard
-		if (!$.ui || !$.ui.autocomplete) return; // UI must be loaded
-
-		$("#no_asset").autocomplete({
-			source: "<?= base_url('api/assets/suggest') ?>",
-			minLength: 2,
-			delay: 200,
-			select: function(event, ui) {
-				if (!ui.item) return false;
-				$("#no_asset").val(ui.item.no_asset);
-				$("#asset_class").val(ui.item.asset_class);
-				$("#plant_asal").val(ui.item.plant);
-				$("#cost_center_asal").val(ui.item.cost_center);
-				$("#sub_asset").val(ui.item.sub_asset);
-				$("#nama_asset").val(ui.item.nama_asset);
-				$("#tgl_perolehan").val(ui.item.tgl_perolehan);
-				$("#area").val(ui.item.area);
-				$("#gedung").val(ui.item.gedung);
-				$("#lantai").val(ui.item.lantai);
-				$("#id_asset").val(ui.item.id_asset);
-				$("#id_assetclass").val(ui.item.id_assetclass);
-				$("#id_plant_asal").val(ui.item.id_plant);
-				$("#id_cost_center_asal").val(ui.item.id_cost_center);
-				$("#id_lokasi_area").val(ui.item.id_lokasi_area);
-				$("#id_lokasi_gedung").val(ui.item.id_lokasi_gedung);
-				$("#id_lokasi_lantai").val(ui.item.id_lokasi_lantai);
-				$("#no_asset_tujuan").val(ui.item.no_asset);
-				$("#nama_asset_tujuan").val(ui.item.nama_asset);
-				return false;
-			}
-		});
-	});
-</script>
-<script>
-	jQuery(function($) {
-
-		// Fungsi helper: isi atau hapus tanggal
-		function toggleDate(checkboxSelector, dateInputSelector) {
-			$(checkboxSelector).on('change', function() {
-				if ($(this).is(':checked')) {
-					let today = new Date().toISOString().split('T')[0];
-					$(dateInputSelector).val(today);
-				} else {
-					$(dateInputSelector).val('');
-				}
-			});
-		}
-
-		// Panggil untuk semua pasangan switch & tanggal
-		toggleDate('#approve_kabag_asal', '#approve_date_kabag_asal');
-		toggleDate('#approve_kabag_tujuan', '#approve_date_kabag_tujuan');
-		toggleDate('#approve_it', '#approve_date_it');
-		toggleDate('#approve_dir', '#approve_date_dir');
-		toggleDate('#ack_fin', '#date_ack_fin');
-		toggleDate('#ack_acc', '#date_ack_acc');
-		toggleDate('#ack_ctrl', '#date_ack_ctrl');
-
-	});
-</script>
-
-</script>
 <?= $this->endSection(); ?>

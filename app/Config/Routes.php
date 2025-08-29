@@ -86,18 +86,19 @@ $routes->post('assetclass/update/(:any)', 'Assetclass::update/$1',['filter' => '
 
 
 $routes->get('asset', 'Asset::index');
-$routes->get('asset/create', 'Asset::create');
+$routes->get('asset/create', 'Asset::create',['filter' => 'role:admin']);
 $routes->post('asset/save', 'Asset::save');
-$routes->delete('asset/(:num)', 'Asset::delete/$1');
-$routes->get('asset/edit/(:segment)', 'Asset::edit/$1');
+$routes->delete('asset/(:num)', 'Asset::delete/$1',['filter' => 'role:admin']);
+$routes->get('asset/edit/(:segment)', 'Asset::edit/$1',['filter' => 'role:admin']);
 $routes->post('asset/update/(:any)', 'Asset::update/$1');
 $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
+// $routes->get('asset/perbaikan/(:num)', 'Perbaikan::edit/$1');
 $routes->match(['get', 'post'], 'asset/dt', 'Asset::dt');   // endpoint server-side
 
 
 
-$routes->get('transaksi', 'Transaksi::index',['filter' => 'role:pic,kabag,approval']);
-$routes->get('transaksi/create', 'Transaksi::create',['filter' => 'role:pic']);
+$routes->get('transaksi', 'Transaksi::index',['filter' => 'role:pic,kabag,approval,admin']);
+$routes->get('transaksi/create', 'Transaksi::create',['filter' => 'role:pic,admin']);
 $routes->post('transaksi/save', 'Transaksi::save');
 $routes->get('transaksi/edit/(:segment)', 'Transaksi::edit/$1', ['filter' => 'role:pic,kabag,approval']);
 $routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
@@ -105,6 +106,13 @@ $routes->delete('transaksi/(:num)', 'Transaksi::delete/$1',['filter' => 'role:pi
 
 $routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
 
+
+
+$routes->get('perbaikan', 'Perbaikan::index', ['filter' => 'role:admin']); //['filter' => 'permission:it'] atau ['filter' => 'role:admin']//
+$routes->get('perbaikan/create', 'Perbaikan::create', ['filter' => 'role:admin']); //['filter' => 'permission:it'] atau ['filter' => 'role:admin']//
+// $routes->get('perbaikan', 'Perbaikan::index', ['filter' => 'permission:it']); 
+// $routes->get('perbaikan/create', 'Perbaikan::create', ['filter' => 'permission:it']); 
+$routes->post('perbaikan/save', 'Perbaikan::save');
 
 
 $routes->get('qr', 'Qrbarcode::index');

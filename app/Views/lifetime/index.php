@@ -44,7 +44,7 @@
 									<thead class="bg-light">
 										<tr class="text-nowrap">
 											<th scope="col">No</th>
-											<th scope="col">Kode Lifetime</th>
+											<!-- <th scope="col">Kode Lifetime</th> -->
 											<th scope="col">Masa Berlaku</th>
 											<th scope="col">Status</th>
 											<th scope="col">Created At</th>
@@ -58,7 +58,7 @@
 										<?php foreach ($lifetime as $lt) : ?>
 											<tr class="text-nowrap">
 												<th scope="row"><?= $i++; ?></th>
-												<td><?= esc($lt['kode_lifetime']); ?></td>
+												<!-- <td>?= esc($lt['kode_lifetime']); ?></td> -->
 												<td><?= esc($lt['masa_berlaku']); ?></td>
 												<td>
 													<span class="badge <?= $lt['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">

@@ -76,10 +76,10 @@ class Filters extends BaseFilters
       'csrf',
       'invalidchars',
       'login' => [
-        'except' => [
-          'asset/detail/*',
+        // 'except' => [
+        //   'asset/detail/*',
 
-        ]
+        // ]
       ],
     ],
     'after' => [
