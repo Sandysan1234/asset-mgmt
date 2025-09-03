@@ -68,6 +68,11 @@ class CreateTransactionTable extends Migration
             'date_ack_ctrl' => ['type' => 'DATETIME', 'null' => true],
 
             'catatan' => ['type' => 'TEXT', 'null' => true],
+            
+            'dibatalkan_oleh'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
+            'dibatalkan_at' => ['type' => 'DATETIME', 'null' => true],
+            'catatan_pembatalan' => ['type' => 'TEXT', 'null' => true],
+            
             // audit trail
             'created_at'    => ['type' => 'DATETIME', 'null' => true],
             'created_by'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],

@@ -34,19 +34,19 @@
 					<div class="card-body">
 						<form action="/lifetime/save" method="post">
 							<?= csrf_field(); ?>
-							<div class="row mb-3">
+							<!-- <div class="row mb-3">
 								<label for="kode_lifetime" class="col-sm-3 col-form-label">Kode Lifetime</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control <?= (validation_show_error('kode_lifetime')) ? 'is-invalid' : ''; ?>" name="kode_lifetime" id="kode_lifetime" autofocus value="<?= old('kode_lifetime'); ?>">
+									<input type="text" class="form-control ?= (validation_show_error('kode_lifetime')) ? 'is-invalid' : ''; ?>" name="kode_lifetime" id="kode_lifetime"  value="<?= old('kode_lifetime'); ?>" placeholder="Boleh Kosong">
 									<div class="invalid-feedback">
-										<?= validation_show_error('kode_lifetime'); ?>
+										?= validation_show_error('kode_lifetime'); ?>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<div class="row mb-3">
 								<label for="masa_berlaku" class="col-sm-3 col-form-label">Masa Berlaku</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control <?= (validation_show_error('masa_berlaku')) ? 'is-invalid' : ''; ?>" id="masa_berlaku" name="masa_berlaku" value="<?= old('masa_berlaku'); ?>">
+									<input type="text" class="form-control <?= (validation_show_error('masa_berlaku')) ? 'is-invalid' : ''; ?>" id="masa_berlaku" name="masa_berlaku" autofocus value="<?= old('masa_berlaku'); ?>">
 									<div class="invalid-feedback">
 										<?= validation_show_error('masa_berlaku'); ?>
 									</div>

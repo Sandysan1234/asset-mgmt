@@ -324,7 +324,7 @@
                       <h6 class="text-secondary mt-1">User Asset</h6>
                     </div>
                     <div class="col-6 text-end">
-                      <p class="fw-bold"><?= $asset['user_username']; ?></p>
+                      <p class="fw-bold"><?= $asset['user_asset']; ?></p>
                     </div>
                   </div>
                 </div>

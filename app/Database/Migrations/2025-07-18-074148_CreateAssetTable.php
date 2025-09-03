@@ -9,7 +9,9 @@ class CreateAssetTable extends Migration
     public function up()
     {
         $this->forge->addField([
-            'id_asset' => ['type'           => 'INT',  'unsigned'       => true,
+            'id_asset' => [
+                'type'           => 'INT',
+                'unsigned'       => true,
                 'auto_increment' => true,
             ],
             'no_asset' => [
@@ -48,9 +50,9 @@ class CreateAssetTable extends Migration
                 'type' => 'DATE',
             ],
             'harga' => [
-                'type'       => 'DECIMAL',
-                'constraint' => '15,2',
-                'default'    => 0.00,
+                'type'       => 'VARCHAR',
+                'constraint' => 13,
+                'null'       => true,
             ],
             'no_po' => [
                 'type'       => 'VARCHAR',
@@ -87,10 +89,10 @@ class CreateAssetTable extends Migration
                 'unsigned' => true,
                 'null'     => true,
             ],
-            'id_user_asset' => [
-                'type'     => 'INT',
-                'unsigned' => true,
-                'null'     => true
+            'user_asset' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => true,
             ],
             'id_lokasi_area' => [
                 'type'     => 'INT',

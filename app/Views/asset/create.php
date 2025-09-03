@@ -80,7 +80,7 @@
               <div class="row mb-3">
                 <label for="serial_number" class="col-sm-3 col-form-label">Serial Number</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('serial_number')) ? 'is-invalid' : ''; ?>" id="serial_number" name="serial_number" value="<?= old('serial_number'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('serial_number')) ? 'is-invalid' : ''; ?>" id="serial_number" name="serial_number" maxlength="20" value="<?= old('serial_number'); ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('serial_number'); ?>
                   </div>
@@ -89,7 +89,7 @@
               <div class="row mb-3">
                 <label for="batch_number" class="col-sm-3 col-form-label">Batch Number</label>
                 <div class="col-sm-6">
-                  <input type="text" class="form-control <?= (validation_show_error('batch_number')) ? 'is-invalid' : ''; ?>" id="batch_number" name="batch_number" value="<?= old('batch_number'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('batch_number')) ? 'is-invalid' : ''; ?>" id="batch_number" name="batch_number" maxlength="10" value="<?= old('batch_number'); ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('batch_number'); ?>
                   </div>
@@ -193,7 +193,7 @@
                 <label for="" class="col-sm-3 col-form-label">Vendor</label>
                 <div class="col-sm-6">
                   <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_vendor')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
-                    <option selected disabled>Open this select menu</option>
+                    <option selected>Open this select menu</option>
                     <?php foreach ($pemasok as $p) : ?>
                       <option value="<?= $p['id_vendor']; ?>" <?= old('id_vendor') == $p['id_vendor'] ? 'selected' : ''; ?>>
                         <?= $p['nama_vendor']; ?>
@@ -217,7 +217,7 @@
                     <?php endforeach; ?>
                   </select>
                   <div class="invalid-feedback">
-                    <?= validation_show_error('id_lokasi'); ?>
+                    <?= validation_show_error('id_lokasi_area'); ?>
                   </div>
                 </div>
               </div>
@@ -233,7 +233,7 @@
                     <?php endforeach; ?>
                   </select>
                   <div class="invalid-feedback">
-                    <?= validation_show_error('id_lokasi'); ?>
+                    <?= validation_show_error('id_lokasi_gedung'); ?>
                   </div>
                 </div>
               </div>
@@ -249,7 +249,7 @@
                     <?php endforeach; ?>
                   </select>
                   <div class="invalid-feedback">
-                    <?= validation_show_error('id_lokasi'); ?>
+                    <?= validation_show_error('id_lokasi_lantai'); ?>
                   </div>
                 </div>
               </div>
@@ -270,14 +270,12 @@
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">User Asset</label>
+                <label for="user_asset" class="col-sm-3 col-form-label">User Asset</label>
                 <div class="col-sm-6">
-                  <select name="id_user_asset" class="form-select col-sm-6" aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
+                  <input type="text" class="form-control <?= (validation_show_error('user_asset')) ? 'is-invalid' : ''; ?>" id="user_asset" name="user_asset" value="<?= old('user_asset'); ?>">
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('user_asset'); ?>
+                  </div>
                 </div>
               </div>
               <div class="modal-footer">

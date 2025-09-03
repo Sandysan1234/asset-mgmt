@@ -42,7 +42,7 @@
             <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-zoom-money"></i></span><span class="pc-mtext">Assets</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
             <ul class="pc-submenu">
               <li class="pc-item"><a class="pc-link" href="/asset">List All</a></li>
-              <?php if (in_groups(['admin'])): ?>
+              <?php if (has_permission('finance')): ?>
                 <li class="pc-item"><a class="pc-link" href="/assetclass">Asset Class</a></li>
               <?php endif; ?>
             </ul>
@@ -55,13 +55,15 @@
               </a>
             </li>
           <?php endif; ?>
-          <?php if (in_groups('admin')): ?>
+          <?php if (has_permission('ack_controlling')): ?>
             <li class="pc-item">
               <a href="/costcenter" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-aperture"></i></span>
                 <span class="pc-mtext">Cost Center</span>
               </a>
             </li>
+          <?php endif; ?>
+          <?php if (in_groups('admin')): ?>
             <li class="pc-item">
               <a href="/lifetime" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-clock"></i></span>
@@ -74,6 +76,7 @@
                 <span class="pc-mtext">Location</span>
               </a>
             </li>
+
             <li class="pc-item">
               <a href="/plant" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-sitemap"></i></span>

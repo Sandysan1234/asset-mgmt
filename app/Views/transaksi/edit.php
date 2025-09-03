@@ -62,7 +62,7 @@
                     <label for="tgl_perolehan" class="form-label">Tanggal Perolehan</label>
                     <input type="date" id="tgl_perolehan" name="tgl_perolehan" class="form-control" disabled value="<?= old('tgl_perolehan', $transaksi['tgl_perolehan']); ?>" readonly>
                   </div>
-                  
+
                   <div class="col-md-4">
                     <label for="transaksi" class="form-label">Transaksi</label>
                     <select id="transaksi" name="transaksi" class="form-select  <?= (validation_show_error('transaksi')) ? 'is-invalid' : ''; ?>" disabled>
@@ -252,7 +252,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_fin" name="ack_fin" <?= $transaksi['date_ack_fin'] ? 'checked' : '' ;?> <?= has_permission('ack_finance') ? '' : 'disabled' ?>>
+                            id="ack_fin" name="ack_fin" <?= $transaksi['date_ack_fin'] ? 'checked' : ''; ?> <?= has_permission('ack_finance') ? '' : 'disabled' ?>>
                           <label class="form-check-label" for="ack_fin"> Manager Finance</label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -268,7 +268,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_acc" name="ack_acc" <?= $transaksi['date_ack_acc'] ? 'checked' : '';?> <?= has_permission('ack_accounting') ? '' :'disabled';?>>
+                            id="ack_acc" name="ack_acc" <?= $transaksi['date_ack_acc'] ? 'checked' : ''; ?> <?= has_permission('ack_accounting') ? '' : 'disabled'; ?>>
                           <label class="form-check-label" for="ack_acc"> Accounting </label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -284,7 +284,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_ctrl" name="ack_ctrl" <?= $transaksi['date_ack_ctrl'] ? 'checked' : '';?> <?= has_permission('ack_controlling') ? '' : 'disabled';?>>
+                            id="ack_ctrl" name="ack_ctrl" <?= $transaksi['date_ack_ctrl'] ? 'checked' : ''; ?> <?= has_permission('ack_controlling') ? '' : 'disabled'; ?>>
                           <label class="form-check-label" for="ack_ctrl"> Controlling </label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -374,40 +374,6 @@
     </script>
 
 
-    <!-- <script>
-     jQuery(function($) {
-
-      // Fungsi helper: isi atau hapus tanggal + jam
-      function toggleDate(checkboxSelector, dateInputSelector) {
-       $(checkboxSelector).on('change', function() {
-        if ($(this).is(':checked')) {
-         let now = new Date();
-
-         let y = now.getFullYear();
-         let m = String(now.getMonth() + 1).padStart(2, '0');
-         let d = String(now.getDate()).padStart(2, '0');
-         let h = String(now.getHours()).padStart(2, '0');
-         let i = String(now.getMinutes()).padStart(2, '0');
-
-         let formatted = `${y}-${m}-${d}T${h}:${i}`;
-         $(dateInputSelector).val(formatted);
-        } else {
-         $(dateInputSelector).val('');
-        }
-       });
-      }
-
-      // Panggil untuk semua pasangan switch & tanggal
-      toggleDate('#approve_kabag_asal', '#date_ttd_asal');
-      toggleDate('#approve_kabag_tujuan', '#date_ttd_tujuan');
-      toggleDate('#approve_it', '#date_pic');
-      toggleDate('#approve_dir', '#date_direksi');
-      toggleDate('#ack_fin', '#date_ack_fin');
-      toggleDate('#ack_acc', '#date_ack_acc');
-      toggleDate('#ack_ctrl', '#date_ack_ctrl');
-
-     });
-    </script> -->
     <script>
       jQuery(function($) {
 
@@ -450,6 +416,50 @@
       });
     </script>
 
+    <!-- <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const chkAsal = document.getElementById('approve_kabag_asal');
+        const chkTujuan = document.getElementById('approve_kabag_tujuan');
+        const dateAsal = document.getElementById('date_ttd_asal');
+        const dateTujuan = document.getElementById('date_ttd_tujuan');
+        const userAsal = document.getElementById('user_kabag_asal');
+        const userTujuan = document.getElementById('user_kabag_tujuan');
 
-    </script>
+        // Fungsi untuk mengatur tanggal dan nama otomatis
+        function setApprovalData(input, dateField, userField, name) {
+          if (input.checked) {
+            const now = new Date().toISOString().slice(0, 16); // format YYYY-MM-DDTHH:MM
+            dateField.value = now;
+            userField.value = name; // Ganti dengan nama pengguna sesuai konteks
+          } else {
+            dateField.value = '';
+            userField.value = '';
+          }
+        }
+
+        // Handler untuk checkbox Dept Asal
+        chkAsal.addEventListener('change', function() {
+          if (this.checked) {
+            chkTujuan.checked = false;
+            setApprovalData(chkTujuan, dateTujuan, userTujuan, ''); // clear tujuan
+            setApprovalData(chkAsal, dateAsal, userAsal, 'Budi Santoso'); // isi asal
+          } else {
+            dateAsal.value = '';
+            userAsal.value = '';
+          }
+        });
+
+        // Handler untuk checkbox Dept Tujuan
+        chkTujuan.addEventListener('change', function() {
+          if (this.checked) {
+            chkAsal.checked = false;
+            setApprovalData(chkAsal, dateAsal, userAsal, ''); // clear asal
+            setApprovalData(chkTujuan, dateTujuan, userTujuan, 'Siti Rahma'); // isi tujuan
+          } else {
+            dateTujuan.value = '';
+            userTujuan.value = '';
+          }
+        });
+      });
+    </script> -->
     <?= $this->endSection(); ?>

@@ -138,6 +138,7 @@ class Asset extends BaseController
   {
     $data = $this->request->getPost();
 
+    // dd($data);
     if (!$this->validateData($data, [
       'no_asset'    => [
         'label'               => 'No Asset',
@@ -158,10 +159,10 @@ class Asset extends BaseController
       ],
       'nama_asset'    =>  [
         'label'               => 'Nama Asset',
-        'rules'               => 'required|is_unique[asset.nama_asset]',
+        'rules'               => 'required', //|is_unique[asset.nama_asset]
         'errors'              => [
           'required'        => '{field} harus diisi',
-          'is_unique'       => '{field} sudah terdafar'
+          // 'is_unique'       => '{field} sudah terdafar'
         ]
       ],
       'serial_number' => [
@@ -248,13 +249,13 @@ class Asset extends BaseController
           'required'          => 'Pilih {field} yang sesuai'
         ]
       ],
-      'id_vendor' => [
-        'label'               => 'Vendor',
-        'rules'               => 'required',
-        'errors'              => [
-          'required'          => 'Pilih {field} yang sesuai'
-        ]
-      ],
+      // 'id_vendor' => [
+      //   'label'               => 'Vendor',
+      //   'rules'               => 'required',
+      //   'errors'              => [
+      //     'required'          => 'Pilih {field} yang sesuai'
+      //   ]
+      // ],
       'id_pic' => [
         'label'               => 'PIC',
         'rules'               => 'required',
@@ -262,20 +263,34 @@ class Asset extends BaseController
           'required'          => 'Pilih {field} yang sesuai'
         ]
       ],
-      'id_user_asset' => [
-        'label'               => 'User Asset',
+      // 'id_user_asset' => [
+      //   'label'               => 'User Asset',
+      //   'rules'               => 'required',
+      //   'errors'              => [
+      //     'required'          => 'Pilih {field} yang sesuai'
+      //   ]
+      // ],
+      'id_lokasi_area' => [
+        'label'               => 'Area',
         'rules'               => 'required',
         'errors'              => [
           'required'          => 'Pilih {field} yang sesuai'
         ]
       ],
-      // 'id_lokasi' => [
-      //   'label'               => 'Lokasi Asset',
-      //   'rules'               => 'required',
-      //   'errors'              => [
-      //     'required'          => 'Pilih Minimal 1 {field} yang sesuai'
-      //   ]
-      // ],
+      'id_lokasi_gedung' => [
+        'label'               => 'Gedung',
+        'rules'               => 'required',
+        'errors'              => [
+          'required'          => 'Pilih {field} yang sesuai'
+        ]
+      ],
+      'id_lokasi_lantai' => [
+        'label'               => 'Lantai',
+        'rules'               => 'required',
+        'errors'              => [
+          'required'          => 'Pilih {field} yang sesuai'
+        ]
+      ],
 
 
     ])) {
@@ -296,28 +311,33 @@ class Asset extends BaseController
     // 'id_lifetime',
 
 
+    $hargaRaw = $this->request->getPost('harga');
+    $harga = (int) str_replace('.', '', $hargaRaw);
+
 
     $this->assetModel->save([
-      'no_asset'        => $this->request->getPost('no_asset'),
-      'sub_asset'       => $this->request->getPost('sub_asset'),
-      'nama_asset'      => $this->request->getPost('nama_asset'),
-      'serial_number'   => $this->request->getPost('serial_number'),
-      'batch_number'    => $this->request->getPost('batch_number'),
-      'merek'           => $this->request->getPost('merek'),
-      'spek'            => $this->request->getPost('spek'),
-      'tgl_perolehan'   => $this->request->getPost('tgl_perolehan'),
-      'harga'           => $data > ['harga'],
-      'no_po'           => $this->request->getPost('no_po'),
-      'id_assetclass'   => $this->request->getPost('id_assetclass'),
-      'id_cost_center'  => $this->request->getPost('id_cost_center'),
-      'id_lifetime'     => $this->request->getPost('id_lifetime'),
-      'id_vendor'       => $this->request->getPost('id_vendor'),
-      'id_plant'        => $this->request->getPost('id_plant'),
-      'id_lokasi_area'   => $this->request->getPost('id_lokasi_area') ?: null,
-      'id_lokasi_gedung' => $this->request->getPost('id_lokasi_gedung') ?: null,
-      'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai') ?: null,
-      'id_pic'       => $this->request->getPost('id_pic'),
-      'status'          => $this->request->getPost('status') ?: 5,
+      'no_asset'         => $this->request->getPost('no_asset'),
+      'sub_asset'        => $this->request->getPost('sub_asset'),
+      'nama_asset'       => $this->request->getPost('nama_asset'),
+      'serial_number'    => $this->request->getPost('serial_number'),
+      'batch_number'     => $this->request->getPost('batch_number'),
+      'merek'            => $this->request->getPost('merek'),
+      'spek'             => $this->request->getPost('spek'),
+      'tgl_perolehan'    => $this->request->getPost('tgl_perolehan'),
+      'harga'            => $harga,
+      'no_po'            => $this->request->getPost('no_po'),
+      'id_assetclass'    => $this->request->getPost('id_assetclass'),
+      'id_cost_center'   => $this->request->getPost('id_cost_center'),
+      'id_lifetime'      => $this->request->getPost('id_lifetime'),
+      'id_vendor'        => $this->request->getPost('id_vendor') ?: null,
+      'id_plant'         => $this->request->getPost('id_plant'),
+      'id_lokasi_area'   => $this->request->getPost('id_lokasi_area'),
+      'id_lokasi_gedung' => $this->request->getPost('id_lokasi_gedung'),
+      'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai'),
+      'id_pic'           => $this->request->getPost('id_pic'),
+      'user_asset'       => $this->request->getPost('user_asset') ?: null,
+      'status'           => $this->request->getPost('status') ?: 5,
+      'modified_by'      => user_id(),
     ]);
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
     return redirect()->to('/asset');
@@ -365,10 +385,9 @@ class Asset extends BaseController
     if (!$this->validateData($data, [
       'nama_asset'    =>  [
         'label'               => 'Nama Asset',
-        'rules'               => 'required|is_unique[asset.nama_asset,id_asset,' . $id . ']',
+        'rules'               => 'required', //|is_unique[asset.nama_asset,id_asset,' . $id . ']
         'errors'              => [
           'required'        => '{field} harus diisi',
-          'is_unique'       => '{field} sudah terdafar'
         ]
       ],
       'serial_number' => [
@@ -438,19 +457,22 @@ class Asset extends BaseController
           'required'          => 'Pilih {field} yang sesuai'
         ]
       ],
-      'id_vendor' => [
-        'label'               => 'Vendor',
-        'rules'               => 'required',
-        'errors'              => [
-          'required'          => 'Pilih {field} yang sesuai'
-        ]
-      ],
+      // 'id_vendor' => [
+      //   'label'               => 'Vendor',
+      //   'rules'               => 'required',
+      //   'errors'              => [
+      //     'required'          => 'Pilih {field} yang sesuai'
+      //   ]
+      // ],
 
 
     ])) {
       return redirect()->to('/asset/edit/' . $id)->withInput();
     }
 
+    
+    $hargaRaw = $this->request->getPost('harga');
+    $harga = (int) str_replace('.', '', $hargaRaw);
 
     $this->assetModel->save([
       'id_asset'        => $id,

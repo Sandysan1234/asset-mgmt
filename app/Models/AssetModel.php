@@ -31,6 +31,8 @@ class AssetModel extends Model
     'id_lokasi_gedung',
     'id_lokasi_lantai',
     'id_pic',
+    'user_asset',
+    'modified_by',
   ];
   // untuk search
   private array $allowedCols = [
@@ -53,12 +55,13 @@ class AssetModel extends Model
     'lg.nama_lokasi',
     'll.nama_lokasi',
     'pic.username',
-    'usr.username',
+    'asset.user_asset',
     'asset.created_at',
     'asset.updated_at',
     'asset.modified_by',
     'asset.status',
-    'asset.id_asset'
+    'asset.id_asset',
+    
   ];
 
   public function baseRelasi()
@@ -69,7 +72,7 @@ class AssetModel extends Model
     asset.serial_number, asset.batch_number, asset.merek, asset.spek,
     asset.tgl_perolehan, asset.harga, asset.no_po,
     asset.id_assetclass, asset.id_cost_center, asset.id_plant, asset.id_vendor,
-    asset.status, asset.created_at, asset.updated_at, asset.modified_by,
+    asset.status, asset.created_at, asset.updated_at, asset.modified_by, asset.user_asset,
 
   
     ac.nama_assetclass,
@@ -83,7 +86,6 @@ class AssetModel extends Model
     ll.nama_lokasi AS ll,
 
     pic.username AS pic_username, pic.fullname AS pic_fullname,
-    usr.username AS user_username, usr.fullname AS user_fullname
   ")
       ->join('assetclass ac', 'ac.id_assetclass = asset.id_assetclass', 'left')
       ->join('cost_center cc', 'cc.id_cost_center = asset.id_cost_center', 'left')
@@ -93,8 +95,8 @@ class AssetModel extends Model
       ->join('lokasi la', 'la.id_lokasi = asset.id_lokasi_area', 'left')
       ->join('lokasi lg', 'lg.id_lokasi = asset.id_lokasi_gedung', 'left')
       ->join('lokasi ll', 'll.id_lokasi = asset.id_lokasi_lantai', 'left')
-      ->join('users pic', 'pic.id = asset.id_pic', 'left')
-      ->join('users usr', 'usr.id = asset.id_user_asset', 'left');
+      ->join('users pic', 'pic.id = asset.id_pic', 'left');
+      // ->join('users usr', 'usr.id = asset.id_user_asset', 'left');
   }
 
 
@@ -171,8 +173,7 @@ class AssetModel extends Model
       ll.nama_lokasi as ll,
       pic.fullname as pic_fullname,
       pic.username as pic_username,
-      usr.fullname as user_fullname,
-      usr.username as user_username',
+      asset.user_asset',
     )
       ->join('plant p', 'p.id_plant = asset.id_plant', 'left')
       ->join('pemasok v', 'v.id_vendor = asset.id_vendor', 'left')
@@ -182,8 +183,8 @@ class AssetModel extends Model
       ->join('lokasi la', 'la.id_lokasi = asset.id_lokasi_area', 'left')
       ->join('lokasi lg', 'lg.id_lokasi = asset.id_lokasi_gedung', 'left')
       ->join('lokasi ll', 'll.id_lokasi = asset.id_lokasi_lantai', 'left')
-      ->join('users pic', 'pic.id = asset.id_pic', 'left')
-      ->join('users usr', 'usr.id = asset.id_user_asset', 'left');
+      ->join('users pic', 'pic.id = asset.id_pic', 'left');
+      // ->join('users usr', 'usr.id = asset.id_user_asset', 'left');
 
     if ($id !== null) {
       return $builder->where('asset.id_asset', $id)->asArray()->first();

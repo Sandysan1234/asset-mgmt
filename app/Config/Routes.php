@@ -8,9 +8,10 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 // $routes->get('/', 'pages::index');
-$routes->get('/home/user', 'home::user');
+// $routes->get('tes', 'home::index');
 // $routes->get('/', 'home::index');
-
+// $routes->get('login', 'Auth\Login::login');
+// $routes->post('login', 'Auth\Login::login');
 // dashboard
 $routes->get('/', 'User::index');
 // $routes->get('/home/login', 'home::login');
@@ -44,12 +45,12 @@ $routes->delete('pemasok/(:num)', 'Pemasok::delete/$1',['filter' => 'role:admin'
 // $routes->get('costcenter/edit/(:segment)', 'Costcenter::edit/$1');
 // $routes->post('costcenter/update/(:any)', 'Costcenter::update/$1');
 
-$routes->get('costcenter', 'Costcenter::index', ['filter' => 'role:admin']);
-$routes->get('costcenter/create', 'Costcenter::create', ['filter' => 'role:admin']);
-$routes->post('costcenter/save', 'Costcenter::save', ['filter' => 'role:admin']);
-$routes->delete('costcenter/(:num)', 'Costcenter::delete/$1', ['filter' => 'role:admin']);
-$routes->get('costcenter/edit/(:segment)', 'Costcenter::edit/$1', ['filter' => 'role:admin']);
-$routes->post('costcenter/update/(:any)', 'Costcenter::update/$1', ['filter' => 'role:admin']);
+$routes->get('costcenter', 'Costcenter::index', ['filter' => 'permission:ack_controlling']);
+$routes->get('costcenter/create', 'Costcenter::create', ['filter' => 'permission:ack_controlling']);
+$routes->post('costcenter/save', 'Costcenter::save', ['filter' => 'permission:ack_controlling']);
+$routes->delete('costcenter/(:num)', 'Costcenter::delete/$1', ['filter' => 'permission:ack_controlling']);
+$routes->get('costcenter/edit/(:segment)', 'Costcenter::edit/$1', ['filter' => 'permission:ack_controlling']);
+$routes->post('costcenter/update/(:any)', 'Costcenter::update/$1', ['filter' => 'permission:ack_controlling']);
 
 
 
@@ -102,6 +103,7 @@ $routes->get('transaksi/create', 'Transaksi::create',['filter' => 'role:pic,admi
 $routes->post('transaksi/save', 'Transaksi::save');
 $routes->get('transaksi/edit/(:segment)', 'Transaksi::edit/$1', ['filter' => 'role:pic,kabag,approval']);
 $routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
+$routes->post('transaksi/cancel', 'Transaksi::cancel');
 $routes->delete('transaksi/(:num)', 'Transaksi::delete/$1',['filter' => 'role:pic']);
 
 $routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
@@ -119,3 +121,4 @@ $routes->get('qr', 'Qrbarcode::index');
 $routes->post('qr/save', 'Qrbarcode::multiple');
 
 $routes->get('users', 'Users::index', ['filter' => 'role:admin']);
+

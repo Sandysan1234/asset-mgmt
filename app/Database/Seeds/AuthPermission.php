@@ -86,6 +86,10 @@ class AuthPermission extends Seeder
                 'name' => 'it',
                 'description' => 'Melakukan Perbaikan'
             ],
+            [
+                'name' => 'finance',
+                'description' => 'CRUD Asset Class'
+            ],
             
         ];
         $this->db->table('auth_permissions')->insertBatch($data);

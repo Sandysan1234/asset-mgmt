@@ -85,6 +85,21 @@
                               <!-- delete permanen karena model tidak disetting -->
                             </form>
                           <?php endif; ?>
+                          <?php if (has_permission('ack_finance')): ?>
+                            <?php if ($tr['status'] == '2'): ?>
+                              <a href="#"
+                                class="btn btn-icon btn-light-info"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalCancel"
+                                data-id="<?= $tr['id_transaksi'] ?>"
+                                data-asset="<?= $tr['no_asset'] ?> — <?= $tr['nama_asset'] ?>"
+                                data-bs-placement="top"
+                                data-bs-title="Batalkan Transaksi"
+                                data-bs-toggle-tooltip="tooltip"> <!-- tambahkan ini agar tooltip aktif -->
+                                <i class="ti ti-arrow-back"></i> <!-- atau gunakan ikon lain: fa-trash, fa-ban -->
+                              </a>
+                            <?php endif; ?>
+                          <?php endif; ?>
                         </td>
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $tr['no_asset']; ?></td>
@@ -92,27 +107,37 @@
 
 
                         <?php
-                        $statusList = [
+                        $jenis_transaksi = [
                           0 => ['label' => 'Pelepasan',     'class' => 'bg-primary'],
                           1 => ['label' => 'Penghentian',   'class' => 'bg-warning'],
-                          2 => ['label' => 'Penggabungan',         'class' => 'bg-secondary'],
+                          2 => ['label' => 'Penggabungan',  'class' => 'bg-secondary'],
                           3 => ['label' => 'Mutasi ',       'class' => 'bg-info'],
                         ];
-                        $currentStatus = $statusList[$tr['transaksi']] ?? ['label' => 'Unknown', 'class' => 'bg-dark'];
+                        $transaksistate = $jenis_transaksi[$tr['transaksi']] ?? ['label' => 'Unknown', 'class' => 'bg-dark'];
                         ?>
                         <td>
-                          <span class="badge <?= $currentStatus['class'] ?> rounded-2">
-                            <?= $currentStatus['label'] ?>
+                          <span class="badge <?= $transaksistate['class'] ?> rounded-2">
+                            <?= $transaksistate['label'] ?>
                           </span>
                         </td>
 
                         <td><?= (new DateTime($tr['tgl_transaksi']))->format('d-m-Y H:i'); ?></td>
                         <td><?= $tr['alasan']; ?></td>
+                        <?php $statuslist = [
+                          0 => ['label' => 'onprogress',     'class' => 'bg-primary'],
+                          1 => ['label' => 'approve',        'class' => 'bg-warning'],
+                          2 => ['label' => 'complete',       'class' => 'bg-success'],
+                          3 => ['label' => 'cancelled ',       'class' => 'bg-danger'],
+
+                        ];
+                        $currentstatus = $statuslist[$tr['status']] ?? ['label' => 'Unknown', 'class' => 'bg-dark'];
+                        ?>
                         <td>
-                          <span class="badge <?= $tr['status'] == 0 ? 'bg-warning' : 'bg-success'; ?> rounded-2">
-                            <?= $tr['status'] == 0 ? 'On Progress' : 'Selesai'; ?>
+                          <span class="badge <?= $currentstatus['class'] ?> rounded-2">
+                            <?= $currentstatus['label'] ?>
                           </span>
                         </td>
+
                         <!-- <td>?= (new DateTime($tr['date_ttd_asal']))->format('d-m-Y H:i') ; ?></td> -->
                         <td><?= $tr['date_ttd_asal'] ? (new DateTime($tr['date_ttd_asal']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
                         <td><?= $tr['user_kabag_asal']; ?></td>
@@ -146,6 +171,53 @@
   </div>
   <!-- [ Main Content ] end -->
 </div>
+<!-- Modal Batalkan -->
+<div class="modal fade" id="modalCancel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="<?= base_url('transaksi/cancel') ?>" method="post">
+        <?= csrf_field() ?>
+        <input type="hidden" name="id_transaksi" id="cancel_id">
+
+        <div class="modal-header">
+          <h5 class="modal-title">Batalkan Transaksi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Yakin ingin membatalkan transaksi untuk aset:</p>
+          <strong id="cancel_asset"></strong>
+          <p class="mt-3">Catatan pembatalan (opsional):</p>
+          <textarea name="catatan_pembatalan" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-danger">Ya, Batalkan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Inisialisasi tooltip untuk semua elemen dengan [data-bs-toggle-tooltip="tooltip"]
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle-tooltip="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el));
+
+    // Isi modal dengan data
+    const modal = document.getElementById('modalCancel');
+    if (modal) {
+      modal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute('data-id');
+        const asset = button.getAttribute('data-asset');
+
+        document.getElementById('cancel_id').value = id;
+        document.getElementById('cancel_asset').textContent = asset;
+      });
+    }
+  });
+</script>
 
 <!-- [ Main Content ] end -->
 

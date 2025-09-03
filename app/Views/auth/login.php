@@ -9,7 +9,7 @@
     <div class="d-flex justify-content-between align-items-end mb-4">
       <h3 class="mb-0"><b><?= lang('Auth.loginTitle') ?></b></h3>
       <?php if ($config->allowRegistration) : ?>
-        <p><a href="<?= url_to('register') ?>"><?= lang('Auth.needAnAccount') ?></a></p>
+        <!-- <p><a href="?= url_to('register') ?>">?= lang('Auth.needAnAccount') ?></a></p> -->
       <?php endif; ?>
     </div>
     <?= view('Myth\Auth\Views\_message_block') ?>

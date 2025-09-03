@@ -121,11 +121,11 @@
                         <p>Menyetujui,</p>
                         <div class="row g-3 align-items-end">
                           <div class="col-12">
-                              <div class="d-flex justify-content-between form-check form-switch  form-check-reverse custom-switch-v1">
-                                <label class="form-check-label ps-0" for="approve_kabag_asal"> Kepala Bagian </label>
-                                <input class="form-check-input" type="checkbox" role="switch"
-                                  id="approve_kabag_asal" name="approve_kabag_asal" <?= has_permission('approve_kabag_asal') ? '' : 'disabled' ?>>
-                              </div>
+                            <div class="d-flex justify-content-between form-check form-switch  form-check-reverse custom-switch-v1">
+                              <label class="form-check-label ps-0" for="approve_kabag_asal"> Kepala Bagian </label>
+                              <input class="form-check-input" type="checkbox" role="switch"
+                                id="approve_kabag_asal" name="approve_kabag_asal" <?= has_permission('approve_kabag_asal') ? '' : 'disabled' ?>>
+                            </div>
                           </div>
                           <div class="col-12">
                             <label for="date_ttd_asal" class="form-label">Tanggal</label>
@@ -183,12 +183,12 @@
 
                         <div class="row g-3 align-items-end">
                           <div class="col-12">
-                              <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
-                                <label class="form-check-label" for="approve_it"> PIC </label>
-                                <input class="form-check-input no-click" type="checkbox" role="switch"
-                                  id="approve_it" name="approve_it" required
-                                  <?= has_permission('approve_pic') ? '' : 'disabled' ?>>
-                              </div>
+                            <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
+                              <label class="form-check-label" for="approve_it"> PIC </label>
+                              <input class="form-check-input no-click" type="checkbox" role="switch"
+                                id="approve_it" name="approve_it" required
+                                <?= has_permission('approve_pic') ? '' : 'disabled' ?>>
+                            </div>
                           </div>
                           <div class="col-12  ">
                             <label for="date_pic" class="form-label">Tanggal</label>
@@ -287,7 +287,7 @@
                   </div>
 
                   <div class="col-12">
-                    <button type="submit" <?= has_permission('approve_pic') ? '' : '';?> class="btn btn-primary">Simpan Transaksi</button>
+                    <button type="submit" <?= has_permission('approve_pic') ? '' : ''; ?> class="btn btn-primary">Simpan Transaksi</button>
                   </div>
                 </form>
               </div>
@@ -418,6 +418,52 @@
 
         // cek setiap kali user ubah dropdown transaksi
         transaksi.addEventListener("change", toggleFields);
+      });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const chkAsal = document.getElementById('approve_kabag_asal');
+        const chkTujuan = document.getElementById('approve_kabag_tujuan');
+        const dateAsal = document.getElementById('date_ttd_asal');
+        const dateTujuan = document.getElementById('date_ttd_tujuan');
+        const userAsal = document.getElementById('user_kabag_asal');
+        const userTujuan = document.getElementById('user_kabag_tujuan');
+
+        // Fungsi untuk mengatur tanggal dan nama otomatis
+        function setApprovalData(input, dateField, userField, name) {
+          if (input.checked) {
+            const now = new Date().toISOString().slice(0, 16); // format YYYY-MM-DDTHH:MM
+            dateField.value = now;
+            userField.value = name; // Ganti dengan nama pengguna sesuai konteks
+          } else {
+            dateField.value = '';
+            userField.value = '';
+          }
+        }
+
+        // Handler untuk checkbox Dept Asal
+        chkAsal.addEventListener('change', function() {
+          if (this.checked) {
+            chkTujuan.checked = false;
+            setApprovalData(chkTujuan, dateTujuan, userTujuan, ''); // clear tujuan
+            setApprovalData(chkAsal, dateAsal, userAsal, 'Budi Santoso'); // isi asal
+          } else {
+            dateAsal.value = '';
+            userAsal.value = '';
+          }
+        });
+
+        // Handler untuk checkbox Dept Tujuan
+        chkTujuan.addEventListener('change', function() {
+          if (this.checked) {
+            chkAsal.checked = false;
+            setApprovalData(chkAsal, dateAsal, userAsal, ''); // clear asal
+            setApprovalData(chkTujuan, dateTujuan, userTujuan, 'Siti Rahma'); // isi tujuan
+          } else {
+            dateTujuan.value = '';
+            userTujuan.value = '';
+          }
+        });
       });
     </script>
 

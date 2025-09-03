@@ -12,7 +12,9 @@
 
           <div class="card tbl-card">
             <div class="card-body">
-              <a href="/asset/create" class="btn btn-outline-primary mb-3">Tambah Data Asset</a>
+              <?php if (in_groups('pic')) : ?>
+                <a href="/asset/create" class="btn btn-outline-primary mb-3">Tambah Data Asset</a>
+              <?php endif; ?>
 
               <?php if (session()->getFlashdata('pesan')): ?>
                 <div class="alert alert-success mb-3">
@@ -76,12 +78,20 @@
   $(function() {
     // mapping status -> badge
     const statusMap = {
+      // 0: {
+      //   label: 'Proses Pelepasan',
+      //   cls: 'bg-primary'
+      // },
       0: {
-        label: 'Proses Pelepasan',
+        label: 'Pelepasan',
         cls: 'bg-primary'
       },
+      // 1: {
+      //   label: 'Proses Penghentian',
+      //   cls: 'text-dark bg-warning'
+      // },
       1: {
-        label: 'Proses Penghentian',
+        label: 'Penghentian',
         cls: 'text-dark bg-warning'
       },
       2: {
@@ -89,7 +99,7 @@
         cls: 'bg-secondary'
       },
       3: {
-        label: 'Proses Mutasi',
+        label: 'Mutasi',
         cls: 'bg-info'
       },
       4: {
@@ -147,8 +157,8 @@
             return `
             <a href="/asset/detail/${id}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-file-search"></i></a>
             <a href="/asset/edit/${id}" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-edit"></i></a>
-            <a href="/asset/perbaikan/${id}" class="btn btn-icon btn-light-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Repair"><i class="ti ti-tool"></i></a>
-          `;
+            `;
+            // <a href="/asset/perbaikan/${id}" class="btn btn-icon btn-light-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Repair"><i class="ti ti-tool"></i></a>
           }
         },
         // No (nomor urut)
@@ -209,23 +219,23 @@
         {
           data: 'nama_assetclass',
           name: 'ac.nama_assetclass',
-          render: (d, _, row) => `${row.id_assetclass ?? ''} - ${d ?? ''}`
+          // render: (d, _, row) => `${row.id_assetclass ?? ''} - ${d ?? ''}`
         },
         {
           data: 'nama_cost_center',
           name: 'cc.nama_cost_center',
-          render: (d, _, row) => `${row.id_cost_center ?? ''} - ${d ?? ''}`
+          // render: (d, _, row) => `${row.id_cost_center ?? ''} - ${d ?? ''}`
         },
         {
           data: 'nama_plant',
           name: 'p.nama_plant',
-          render: (d, _, row) => `${row.id_plant ?? ''} - ${d ?? ''}`
+          // render: (d, _, row) => `${row.id_plant ?? ''} - ${d ?? ''}`
         },
 
         {
           data: 'nama_vendor',
           name: 'v.nama_vendor',
-          render: (d, _, row) => `${row.id_vendor ?? ''} - ${d ?? ''}`
+          // render: (d, _, row) => `${row.id_vendor ?? ''} - ${d ?? ''}`
         },
 
         {
@@ -252,9 +262,8 @@
           render: (__, _, row) => `${row.pic_username ?? ''} - ${row.pic_fullname ?? ''}`
         },
         {
-          data: null,
-          name: 'usr.username',
-          render: (__, _, row) => `${row.user_username ?? ''} - ${row.user_fullname ?? ''}`
+          data: 'user_asset',
+          name: 'asset.user_asset'
         },
 
         {
