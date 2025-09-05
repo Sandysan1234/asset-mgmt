@@ -144,6 +144,20 @@
                 <div class="flex-grow-1 ms-3">
                   <div class="row g-1">
                     <div class="col-6">
+                      <h6 class="text-secondary mt-1">Kategori Asset</h6>
+                    </div>
+                    <div class="col-6 text-end">
+                      <p class="fw-bold text-capitalize"><?= $asset['kategori_asset']; ?></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item px-0">
+              <div class="d-flex align-items-center">
+                <div class="flex-grow-1 ms-3">
+                  <div class="row g-1">
+                    <div class="col-6">
                       <h6 class="text-secondary mt-1">Serial Number</h6>
                     </div>
                     <div class="col-6 text-end">
@@ -295,7 +309,6 @@
                       ];
                       $currentStatus = $statusList[$asset['status']] ?? ['label' => 'Unknown', 'class' => 'bg-dark'];
                       ?>
-
                       <p><span class="badge <?= $currentStatus['class']; ?> rounded-2"><?= $currentStatus['label']; ?></span></p>
                     </div>
                   </div>
@@ -310,7 +323,7 @@
                       <h6 class="text-secondary mt-1">PIC</h6>
                     </div>
                     <div class="col-6 text-end">
-                      <p class="fw-bold"><?= $asset['pic_username']; ?></p>
+                      <p class="fw-bold text-capitalize"><?= $asset['pic_username']; ?></p>
                     </div>
                   </div>
                 </div>

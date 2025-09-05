@@ -32,7 +32,7 @@ class Transaksi extends BaseController
   public function index(): string
   {
 
-    $transaksi = $this->transactionModel->baseRelasi()->orderBy('nama_asset')->findAll();
+    $transaksi = $this->transactionModel->baseRelasi()->findAll();
     $data = [
       'title' => 'Transaksi | Asset Management System',
       'validation'  => \Config\Services::validation(),
@@ -188,12 +188,13 @@ class Transaksi extends BaseController
     // 2) Ambil snapshot ASAL dari tabel assets (jangan dari POST)
     $idAsset = (int)$post['id_asset'];
     $asset = $this->assetModel
-      ->select('id_asset,id_plant,id_cost_center') // bisa ditambah ini jika perlu: id_lokasi_area,id_lokasi_gedung,id_lokasi_lantai//
+      ->select('id_asset,id_plant,id_cost_center,status') // bisa ditambah ini jika perlu: id_lokasi_area,id_lokasi_gedung,id_lokasi_lantai//
       ->find($idAsset);
 
     if (!$asset) {
       return redirect()->back()->withInput()->with('error', 'Asset tidak ditemukan.');
     }
+    $statusSebelum = $asset['status'];
 
 
     // 4) Jika bukan mutasi (3), kosongkan tujuan agar konsisten
@@ -238,6 +239,8 @@ class Transaksi extends BaseController
       'status'                 => $post['status'] ?? 0, // 0=onprogress
       'catatan'                 => $post['catatan'] ?? null,
       'created_by'          =>  user_id(),
+      'asset_status_awal'      => $asset['status'],
+
     ]);
 
 
@@ -332,17 +335,26 @@ class Transaksi extends BaseController
   // ✅ TAMBAHAN: Update data aset jika transaksi adalah mutasi
   private function updateAssetAfterMutation($transaksi)
   {
-    if ($transaksi['transaksi'] != '3') {
-      return;
-    }
-
+    // dd($transaksi);
     $assetModel = new AssetModel();
-    $dataUpdate = [
-      'id_plant'         => $transaksi['id_plant_baru'],
-      'id_cost_center'   => $transaksi['id_cost_center_baru'],
-      // tambahkan field lain jika perlu (lokasi, dll)
-    ];
 
+    // Jika transaksi adalah MUTASI (3) → hanya update lokasi, TIDAK UBAH status
+    if ($transaksi['transaksi'] == '3') {
+      // dd('Masuk ke if - update status'); // 🔥 Cek apakah muncul?
+
+      $dataUpdate = [
+        'id_plant'         => $transaksi['id_plant_baru'],
+        'id_cost_center'   => $transaksi['id_cost_center_baru'],
+      ];
+    }
+    // Jika transaksi BUKAN mutasi (0,1,2) → ubah STATUS aset sesuai transaksi
+    else {
+      // dd('Masuk ke else - update status'); // 🔥 Cek apakah muncul?
+
+      $dataUpdate = [
+        'status' => $transaksi['transaksi'], // ubah status aset → 0, 1, atau 2
+      ];
+    }
     $assetModel->update($transaksi['id_asset'], $dataUpdate);
   }
 
@@ -394,56 +406,18 @@ class Transaksi extends BaseController
 
     return redirect()->to('/transaksi');
   }
-  // public function cancel()
-  // {
-  //   $transaksi = $this->request->getPost('id_transaksi');
-  //   if (!$transaksi) {
-  //     return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
-  //   }
 
-  //   if ($transaksi['status'] == '3') {
-  //     return redirect()->back()->with('error', 'Transaksi sudah dibatalkan.');
-  //   }
-
-  //   if ($transaksi['status'] != '2') {
-  //     return redirect()->back()->with('error', 'Hanya transaksi yang sudah selesai bisa dibatalkan.');
-  //   }
-
-  //   // 🔁 1. Kembalikan data aset ke kondisi SEBELUM mutasi (data ASAL)
-  //   $assetModel = new AssetModel();
-  //   $assetModel->update($transaksi['id_asset'], [
-  //     'id_plant'         => $transaksi['id_plant_asal'],
-  //     'id_cost_center'   => $transaksi['id_cost_center_asal'],
-  //     // tambahkan field lain jika kamu juga simpan lokasi asal
-  //     // 'id_lokasi_area'   => $transaksi['id_lokasi_area_asal'],
-  //     // 'id_lokasi_gedung' => $transaksi['id_lokasi_gedung_asal'],
-  //     // 'id_lokasi_lantai' => $transaksi['id_lokasi_lantai_asal'],
-  //   ]);
-
-  //   // 🚫 2. Batalkan transaksi: ubah status jadi "Dibatalkan"
-  //   $this->transactionModel->update($id, [
-  //     'status' => '3', // Dibatalkan
-  //     'dibatalkan_oleh' => user_id(),
-  //     'dibatalkan_at'   => date('Y-m-d H:i:s'),
-  //     'catatan_pembatalan' => $this->request->getPost('catatan_pembatalan') // opsional
-  //   ]);
-
-  //   // ✅ 3. Beri notifikasi
-  //   session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Data aset dikembalikan ke kondisi sebelumnya.');
-
-  //   return redirect()->to('/transaksi');
-  // }
+//======================================cancel==========
   public function cancel()
   {
-    // Ambil ID dari input form, bukan dari parameter URL
     $id = $this->request->getPost('id_transaksi');
+    $catatan = $this->request->getPost('catatan_pembatalan');
 
     if (!$id) {
       return redirect()->back()->with('error', 'ID transaksi tidak ditemukan.');
     }
 
     $transaksi = $this->transactionModel->find($id);
-
     if (!$transaksi) {
       return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
     }
@@ -456,23 +430,95 @@ class Transaksi extends BaseController
       return redirect()->back()->with('error', 'Hanya transaksi yang sudah selesai bisa dibatalkan.');
     }
 
-    // 🔁 Kembalikan data aset ke kondisi sebelum mutasi
     $assetModel = new AssetModel();
-    $assetModel->update($transaksi['id_asset'], [
-      'id_plant'         => $transaksi['id_plant_asal'],
-      'id_cost_center'   => $transaksi['id_cost_center_asal'],
-      // tambahkan field lain jika perlu
-    ]);
+    $dataUpdate = [];
 
-    // 🚫 Ubah status transaksi menjadi "Dibatalkan"
+    if ($transaksi['transaksi'] == '3') {
+      // 🔁 Mutasi: kembalikan lokasi
+      $dataUpdate = [
+        'id_plant'         => $transaksi['id_plant_asal'],
+        'id_cost_center'   => $transaksi['id_cost_center_asal'],
+      ];
+    } else {
+      // 🔁 Non-Mutasi: kembalikan STATUS aset ke saat transaksi dibuat
+      $dataUpdate = [
+        'status' => $transaksi['asset_status_awal'], // ✅
+      ];
+    }
+
+    $assetModel->update($transaksi['id_asset'], $dataUpdate);
+
+    // 🚫 Batalkan transaksi
     $this->transactionModel->update($id, [
       'status'                => '3',
       'dibatalkan_oleh'       => user_id(),
       'dibatalkan_at'         => date('Y-m-d H:i:s'),
-      'catatan_pembatalan'    => $this->request->getPost('catatan_pembatalan')
+      'catatan_pembatalan'    => $catatan,
     ]);
 
-    session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Data aset dikembalikan ke kondisi sebelumnya.');
+    session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Status aset dikembalikan ke kondisi sebelumnya.');
     return redirect()->to('/transaksi');
   }
+
+  // public function cancel()
+  // {
+  //   $id = $this->request->getPost('id_transaksi');
+  //   $catatan = $this->request->getPost('catatan_pembatalan');
+
+  //   if (!$id) {
+  //     return redirect()->back()->with('error', 'ID transaksi tidak ditemukan.');
+  //   }
+
+  //   $transaksi = $this->transactionModel->find($id);
+  //   if (!$transaksi) {
+  //     return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
+  //   }
+  //   dd($transaksi); // ← Uncomment untuk cek
+
+
+  //   if ($transaksi['status'] == '3') { // Dibatalkan
+  //     return redirect()->back()->with('error', 'Transaksi sudah dibatalkan.');
+  //   }
+  //   // dd($transaksi['status'], ge  ttype($transaksi['status']));
+
+
+  //   if ($transaksi['status'] != '2') {
+  //     return redirect()->back()->with('error', 'Hanya transaksi yang sudah selesai bisa dibatalkan.');
+  //   }
+
+  //   // 🔁 Kembalikan data aset
+  //   $assetModel = new AssetModel();
+
+  //   // Data yang akan dikembalikan
+  //   $dataUpdate = [];
+
+  //   // Jika transaksi MUTASI → kembalikan plant & cost center
+  //   if ($transaksi['transaksi'] == '3') {
+  //     $dataUpdate = [
+  //       'id_plant'         => $transaksi['id_plant_asal'],
+  //       'id_cost_center'   => $transaksi['id_cost_center_asal'],
+  //       // tambahkan lokasi lain jika perlu
+  //     ];
+  //   }
+  //   // Jika BUKAN mutasi → kembalikan STATUS
+  //   else {
+  //     $dataUpdate = [
+  //       'status' => $transaksi['status_sebelum'], // 🔥 Kembali ke status sebelum transaksi
+  //     ];
+  //   }
+
+  //   // Update aset
+  //   $assetModel->update($transaksi['id_asset'], $dataUpdate);
+
+  //   // 🚫 Batalkan transaksi
+  //   $this->transactionModel->update($id, [
+  //     'status'                => '3', // Dibatalkan
+  //     'dibatalkan_oleh'       => user_id(),
+  //     'dibatalkan_at'         => date('Y-m-d H:i:s'),
+  //     'catatan_pembatalan'    => $catatan,
+  //   ]);
+
+  //   session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Status aset dikembalikan ke kondisi sebelumnya.');
+  //   return redirect()->to('/transaksi');
+  // }
 }

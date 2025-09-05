@@ -95,7 +95,8 @@ $routes->post('asset/update/(:any)', 'Asset::update/$1');
 $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
 // $routes->get('asset/perbaikan/(:num)', 'Perbaikan::edit/$1');
 $routes->match(['get', 'post'], 'asset/dt', 'Asset::dt');   // endpoint server-side
-
+// untuk filter lokasi
+$routes->get('asset/lokasi-by-plant/(:num)', 'Asset::getLokasiByPlant/$1');
 
 
 $routes->get('transaksi', 'Transaksi::index',['filter' => 'role:pic,kabag,approval,admin']);
@@ -122,3 +123,7 @@ $routes->post('qr/save', 'Qrbarcode::multiple');
 
 $routes->get('users', 'Users::index', ['filter' => 'role:admin']);
 
+
+$routes->get('stock-opname', 'stockopname::index');
+$routes->get('stock-opname/cekAsset', 'stockopname::cekAsset');
+$routes->post('stock-opname/saveAll', 'stockopname::saveAll');

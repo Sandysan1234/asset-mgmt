@@ -28,6 +28,7 @@
                     <tr class="text-nowrap">
                       <th>Handle</th>
                       <th>No</th>
+                      <th>Kategori Asset</th>
                       <th>No Asset</th>
                       <th>Sub Asset</th>
                       <th>Nama Asset</th>
@@ -77,40 +78,40 @@
 <script>
   $(function() {
     // mapping status -> badge
-    const statusMap = {
-      // 0: {
-      //   label: 'Proses Pelepasan',
-      //   cls: 'bg-primary'
-      // },
-      0: {
-        label: 'Pelepasan',
-        cls: 'bg-primary'
-      },
-      // 1: {
-      //   label: 'Proses Penghentian',
-      //   cls: 'text-dark bg-warning'
-      // },
-      1: {
-        label: 'Penghentian',
-        cls: 'text-dark bg-warning'
-      },
-      2: {
-        label: 'Penggabungan',
-        cls: 'bg-secondary'
-      },
-      3: {
-        label: 'Mutasi',
-        cls: 'bg-info'
-      },
-      4: {
-        label: 'Non-Aktif',
-        cls: 'bg-danger'
-      },
-      5: {
-        label: 'Aktif',
-        cls: 'bg-success'
-      }
-    };
+      const statusMap = {
+        // 0: {
+        //   label: 'Proses Pelepasan',
+        //   cls: 'bg-primary'
+        // },
+        0: {
+          label: 'Pelepasan',
+          cls: 'bg-primary'
+        },
+        // 1: {
+        //   label: 'Proses Penghentian',
+        //   cls: 'text-dark bg-warning'
+        // },
+        1: {
+          label: 'Penghentian',
+          cls: 'text-dark bg-warning'
+        },
+        2: {
+          label: 'Penggabungan',
+          cls: 'bg-secondary'
+        },
+        3: {
+          label: 'Mutasi',
+          cls: 'bg-info'
+        },
+        4: {
+          label: 'Non-Aktif',
+          cls: 'bg-danger'
+        },
+        5: {
+          label: 'Aktif',
+          cls: 'bg-success'
+        }
+      };
 
     // helper format
     const fmtDate = d => d ? new Date(d).toLocaleDateString('id-ID') : '';
@@ -172,6 +173,10 @@
         },
 
         // Kolom data (pastikan server kirim field-field ini)
+        {
+          data: 'kategori_asset',
+          name: 'asset.kategori_asset'
+        },
         {
           data: 'no_asset',
           name: 'asset.no_asset'

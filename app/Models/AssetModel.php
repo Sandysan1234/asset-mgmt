@@ -19,6 +19,7 @@ class AssetModel extends Model
     'batch_number',
     'merek',
     'spek',
+    'status',
     'tgl_perolehan',
     'harga',
     'no_po',
@@ -33,6 +34,7 @@ class AssetModel extends Model
     'id_pic',
     'user_asset',
     'modified_by',
+    'kategori_asset',
   ];
   // untuk search
   private array $allowedCols = [
@@ -46,6 +48,7 @@ class AssetModel extends Model
     'asset.tgl_perolehan',
     'asset.harga',
     'asset.no_po',
+    'kategori_asset',
     'ac.nama_assetclass',
     'cc.nama_cost_center',
     'p.nama_plant',
@@ -72,7 +75,7 @@ class AssetModel extends Model
     asset.serial_number, asset.batch_number, asset.merek, asset.spek,
     asset.tgl_perolehan, asset.harga, asset.no_po,
     asset.id_assetclass, asset.id_cost_center, asset.id_plant, asset.id_vendor,
-    asset.status, asset.created_at, asset.updated_at, asset.modified_by, asset.user_asset,
+    asset.status,asset.kategori_asset, asset.created_at, asset.updated_at, asset.modified_by, asset.user_asset,
 
   
     ac.nama_assetclass,

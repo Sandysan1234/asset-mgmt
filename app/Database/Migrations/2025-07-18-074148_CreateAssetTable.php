@@ -64,6 +64,11 @@ class CreateAssetTable extends Migration
                 'constraint' => 1,
                 'default'    => 0
             ],
+            'no_po' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => true,
+            ],
             'id_assetclass' => [
                 'type'       => 'INT',
                 'unsigned'   => true,

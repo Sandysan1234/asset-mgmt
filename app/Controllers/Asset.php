@@ -140,6 +140,13 @@ class Asset extends BaseController
 
     // dd($data);
     if (!$this->validateData($data, [
+      'kategori_asset' => [
+        'label'     => 'Kategori Asset',
+        'rules'     => 'required',
+        'errors'    => [
+          'required'  => '{field} harus diisi',
+        ]
+      ],
       'no_asset'    => [
         'label'               => 'No Asset',
         'rules'               => 'required|is_unique[asset.no_asset]',
@@ -150,7 +157,7 @@ class Asset extends BaseController
       ],
       'sub_asset'    => [
         'label'               => 'Sub Asset',
-        'rules'               => 'required|integer|is_unique[asset.sub_asset]',
+        'rules'               => 'required|integer', //|is_unique[asset.sub_asset]
         'errors'              => [
           'required'        => '{field} harus diisi',
           'is_unique'       => '{field} sudah terdafar',
@@ -167,19 +174,19 @@ class Asset extends BaseController
       ],
       'serial_number' => [
         'label'               => 'Serial Number',
-        'rules'               => 'required|is_unique[asset.serial_number]',
+        'rules'               => 'required', //|is_unique[asset.serial_number]
         'errors'              => [
           'required'        => '{field} harus diisi',
-          'is_unique'       => '{field} sudah terdafar',
+          // 'is_unique'       => '{field} sudah terdafar',
           // 'integer'         => '{field} harus angka'
         ]
       ],
       'batch_number' => [
         'label'               => 'Batch Number',
-        'rules'               => 'required|is_unique[asset.batch_number]',
+        'rules'               => 'required', //|is_unique[asset.batch_number]
         'errors'              => [
           'required'        => '{field} harus diisi',
-          'is_unique'       => '{field} sudah terdafar',
+          // 'is_unique'       => '{field} sudah terdafar',
           // 'integer'         => '{field} harus angka'
         ]
       ],
@@ -221,6 +228,7 @@ class Asset extends BaseController
           'integer'         => '{field} harus angka'
         ]
       ],
+
       'id_assetclass' => [
         'label'               => 'Asset Class',
         'rules'               => 'required',
@@ -326,6 +334,7 @@ class Asset extends BaseController
       'tgl_perolehan'    => $this->request->getPost('tgl_perolehan'),
       'harga'            => $harga,
       'no_po'            => $this->request->getPost('no_po'),
+      'kategori_asset'   => $this->request->getPost('kategori_asset'),
       'id_assetclass'    => $this->request->getPost('id_assetclass'),
       'id_cost_center'   => $this->request->getPost('id_cost_center'),
       'id_lifetime'      => $this->request->getPost('id_lifetime'),
@@ -383,6 +392,13 @@ class Asset extends BaseController
 
 
     if (!$this->validateData($data, [
+      'kategori_asset'    =>  [
+        'label'               => 'Kategori Asset',
+        'rules'               => 'required', //|is_unique[asset.nama_asset,id_asset,' . $id . ']
+        'errors'              => [
+          'required'        => '{field} harus diisi',
+        ]
+      ],
       'nama_asset'    =>  [
         'label'               => 'Nama Asset',
         'rules'               => 'required', //|is_unique[asset.nama_asset,id_asset,' . $id . ']
@@ -392,18 +408,18 @@ class Asset extends BaseController
       ],
       'serial_number' => [
         'label'               => 'Serial Number',
-        'rules'               => 'required|is_unique[asset.serial_number,id_asset,' . $id . ']',
+        'rules'               => 'required', //|is_unique[asset.serial_number,id_asset,' . $id . ']
         'errors'              => [
           'required'        => '{field} harus diisi',
-          'is_unique'       => '{field} sudah terdaftar'
+          // 'is_unique'       => '{field} sudah terdaftar'
         ]
       ],
       'batch_number' => [
         'label'               => 'Batch Number',
-        'rules'               => 'required|is_unique[asset.batch_number,id_asset,' . $id . ']',
+        'rules'               => 'required',  //|is_unique[asset.batch_number,id_asset,' . $id . ']
         'errors'              => [
           'required'        => '{field} harus diisi',
-          'is_unique'       => '{field} sudah terdafar',
+          // 'is_unique'       => '{field} sudah terdafar',
         ]
       ],
       'merek'    =>  [
@@ -470,7 +486,7 @@ class Asset extends BaseController
       return redirect()->to('/asset/edit/' . $id)->withInput();
     }
 
-    
+
     $hargaRaw = $this->request->getPost('harga');
     $harga = (int) str_replace('.', '', $hargaRaw);
 
@@ -478,13 +494,14 @@ class Asset extends BaseController
       'id_asset'        => $id,
       'no_asset'        => $existing['no_asset'],
       'sub_asset'       => $existing['sub_asset'],
+      'kategori_asset'  => $this->request->getPost('kategori_asset'),
       'nama_asset'      => $this->request->getPost('nama_asset'),
       'serial_number'   => $this->request->getPost('serial_number'),
       'batch_number'    => $this->request->getPost('batch_number'),
       'merek'           => $this->request->getPost('merek'),
       'spek'            => $this->request->getPost('spek'),
       'tgl_perolehan'   => $this->request->getPost('tgl_perolehan'),
-      'harga'           => $this->request->getPost('harga'),
+      'harga'           => $harga,
       'no_po'           => $this->request->getPost('no_po'),
       'id_assetclass'   => $this->request->getPost('id_assetclass'),
       'id_cost_center'  => $existing['id_cost_center'],
@@ -498,6 +515,7 @@ class Asset extends BaseController
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
     return redirect()->to('/asset');
   }
+
   public function detail($id)
   {
 
@@ -543,5 +561,33 @@ class Asset extends BaseController
     //   'asset' => $asset,
     // ];
     // return view('asset/detail', $data);
+  }
+  public function getLokasiByPlant($id_plant)
+  {
+    // Ambil lokasi berdasarkan plant dan jenis
+    $area = $this->locationModel
+      ->where('id_plant', $id_plant)
+      ->where('jenis_lokasi', 'Area')
+      ->findAll();
+
+    $gedung = $this->locationModel
+      ->where('id_plant', $id_plant)
+      ->where('jenis_lokasi', 'Gedung')
+      ->findAll();
+
+    $lantai = $this->locationModel
+      ->where('id_plant', $id_plant)
+      ->where('jenis_lokasi', 'Lantai')
+      ->findAll();
+
+    // Kembalikan dalam format JSON
+    return $this->response->setJSON([
+      'success' => true,
+      'data'    => [
+        'area'   => $area,
+        'gedung' => $gedung,
+        'lantai' => $lantai
+      ]
+    ]);
   }
 }

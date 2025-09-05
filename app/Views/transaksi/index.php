@@ -42,7 +42,11 @@
                     <?= session()->getFlashdata('pesan'); ?>
                   </div>
                 <?php endif; ?>
-
+                <?php if (session()->has('error')): ?>
+                  <div class="alert alert-danger" role="alert">
+                    <?= session('error') ?>
+                  </div>
+                <?php endif; ?>
                 <table id="myTable-client" class="table table-hover table-borderless" style="width:100%">
                   <thead class="bg-light">
                     <tr class="text-nowrap">

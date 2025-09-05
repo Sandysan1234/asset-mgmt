@@ -40,7 +40,7 @@ class CreateTransactionTable extends Migration
             // tujuan (rencana)
             'id_plant_baru'         => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
             'id_cost_center_baru'   => ['type' => 'INT', 'constraint' => 10, 'unsigned' => true, 'null' => true],
-        
+
             // status umum transaksi
             // 0=onprogress,1=approve,2=complete,3=cancelled
             'status'  => [
@@ -55,7 +55,7 @@ class CreateTransactionTable extends Migration
             'date_ttd_tujuan' => ['type' => 'DATETIME', 'null' => true],
             'user_kabag_tujuan'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
 
-            
+
             'date_pic' => ['type' => 'DATETIME', 'null' => true],
             'nama_pic'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
 
@@ -68,11 +68,16 @@ class CreateTransactionTable extends Migration
             'date_ack_ctrl' => ['type' => 'DATETIME', 'null' => true],
 
             'catatan' => ['type' => 'TEXT', 'null' => true],
-            
+
             'dibatalkan_oleh'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
             'dibatalkan_at' => ['type' => 'DATETIME', 'null' => true],
             'catatan_pembatalan' => ['type' => 'TEXT', 'null' => true],
-            
+            'asset_status_awal'  => [
+                'type'       => 'TINYINT',
+                'constraint' => 1,
+                'null' => true,
+                'comment'    => 'Status aset sebelum transaksi (backup saat dibuat)',
+            ],
             // audit trail
             'created_at'    => ['type' => 'DATETIME', 'null' => true],
             'created_by'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],

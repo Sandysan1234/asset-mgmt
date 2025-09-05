@@ -22,18 +22,11 @@
           </li>
 
 
-          <li class="pc-item pc-caption">
+          <!-- <li class="pc-item pc-caption">
             <label>Form</label>
             <i class="ti ti-dashboard"></i>
-          </li>
-          <?php if (in_groups(['pic', 'kabag', 'approval', 'admin'])): ?>
-            <li class="pc-item">
-              <a href="/transaksi" class="pc-link">
-                <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-                <span class="pc-mtext">Transaksi</span>
-              </a>
-            </li>
-          <?php endif; ?>
+          </li> -->
+
           <li class="pc-item pc-caption">
             <label>Pages</label>
             <i class="ti ti-news"></i>
@@ -47,6 +40,14 @@
               <?php endif; ?>
             </ul>
           </li>
+          <?php if (in_groups(['pic', 'kabag', 'approval', 'admin'])): ?>
+            <li class="pc-item">
+              <a href="/transaksi" class="pc-link">
+                <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
+                <span class="pc-mtext">Transaksi</span>
+              </a>
+            </li>
+          <?php endif; ?>
           <?php if (has_permission('printqr')): ?>
             <li class="pc-item">
               <a href="/qr" class="pc-link">
@@ -55,11 +56,20 @@
               </a>
             </li>
           <?php endif; ?>
+
           <?php if (has_permission('ack_controlling')): ?>
             <li class="pc-item">
               <a href="/costcenter" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-aperture"></i></span>
                 <span class="pc-mtext">Cost Center</span>
+              </a>
+            </li>
+          <?php endif; ?>
+          <?php if (in_groups(['pic','admin'])): ?>
+            <li class="pc-item">
+              <a href="/stock-opname" class="pc-link">
+                <span class="pc-micon"><i class="ti ti-report"></i></span>
+                <span class="pc-mtext">Stock Opname</span>
               </a>
             </li>
           <?php endif; ?>
@@ -85,7 +95,7 @@
             </li>
             <li class="pc-item">
               <a href="/perbaikan" class="pc-link">
-                <span class="pc-micon"><i class="ti ti-sitemap"></i></span>
+                <span class="pc-micon"><i class="ti ti-tool"></i></span>
                 <span class="pc-mtext">Perbaikan</span>
               </a>
             </li>
