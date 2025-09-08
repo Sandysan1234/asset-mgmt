@@ -45,12 +45,17 @@
                     <tr class="text-nowrap">
                       <th scope="col">Handle</th>
                       <th scope="col">No</th>
+                      <th scope="col">No Asset</th>
+                      <th scope="col">Nama Asset</th>
                       <th scope="col">Jenis Perbaikan</th>
                       <th scope="col">Keterangan</th>
                       <th scope="col">Biaya</th>
                       <th scope="col">Teknisi</th>
                       <th scope="col">Durasi</th>
                       <th scope="col">Tempat Service</th>
+                      <th scope="col">Nama Plant</th>
+                      <th scope="col">Nama Cost Center</th>
+                      <th scope="col">User Asset</th>
                       <th scope="col">Status</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
@@ -72,15 +77,20 @@
 
                         </td>
                         <th scope="row"><?= $i++; ?></th>
-                        <td><?= $repair['jenis_perbaikan ']; ?></td>
+                        <td><?= $repair['no_asset']; ?></td>
+                        <td><?= $repair['nama_asset']; ?></td>
+                        <td><?= $repair['jenis_perbaikan']; ?></td>
                         <td><?= $repair['keterangan']; ?></td>
                         <td><?= $repair['biaya']; ?></td>
                         <td><?= $repair['teknisi']; ?></td>
                         <td><?= $repair['durasi']; ?></td>
                         <td><?= $repair['place']; ?></td>
+                        <td><?= $repair['nama_plant']; ?></td>
+                        <td><?= $repair['nama_cost_center']; ?></td>
+                        <td><?= $repair['user_asset']; ?></td>
                         <td>
                           <span class="badge <?= $repair['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
-                            <?= $repair['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
+                            <?= $repair['status'] == 1 ? 'Selesai' : 'Proses'; ?>
                           </span>
                         </td>
                         <td><?= (new DateTime($repair['created_at']))->format('d-m-Y H:i');  ?></td>

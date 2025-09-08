@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use Myth\Auth\Models\UserModel;
+use Myth\Auth\Models\GroupModel;
+use Myth\Auth\Models\PermissionModel;
+
 use CodeIgniter\Model;
 
 class TransactionModel extends Model
@@ -32,7 +36,7 @@ class TransactionModel extends Model
         'id_cost_center_asal',
         'id_plant_baru',
         'id_cost_center_baru',
-
+        'catatan',
         'status',
         'created_by'
 

@@ -9,7 +9,10 @@ use App\Models\AssetModel;
 use App\Models\PlantModel;
 use App\Models\CostcenterModel;
 use App\Models\TransactionModel;
-use App\Models\TransactionStepsModel;
+// use App\Models\TransactionStepsModel;
+use Myth\Auth\Models\UserModel;
+use Myth\Auth\Models\GroupModel;
+use Myth\Auth\Models\PermissionModel;
 
 
 
@@ -20,6 +23,9 @@ class Transaksi extends BaseController
   protected $plantModel;
   protected $costcenterModel;
   protected $transactionModel;
+  protected $userModel;
+  protected $groupModel;
+  protected $permissionModel;
 
 
   public function __construct()
@@ -28,6 +34,9 @@ class Transaksi extends BaseController
     $this->costcenterModel  = new CostcenterModel();
     $this->plantModel  = new PlantModel();
     $this->transactionModel  = new TransactionModel();
+    $this->userModel    = new UserModel();
+    $this->groupModel    = new GroupModel();
+    $this->permissionModel    = new PermissionModel();
   }
   public function index(): string
   {
@@ -85,6 +94,19 @@ class Transaksi extends BaseController
   public function create(): string
   {
     // pr untuk data yang di load
+    $kabagGroup = $this->groupModel->where('name', 'kabag')->first();
+    $kabagUsers = [];
+
+    if ($kabagGroup) {
+
+      $kabagUsers = $this->userModel
+        ->select('users.id, users.fullname, users.username, users.email')
+        ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
+        ->where('auth_groups_users.group_id', $kabagGroup->id) // pastikan field: group_id
+        ->where('users.active', 1) // hanya user aktif
+        ->findAll();
+    }
+
     $plant = $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll();
     $cost_center = $this->costcenterModel->select('id_cost_center, nama_cost_center')->orderBy('nama_cost_center')->findAll();
     // $asset = $this->assetModel->getWithRelasi();
@@ -98,6 +120,7 @@ class Transaksi extends BaseController
       'plant' => $plant,
       'cost_center' => $cost_center,
       'user'          => user(),
+      'kabagUsers' => $kabagUsers,
 
       // 'asset' => $asset,
       // 'no_asset' => $this->assetModel->select('no_asset')->findAll()
@@ -238,7 +261,8 @@ class Transaksi extends BaseController
 
       'status'                 => $post['status'] ?? 0, // 0=onprogress
       'catatan'                 => $post['catatan'] ?? null,
-      'created_by'          =>  user_id(),
+      'created_by'          =>  user(),
+      'modified_by'          =>  user(),
       'asset_status_awal'      => $asset['status'],
 
     ]);
@@ -407,7 +431,7 @@ class Transaksi extends BaseController
     return redirect()->to('/transaksi');
   }
 
-//======================================cancel==========
+  //======================================cancel==========
   public function cancel()
   {
     $id = $this->request->getPost('id_transaksi');

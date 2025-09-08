@@ -53,3 +53,24 @@ Events::on('pre_system', static function (): void {
         }
     }
 });
+
+
+Events::on('afterUserLogin', function($userId) {
+    try {
+        // 1. Buat hash acak
+        $loginHash = bin2hex(random_bytes(16));
+
+        // 2. Simpan ke session
+        session()->set('active_login_hash', $loginHash);
+
+        // 3. Simpan ke database (tabel users)
+        model(UserModel::class)->update($userId, [
+            'active_login_hash' => $loginHash
+        ]);
+
+        // 4. Log untuk debug
+        log_message('info', '🔐 Login hash disimpan untuk user ID: ' . $userId);
+    } catch (\Exception $e) {
+        log_message('error', '❌ Gagal simpan login hash: ' . $e->getMessage());
+    }
+});

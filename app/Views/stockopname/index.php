@@ -86,16 +86,14 @@
                       type="text"
                       id="qrInput"
                       class="form-control"
-                      placeholder="https://asset.jmiis.com/asset/detail/11"
+                      placeholder="https://asset.jmiis.com/asset/detail/1"
                       aria-label="Masukkan URL asset"
                       required>
                     <button class="btn btn-primary" type="submit" id="button-addon2">
                       Tambahkan
                     </button>
                   </div>
-                  <small class="text-muted mt-1 d-block">
-                    Contoh: <code>/asset/detail/123</code>
-                  </small>
+                  <p class="text-muted mt-1 d-block">Contoh: <code>/asset/detail/123</code> </p>
                 </div>
               </form>
 

@@ -155,15 +155,15 @@ class Asset extends BaseController
           'is_unique'       => '{field} sudah terdafar'
         ]
       ],
-      'sub_asset'    => [
-        'label'               => 'Sub Asset',
-        'rules'               => 'required|integer', //|is_unique[asset.sub_asset]
-        'errors'              => [
-          'required'        => '{field} harus diisi',
-          'is_unique'       => '{field} sudah terdafar',
-          'integer'         => '{field} harus angka'
-        ]
-      ],
+      // 'sub_asset'    => [
+      //   'label'               => 'Sub Asset',
+      //   'rules'               => 'required|integer', //|is_unique[asset.sub_asset]
+      //   'errors'              => [
+      //     'required'        => '{field} harus diisi',
+      //     'is_unique'       => '{field} sudah terdafar',
+      //     'integer'         => '{field} harus angka'
+      //   ]
+      // ],
       'nama_asset'    =>  [
         'label'               => 'Nama Asset',
         'rules'               => 'required', //|is_unique[asset.nama_asset]
@@ -172,24 +172,24 @@ class Asset extends BaseController
           // 'is_unique'       => '{field} sudah terdafar'
         ]
       ],
-      'serial_number' => [
-        'label'               => 'Serial Number',
-        'rules'               => 'required', //|is_unique[asset.serial_number]
-        'errors'              => [
-          'required'        => '{field} harus diisi',
-          // 'is_unique'       => '{field} sudah terdafar',
-          // 'integer'         => '{field} harus angka'
-        ]
-      ],
-      'batch_number' => [
-        'label'               => 'Batch Number',
-        'rules'               => 'required', //|is_unique[asset.batch_number]
-        'errors'              => [
-          'required'        => '{field} harus diisi',
-          // 'is_unique'       => '{field} sudah terdafar',
-          // 'integer'         => '{field} harus angka'
-        ]
-      ],
+      // 'serial_number' => [
+      //   'label'               => 'Serial Number',
+      //   'rules'               => 'required', //|is_unique[asset.serial_number]
+      //   'errors'              => [
+      //     'required'        => '{field} harus diisi',
+      //     // 'is_unique'       => '{field} sudah terdafar',
+      //     // 'integer'         => '{field} harus angka'
+      //   ]
+      // ],
+      // 'batch_number' => [
+      //   'label'               => 'Batch Number',
+      //   'rules'               => 'required', //|is_unique[asset.batch_number]
+      //   'errors'              => [
+      //     'required'        => '{field} harus diisi',
+      //     // 'is_unique'       => '{field} sudah terdafar',
+      //     // 'integer'         => '{field} harus angka'
+      //   ]
+      // ],
       'merek'    =>  [
         'label'               => 'Merek',
         'rules'               => 'required',
@@ -212,22 +212,22 @@ class Asset extends BaseController
           'valid_date'        => '{field} tidak sesuai'
         ]
       ],
-      'harga' => [
-        'label'   => 'Harga',
-        'rules'   => 'required',
-        'errors'  => [
-          'required' => '{field} harus diisi',
-        ]
-      ],
-      'no_po' => [
-        'label'               => 'No Purchase Order',
-        'rules'               => 'required|integer|is_unique[asset.no_po]',
-        'errors'              => [
-          'required'        => '{field} harus diisi',
-          'is_unique'       => '{field} sudah terdafar',
-          'integer'         => '{field} harus angka'
-        ]
-      ],
+      // 'harga' => [
+      //   'label'   => 'Harga',
+      //   'rules'   => 'required',
+      //   'errors'  => [
+      //     'required' => '{field} harus diisi',
+      //   ]
+      // ],
+      // 'no_po' => [
+      //   'label'               => 'No Purchase Order',
+      //   'rules'               => 'required|integer|is_unique[asset.no_po]',
+      //   'errors'              => [
+      //     'required'        => '{field} harus diisi',
+      //     'is_unique'       => '{field} sudah terdafar',
+      //     'integer'         => '{field} harus angka'
+      //   ]
+      // ],
 
       'id_assetclass' => [
         'label'               => 'Asset Class',
@@ -345,7 +345,7 @@ class Asset extends BaseController
       'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai'),
       'id_pic'           => $this->request->getPost('id_pic'),
       'user_asset'       => $this->request->getPost('user_asset') ?: null,
-      'status'           => $this->request->getPost('status') ?: 5,
+      'status'           => $this->request->getPost('status') ? : 5,
       'modified_by'      => user_id(),
     ]);
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');

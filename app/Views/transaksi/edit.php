@@ -294,7 +294,7 @@
                   </div>
                   <div class="col-12 mt-0">
                     <label for="catatan" class="form-label">Catatan Pojok</label>
-                    <textarea id="catatan" name="catatan" class="form-control" disabled></textarea>
+                    <textarea id="catatan" name="catatan" class="form-control" disabled><?= old('catatan', $transaksi['catatan']); ?></textarea>
                   </div>
 
                   <div class="col-12">

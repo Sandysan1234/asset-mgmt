@@ -132,12 +132,20 @@
                             <input type="datetime-local" class="form-control"
                               id="date_ttd_asal" name="date_ttd_asal" readonly>
                           </div>
-
                           <!-- opsional: pilih pejabat -->
                           <div class="col-12">
                             <label for="user_kabag_asal" class="form-label">Nama Kepala Bagian</label>
-                            <input type="text" class="form-control"
-                              id="user_kabag_asal" name="user_kabag_asal" placeholder="Mis. Budi Santoso" readonly>
+                            <select id="user_kabag_asal" name="user_kabag_asal" required class="form-select <?= (validation_show_error('user_kabag_asal')) ? 'is-invalid' : ''; ?>">
+                              <option selected disabled>Pilih Kepala Bagian yang sesuai</option>
+                              <?php foreach ($kabagUsers as $user): ?>
+                                <option value="<?= $user->id ?>" <?= old('id_pic') == $user->id ? 'selected' : ''; ?>>
+                                  <?= esc($user->fullname ?? $user->username) ?>
+                                  <?php if (!empty($user->email)): ?>
+                                    (<?= esc($user->email) ?>)
+                                  <?php endif ?>
+                                </option>
+                              <?php endforeach; ?>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -167,8 +175,17 @@
                           </div>
                           <div class="col-12">
                             <label for="user_kabag_tujuan" class="form-label">Nama Kepala Bagian</label>
-                            <input type="text" class="form-control"
-                              id="user_kabag_tujuan" name="user_kabag_tujuan" placeholder="Mis. Siti Rahma" readonly>
+                            <select id="user_kabag_tujuan" name="user_kabag_tujuan" required class="form-select <?= (validation_show_error('user_kabag_tujuan')) ? 'is-invalid' : ''; ?>">
+                              <option selected disabled>Pilih Kepala Bagian yang sesuai</option>
+                              <?php foreach ($kabagUsers as $user): ?>
+                                <option value="<?= $user->id ?>" <?= old('id_pic') == $user->id ? 'selected' : ''; ?>>
+                                  <?= esc($user->fullname ?? $user->username) ?>
+                                  <?php if (!empty($user->email)): ?>
+                                    (<?= esc($user->email) ?>)
+                                  <?php endif ?>
+                                </option>
+                              <?php endforeach; ?>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -386,8 +403,8 @@
 
         toggleDateName('#approve_it', '#date_pic', '#nama_pic');
         toggleDateName('#approve_dir', '#date_direksi', '#nama_direksi');
-        toggleDateName('#approve_kabag_asal', '#date_ttd_asal', '#user_kabag_asal');
-        toggleDateName('#approve_kabag_tujuan', '#date_ttd_tujuan', '#user_kabag_tujuan');
+        toggleDateName('#approve_kabag_asal', '#date_ttd_asal');
+        toggleDateName('#approve_kabag_tujuan', '#date_ttd_tujuan');
         toggleDateName('#ack_fin', '#date_ack_fin', null);
         toggleDateName('#ack_acc', '#date_ack_acc', null);
         toggleDateName('#ack_ctrl', '#date_ack_ctrl', null);
