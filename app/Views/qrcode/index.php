@@ -2,7 +2,7 @@
 
 <?= $this->section('page-content'); ?>
 <div class="pc-container">
-  <div class="card">
+  <div class="card ">
     <div class="card-header">
       <h5>Generate Qr Code</h5>
     </div>
@@ -11,19 +11,19 @@
         <div class="col-12">
           <form action="<?= base_url('qr/save') ?>" method="post">
             <?= csrf_field() ?>
-            <div class="mb-3">
+            <div class="mb-3 d-print-none">
               <label for="no_asset" class="form-label">Cari QR berdasarkan Nomor Asset</label>
               <input type="text" class="form-control" id="no_asset" name="no_asset" placeholder="Masukkan nomor asset">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 d-print-none">
               <label for="jumlah" class="form-label">Atau generate banyak sekaligus</label>
               <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Misal: 10">
             </div>
-            <button type="submit" class="btn btn-primary">Generate QR</button>
+            <button type="submit" class="btn btn-primary ">Generate QR</button>
           </form>
         </div>
         <div class="col-12 mt-3 p-3">
-          <h5 class="text-center">Tampilan Generate QR Code</h5>
+          <h5 class="text-center d-print-none">Tampilan Generate QR Code</h5>
           <button class="btn btn-success mb-3" onclick="window.print()" <?= empty($qrList) ? 'disabled' : '' ?>>
             Print QR Code
           </button>

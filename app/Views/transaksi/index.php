@@ -108,8 +108,6 @@
                         <th scope="row"><?= $i++; ?></th>
                         <td><?= $tr['no_asset']; ?></td>
                         <td><?= $tr['nama_asset']; ?></td>
-
-
                         <?php
                         $jenis_transaksi = [
                           0 => ['label' => 'Pelepasan',     'class' => 'bg-primary'],

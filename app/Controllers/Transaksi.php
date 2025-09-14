@@ -129,12 +129,7 @@ class Transaksi extends BaseController
     return view('transaksi/create', $data);
   }
 
-  public function delete($id)
-  {
-    $this->transactionModel->delete($id);
-    session()->setFlashdata('pesan', 'Data berhasil dihapus');
-    return redirect()->to('/transaksi');
-  }
+
   // public function save()
   // {
 
@@ -255,14 +250,16 @@ class Transaksi extends BaseController
       // 'id_lokasi_gedung_baru'  => $idLokGedungBaru,
       // 'id_lokasi_lantai_baru'  => $idLokLantaiBaru,
       // 'date_pic'            => date('Y-m-d H:i:s', strtotime($post['date_pic'])),
-      'date_pic'            => !empty($post['date_pic']) ? $post['date_pic'] : null,
+      'user_kabag_asal'        => $post['user_kabag_asal'],
+      'user_kabag_tujuan'      => $post['user_kabag_tujuan'],
+      'date_pic'               => !empty($post['date_pic']) ? $post['date_pic'] : null,
 
-      'nama_pic'            => $post['nama_pic'],
+      'nama_pic'               => $post['nama_pic'],
 
       'status'                 => $post['status'] ?? 0, // 0=onprogress
-      'catatan'                 => $post['catatan'] ?? null,
-      'created_by'          =>  user(),
-      'modified_by'          =>  user(),
+      'catatan'                => $post['catatan'] ?? null,
+      'created_by'             => user()->email,
+      'modified_by'            => user()->email,
       'asset_status_awal'      => $asset['status'],
 
     ]);
@@ -481,6 +478,13 @@ class Transaksi extends BaseController
     ]);
 
     session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Status aset dikembalikan ke kondisi sebelumnya.');
+    return redirect()->to('/transaksi');
+  }
+
+  public function delete($id)
+  {
+    $this->transactionModel->delete($id);
+    session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/transaksi');
   }
 

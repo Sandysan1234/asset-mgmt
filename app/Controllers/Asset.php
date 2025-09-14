@@ -9,6 +9,8 @@ use App\Models\CostcenterModel;
 use App\Models\AssetclassModel;
 use App\Models\LifetimeModel;
 use App\Models\LocationModel;
+use App\Models\LogModel;
+
 use Myth\Auth\Models\UserModel;
 use Myth\Auth\Models\GroupModel;
 use Myth\Auth\Models\PermissionModel;
@@ -41,6 +43,7 @@ class Asset extends BaseController
   protected $userModel;
   protected $groupModel;
   protected $permissionModel;
+  protected $logModel;
 
 
 
@@ -54,6 +57,7 @@ class Asset extends BaseController
     $this->assetclassModel  = new AssetClassModel();
     $this->lifetimeModel    = new LifetimeModel();
     $this->locationModel    = new LocationModel();
+    $this->logModel         = new LogModel();
     $this->userModel    = new UserModel();
     $this->groupModel    = new GroupModel();
     $this->permissionModel    = new PermissionModel();
@@ -116,13 +120,13 @@ class Asset extends BaseController
 
 
     $data = [
-      'title'       => 'Form Tambah Data Asset | Asset Management System',
-      'validation'  => \Config\Services::validation(),
-      'plant'       => $this->plantModel->findAll(),
-      'pemasok'     => $this->pemasokModel->findAll(),
-      'cost_center' => $this->costcenterModel->findAll(),
-      'assetclass'  => $this->assetclassModel->findAll(),
-      'lifetime'    => $this->lifetimeModel->findAll(),
+      'title'            => 'Form Tambah Data Asset | Asset Management System',
+      'validation'       => \Config\Services::validation(),
+      'plant'            => $this->plantModel->findAll(),
+      'pemasok'          => $this->pemasokModel->findAll(),
+      'cost_center'      => $this->costcenterModel->findAll(),
+      'assetclass'       => $this->assetclassModel->findAll(),
+      'lifetime'         => $this->lifetimeModel->findAll(),
       'lokasi_area'      => $this->locationModel->where('jenis_lokasi', 'Area')->findAll(),
       'lokasi_gedung'      => $this->locationModel->where('jenis_lokasi', 'Gedung')->findAll(),
       'lokasi_lantai'      => $this->locationModel->where('jenis_lokasi', 'Lantai')->findAll(),
@@ -323,7 +327,7 @@ class Asset extends BaseController
     $harga = (int) str_replace('.', '', $hargaRaw);
 
 
-    $this->assetModel->save([
+    $id_asset = $this->assetModel->save([
       'no_asset'         => $this->request->getPost('no_asset'),
       'sub_asset'        => $this->request->getPost('sub_asset'),
       'nama_asset'       => $this->request->getPost('nama_asset'),
@@ -345,15 +349,22 @@ class Asset extends BaseController
       'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai'),
       'id_pic'           => $this->request->getPost('id_pic'),
       'user_asset'       => $this->request->getPost('user_asset') ?: null,
-      'status'           => $this->request->getPost('status') ? : 5,
+      'status'           => $this->request->getPost('status') ?: 5,
       'modified_by'      => user_id(),
     ]);
+
+    $this->logChange('INSERT', $id_asset, $data);
+
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
     return redirect()->to('/asset');
   }
   public function delete($id)
   {
-    $this->assetModel->delete($id);
+    $existing = $this->assetModel->delete($id);
+    if ($existing) {
+      // === LOGGING DELETE ===
+      $this->logChange('DELETE', $id, [], $existing);
+    }
     session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/asset');
   }
@@ -511,6 +522,7 @@ class Asset extends BaseController
     ]);
 
 
+    $this->logChange('UPDATE', $id, $data, $existing);
 
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
     return redirect()->to('/asset');
@@ -568,16 +580,19 @@ class Asset extends BaseController
     $area = $this->locationModel
       ->where('id_plant', $id_plant)
       ->where('jenis_lokasi', 'Area')
+      ->orderBy('nama_lokasi')
       ->findAll();
 
     $gedung = $this->locationModel
       ->where('id_plant', $id_plant)
       ->where('jenis_lokasi', 'Gedung')
+      ->orderBy('nama_lokasi')
       ->findAll();
 
     $lantai = $this->locationModel
       ->where('id_plant', $id_plant)
       ->where('jenis_lokasi', 'Lantai')
+      ->orderBy('nama_lokasi')
       ->findAll();
 
     // Kembalikan dalam format JSON
@@ -589,5 +604,80 @@ class Asset extends BaseController
         'lantai' => $lantai
       ]
     ]);
+  }
+  private function logChange($aksi, $id_asset, $dataBaru, $dataLama = [])
+  {
+    $user = user()->email ?: 'System';
+
+    $fieldsToLog = [
+      'no_asset',
+      'sub_asset',
+      'nama_asset',
+      'serial_number',
+      'batch_number',
+      'merek',
+      'spek',
+      'tgl_perolehan',
+      'harga',
+      'no_po',
+      'kategori_asset',
+      'id_assetclass',
+      'id_cost_center',
+      'id_lifetime',
+      'id_vendor',
+      'id_plant',
+      'id_lokasi_area',
+      'id_lokasi_gedung',
+      'id_lokasi_lantai',
+      'id_pic',
+      'user_asset',
+      'status'
+    ];
+
+    foreach ($fieldsToLog as $field) {
+      if ($aksi == 'INSERT') {
+        $nilaiLama = null;
+        $nilaiBaru = $dataBaru[$field] ?? null;
+        if ($nilaiBaru !== null) {
+          $this->logModel->insert([
+            'id_asset' => $id_asset,
+            'kolom_yang_diubah' => $field,
+            'nilai_lama' => $nilaiLama,
+            'nilai_baru' => $nilaiBaru,
+            'waktu_perubahan' => date('Y-m-d H:i:s'),
+            'diubah_oleh' => $user,
+            'aksi' => $aksi
+          ]);
+        }
+      } elseif ($aksi == 'UPDATE') {
+        $nilaiLama = $dataLama[$field] ?? null;
+        $nilaiBaru = $dataBaru[$field] ?? null;
+        if ($nilaiLama !== $nilaiBaru) {
+          $this->logModel->insert([
+            'id_asset' => $id_asset,
+            'kolom_yang_diubah' => $field,
+            'nilai_lama' => $nilaiLama,
+            'nilai_baru' => $nilaiBaru,
+            'waktu_perubahan' => date('Y-m-d H:i:s'),
+            'diubah_oleh' => $user,
+            'aksi' => $aksi
+          ]);
+        }
+      } elseif ($aksi == 'DELETE') {
+        $nilaiLama = $dataLama[$field] ?? null;
+        $nilaiBaru = null;
+        if ($nilaiLama !== null) {
+          $this->logModel->insert([
+            'id_asset' => $id_asset,
+            'kolom_yang_diubah' => $field,
+            'nilai_lama' => $nilaiLama,
+            'nilai_baru' => $nilaiBaru,
+            'waktu_perubahan' => date('Y-m-d H:i:s'),
+            'diubah_oleh' => $user,
+            'aksi' => $aksi
+          ]);
+        }
+      }
+    }
   }
 }

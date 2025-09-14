@@ -15,11 +15,11 @@ use CodeIgniter\Router\RouteCollection;
 // dashboard
 // Override login, register, logout
 
-// $routes->get('login', 'Auth::login');
+$routes->get('login', 'Auth::login');
 // $routes->post('login', 'Auth::login');
 // $routes->get('login', 'Auth::login');
 // $routes->post('login', 'Auth::login');
-// $routes->get('logout', 'Auth::logout');
+$routes->get('logout', 'Auth::logout');
 // $routes->get('register', 'Auth::register');
 // $routes->post('register', 'Auth::register');
 // $routes->get('logout', 'Auth::logout');

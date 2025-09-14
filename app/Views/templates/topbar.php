@@ -19,7 +19,7 @@ use App\Database\Seeds\AuthGroups;
             <i class="ti ti-menu-2"></i>
           </a>
         </li>
-        <li class="dropdown pc-h-item d-inline-flex d-md-none">
+        <!-- <li class="dropdown pc-h-item d-inline-flex d-md-none">
           <a
             class="pc-head-link dropdown-toggle arrow-none m-0"
             data-bs-toggle="dropdown"
@@ -43,14 +43,14 @@ use App\Database\Seeds\AuthGroups;
             <i data-feather="search" class="icon-search"></i>
             <input type="search" class="form-control" placeholder="Search here. . .">
           </form>
-        </li>
+        </li> -->
       </ul>
     </div>
     <!-- [Mobile Media Block end] -->
     <div class="ms-auto">
       <ul class="list-unstyled">
         <li class="dropdown pc-h-item">
-          <a
+          <!-- <a
             class="pc-head-link dropdown-toggle arrow-none me-0"
             data-bs-toggle="dropdown"
             href="#"
@@ -58,7 +58,7 @@ use App\Database\Seeds\AuthGroups;
             aria-haspopup="false"
             aria-expanded="false">
             <i class="ti ti-mail"></i>
-          </a>
+          </a> -->
           <div class="dropdown-menu dropdown-notification dropdown-menu-end pc-h-dropdown">
             <div class="dropdown-header d-flex align-items-center justify-content-between">
               <h5 class="m-0">Message</h5>
@@ -66,7 +66,7 @@ use App\Database\Seeds\AuthGroups;
             </div>
             <div class="dropdown-divider"></div>
             <div class="dropdown-header px-0 text-wrap header-notification-scroll position-relative" style="max-height: calc(100vh - 215px)">
-              <div class="list-group list-group-flush w-100">
+              <!-- <div class="list-group list-group-flush w-100">
                 <a class="list-group-item list-group-item-action">
                   <div class="d-flex">
                     <div class="flex-shrink-0">
@@ -115,7 +115,7 @@ use App\Database\Seeds\AuthGroups;
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> -->
             </div>
             <div class="dropdown-divider"></div>
             <div class="text-center py-2">
@@ -139,7 +139,7 @@ use App\Database\Seeds\AuthGroups;
             <div class="dropdown-header">
               <div class="d-flex mb-1">
                 <div class="flex-shrink-0">
-                  <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
+                  <img src="<?= base_url(); ?>assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar wid-35">
                 </div>
                 <div class="flex-grow-1 ms-3">
                   <h6 class="mb-1 text-capitalize"><?= user()->username; ?></h6>
@@ -160,7 +160,7 @@ use App\Database\Seeds\AuthGroups;
                   aria-controls="drp-tab-1"
                   aria-selected="true"><i class="ti ti-user"></i> Profile</button>
               </li>
-              <li class="nav-item" role="presentation">
+              <!-- <li class="nav-item" role="presentation">
                 <button
                   class="nav-link"
                   id="drp-t2"
@@ -170,11 +170,11 @@ use App\Database\Seeds\AuthGroups;
                   role="tab"
                   aria-controls="drp-tab-2"
                   aria-selected="false"><i class="ti ti-settings"></i> Setting</button>
-              </li>
+              </li> -->
             </ul>
             <div class="tab-content" id="mysrpTabContent">
               <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel" aria-labelledby="drp-t1" tabindex="0">
-                <a href="#!" class="dropdown-item">
+                <!-- <a href="#!" class="dropdown-item">
                   <i class="ti ti-edit-circle"></i>
                   <span>Edit Profile</span>
                 </a>
@@ -182,7 +182,7 @@ use App\Database\Seeds\AuthGroups;
                   <i class="ti ti-user"></i>
                   <span>View Profile</span>
                 </a>
-                <!-- <a href="#!" class="dropdown-item">
+                <a href="#!" class="dropdown-item">
                   <i class="ti ti-clipboard-list"></i>
                   <span>Social Profile</span>
                 </a>

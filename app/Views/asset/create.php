@@ -303,7 +303,7 @@
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">PIC</label>
                 <div class="col-sm-6">
-                  <select name="id_pic" class="form-select col-sm-6" aria-label="Default select example">
+                  <select name="id_pic" id="id_pic" class="form-select col-sm-6 <?= (validation_show_error('id_pic')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" required>
                     <option selected disabled>Pilih yang sesuai</option>
                     <?php foreach ($pic_users as $user): ?>
                       <option value="<?= $user->id ?>" <?= old('id_pic') == $user->id ? 'selected' : ''; ?>>
@@ -314,6 +314,9 @@
                       </option>
                     <?php endforeach; ?>
                   </select>
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('id_pic'); ?>
+                  </div>
                 </div>
               </div>
               <div class="row mb-3">
