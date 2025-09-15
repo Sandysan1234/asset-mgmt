@@ -66,7 +66,7 @@ class CreateTransactionTable extends Migration
             'date_ack_fin' => ['type' => 'DATETIME', 'null' => true],
             'date_ack_acc' => ['type' => 'DATETIME', 'null' => true],
             'date_ack_ctrl' => ['type' => 'DATETIME', 'null' => true],
-
+            'upload_img' => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true ],
             'catatan' => ['type' => 'TEXT', 'null' => true],
 
             'dibatalkan_oleh'   => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],

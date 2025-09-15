@@ -105,7 +105,8 @@ $routes->get('asset/edit/(:segment)', 'Asset::edit/$1', ['filter' => 'role:admin
 $routes->post('asset/update/(:any)', 'Asset::update/$1');
 $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
 // $routes->get('asset/perbaikan/(:num)', 'Perbaikan::edit/$1');
-$routes->match(['get', 'post'], 'asset/dt', 'Asset::dt');   // endpoint server-side
+$routes->get('asset/dt', 'Asset::dt');   // endpoint server-side
+$routes->post('asset/dt', 'Asset::dt');   // endpoint server-side
 // untuk filter lokasi
 $routes->get('asset/lokasi-by-plant/(:num)', 'Asset::getLokasiByPlant/$1');
 
@@ -117,6 +118,9 @@ $routes->get('transaksi/edit/(:segment)', 'Transaksi::edit/$1', ['filter' => 'ro
 $routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
 $routes->post('transaksi/cancel', 'Transaksi::cancel');
 $routes->delete('transaksi/(:num)', 'Transaksi::delete/$1', ['filter' => 'role:pic']);
+
+
+
 
 $routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
 

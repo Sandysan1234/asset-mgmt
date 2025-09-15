@@ -36,6 +36,7 @@ class TransactionModel extends Model
         'id_cost_center_asal',
         'id_plant_baru',
         'id_cost_center_baru',
+        'upload_img',
         'catatan',
         'status',
         'created_by'

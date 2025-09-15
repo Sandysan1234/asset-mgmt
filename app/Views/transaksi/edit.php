@@ -19,7 +19,7 @@
               </div>
 
               <div class="card-body ">
-                <form action="/transaksi/update/<?= $transaksi['id_transaksi']; ?>" method="post" class="printable-transaction row g-3 d-print-none">
+                <form action="/transaksi/update/<?= $transaksi['id_transaksi']; ?>" method="post" enctype="multipart/form-data" class="printable-transaction row g-3 d-print-none">
                   <?= csrf_field(); ?>
 
                   <!-- hidden ids untuk relasi -->
@@ -32,6 +32,7 @@
                             <input type="hidden" id="id_lokasi_gedung" name="id_lokasi_gedung">
                             <input type="hidden" id="id_lokasi_lantai" name="id_lokasi_lantai"> -->
                   <input type="hidden" id="login_user" data-fullname="<?= esc($user->fullname ?? $user->email) ?>">
+                  <!-- <input type="hidden" name="upload_img_lama" value="?= $transaksi['upload_img'];?>"> -->
                   <h5>Department Asal</h5>
                   <div class="col-md-4">
                     <label for="no_asset" class="form-label">No Asset</label>
@@ -108,7 +109,11 @@
                     <label for="id_plant_baru" class="form-label">Plant Tujuan</label>
                     <select id="id_plant_baru" name="id_plant_baru" class="form-select d-print-none" disabled>
                       <option selected disabled>Pilih Plant</option>
-                      <?php foreach ($plants as $p): ?>
+                      <?php
+
+                                                        use App\Controllers\Transaksi;
+
+ foreach ($plants as $p): ?>
                         <option value="<?= esc($p['id_plant']) ?>" <?= old('id_plant_baru', $transaksi['id_plant_baru']) == $p['id_plant'] ? 'selected' : ''; ?>><?= esc($p['nama_plant']) ?></option>
                       <?php endforeach; ?>
                     </select>
@@ -338,6 +343,22 @@
                         <span class="d-none d-print-inline"><?= esc(old('date_ack_ctrl', $transaksi['date_ack_ctrl'])) ?></span>
 
                       </div>
+                    </div>
+                  </div>
+                  <!-- <label for="upload_img" class="form-label ?= (validation_show_error('upload_img')) ? 'is-invalid' : ''; ?>">Upload Gambar</label> -->
+                  <div class="col-md-2 mt-1">
+                    <!-- <img src="/img/?= $transaksi['upload_img']; ?>" class="img-thumbnail img-preview" alt=""> -->
+                    <!-- <img src="?= !empty($transaksi['upload_img']) ? '/img/' . $transaksi['upload_img'] : '/img/logo-jmi.png' ?>" class="img-thumbnail img-preview" alt="Foto Transaksi"> -->
+
+                    <figure class="figure">
+                      <img src="<?= !empty($transaksi['upload_img']) ? '/img/' . $transaksi['upload_img'] : '/img/logo-jmi.png' ?>" class="figure-img img-fluid rounded" alt="...">
+                      <figcaption class="figure-caption"><?= !empty($transaksi['upload_img']) ? 'Lampiran Foto' : 'Lampiran foto tidak ada';?></figcaption>
+                    </figure>
+                  </div>
+                  <div class="col-md-10 my-2">
+                    <!-- <input class="form-control" type="file" id="upload_img" name="upload_img" onchange="previewimg()" multiple> -->
+                    <div class="invalid-feedback">
+                      <?= validation_show_error('upload_img'); ?>
                     </div>
                   </div>
                   <div class="col-12 mt-0">

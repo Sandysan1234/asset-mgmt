@@ -198,11 +198,30 @@ class Transaksi extends BaseController
           'required'            => '{field} harus diisi',
         ]
       ],
+      'upload_img' => [
+        'label'  => 'Gambar',
+        'rules'  => 'max_size[upload_img,2048]|is_image[upload_img]|mime_in[upload_img,image/png,image/jpeg]',
+        'errors' => [
+          'max_size'            => 'Ukuran {field} Max 2MB',
+          'is_image'            => 'Yang anda pilih bukan {field}',
+          'mime_in'            => 'Yang anda pilih bukan {field}',
+        ]
+      ],
     ];
     if (!$this->validateData($post, $rules)) {
       return redirect()->to('/transaksi/create')->withInput();
     }
 
+    $upload_img = $this->request->getFile('upload_img');
+    if ($upload_img->getError()==4) {
+      $nama_img = null;
+    }
+    else {
+      $nama_img = $upload_img->getRandomName();
+      $upload_img->move('img', $nama_img);
+      // dd($upload_img);
+    }
+    
     // 2) Ambil snapshot ASAL dari tabel assets (jangan dari POST)
     $idAsset = (int)$post['id_asset'];
     $asset = $this->assetModel
@@ -257,6 +276,7 @@ class Transaksi extends BaseController
       'nama_pic'               => $post['nama_pic'],
 
       'status'                 => $post['status'] ?? 0, // 0=onprogress
+      'upload_img'             => $nama_img ?? null,
       'catatan'                => $post['catatan'] ?? null,
       'created_by'             => user()->email,
       'modified_by'            => user()->email,
@@ -366,7 +386,7 @@ class Transaksi extends BaseController
       $dataUpdate = [
         'id_plant'         => $transaksi['id_plant_baru'],
         'id_cost_center'   => $transaksi['id_cost_center_baru'],
-      ];
+      ]; 
     }
     // Jika transaksi BUKAN mutasi (0,1,2) → ubah STATUS aset sesuai transaksi
     else {
@@ -483,6 +503,9 @@ class Transaksi extends BaseController
 
   public function delete($id)
   {
+    $transaksi = $this->transactionModel->find($id);
+    //hapus gambar 
+    unlink('img/'. $transaksi['upload_img']);
     $this->transactionModel->delete($id);
     session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/transaksi');
