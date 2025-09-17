@@ -59,7 +59,7 @@ class AuthPermission extends Seeder
                 'description' => 'Boleh menandatangani sebagai PIC',
             ],
             [
-                'name' => 'approve_plan_manager',
+                'name' => 'approve_plant_manager',
                 'description' => 'Menyetujui oleh Plan Manager'
             ],
             [

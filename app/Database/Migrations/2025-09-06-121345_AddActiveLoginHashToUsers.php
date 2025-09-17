@@ -9,13 +9,12 @@ class AddActiveLoginHashToUsers extends Migration
     public function up()
     {
         $fields = [
-            'active_login_hash' => [
+            'session_id' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 128,
                 'null'       => true,
-                'after'      => 'active',
-                'comment'    => 'Hash sesi login terbaru',
-            ]
+                'collation'  => 'utf8mb4_general_ci',
+            ],
         ];
 
         $this->forge->addColumn('users', $fields);

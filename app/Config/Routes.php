@@ -15,11 +15,11 @@ use CodeIgniter\Router\RouteCollection;
 // dashboard
 // Override login, register, logout
 
-$routes->get('login', 'Auth::login');
-// $routes->post('login', 'Auth::login');
-// $routes->get('login', 'Auth::login');
-// $routes->post('login', 'Auth::login');
-$routes->get('logout', 'Auth::logout');
+// $routes->get('login', 'AuthController::login');
+// $routes->post('login', 'AuthController::attemptLogin');
+// $routes->get('register', 'AuthController::register', ['filter' => 'role:admin']);
+// $routes->post('register', 'AuthController::attemptRegister', ['filter' => 'role:admin']);
+// $routes->get('logout', 'Auth::logout');
 // $routes->get('register', 'Auth::register');
 // $routes->post('register', 'Auth::register');
 // $routes->get('logout', 'Auth::logout');
@@ -144,5 +144,6 @@ $routes->get('users', 'Users::index', ['filter' => 'role:admin']);
 
 
 $routes->get('stock-opname', 'stockopname::index');
+$routes->get('stock-opname/create', 'stockopname::create');
 $routes->get('stock-opname/cekAsset', 'stockopname::cekAsset');
 $routes->post('stock-opname/saveAll', 'stockopname::saveAll');

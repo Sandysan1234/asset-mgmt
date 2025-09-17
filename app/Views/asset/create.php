@@ -187,22 +187,6 @@
                 </div>
               </div>
               <div class="row mb-3">
-                <label for="" class="col-sm-3 col-form-label">Plant</label>
-                <div class="col-sm-6">
-                  <select name="id_plant" id="id_plant" class="form-select col-sm-6 <?= (validation_show_error('id_plant')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
-                    <option selected disabled>Pilih yang sesuai</option>
-                    <?php foreach ($plant as $pl) : ?>
-                      <option value="<?= $pl['id_plant']; ?>" <?= old('id_plant') == $pl['id_plant'] ? 'selected' : ''; ?>>
-                        <?= $pl['nama_plant']; ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
-                  <div class="invalid-feedback">
-                    <?= validation_show_error('id_plant'); ?>
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Vendor</label>
                 <div class="col-sm-6">
                   <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_vendor')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
@@ -218,6 +202,23 @@
                   </div>
                 </div>
               </div>
+              <div class="row mb-3">
+                <label for="" class="col-sm-3 col-form-label">Plant</label>
+                <div class="col-sm-6">
+                  <select name="id_plant" id="id_plant" class="form-select col-sm-6 <?= (validation_show_error('id_plant')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                    <option selected disabled>Pilih yang sesuai</option>
+                    <?php foreach ($plant as $pl) : ?>
+                      <option value="<?= $pl['id_plant']; ?>" <?= old('id_plant') == $pl['id_plant'] ? 'selected' : ''; ?>>
+                        <?= $pl['nama_plant']; ?>
+                      </option>
+                    <?php endforeach; ?>
+                  </select>
+                  <div class="invalid-feedback">
+                    <?= validation_show_error('id_plant'); ?>
+                  </div>
+                </div>
+              </div>
+
               <!-- <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Area</label>
                 <div class="col-sm-6">

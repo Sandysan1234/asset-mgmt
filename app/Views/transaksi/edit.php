@@ -111,9 +111,9 @@
                       <option selected disabled>Pilih Plant</option>
                       <?php
 
-                                                        use App\Controllers\Transaksi;
+                      use App\Controllers\Transaksi;
 
- foreach ($plants as $p): ?>
+                      foreach ($plants as $p): ?>
                         <option value="<?= esc($p['id_plant']) ?>" <?= old('id_plant_baru', $transaksi['id_plant_baru']) == $p['id_plant'] ? 'selected' : ''; ?>><?= esc($p['nama_plant']) ?></option>
                       <?php endforeach; ?>
                     </select>
@@ -171,8 +171,8 @@
                           <div class="col-12">
                             <label for="user_kabag_asal" class="form-label">Nama Kepala Bagian</label>
                             <input type="text" class="form-control d-print-none"
-                              id="user_kabag_asal" name="user_kabag_asal" placeholder="Mis. Budi Santoso" value="<?= old('user_kabag_asal', $transaksi['user_kabag_asal']); ?>" readonly>
-                            <span class="d-none d-print-inline"><?= esc(old('user_kabag_asal', $transaksi['user_kabag_asal'])) ?></span>
+                              id="user_kabag_asal" name="user_kabag_asal" placeholder="Mis. Budi Santoso" value="<?= old('email_kabag_asal', $transaksi['email_kabag_asal']); ?>" readonly>
+                            <span class="d-none d-print-inline"><?= esc(old('email_kabag_asal', $transaksi['email_kabag_asal'])) ?></span>
 
                           </div>
                         </div>
@@ -207,8 +207,8 @@
                           <div class="col-12">
                             <label for="user_kabag_tujuan" class="form-label">Nama Kepala Bagian</label>
                             <input type="text" class="form-control d-print-none"
-                              id="user_kabag_tujuan" name="user_kabag_tujuan" placeholder="Mis. Siti Rahma" value="<?= old('user_kabag_tujuan', $transaksi['user_kabag_tujuan']); ?>" readonly>
-                            <span class="d-none d-print-inline"><?= esc(old('user_kabag_asal', $transaksi['user_kabag_tujuan'])) ?></span>
+                              id="user_kabag_tujuan" name="user_kabag_tujuan" placeholder="Mis. Siti Rahma" value="<?= old('user_kabag_tujuan', $transaksi['email_kabag_tujuan']); ?>" readonly>
+                            <span class="d-none d-print-inline"><?= esc(old('email_kabag_tujuan', $transaksi['email_kabag_tujuan'])) ?></span>
 
                           </div>
                         </div>
@@ -285,9 +285,8 @@
                           <div class="col-12">
                             <label for="nama_direksi" class="form-label">Nama <span class="penyetuju"></span> </label>
                             <input type="text" class="form-control no-click d-print-none"
-                              id="nama_direksi" name="nama_direksi" placeholder="Mis. Direktur Operasional" value="<?= old('nama_direksi', $transaksi['nama_direksi']); ?>" readonly>
+                              id="nama_direksi" name="nama_direksi" placeholder="Mis. Direktur Operasional" value="<?= old('email_direksi', $transaksi['email_direksi']); ?>" readonly>
                             <span class="d-none d-print-inline"><?= esc(old('nama_direksi', $transaksi['nama_direksi'])) ?></span>
-
                           </div>
                         </div>
                       </div>
@@ -323,7 +322,6 @@
                         </div>
                         <input type="datetime-local" class="form-control d-print-none"
                           id="date_ack_acc" name="date_ack_acc" value="<?= old('date_ack_acc', $transaksi['date_ack_acc']); ?>" readonly>
-                        <span class="d-none d-print-inline"><?= esc(old('date_ack_acc', $transaksi['date_ack_acc'])) ?></span>
                       </div>
                     </div>
                   </div>
@@ -340,7 +338,6 @@
                         </div>
                         <input type="datetime-local" class="form-control d-print-none"
                           id="date_ack_ctrl" name="date_ack_ctrl" value="<?= old('date_ack_ctrl', $transaksi['date_ack_ctrl']); ?>" readonly>
-                        <span class="d-none d-print-inline"><?= esc(old('date_ack_ctrl', $transaksi['date_ack_ctrl'])) ?></span>
 
                       </div>
                     </div>
@@ -352,7 +349,7 @@
 
                     <figure class="figure">
                       <img src="<?= !empty($transaksi['upload_img']) ? '/img/' . $transaksi['upload_img'] : '/img/logo-jmi.png' ?>" class="figure-img img-fluid rounded" alt="...">
-                      <figcaption class="figure-caption"><?= !empty($transaksi['upload_img']) ? 'Lampiran Foto' : 'Lampiran foto tidak ada';?></figcaption>
+                      <figcaption class="figure-caption"><?= !empty($transaksi['upload_img']) ? 'Lampiran Foto' : 'Lampiran foto tidak ada'; ?></figcaption>
                     </figure>
                   </div>
                   <div class="col-md-10 my-2">
@@ -472,7 +469,7 @@
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_ttd_asal']) ?></small><br>
                       <small><strong>Kepala Bagian</strong></small><br>
-                      <small><?= esc($transaksi['user_kabag_asal']) ?></small><br>
+                      <small><?= esc($transaksi['email_kabag_asal']) ?></small><br>
                       <br>
                       <p style="margin: 0 0 8px 0; font-size: 9pt; font-weight: bold;">PIC</p>
                       <div style="text-align: center; margin: 10px 0 5px 0; font-weight: bold; font-size: 12pt; color: #000; letter-spacing: 3px; text-transform: uppercase; font-family: 'Arial', sans-serif;">
@@ -494,7 +491,7 @@
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_ttd_tujuan']) ?></small><br>
                       <small><strong>Kepala Bagian</strong></small><br>
-                      <small><?= esc($transaksi['user_kabag_tujuan']) ?></small><br>
+                      <small><?= esc($transaksi['email_kabag_tujuan']) ?></small><br>
                       <br>
                       <p style="margin: 0 0 8px 0; font-size: 9pt; font-weight: bold;">Plant Manager</p>
                       <div style="text-align: center; margin: 10px 0 5px 0; font-weight: bold; font-size: 12pt; color: #000; letter-spacing: 3px; text-transform: uppercase; font-family: 'Arial', sans-serif;">
@@ -503,7 +500,7 @@
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_direksi']) ?></small><br>
                       <small><strong>Plant Manager</strong></small><br>
-                      <small><?= esc($transaksi['nama_direksi']) ?></small>
+                      <small><?= esc($transaksi['email_direksi']) ?></small>
                     </div>
 
                     <!-- Mengetahui (Finance, Accounting, Controlling) -->
@@ -537,6 +534,10 @@
                     <strong>Catatan Pojok:</strong><br>
                     <span style="border-bottom: 1px dotted #000; padding: 2px 0; display: inline-block; width: 100%; margin-top: 5px;"><?= esc($transaksi['catatan']) ?></span>
                   </div>
+                  <figure class="figure">
+                    <img src="<?= !empty($transaksi['upload_img']) ? '/img/' . $transaksi['upload_img'] : '/img/logo-jmi.png' ?>" class="figure-img img-fluid rounded" alt="...">
+                    <figcaption class="figure-caption"><?= !empty($transaksi['upload_img']) ? 'Lampiran Foto' : 'Lampiran foto tidak ada'; ?></figcaption>
+                  </figure>
 
                   <!-- Footer -->
                   <!-- <div style="margin-top: 30px; text-align: center; font-size: 9pt; color: #666; font-style: italic;">
@@ -652,7 +653,7 @@
         toggleDateName('#approve_kabag_asal', '#date_ttd_asal');
         toggleDateName('#approve_kabag_tujuan', '#date_ttd_tujuan');
         toggleDateName('#approve_it', '#date_pic', '#nama_pic');
-        toggleDateName('#approve_dir', '#date_direksi', '#nama_direksi');
+        toggleDateName('#approve_dir', '#date_direksi');
         toggleDateName('#ack_fin', '#date_ack_fin', '#nama_fin');
         toggleDateName('#ack_acc', '#date_ack_acc', '#nama_acc');
         toggleDateName('#ack_ctrl', '#date_ack_ctrl', '#nama_ctrl');

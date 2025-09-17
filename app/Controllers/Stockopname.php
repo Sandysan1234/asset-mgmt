@@ -7,14 +7,30 @@ use App\Models\StockopnameModel;
 
 class Stockopname extends BaseController
 {
+    protected $stockopnameModel;
+
+  public function __construct()
+  {
+    $this->stockopnameModel = new StockopnameModel();
+  }
     public function index(): string
+    {
+        $stockopname = $this->stockopnameModel->findAll();
+        $data = [
+            'title'     => 'Plant | Asset Management System',
+            'stocks' => $stockopname,
+        ];
+        return view('stockopname/index', $data);
+
+    }
+    public function create(): string
     {
         $data = [
             'title'     => 'Stock Opname | Asset Management System',
 
         ];
         // dd(config('Auth'));
-        return view('stockopname/index', $data);
+        return view('stockopname/create', $data);
     }
     public function cekAsset()
     {

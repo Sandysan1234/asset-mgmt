@@ -37,7 +37,7 @@ class Filters extends BaseFilters
     'login'      => \Myth\Auth\Filters\LoginFilter::class,
     'role'       => \Myth\Auth\Filters\RoleFilter::class,
     'permission' => \Myth\Auth\Filters\PermissionFilter::class,
-    'singlelogin' => \App\Filters\SingleLoginFilter::class,
+    'singleSession' => \App\Filters\SingleSessionFilter::class,
 
   ];
 
@@ -77,12 +77,24 @@ class Filters extends BaseFilters
       'honeypot',
       'csrf',
       'invalidchars',
-      'login' => [
-        // 'except' => [
-        //   'asset/detail/*',
+      // 'login' => [
+      //   // 'except' => [
+      //   //   'asset/detail/*',
 
-        // ]
-      ],
+      //   // ]
+      // ],
+      // 'singleSession' => [
+      //   'except' => [
+      //         // 'login',
+      //         // 'logout',
+      //         // 'register',
+      //         // 'forgot.*',
+      //         // 'reset.*',
+      //         // '/',
+      //         // 'asset/detail/*',
+
+      //   ]
+      // ],
     ],
     'after' => [
       // 'honeypot',

@@ -50,6 +50,7 @@ class TransactionModel extends Model
                 transaksi.*,
                 e_asal.email AS email_kabag_asal,
                 e_tujuan.email AS email_kabag_tujuan,
+                e_direksi.email as email_direksi,
                 u.username,
                 a.id_asset, a.no_asset, a.nama_asset, a.sub_asset,a.merek, a.spek, a.tgl_perolehan,
                 ac.nama_assetclass,
@@ -62,6 +63,7 @@ class TransactionModel extends Model
                 ->join('assetclass ac', 'ac.id_assetclass = a.id_assetclass', 'left')
                 ->join('users e_asal', 'e_asal.id = transaksi.user_kabag_asal', 'left')
                 ->join('users e_tujuan', 'e_tujuan.id = transaksi.user_kabag_tujuan', 'left')
+                ->join('users e_direksi', 'e_direksi.id = transaksi.nama_direksi', 'left')
                 ->join('users u', 'u.id = transaksi.created_by', 'left')
                 ->join('plant p_from', 'p_from.id_plant = transaksi.id_plant_asal', 'left')
                 ->join('plant p_to',   'p_to.id_plant   = transaksi.id_plant_baru', 'left')

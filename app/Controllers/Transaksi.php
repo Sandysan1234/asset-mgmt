@@ -9,8 +9,8 @@ use App\Models\AssetModel;
 use App\Models\PlantModel;
 use App\Models\CostcenterModel;
 use App\Models\TransactionModel;
-// use App\Models\TransactionStepsModel;
-use Myth\Auth\Models\UserModel;
+use App\Models\UserModel;
+// use Myth\Auth\Models\UserModel;
 use Myth\Auth\Models\GroupModel;
 use Myth\Auth\Models\PermissionModel;
 
@@ -107,6 +107,12 @@ class Transaksi extends BaseController
         ->findAll();
     }
 
+
+    $direksi = $this->userModel->getUsersByPermissionNames([
+      'approve_plant_manager',
+      'approve_direksi'
+    ]);
+
     $plant = $this->plantModel->select('id_plant, nama_plant')->orderBy('nama_plant')->findAll();
     $cost_center = $this->costcenterModel->select('id_cost_center, nama_cost_center')->orderBy('nama_cost_center')->findAll();
     // $asset = $this->assetModel->getWithRelasi();
@@ -121,7 +127,7 @@ class Transaksi extends BaseController
       'cost_center' => $cost_center,
       'user'          => user(),
       'kabagUsers' => $kabagUsers,
-
+      'nama_direksi' => $direksi,
       // 'asset' => $asset,
       // 'no_asset' => $this->assetModel->select('no_asset')->findAll()
 
@@ -177,8 +183,20 @@ class Transaksi extends BaseController
     $post = $this->request->getPost();
     // dd($post);
 
+    // $idKabagAsal = $post['user_kabag_asal'];        // ini ID, bukan email
+    // $idKabagTujuan = $post['user_kabag_tujuan'];
+    // // $id_direksi = $post['user_kabag_tujuan'];
+
+    // $kabagAsal = $this->userModel->find($idKabagAsal);
+    // $emailAsal = $kabagAsal ? $kabagAsal['email'] : null;
+    // $kabagTujuan = $this->userModel->find($idKabagTujuan);
+    // $emailTujuan = $kabagTujuan ? $kabagTujuan['email'] : null;
+
+
+
     // 1) Validasi minimal: transaksi wajib
     $rules = [
+      
       'transaksi' => [
         'label'  => 'Transaksi',
         'rules'  => 'required',
@@ -191,6 +209,30 @@ class Transaksi extends BaseController
           'required'            => '{field} harus diisi',
         ]
       ],
+
+
+      'user_kabag_asal' => [
+        'label'  => 'Kepala Bagian Asal',
+        'rules'  => 'required',
+        'errors' => [
+          'required'            => '{field} belum dipilih',
+        ]
+      ],
+      'user_kabag_tujuan' => [
+        'label'  => 'Kepala Bagian Tujuan',
+        'rules'  => 'required',
+        'errors' => [
+          'required'            => '{field} belum dipilih',
+        ]
+      ],
+      'nama_direksi' => [
+        'label'  => 'Direksi / Plant',
+        'rules'  => 'required',
+        'errors' => [
+          'required'            => '{field} belum dipilih',
+        ]
+      ],
+      
       'alasan' => [
         'label'  => 'Alasan',
         'rules'  => 'required',
@@ -213,15 +255,14 @@ class Transaksi extends BaseController
     }
 
     $upload_img = $this->request->getFile('upload_img');
-    if ($upload_img->getError()==4) {
+    if ($upload_img->getError() == 4) {
       $nama_img = null;
-    }
-    else {
+    } else {
       $nama_img = $upload_img->getRandomName();
       $upload_img->move('img', $nama_img);
       // dd($upload_img);
     }
-    
+
     // 2) Ambil snapshot ASAL dari tabel assets (jangan dari POST)
     $idAsset = (int)$post['id_asset'];
     $asset = $this->assetModel
@@ -271,10 +312,9 @@ class Transaksi extends BaseController
       // 'date_pic'            => date('Y-m-d H:i:s', strtotime($post['date_pic'])),
       'user_kabag_asal'        => $post['user_kabag_asal'],
       'user_kabag_tujuan'      => $post['user_kabag_tujuan'],
+      'nama_direksi'           => $post['nama_direksi'],
       'date_pic'               => !empty($post['date_pic']) ? $post['date_pic'] : null,
-
       'nama_pic'               => $post['nama_pic'],
-
       'status'                 => $post['status'] ?? 0, // 0=onprogress
       'upload_img'             => $nama_img ?? null,
       'catatan'                => $post['catatan'] ?? null,
@@ -291,8 +331,40 @@ class Transaksi extends BaseController
     }
 
     session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+    // $transaksiId = $this->transactionModel->getInsertID();
+
     return redirect()->to('/transaksi');
   }
+
+  ////==============kirim email=============//
+  // private function sendEmail($to, $id, $message = '', $attachment = null)
+  // {
+  //   $email = \Config\Services::email();
+
+  //   $link = base_url("transaksi/edit/{$id}");
+
+  //   if (empty($message)) {
+  //     $message = "Klik link berikut untuk melakukan Approval Transaksi Asset:<br>
+  //                   <a href='{$link}' style='color: #007bff; font-weight: bold;'>{$link}</a><br><br>";
+  //   }
+  //   $email->setFrom('noreplyemailtojmi@gmail.com', 'Asset Management System');
+  //   $email->setTo($to);
+  //   $email->setSubject('Approval Transaksi Asset');
+  //   $email->setMessage($message);
+
+  //   // Jika ada attachment dan valid
+  //   if ($attachment && is_file($attachment)) {
+  //     $email->attach($attachment);
+  //   }
+
+  //   if (!$email->send()) {
+  //     log_message('error', 'Gagal kirim email ke: ' . $to . ' | Error: ' . $email->printDebugger(['headers']));
+  //     return false;
+  //   }
+
+  //   return true;
+  // }
+
   public function edit($id)
   {
 
@@ -386,7 +458,7 @@ class Transaksi extends BaseController
       $dataUpdate = [
         'id_plant'         => $transaksi['id_plant_baru'],
         'id_cost_center'   => $transaksi['id_cost_center_baru'],
-      ]; 
+      ];
     }
     // Jika transaksi BUKAN mutasi (0,1,2) → ubah STATUS aset sesuai transaksi
     else {
@@ -505,7 +577,7 @@ class Transaksi extends BaseController
   {
     $transaksi = $this->transactionModel->find($id);
     //hapus gambar 
-    unlink('img/'. $transaksi['upload_img']);
+    unlink('img/' . $transaksi['upload_img']);
     $this->transactionModel->delete($id);
     session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/transaksi');

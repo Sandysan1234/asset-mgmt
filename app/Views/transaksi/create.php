@@ -28,7 +28,7 @@
                             <input type="hidden" id="id_lokasi_area" name="id_lokasi_area">
                             <input type="hidden" id="id_lokasi_gedung" name="id_lokasi_gedung">
                             <input type="hidden" id="id_lokasi_lantai" name="id_lokasi_lantai"> -->
-                  <input type="hidden" id="login_user" data-fullname="<?= esc($user->fullname ?? $user->email) ?>">
+                  <input type="hidden" id="login_user" data-fullname="<?= esc($user->email ?? $user->fullname) ?>">
 
                   <h5>Department Asal</h5>
 
@@ -245,8 +245,17 @@
                           </div>
                           <div class="col-12">
                             <label for="nama_direksi" class="form-label">Nama <span class="penyetuju"></span> </label>
-                            <input type="text" class="form-control no-click"
-                              id="nama_direksi" name="nama_direksi" placeholder="Mis. Direktur Operasional" readonly>
+                            <select id="nama_direksi" name="nama_direksi" class="form-select <?= (validation_show_error('nama_direksi')) ? 'is-invalid' : ''; ?>" required>
+                              <option selected disabled>Pilih Direksi / Plant Manager</option>
+                              <?php foreach ($nama_direksi as $user): ?>
+                                <option value="<?= $user->id ?>" <?= old('nama_direksi') == $user->id ? 'selected' : ''; ?>>
+                                  <?= esc($user->fullname ?? $user->username); ?>
+                                  <?php if (!empty($user->email)): ?>
+                                    (<?= esc($user->email); ?>)
+                                  <?php endif; ?>
+                                </option>
+                              <?php endforeach; ?>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -309,6 +318,7 @@
                       <?= validation_show_error('upload_img'); ?>
                     </div>
                   </div>
+
                   <div class="col-12 mt-1">
                     <label for="catatan" class="form-label">Catatan Pojok</label>
                     <textarea id="catatan" name="catatan" class="form-control"></textarea>
@@ -413,7 +423,7 @@
 
 
         toggleDateName('#approve_it', '#date_pic', '#nama_pic');
-        toggleDateName('#approve_dir', '#date_direksi', '#nama_direksi');
+        toggleDateName('#approve_dir', '#date_direksi');
         toggleDateName('#approve_kabag_asal', '#date_ttd_asal');
         toggleDateName('#approve_kabag_tujuan', '#date_ttd_tujuan');
         toggleDateName('#ack_fin', '#date_ack_fin', null);

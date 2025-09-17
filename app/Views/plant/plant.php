@@ -38,34 +38,56 @@
         <div class="card tbl-card">
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-hover table-borderless mb-0">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nim</th>
-                    <th scope="col">Nama Mahasiswa</th>
-                    <th scope="col">Angkatan</th>
+              <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
+              <a href="/plant/create" class="btn btn-outline-primary mb-3">Tambah Data Plant</a>
+              <?php if (session()->getFlashdata('pesan')): ?>
+                <div class="alert alert-success">
+                  <?= session()->getFlashdata('pesan'); ?>
+                </div>
+              <?php endif; ?>
+              <table id="myTable-client" class="table table-hover table-borderless" style="width:100%">
+                <thead class="bg-light">
+                  <tr class="text-nowrap">
+                    <th scope="col">Handle</th>
+                    <th scope="col">No</th>
+                    <th scope="col">Kode Transaksi</th>
+                    <th scope="col">No Asset</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Updated At</th>
+                    <th scope="col">Modified By</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>@social</td>
-                  </tr>
+                  <?php $i = 1; ?>
+                  <?php foreach ($plant as $pl) : ?>
+                    <tr class="text-nowrap">
+                      <td>
+                        <a href="/plant/edit/<?= $pl['id_plant']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
+                        <form action="/plant/<?= $pl['id_plant']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                          <?= csrf_field(); ?>
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button type="submit" class="btn btn-icon btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete"><i class="ti ti-trash"></i></button>
+                          <!-- delete permanen karena model tidak disetting -->
+                        </form>
+
+                      </td>
+                      <th scope="row"><?= $i++; ?></th>
+                      <td><?= $pl['kode_plant']; ?></td>
+                      <td><?= $pl['nama_plant']; ?></td>
+                      <td><?= $pl['alamat']; ?></td>
+                      <td>
+                        <span class="badge <?= $pl['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
+                          <?= $pl['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
+                        </span>
+                      </td>
+                      <td><?= (new DateTime($pl['created_at']))->format('d-m-Y H:i');  ?></td>
+                      <td><?= (new DateTime($pl['updated_at']))->format('d-m-Y H:i');  ?></td>
+                      <td><?= $pl['modified_by']; ?></td>
+
+                    </tr>
+                  <?php endforeach; ?>
                 </tbody>
               </table>
             </div>

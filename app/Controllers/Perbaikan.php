@@ -225,6 +225,7 @@ class Perbaikan extends BaseController
             'tgl_awal'          => $data['tgl_awal'],
             'tgl_akhir'         => $data['tgl_akhir'],
             'place'             => $data['place'],
+            'status'           => $this->request->getPost('status'),
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');

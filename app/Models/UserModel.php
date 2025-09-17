@@ -5,7 +5,8 @@ namespace App\Models;
 use CodeIgniter\Model;
 use Faker\Generator;
 use Myth\Auth\Authorization\GroupModel;
-use Myth\Auth\Entities\User;
+// use Myth\Auth\Entities\User;
+use app\Entities\User;
 
 /**
  * @method User|null first()
@@ -15,10 +16,23 @@ class UserModel extends Model
     protected $table          = 'users';
     protected $primaryKey     = 'id';
     protected $returnType     = 'App\Entities\User';
+    // protected $returnType     = 'array';
     protected $useSoftDeletes = true;
     protected $allowedFields  = [
-        'email', 'username', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash',
-        'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at',
+        'email',
+        'username',
+        'password_hash',
+        'reset_hash',
+        'reset_at',
+        'reset_expires',
+        'activate_hash',
+        'status',
+        'status_message',
+        'active',
+        'force_pass_reset',
+        'permissions',
+        'deleted_at',
+        'session_id',
     ];
     protected $useTimestamps   = true;
     protected $validationRules = [
@@ -120,5 +134,28 @@ class UserModel extends Model
             'username' => $faker->userName(),
             'password' => bin2hex(random_bytes(16)),
         ]);
+    }
+    public function getUsersByPermissionNames(array $permissionNames)
+    {
+        // Ambil ID permission berdasarkan nama
+        $permissions = model('PermissionModel')
+            ->select('id')
+            ->whereIn('name', $permissionNames)
+            ->findAll();
+
+        $permissionIds = array_column($permissions, 'id');
+
+        if (empty($permissionIds)) {
+            return [];
+        }
+
+        // Ambil user yang punya permission tersebut
+        return $this->select('users.id, users.fullname, users.username, users.email')
+            ->join('auth_users_permissions', 'auth_users_permissions.user_id = users.id')
+            ->whereIn('auth_users_permissions.permission_id', $permissionIds)
+            ->where('users.active', 1)
+            ->groupBy('users.id') // hindari duplikat
+            ->orderBy('users.username', 'ASC')
+            ->findAll();
     }
 }
