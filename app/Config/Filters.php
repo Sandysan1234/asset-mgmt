@@ -77,12 +77,12 @@ class Filters extends BaseFilters
       'honeypot',
       'csrf',
       'invalidchars',
-      // 'login' => [
-      //   // 'except' => [
-      //   //   'asset/detail/*',
+      'login' => [
+        // 'except' => [
+        //   'asset/detail/*',
 
-      //   // ]
-      // ],
+        // ]
+      ],
       // 'singleSession' => [
       //   'except' => [
       //         // 'login',

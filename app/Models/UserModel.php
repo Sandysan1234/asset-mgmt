@@ -5,8 +5,9 @@ namespace App\Models;
 use CodeIgniter\Model;
 use Faker\Generator;
 use Myth\Auth\Authorization\GroupModel;
-// use Myth\Auth\Entities\User;
-use app\Entities\User;
+use Myth\Auth\Entities\User;
+// use app\Entities\User;
+
 
 /**
  * @method User|null first()
@@ -32,7 +33,7 @@ class UserModel extends Model
         'force_pass_reset',
         'permissions',
         'deleted_at',
-        'session_id',
+        'active_login', // <-- INI!
     ];
     protected $useTimestamps   = true;
     protected $validationRules = [

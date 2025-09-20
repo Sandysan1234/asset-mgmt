@@ -34,7 +34,7 @@
             <div class="card-body">
               <div class="table-responsive">
                 <!-- <a href="" class="btn btn-primary mb-3">Tambah Data Pemasok</a> -->
-                <a href="/stock-opname/create" class="btn btn-outline-primary mb-3">Tambah Data Plant</a>
+                <a href="/stock-opname/create" class="btn btn-outline-primary mb-3">Stock Opname</a>
                 <?php if (session()->getFlashdata('pesan')): ?>
                   <div class="alert alert-success">
                     <?= session()->getFlashdata('pesan'); ?>
@@ -49,7 +49,7 @@
                       <th scope="col">No Asset</th>
                       <th scope="col">Nama Asset</th>
                       <th scope="col">Status</th>
-                      <th scope="col">Tanggal Stockopname</th>
+                      <th scope="col">Tanggal Stock Opname</th>
                       <th scope="col">Updated At</th>
                       <th scope="col">Created By</th>
                     </tr>

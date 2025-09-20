@@ -37,7 +37,7 @@
                         <img src="<?= $item['qr']; ?>" class="img-fluid rounded-start" alt="qrcode">
                       </div>
                       <div class="col-md-8">
-                        <div class="card-body" style="width: 220px;">
+                        <div class="card-body" style="width: 300px;">
                           <h5 class="card-title"><?= esc($item['nama_asset']); ?></h5>
                           <p class="card-text"><?= esc($item['no_asset']); ?></p>
                           <p class="card-text"><?= (new DateTime($item['tgl_perolehan']))->format('d-m-Y'); ?></p>

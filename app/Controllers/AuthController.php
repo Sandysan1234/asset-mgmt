@@ -9,7 +9,8 @@ use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\Session\Session;
 use Myth\Auth\Config\Auth as AuthConfig;
 use Myth\Auth\Entities\User;
-use Myth\Auth\Models\UserModel;
+// use Myth\Auth\Models\UserModel;
+use App\Models\UserModel;
 
 class AuthController extends Controller
 {
@@ -82,6 +83,8 @@ class AuthController extends Controller
      */
     public function attemptLogin()
     {
+        // log_message('info', '🔧 STEP 0: Memulai attemptLogin()');
+
         $rules = [
             'login'    => 'required',
             'password' => 'required',
@@ -91,38 +94,90 @@ class AuthController extends Controller
         }
 
         if (! $this->validate($rules)) {
+            // log_message('error', '❌ STEP 1: Validasi gagal');
             return redirect()
                 ->back()
                 ->withInput()
                 ->with('errors', $this->validator->getErrors());
         }
 
+        // log_message('info', '✅ STEP 1: Validasi sukses');
+
         $login    = $this->request->getPost('login');
         $password = $this->request->getPost('password');
         $remember = (bool) $this->request->getPost('remember');
 
-        // Determine credential type
         $type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        // Try to log them in...
+        // log_message('info', '🔧 STEP 2: Mencari user dengan ' . $type . ' = ' . $login);
+
+        $userModel = model(\App\Models\UserModel::class);
+        $user = $userModel->where($type, $login)->first();
+
+        if (!$user) {
+            // log_message('error', '❌ STEP 3: User tidak ditemukan!');
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', lang('Auth.badAttempt'));
+        }
+
+        // log_message('info', '✅ STEP 3: User ditemukan — ID: ' . $user->id . ', active_login: ' . ($user->active_login ?? 'NULL'));
+
+        // ✅ CEK active_login — JIKA AKTIF, TOLAK LOGIN
+        if ($user->active_login === 'aktif') {
+            log_message('error', '❌ STEP 4: Login ditolak — user sedang aktif di tempat lain');
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Akun ini sedang aktif di perangkat lain. Silakan logout terlebih dahulu.');
+        }
+
+        // log_message('info', '✅ STEP 4: User tidak aktif — lanjut login');
+
+        // ✅ COBA LOGIN
         if (! $this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
+            log_message('error', '❌ STEP 5: Auth attempt gagal — error: ' . ($this->auth->error() ?? 'no message'));
             return redirect()
                 ->back()
                 ->withInput()
                 ->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
         }
 
-        // Is the user being forced to reset their password?
-        if ($this->auth->user()->force_pass_reset === true) {
-            $url = route_to('reset-password') . '?token=' . $this->auth->user()->reset_hash;
+        // log_message('info', '✅ STEP 5: Auth attempt sukses');
 
+        // ✅ AMBIL USER SETELAH LOGIN
+        $user = $this->auth->user();
+
+        if (!$user) {
+            log_message('error', '❌ STEP 6: $this->auth->user() mengembalikan NULL!');
             return redirect()
-                ->to($url)
-                ->withCookies();
+                ->back()
+                ->with('error', 'User tidak ditemukan setelah login.');
+        }
+
+        // log_message('info', '✅ STEP 6: User setelah login — ID: ' . $user->id);
+
+        // ✅ UPDATE active_login
+        // $result = $userModel->update($user->id, ['active_login' => 'aktif']);
+
+        // log_message('info', '🔧 STEP 7: Hasil update: ' . ($result ? 'BERHASIL' : 'GAGAL'));
+        // log_message('info', '🔧 STEP 7: Query terakhir: ' . $userModel->getLastQuery());
+
+        // ✅ CEK LANGSUNG DI DATABASE
+        $cek = $userModel->select('active_login')->find($user->id);
+        // log_message('info', '🔍 STEP 8: Nilai active_login SEKARANG di DB: ' . ($cek ? $cek->active_login : 'NULL'));
+
+        // Lanjutkan...
+        if ($user->force_pass_reset === true) {
+            $url = route_to('reset-password') . '?token=' . $user->reset_hash;
+            return redirect()->to($url)->withCookies();
         }
 
         $redirectURL = session('redirect_url') ?? site_url($this->config->landingRoute);
         unset($_SESSION['redirect_url']);
+
+        // log_message('info', '✅ STEP 9: Redirect ke: ' . $redirectURL);
 
         return redirect()
             ->to($redirectURL)
@@ -138,6 +193,17 @@ class AuthController extends Controller
     public function logout()
     {
         if ($this->auth->check()) {
+            // ✅ Ambil user sebelum logout
+            $user = $this->auth->user();
+
+            if ($user) {
+                $user->active_login = null;
+
+                $userModel = new UserModel();
+                $userModel->save($user);
+            }
+
+            // ✅ Baru jalankan logout
             $this->auth->logout();
         }
 

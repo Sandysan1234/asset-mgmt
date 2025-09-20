@@ -124,8 +124,8 @@ class Stockopname extends BaseController
                 $errorMsg = is_array($dbErrors) ? implode(', ', $dbErrors) : $dbErrors;
                 $errors[] = "Gagal simpan {$data->no_asset}: " . ($errorMsg ?: 'Unknown error');
 
-                log_message('error', 'Insert Gagal - Data: ' . json_encode($saveData));
-                log_message('error', 'Model Errors: ' . print_r($dbErrors, true));
+                // log_message('error', 'Insert Gagal - Data: ' . json_encode($saveData));
+                // log_message('error', 'Model Errors: ' . print_r($dbErrors, true));
             }
         }
 

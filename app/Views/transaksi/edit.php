@@ -153,7 +153,7 @@
                             <div class="d-flex justify-content-between form-check form-switch  form-check-reverse custom-switch-v1">
                               <label class="form-check-label ps-0" for="approve_kabag_asal"> Kepala Bagian</label>
 
-                              <?php $ApproveKabagAsal = (user()->email == $transaksi['user_kabag_asal']); ?>
+                              <?php $ApproveKabagAsal = (user()->email == $transaksi['email_kabag_asal']); ?>
                               <input class="form-check-input" type="radio" role="switch"
                                 id="approve_kabag_asal" name="approve_kabag_asal" <?= $transaksi['date_ttd_asal'] ? 'checked' : '' ?> <?= $ApproveKabagAsal ? '' : 'disabled'; ?>>
                               <!-- ?= has_permission('approve_kabag_asal') ? '' : 'disabled' ?> -->
@@ -191,7 +191,7 @@
                           <div class="col-12">
                             <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1">
                               <label class="form-check-label" for="approve_kabag_tujuan"> Kepala Bagian</label>
-                              <?php $ApproveKabagTujuan = (user()->email == $transaksi['user_kabag_tujuan']); ?>
+                              <?php $ApproveKabagTujuan = (user()->email == $transaksi['email_kabag_tujuan']); ?>
 
                               <input class="form-check-input" type="radio" role="switch"
                                 id="approve_kabag_tujuan" name="approve_kabag_tujuan" <?= $transaksi['date_ttd_tujuan'] ? 'checked' : ''; ?> <?= $ApproveKabagTujuan ? '' : 'disabled'; ?>>

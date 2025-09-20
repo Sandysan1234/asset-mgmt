@@ -196,7 +196,7 @@ class Transaksi extends BaseController
 
     // 1) Validasi minimal: transaksi wajib
     $rules = [
-      
+
       'transaksi' => [
         'label'  => 'Transaksi',
         'rules'  => 'required',
@@ -232,7 +232,7 @@ class Transaksi extends BaseController
           'required'            => '{field} belum dipilih',
         ]
       ],
-      
+
       'alasan' => [
         'label'  => 'Alasan',
         'rules'  => 'required',
@@ -290,6 +290,14 @@ class Transaksi extends BaseController
     // }
 
     // 5) Payload akhir — tetap pola save() milikmu
+    // === AMBIL EMAIL DARI DATABASE (BEST PRACTICE) ===
+    try {
+      $emailKabagAsal   = $this->validateAndGetUserEmail($post['user_kabag_asal'], 'Kabag Asal');
+      $emailKabagTujuan = $this->validateAndGetUserEmail($post['user_kabag_tujuan'], 'Kabag Tujuan');
+      $emailDireksi     = $this->validateAndGetUserEmail($post['nama_direksi'], 'Direksi');
+    } catch (\Exception $e) {
+      return redirect()->back()->withInput()->with('error', $e->getMessage());
+    }
     $ok = $this->transactionModel->save([
       'id_asset'               => $idAsset,
       'transaksi'              => $post['transaksi'],
@@ -330,7 +338,44 @@ class Transaksi extends BaseController
         ->with('error', 'Gagal simpan: ' . json_encode($this->transactionModel->errors()));
     }
 
-    session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+    $transaksiId = $this->transactionModel->getInsertID();
+
+    try {
+      // === 1. Ambil 3 email dari form (dicek ke DB) ===
+      $emailKabagAsal   = $this->validateAndGetUserEmail($post['user_kabag_asal'], 'Kabag Asal');
+      $emailKabagTujuan = $this->validateAndGetUserEmail($post['user_kabag_tujuan'], 'Kabag Tujuan');
+      $emailDireksi     = $this->validateAndGetUserEmail($post['nama_direksi'], 'Direksi');
+
+      // === 2. Ambil 3 email dari permission (otomatis dari DB) ===
+      $emailsFinance    = $this->getEmailsByPermission('ack_finance');
+      $emailsAccounting = $this->getEmailsByPermission('ack_accounting');
+      $emailsControlling = $this->getEmailsByPermission('ack_controlling');
+
+      // === 3. Gabung semua email & hapus duplikat ===
+      $penerima = array_unique([
+        $emailKabagAsal,
+        $emailKabagTujuan,
+        $emailDireksi,
+        ...$emailsFinance,
+        ...$emailsAccounting,
+        ...$emailsControlling
+      ]);
+
+      // === 4. Kirim email ke semua ===
+      foreach ($penerima as $email) {
+        if (!empty($email)) {
+          $this->kirimEmailNotifikasi($email, $transaksiId);
+        }
+      }
+      return redirect()->to('/transaksi')
+        ->with('pesan', '✅ Transaksi disimpan & email dikirim ke ' . count($penerima) . ' penerima.');
+    } catch (\Exception $e) {
+      log_message('error', 'Gagal kirim email: ' . $e->getMessage());
+      return redirect()->to('/transaksi')
+        ->with('warning', '✅ Data disimpan, tapi gagal kirim email: ' . $e->getMessage());
+    }
+
+    session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan & email terkirim');
     // $transaksiId = $this->transactionModel->getInsertID();
 
     return redirect()->to('/transaksi');
@@ -364,6 +409,79 @@ class Transaksi extends BaseController
 
   //   return true;
   // }
+
+  private function validateAndGetUserEmail(int|string $userId, string $role): string
+  {
+    $user = $this->userModel->find($userId);
+
+    if (!$user) {
+      throw new \Exception("{$role} dengan ID {$userId} tidak ditemukan.");
+    }
+
+    if (empty($user->email)) {
+      throw new \Exception("{$role} ({$user->fullname}) tidak memiliki email.");
+    }
+
+    if ($user->active != 1) {
+      throw new \Exception("{$role} ({$user->fullname}) tidak aktif.");
+    }
+    return $user->email; // ✅ AMAN — dari database, bukan dari form!
+  }
+  private function getEmailsByPermission(string $permissionName): array
+  {
+    $permission = model('PermissionModel')->where('name', $permissionName)->first();
+
+    if (!$permission) {
+      log_message('error', "Permission '{$permissionName}' tidak ditemukan.");
+      return [];
+    }
+
+    $users = $this->userModel
+      ->select('users.email, users.fullname')
+      ->join('auth_users_permissions', 'auth_users_permissions.user_id = users.id')
+      ->where('auth_users_permissions.permission_id', $permission->id)
+      ->where('users.active', 1)
+      ->where('users.email IS NOT NULL')
+      ->findAll();
+
+    return array_column($users, 'email'); // kembalikan array email
+  }
+  /**
+   * Kirim email notifikasi
+   */
+  private function kirimEmailNotifikasi(string $to, int $transaksiId): bool
+  {
+    $email = \Config\Services::email();
+
+    $link = base_url("transaksi/edit/{$transaksiId}");
+
+    $message = "
+        <h3>Notifikasi Transaksi Baru</h3>
+        <p>Halo,</p>
+        <p>Anda menerima notifikasi transaksi baru.</p>
+        <p><strong>Klik link berikut untuk approval:</strong>
+        <a href='{$link}'>
+            Lihat Transaksi #{$transaksiId}
+        </a></p>
+        <p><em>Sistem Asset Management</em></p>
+    ";
+
+    $email->setFrom('noreplyemailtojmi@gmail.com', 'Asset Management System');
+    $email->setTo($to);
+    $email->setSubject('Approval Transaksi #' . $transaksiId);
+    $email->setMessage($message);
+
+    if (!$email->send()) {
+      $error = $email->printDebugger(['headers']);
+      log_message('error', "Gagal kirim ke {$to}: {$error}");
+      return false;
+    }
+
+    return true;
+  }
+
+
+
 
   public function edit($id)
   {
@@ -486,13 +604,13 @@ class Transaksi extends BaseController
     $updateData = [
       'id_transaksi'        => $id,
       'date_ttd_asal'       => !empty($data['date_ttd_asal']) ? $data['date_ttd_asal'] : null,
-      'user_kabag_asal'     => $data['user_kabag_asal'],
+      // 'user_kabag_asal'     => $data['user_kabag_asal'],
       'date_ttd_tujuan'     => !empty($data['date_ttd_tujuan']) ? $data['date_ttd_tujuan'] : null,
-      'user_kabag_tujuan'   => $data['user_kabag_tujuan'],
+      // 'user_kabag_tujuan'   => $data['user_kabag_tujuan'],
       'date_pic'            => !empty($data['date_pic']) ? $data['date_pic'] : null,
-      'nama_pic'            => $data['nama_pic'],
+      // 'nama_pic'            => $data['nama_pic'],
       'date_direksi'        => !empty($data['date_direksi']) ? $data['date_direksi'] : null,
-      'nama_direksi'        => $data['nama_direksi'],
+      // 'nama_direksi'        => $data['nama_direksi'],
       'date_ack_fin'        => !empty($data['date_ack_fin']) ? $data['date_ack_fin'] : null,
       'date_ack_acc'        => !empty($data['date_ack_acc']) ? $data['date_ack_acc'] : null,
       'date_ack_ctrl'       => !empty($data['date_ack_ctrl']) ? $data['date_ack_ctrl'] : null,

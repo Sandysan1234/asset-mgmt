@@ -142,16 +142,16 @@
 
                         <!-- <td>?= (new DateTime($tr['date_ttd_asal']))->format('d-m-Y H:i') ; ?></td> -->
                         <td><?= $tr['date_ttd_asal'] ? (new DateTime($tr['date_ttd_asal']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
-                        <td><?= $tr['user_kabag_asal']; ?></td>
+                        <td><?= $tr['email_kabag_asal']; ?></td>
                         <td><?= $tr['date_ttd_tujuan'] ? (new DateTime($tr['date_ttd_tujuan']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
-                        <td><?= $tr['user_kabag_tujuan']; ?></td>
+                        <td><?= $tr['email_kabag_tujuan']; ?></td>
                         <td><?= $tr['date_pic'] ? (new DateTime($tr['date_pic']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
                         <!-- <td>?= (new DateTime($tr['date_ttd_tujuan']))->format('d-m-Y H:i'); ?></td> -->
                         <!-- <td>?= (new DateTime($tr['date_pic']))->format('d-m-Y H:i'); ?></td> -->
                         <td><?= $tr['nama_pic']; ?></td>
                         <!-- <td>?= (new DateTime($tr['date_direksi']))->format('d-m-Y H:i'); ?></td> -->
                         <td><?= $tr['date_direksi'] ? (new DateTime($tr['date_direksi']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
-                        <td><?= $tr['nama_direksi']; ?></td>
+                        <td><?= $tr['email_direksi']; ?></td>
                         <td><?= $tr['date_ack_fin'] ? (new DateTime($tr['date_ack_fin']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
                         <td><?= $tr['date_ack_acc'] ? (new DateTime($tr['date_ack_acc']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
                         <td><?= $tr['date_ack_ctrl'] ? (new DateTime($tr['date_ack_ctrl']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>

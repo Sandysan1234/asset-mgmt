@@ -15,8 +15,10 @@ use CodeIgniter\Router\RouteCollection;
 // dashboard
 // Override login, register, logout
 
-// $routes->get('login', 'AuthController::login');
-// $routes->post('login', 'AuthController::attemptLogin');
+$routes->get('login', 'AuthController::login');
+$routes->post('login', 'AuthController::attemptLogin');
+
+$routes->get('logout', 'AuthController::logout');
 // $routes->get('register', 'AuthController::register', ['filter' => 'role:admin']);
 // $routes->post('register', 'AuthController::attemptRegister', ['filter' => 'role:admin']);
 // $routes->get('logout', 'Auth::logout');
