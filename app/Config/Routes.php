@@ -121,6 +121,7 @@ $routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
 $routes->post('transaksi/cancel', 'Transaksi::cancel');
 $routes->delete('transaksi/(:num)', 'Transaksi::delete/$1', ['filter' => 'role:pic']);
 
+// $routes->get('test-email', 'Transaksi::testKirim7Email');
 
 
 

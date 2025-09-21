@@ -762,4 +762,58 @@ class Transaksi extends BaseController
   //   session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Status aset dikembalikan ke kondisi sebelumnya.');
   //   return redirect()->to('/transaksi');
   // }
+  // app/Controllers/TransaksiController.php
+
+  public function testKirim7Email()
+  {
+    // Daftar 7 email penerima (bisa ganti sesuai kebutuhan)
+    $penerima = [
+      'afinzdi@gmail.com',
+      'sap.care@onemed.co.id',
+      'nsyafriska@gmail.com',
+      'rahmahdiandian@gmail.com',
+      'dept.it@gmail.com',
+      '221080200145@umsida.ac.id',
+      '221080200136@umsida.ac.id'
+    ];
+
+    $subject = 'Test Kirim 7 Email - ' . date('Y-m-d H:i:s');
+    $message = '<h3>Ini email test</h3><p>Dikirim pada: ' . date('Y-m-d H:i:s') . '</p>';
+
+    // Mulai hitung waktu
+    $start = microtime(true);
+
+    $berhasil = 0;
+    $gagal = 0;
+
+    foreach ($penerima as $email) {
+      if ($this->kirimEmailTest($email, $subject, $message)) {
+        $berhasil++;
+      } else {
+        $gagal++;
+      }
+    }
+
+    $end = microtime(true);
+    $waktu = number_format($end - $start, 2);
+
+    // Tampilkan hasil langsung di browser
+    echo "<h1>📧 HASIL TEST KIRIM 7 EMAIL</h1>";
+    echo "<p><strong>✅ Berhasil:</strong> {$berhasil}</p>";
+    echo "<p><strong>❌ Gagal:</strong> {$gagal}</p>";
+    echo "<p><strong>⏱️ Waktu:</strong> {$waktu} detik</p>";
+    echo "<p><a href='/test-email'>🔁 Coba Lagi</a></p>";
+  }
+
+  private function kirimEmailTest($to, $subject, $message)
+  {
+    $email = \Config\Services::email();
+
+    $email->setFrom('noreplyemailtojmi@gmail.com', 'Test System');
+    $email->setTo($to);
+    $email->setSubject($subject);
+    $email->setMessage($message);
+
+    return $email->send();
+  }
 }

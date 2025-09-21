@@ -94,7 +94,7 @@ class AuthController extends Controller
         }
 
         if (! $this->validate($rules)) {
-            // log_message('error', '❌ STEP 1: Validasi gagal');
+            log_message('error', '❌ STEP 1: Validasi gagal');
             return redirect()
                 ->back()
                 ->withInput()
@@ -109,7 +109,7 @@ class AuthController extends Controller
 
         $type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        // log_message('info', '🔧 STEP 2: Mencari user dengan ' . $type . ' = ' . $login);
+        log_message('info', '🔧 STEP 2: Mencari user dengan ' . $type . ' = ' . $login);
 
         $userModel = model(\App\Models\UserModel::class);
         $user = $userModel->where($type, $login)->first();
@@ -159,14 +159,14 @@ class AuthController extends Controller
         // log_message('info', '✅ STEP 6: User setelah login — ID: ' . $user->id);
 
         // ✅ UPDATE active_login
-        // $result = $userModel->update($user->id, ['active_login' => 'aktif']);
+        $result = $userModel->update($user->id, ['active_login' => 'aktif']);
 
-        // log_message('info', '🔧 STEP 7: Hasil update: ' . ($result ? 'BERHASIL' : 'GAGAL'));
+        log_message('info', '🔧 STEP 7: Hasil update: ' . ($result ? 'BERHASIL' : 'GAGAL'));
         // log_message('info', '🔧 STEP 7: Query terakhir: ' . $userModel->getLastQuery());
 
         // ✅ CEK LANGSUNG DI DATABASE
         $cek = $userModel->select('active_login')->find($user->id);
-        // log_message('info', '🔍 STEP 8: Nilai active_login SEKARANG di DB: ' . ($cek ? $cek->active_login : 'NULL'));
+        log_message('info', '🔍 STEP 8: Nilai active_login SEKARANG di DB: ' . ($cek ? $cek->active_login : 'NULL'));
 
         // Lanjutkan...
         if ($user->force_pass_reset === true) {
