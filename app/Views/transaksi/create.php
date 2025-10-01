@@ -179,7 +179,7 @@
                             <select id="user_kabag_tujuan" name="user_kabag_tujuan" required class="form-select <?= (validation_show_error('user_kabag_tujuan')) ? 'is-invalid' : ''; ?>">
                               <option selected disabled>Pilih Kepala Bagian yang sesuai</option>
                               <?php foreach ($kabagUsers as $user): ?>
-                                <option value="<?= $user->id ?>" <?= old('id_pic') == $user->id ? 'selected' : ''; ?>>
+                                <option value="<?= $user->id ?>" <?= old('user_kabag_tujuan') == $user->id ? 'selected' : ''; ?>>
                                   <?= esc($user->fullname ?? $user->username); ?>
                                   <?php if (!empty($user->email)): ?>
                                     (<?= esc($user->email); ?>)
@@ -308,17 +308,17 @@
                       </div>
                     </div>
                   </div>
-                  <label for="upload_img" class="form-label <?= (validation_show_error('upload_img')) ? 'is-invalid' : ''; ?>">Upload Gambar</label>
+                  <label for="upload_img" class="form-label">Upload Gambar</label>
                   <div class="col-md-2 mt-1">
                     <img src="/img/logo-jmi.png" class="img-thumbnail img-preview" alt="">
                   </div>
                   <div class="col-md-10 my-2">
-                    <input class="form-control" type="file" id="upload_img" name="upload_img" onchange="previewimg()" multiple>
+                    <input class="form-control <?= (validation_show_error('upload_img')) ? 'is-invalid' : ''; ?>" type="file" id="upload_img" name="upload_img" onchange="previewimg()" multiple>
                     <div class="invalid-feedback">
                       <?= validation_show_error('upload_img'); ?>
                     </div>
                   </div>
-
+                  
                   <div class="col-12 mt-1">
                     <label for="catatan" class="form-label">Catatan Pojok</label>
                     <textarea id="catatan" name="catatan" class="form-control"></textarea>

@@ -17,7 +17,7 @@ class Stockopname extends BaseController
     {
         $stockopname = $this->stockopnameModel->findAll();
         $data = [
-            'title'     => 'Plant | Asset Management System',
+            'title'     => 'Stock Opname | Asset Management System',
             'stocks' => $stockopname,
         ];
         return view('stockopname/index', $data);

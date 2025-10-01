@@ -34,13 +34,13 @@ $routes->get('pages', 'Pages::index');
 $routes->get('pages/about', 'Pages::about');
 $routes->get('pages/contact', 'Pages::contact');
 
-$routes->get('komik', 'komik::index');
-$routes->get('komik/create', 'komik::create');
-$routes->get('komik/edit/(:segment)', 'komik::edit/$1');
-$routes->post('komik/save', 'komik::save');
-$routes->post('komik/update/(:any)', 'komik::update/$1');
-$routes->delete('komik/(:num)', 'komik::delete/$1');
-$routes->get('komik/(:any)', 'komik::detail/$1');
+// $routes->get('komik', 'komik::index');
+// $routes->get('komik/create', 'komik::create');
+// $routes->get('komik/edit/(:segment)', 'komik::edit/$1');
+// $routes->post('komik/save', 'komik::save');
+// $routes->post('komik/update/(:any)', 'komik::update/$1');
+// $routes->delete('komik/(:num)', 'komik::delete/$1');
+// $routes->get('komik/(:any)', 'komik::detail/$1');
 
 $routes->get('pemasok', 'Pemasok::index', ['filter' => 'role:admin']);
 $routes->get('pemasok/create', 'Pemasok::create', ['filter' => 'role:admin']);
@@ -100,10 +100,10 @@ $routes->post('assetclass/update/(:any)', 'Assetclass::update/$1', ['filter' => 
 
 
 $routes->get('asset', 'Asset::index');
-$routes->get('asset/create', 'Asset::create', ['filter' => 'role:admin']);
+$routes->get('asset/create', 'Asset::create', ['filter' => 'role:admin,pic']);
 $routes->post('asset/save', 'Asset::save');
 $routes->delete('asset/(:num)', 'Asset::delete/$1', ['filter' => 'role:admin']);
-$routes->get('asset/edit/(:segment)', 'Asset::edit/$1', ['filter' => 'role:admin']);
+$routes->get('asset/edit/(:segment)', 'Asset::edit/$1', ['filter' => 'role:admin,pic']);
 $routes->post('asset/update/(:any)', 'Asset::update/$1');
 $routes->get('asset/detail/(:num)', 'Asset::detail/$1');
 // $routes->get('asset/perbaikan/(:num)', 'Perbaikan::edit/$1');
@@ -118,7 +118,7 @@ $routes->get('transaksi/create', 'Transaksi::create', ['filter' => 'role:pic,adm
 $routes->post('transaksi/save', 'Transaksi::save');
 $routes->get('transaksi/edit/(:segment)', 'Transaksi::edit/$1', ['filter' => 'role:pic,kabag,approval']);
 $routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
-$routes->post('transaksi/cancel', 'Transaksi::cancel');
+$routes->post('transaksi/cancel', 'Transaksi::cancel', ['filter'=> 'role:pic,admin']);
 $routes->delete('transaksi/(:num)', 'Transaksi::delete/$1', ['filter' => 'role:pic']);
 
 // $routes->get('test-email', 'Transaksi::testKirim7Email');
@@ -129,24 +129,24 @@ $routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
 
 
 
-$routes->get('perbaikan', 'Perbaikan::index', ['filter' => 'role:admin']); //['filter' => 'permission:it'] atau ['filter' => 'role:admin']//
-$routes->get('perbaikan/create', 'Perbaikan::create', ['filter' => 'role:admin']); //['filter' => 'permission:it'] atau ['filter' => 'role:admin']//
+$routes->get('perbaikan', 'Perbaikan::index', ['filter' => 'permission:it']); //['filter' => 'permission:it'] atau ['filter' => 'role:admin']//
+$routes->get('perbaikan/create', 'Perbaikan::create', ['filter' => 'permission:it']); //['filter' => 'permission:it'] atau ['filter' => 'role:admin']//
 $routes->post('perbaikan/save', 'Perbaikan::save');
-$routes->get('perbaikan/edit/(:segment)', 'Perbaikan::edit/$1', ['filter' => 'role:admin']);
+$routes->get('perbaikan/edit/(:segment)', 'Perbaikan::edit/$1', ['filter' => 'permission:it']);
 $routes->post('perbaikan/update/(:any)', 'Perbaikan::update/$1');
-$routes->delete('perbaikan/(:num)', 'perbaikan::delete/$1', ['filter' => 'role:admin']);
+$routes->delete('perbaikan/(:num)', 'Perbaikan::delete/$1', ['filter' => 'permission:it']);
 
 // $routes->get('perbaikan', 'Perbaikan::index', ['filter' => 'permission:it']); 
 // $routes->get('perbaikan/create', 'Perbaikan::create', ['filter' => 'permission:it']); 
 
 
-$routes->get('qr', 'Qrbarcode::index');
+$routes->get('qr', 'Qrbarcode::index',['filter' => 'role:admin,pic']);
 $routes->post('qr/save', 'Qrbarcode::multiple');
 
 $routes->get('users', 'Users::index', ['filter' => 'role:admin']);
 
 
-$routes->get('stock-opname', 'stockopname::index');
-$routes->get('stock-opname/create', 'stockopname::create');
-$routes->get('stock-opname/cekAsset', 'stockopname::cekAsset');
-$routes->post('stock-opname/saveAll', 'stockopname::saveAll');
+$routes->get('stock-opname', 'Stockopname::index');
+$routes->get('stock-opname/create', 'Stockopname::create');
+$routes->get('stock-opname/cekAsset', 'Stockopname::cekAsset');
+$routes->post('stock-opname/saveAll', 'Stockopname::saveAll');

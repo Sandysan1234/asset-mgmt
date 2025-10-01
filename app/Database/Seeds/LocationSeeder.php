@@ -596,8 +596,7 @@ class LocationSeeder extends Seeder
             'Purchasing',
             'Direksi',
             'Controlling',
-
-
+            'Area Produksi',
 
             'IT',
             'Controlling',

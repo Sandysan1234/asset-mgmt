@@ -17,7 +17,7 @@ class LifetimeSeeder extends Seeder
             $data = [
                 'kode_lifetime'   => $faker->regexify('[A-Z]{5}[0-4]{3}'),
                 'masa_berlaku'    => $faker->randomElement($pola),
-                'status'          => $faker->numberBetween(0, 1),
+                'status'          => 1,
                 'created_at'      => Time::now(),
                 'updated_at'      => Time::createFromTimestamp($faker->unixTime()),
             ];

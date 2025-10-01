@@ -272,7 +272,6 @@
                 <div class="col-sm-6">
                   <select name="id_lokasi_area" id="id_lokasi_area" class="form-select col-sm-6 <?= (validation_show_error('id_lokasi_area')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
                     <option selected disabled>Pilih yang sesuai</option>
-
                   </select>
                   <div class="invalid-feedback">
                     <?= validation_show_error('id_lokasi_area'); ?>
@@ -368,6 +367,7 @@
 <script>
   document.getElementById('id_plant').addEventListener('change', function() {
     const id_plant = this.value;
+    
     const areaSelect = document.getElementById('id_lokasi_area');
     const gedungSelect = document.getElementById('id_lokasi_gedung');
     const lantaiSelect = document.getElementById('id_lokasi_lantai');

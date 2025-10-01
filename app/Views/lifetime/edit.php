@@ -34,15 +34,15 @@
                     <div class="card-body">
                         <form action="/lifetime/update/<?= $lifetime['id_lifetime'];?>" method="post">
                             <?= csrf_field(); ?>
-                            <div class="row mb-3">
+                            <!-- <div class="row mb-3">
                                 <label for="kode_lifetime" class="col-sm-3 col-form-label">Kode Lifetime</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control <?= (validation_show_error('kode_lifetime')) ? 'is-invalid' : ''; ?>" name="kode_lifetime" id="kode_lifetime" autofocus value="<?= old('kode_lifetime', $lifetime['kode_lifetime']); ?>">
                                     <div class="invalid-feedback">
-                                        <?= validation_show_error('kode_lifetime'); ?>
+                                        ?= validation_show_error('kode_lifetime'); ?>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row mb-3">
                                 <label for="masa_berlaku" class="col-sm-3 col-form-label">Masa Berlaku</label>
                                 <div class="col-sm-8">
@@ -56,14 +56,14 @@
                                 <legend class="col-form-label col-sm-3 pt-0">Status</legend>
                                 <div class="col-sm-8">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="status" value="1" checked>
-                                        <label class="form-check-label" for="gridRadios1">
+                                        <input class="form-check-input" type="radio" name="status" id="status1" value="1" checked>
+                                        <label class="form-check-label" for="status1">
                                             Aktif
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" id="status" value="0">
-                                        <label class="form-check-label" for="gridRadios2">
+                                        <input class="form-check-input" type="radio" name="status" id="status0" value="0">
+                                        <label class="form-check-label" for="status0">
                                             Nonaktif
                                         </label>
                                     </div>

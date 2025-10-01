@@ -135,7 +135,8 @@ class Assetclass extends BaseController
         'id_assetclass'      => $id,
         'kode_assetclass'    => $this->request->getPost('kode_assetclass'),
         'nama_assetclass'    => $this->request->getPost('nama_assetclass'),
-        'status'              => $this->request->getPost('status')
+        'status'             => $this->request->getPost('status'),
+        'modified_by'        => user()->email, // ✅ AMAN dengan fallback
       ]
     );
     session()->setFlashdata('pesan', 'Data berhasil diubah');

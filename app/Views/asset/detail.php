@@ -27,11 +27,11 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item px-0">
               <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
+                <!-- <div class="flex-shrink-0">
                   <div class="avtar avtar-s border bg-light-info">
-                    <?= $asset['id_assetclass']; ?>
+                    ?= $asset['id_assetclass']; ?>
                   </div>
-                </div>
+                </div> -->
                 <div class="flex-grow-1 ms-3 mt-2">
                   <div class="row g-1">
                     <div class="col-6">
@@ -46,11 +46,11 @@
             </li>
             <li class="list-group-item px-0">
               <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
+                <!-- <div class="flex-shrink-0">
                   <div class="avtar avtar-s border bg-light-success">
-                    <?= $asset['id_cost_center']; ?>
+                    ?= $asset['id_cost_center']; ?>
                   </div>
-                </div>
+                </div> -->
                 <div class="flex-grow-1 ms-3 mt-2">
                   <div class="row g-1">
                     <div class="col-6">
@@ -65,11 +65,11 @@
             </li>
             <li class="list-group-item px-0">
               <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
+                <!-- <div class="flex-shrink-0">
                   <div class="avtar avtar-s border bg-light-primary">
-                    <?= $asset['id_lifetime']; ?>
+                    ?= $asset['id_lifetime']; ?>
                   </div>
-                </div>
+                </div> -->
                 <div class="flex-grow-1 ms-3 mt-2">
                   <div class="row g-1">
                     <div class="col-6">
@@ -84,11 +84,11 @@
             </li>
             <li class="list-group-item px-0">
               <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
+                <!-- <div class="flex-shrink-0">
                   <div class="avtar avtar-s border bg-light-warning">
-                    <?= $asset['id_plant']; ?>
+                    ?= $asset['id_plant']; ?>
                   </div>
-                </div>
+                </div> -->
                 <div class="flex-grow-1 ms-3 mt-2">
                   <div class="row g-1">
                     <div class="col-6">
@@ -103,11 +103,11 @@
             </li>
             <li class="list-group-item px-0">
               <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
+                <!-- <div class="flex-shrink-0">
                   <div class="avtar avtar-s border">
-                    <?= $asset['id_vendor']; ?>
+                    ?= $asset['id_vendor']; ?>
                   </div>
-                </div>
+                </div> -->
                 <div class="flex-grow-1 ms-3 mt-2">
                   <div class="row g-1">
                     <div class="col-6">
@@ -242,7 +242,7 @@
                       <h6 class="text-secondary mt-1">Harga</h6>
                     </div>
                     <div class="col-6 text-end">
-                      <p class="fw-bold">Rp. <?= $asset['harga']; ?></p>
+                      <p class="fw-bold">Rp. <?= number_format($asset['harga']); ?></p>
                     </div>
                   </div>
                 </div>

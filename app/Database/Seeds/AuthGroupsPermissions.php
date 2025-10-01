@@ -82,7 +82,10 @@ class AuthGroupsPermissions extends Seeder
                 'group_id'   => '1',
                 'permission_id'  => '18',
             ],
-
+            [
+                'group_id'   => '1',
+                'permission_id'  => '20',
+            ],
             [
                 'group_id'   => '2',
                 'permission_id'  => '6',
@@ -105,6 +108,10 @@ class AuthGroupsPermissions extends Seeder
             ],
             [
                 'group_id'   => '4',
+                'permission_id'  => '6',
+            ],
+            [
+                'group_id'   => '4',
                 'permission_id'  => '10',
             ],
             [
@@ -117,3 +124,4 @@ class AuthGroupsPermissions extends Seeder
         $this->db->table('auth_groups_permissions')->insertBatch($data);
     }
 }
+

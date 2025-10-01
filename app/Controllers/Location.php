@@ -140,6 +140,7 @@ class Location extends BaseController
             'nama_lokasi'   => $this->request->getPost('nama_lokasi'),
             'jenis_lokasi'  => $this->request->getPost('jenis_lokasi'),
             'status'        => $this->request->getPost('status'),
+            'modified_by'        => user()->email,
         ]);
         session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
         return redirect()->to('/location');

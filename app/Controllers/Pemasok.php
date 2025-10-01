@@ -109,6 +109,7 @@ class Pemasok extends BaseController
             'nama_vendor'   => $this->request->getPost('nama_vendor'),
             'alamat'        => $this->request->getPost('alamat'),
             'status'        => $this->request->getPost('status'),
+            'modified_by'   => user()->email,
         ]);
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
         return redirect()->to('pemasok');

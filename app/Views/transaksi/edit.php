@@ -13,9 +13,11 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="d-print-inline">Form Pemindahan Asset</h5>
-                <button type="button" class="btn btn-outline-secondary no-print" onclick="printTransaction()">
-                  <i class="fas fa-print"></i> Print Form Ini
-                </button>
+                <?php if (in_groups(['admin', 'pic'])): ?>
+                  <button type="button" class="btn btn-outline-secondary no-print" onclick="printTransaction()">
+                    <i class="fas fa-print"></i> Print Form Ini
+                  </button>
+                <?php endif; ?>
               </div>
 
               <div class="card-body ">
@@ -156,7 +158,6 @@
                               <?php $ApproveKabagAsal = (user()->email == $transaksi['email_kabag_asal']); ?>
                               <input class="form-check-input" type="radio" role="switch"
                                 id="approve_kabag_asal" name="approve_kabag_asal" <?= $transaksi['date_ttd_asal'] ? 'checked' : '' ?> <?= $ApproveKabagAsal ? '' : 'disabled'; ?>>
-                              <!-- ?= has_permission('approve_kabag_asal') ? '' : 'disabled' ?> -->
                             </div>
                           </div>
                           <div class="col-12">
@@ -209,7 +210,6 @@
                             <input type="text" class="form-control d-print-none"
                               id="user_kabag_tujuan" name="user_kabag_tujuan" placeholder="Mis. Siti Rahma" value="<?= old('user_kabag_tujuan', $transaksi['email_kabag_tujuan']); ?>" readonly>
                             <span class="d-none d-print-inline"><?= esc(old('email_kabag_tujuan', $transaksi['email_kabag_tujuan'])) ?></span>
-
                           </div>
                         </div>
                       </div>
@@ -261,20 +261,12 @@
                           <div class="col-12">
                             <div class="d-flex justify-content-between form-check form-switch form-check-reverse custom-switch-v1 my-3">
                               <label class="form-check-label penyetuju" for="approve_dir"></label>
-                              <input class="form-check-input no-click " type="checkbox" role="switch"
-                                id="approve_dir" name="approve_dir" <?= $transaksi['date_direksi'] ? 'checked' : ''; ?>
-                                <?php
-                                $allowed = false;
-                                if ($transaksi['transaksi'] == '3') {
-                                  $allowed = has_permission('approve_plan_manager');
-                                } else {
-                                  $allowed = has_permission('approve_direksi');
-                                }
-                                echo $allowed ? '' : 'disabled';
-                                ?> readonly>
-
+                              <?php $Approvedireksi = (user()->email == $transaksi['email_direksi']); ?>
+                              <input class="form-check-input" type="radio" role="switch"
+                                id="approve_dir" name="approve_dir" <?= $transaksi['date_direksi'] ? 'checked' : ''; ?> <?= $Approvedireksi ? '' : 'disabled'; ?>>
                             </div>
                           </div>
+                          
                           <div class="col-12">
                             <label for="date_direksi" class="form-label">Tanggal</label>
                             <input type="datetime-local" class="form-control no-click d-print-none"
@@ -646,6 +638,7 @@
               $(dateInputSelector).val('');
               $(nameInputSelector).val('');
             }
+            
           });
         }
 

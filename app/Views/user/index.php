@@ -10,12 +10,12 @@
           <div class="row align-items-center">
             <div class="col-md-12">
               <div class="page-header-title">
-                <h5 class="m-b-10">Sample Page</h5>
+                <h5 class="m-b-10">Dashboard</h5>
               </div>
               <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="javascript: void(0)">Other</a></li>
-                <li class="breadcrumb-item" aria-current="page">Sample Page</li>
+                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                <!-- <li class="breadcrumb-item"><a href="javascript: void(0)">Other</a></li>
+                <li class="breadcrumb-item" aria-current="page">Sample Page</li> 
               </ul>
             </div>
           </div>
@@ -34,19 +34,36 @@
           <div class="card-body">
           </div>
         </div> -->
-        <h5 class="mb-3">Dashboard</h5>
+        <h3 class="mb-3">Welcome in, Jayamas Asset Management </h3>
         <div class="card tbl-card">
           <div class="card-body">
-            <div class="col-lg-3 col-md-6">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col-8">
-                      <h3 class="mb-1"><?= $total_asset; ?></h3>
-                      <p class="mb-0">Jumlah Aset</p>
+            <div class="row">
+              <div class="col-xl-4 col-md-12">
+                <div class="card comp-card">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h5 class="m-b-20">Total Asset</h5>
+                        <h3><?= $total_asset; ?></h3>
+                      </div>
+                      <div class="col-auto">
+                        <div class="ti ti-report-money text-primary f-36"></div>
+                      </div>
                     </div>
-                    <div class="col-4 text-end">
-                      <i class="ti ti-chart-bar text-primary f-36"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-12">
+                <div class="card comp-card">
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h5 class="m-b-20">Total Transaction</h5>
+                        <h3><?= $total_transaction;?></h3>
+                      </div>
+                      <div class="col-auto">
+                        <div class="ti ti-chart-bar text-success f-36"></div>
+                      </div>
                     </div>
                   </div>
                 </div>

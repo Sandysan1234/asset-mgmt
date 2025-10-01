@@ -153,6 +153,7 @@ class Plant extends BaseController
       'nama_plant'        => $this->request->getPost('nama_plant'),
       'alamat'            => $this->request->getPost('alamat'),
       'status'            => $this->request->getPost('status'),
+      'modified_by'       => user()->email,
     ]);
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
     return redirect()->to('/plant');

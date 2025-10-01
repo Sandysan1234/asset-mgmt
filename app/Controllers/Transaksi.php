@@ -242,7 +242,7 @@ class Transaksi extends BaseController
       ],
       'upload_img' => [
         'label'  => 'Gambar',
-        'rules'  => 'max_size[upload_img,2048]|is_image[upload_img]|mime_in[upload_img,image/png,image/jpeg]',
+        'rules'  => 'max_size[upload_img,2048]|is_image[upload_img]|mime_in[upload_img,image/png,image/jpeg,image/jpg]',
         'errors' => [
           'max_size'            => 'Ukuran {field} Max 2MB',
           'is_image'            => 'Yang anda pilih bukan {field}',
@@ -250,13 +250,16 @@ class Transaksi extends BaseController
         ]
       ],
     ];
+
     if (!$this->validateData($post, $rules)) {
+      // dd(validation_errors());
       return redirect()->to('/transaksi/create')->withInput();
     }
 
     $upload_img = $this->request->getFile('upload_img');
+    //apakah tidak ada yang diupload
     if ($upload_img->getError() == 4) {
-      $nama_img = null;
+      $nama_img = 'logo-jmi.png';
     } else {
       $nama_img = $upload_img->getRandomName();
       $upload_img->move('img', $nama_img);
@@ -644,6 +647,7 @@ class Transaksi extends BaseController
     $id = $this->request->getPost('id_transaksi');
     $catatan = $this->request->getPost('catatan_pembatalan');
 
+    // dd($catatan);
     if (!$id) {
       return redirect()->back()->with('error', 'ID transaksi tidak ditemukan.');
     }
@@ -679,6 +683,16 @@ class Transaksi extends BaseController
 
     $assetModel->update($transaksi['id_asset'], $dataUpdate);
 
+    // dd([
+    //   'id_asset' => $transaksi['id_asset'],
+    //   'data_update_asset' => $dataUpdate,
+    //   'data_update_transaksi' => [
+    //     'status'                => '3',
+    //     'dibatalkan_oleh'       => user_id(),
+    //     'dibatalkan_at'         => date('Y-m-d H:i:s'),
+    //     'catatan_pembatalan'    => $catatan,
+    //   ]
+    // ]);
     // 🚫 Batalkan transaksi
     $this->transactionModel->update($id, [
       'status'                => '3',
@@ -686,7 +700,6 @@ class Transaksi extends BaseController
       'dibatalkan_at'         => date('Y-m-d H:i:s'),
       'catatan_pembatalan'    => $catatan,
     ]);
-
     session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Status aset dikembalikan ke kondisi sebelumnya.');
     return redirect()->to('/transaksi');
   }
@@ -695,7 +708,10 @@ class Transaksi extends BaseController
   {
     $transaksi = $this->transactionModel->find($id);
     //hapus gambar 
-    unlink('img/' . $transaksi['upload_img']);
+    if ($transaksi['upload_img'] != 'naruto.jpg') {
+      # code...
+      unlink('img/' . $transaksi['upload_img']);
+    }
     $this->transactionModel->delete($id);
     session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/transaksi');

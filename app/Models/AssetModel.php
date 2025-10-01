@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Controllers\Asset;
+use Myth\Auth\Models\UserModel;
+use Myth\Auth\Models\GroupModel;
+use Myth\Auth\Models\PermissionModel;
 use CodeIgniter\Model;
 
 class AssetModel extends Model
@@ -64,7 +67,7 @@ class AssetModel extends Model
     'asset.modified_by',
     'asset.status',
     'asset.id_asset',
-    
+
   ];
 
   public function baseRelasi()
@@ -88,7 +91,7 @@ class AssetModel extends Model
     lg.nama_lokasi AS lg,
     ll.nama_lokasi AS ll,
 
-    pic.username AS pic_username, pic.fullname AS pic_fullname,
+    pic.username AS pic_username, pic.fullname AS pic_fullname, m.username as m_username
   ")
       ->join('assetclass ac', 'ac.id_assetclass = asset.id_assetclass', 'left')
       ->join('cost_center cc', 'cc.id_cost_center = asset.id_cost_center', 'left')
@@ -98,8 +101,23 @@ class AssetModel extends Model
       ->join('lokasi la', 'la.id_lokasi = asset.id_lokasi_area', 'left')
       ->join('lokasi lg', 'lg.id_lokasi = asset.id_lokasi_gedung', 'left')
       ->join('lokasi ll', 'll.id_lokasi = asset.id_lokasi_lantai', 'left')
-      ->join('users pic', 'pic.id = asset.id_pic', 'left');
-      // ->join('users usr', 'usr.id = asset.id_user_asset', 'left');
+      ->join('users pic', 'pic.id = asset.id_pic', 'left')
+      ->join('users m', 'm.id = asset.modified_by', 'left');
+  }
+  private function canViewAllAssets(): bool
+  {
+    $user = service('authentication')->user();
+    if (!$user) {
+      return false;
+    }
+    helper('auth');
+    // $userModel = new UserModel();
+    return has_permission('asset_view');
+  }
+  private function getCurrentUserId(): ?int
+  {
+    $user = service('authentication')->user();
+    return $user ? $user->id : null;
   }
 
 
@@ -134,6 +152,14 @@ class AssetModel extends Model
   public function dtData(array $req): array
   {
     $b = $this->baseRelasi();
+    if (!$this->canViewAllAssets()) { // ← sekarang pakai Myth:Auth
+      $userId = $this->getCurrentUserId();
+      if ($userId) {
+        $b->where('asset.id_pic', $userId);
+      } else {
+        $b->where('asset.id_pic', 0);
+      }
+    }
     $this->applyFilters($b, $req);
 
     // Paging + hard cap
@@ -153,6 +179,14 @@ class AssetModel extends Model
   public function dtCountFiltered(array $req): int
   {
     $b = $this->baseRelasi();
+    if (!$this->canViewAllAssets()) { // ← sekarang pakai Myth:Auth
+      $userId = $this->getCurrentUserId();
+      if ($userId) {
+        $b->where('asset.id_pic', $userId);
+      } else {
+        $b->where('asset.id_pic', 0);
+      }
+    }
     $this->applyFilters($b, $req);
     return $b->countAllResults();
   }
@@ -187,7 +221,7 @@ class AssetModel extends Model
       ->join('lokasi lg', 'lg.id_lokasi = asset.id_lokasi_gedung', 'left')
       ->join('lokasi ll', 'll.id_lokasi = asset.id_lokasi_lantai', 'left')
       ->join('users pic', 'pic.id = asset.id_pic', 'left');
-      // ->join('users usr', 'usr.id = asset.id_user_asset', 'left');
+    // ->join('users usr', 'usr.id = asset.id_user_asset', 'left');
 
     if ($id !== null) {
       return $builder->where('asset.id_asset', $id)->asArray()->first();

@@ -21,7 +21,6 @@
             </a>
           </li>
 
-
           <!-- <li class="pc-item pc-caption">
             <label>Form</label>
             <i class="ti ti-dashboard"></i>
@@ -65,7 +64,7 @@
               </a>
             </li>
           <?php endif; ?>
-          <?php if (in_groups(['pic','admin'])): ?>
+          <?php if (in_groups(['pic', 'admin'])): ?>
             <li class="pc-item">
               <a href="/stock-opname" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-report"></i></span>
@@ -93,12 +92,14 @@
                 <span class="pc-mtext">Plant</span>
               </a>
             </li>
-            <li class="pc-item">
-              <a href="/perbaikan" class="pc-link">
-                <span class="pc-micon"><i class="ti ti-tool"></i></span>
-                <span class="pc-mtext">Perbaikan</span>
-              </a>
-            </li>
+            <?php if (has_permission('it')): ?>
+              <li class="pc-item">
+                <a href="/perbaikan" class="pc-link">
+                  <span class="pc-micon"><i class="ti ti-tool"></i></span>
+                  <span class="pc-mtext">Perbaikan</span>
+                </a>
+              </li>
+            <?php endif; ?>
             <li class="pc-item">
               <a href="/pemasok" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-affiliate"></i></span>
@@ -106,7 +107,7 @@
               </a>
             </li>
             <li class="pc-item">
-              <a href="../users" class="pc-link">
+              <a href="/users" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-users"></i></span>
                 <span class="pc-mtext">Users</span>
               </a>

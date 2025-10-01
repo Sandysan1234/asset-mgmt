@@ -135,7 +135,9 @@ class Costcenter extends BaseController
         'id_cost_center'      => $id,
         'kode_cost_center'    => $this->request->getPost('kode_cost_center'),
         'nama_cost_center'    => $this->request->getPost('nama_cost_center'),
-        'status'              => $this->request->getPost('status')
+        'status'              => $this->request->getPost('status'),
+        'modified_by'        => user()->email, // ✅ AMAN dengan fallback
+
       ]
     );
     session()->setFlashdata('pesan', 'Data berhasil diubah');

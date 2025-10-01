@@ -73,7 +73,7 @@
                   </thead>
                   <tbody id="listTable">
                     <tr>
-                      <td colspan="3" class="text-center text-muted">Belum ada data</td>
+                      <td colspan="3" class="text-center text-muted">List data</td>
                     </tr>
                   </tbody>
                 </table>
@@ -88,7 +88,7 @@
                       class="form-control"
                       placeholder="https://asset.jmiis.com/asset/detail/1"
                       aria-label="Masukkan URL asset"
-                      required>
+                      required autofocus>
                     <button class="btn btn-primary" type="submit" id="button-addon2">
                       Tambahkan
                     </button>

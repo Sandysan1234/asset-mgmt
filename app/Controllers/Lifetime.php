@@ -122,9 +122,10 @@
       }
       $this->lifetimeModel->save([
         'id_lifetime'       => $id,
-        'kode_lifetime'     => $this->request->getPost('kode_lifetime'),
+        // 'kode_lifetime'     => $this->request->getPost('kode_lifetime'),
         'masa_berlaku'      => $this->request->getPost('masa_berlaku'),
-        'status'            => $this->request->getPost('status')
+        'status'            => $this->request->getPost('status'),
+        'modified_by'            => user()->email,
       ]);
       session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
       return redirect()->to('lifetime');

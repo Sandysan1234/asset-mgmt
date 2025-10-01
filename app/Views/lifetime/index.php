@@ -43,6 +43,7 @@
                 <table id="myTable-client" class="table table-hover table-borderless" style="width:100%">
                   <thead class="bg-light">
                     <tr class="text-nowrap">
+                      <th scope="col">Handle</th>
                       <th scope="col">No</th>
                       <!-- <th scope="col">Kode Lifetime</th> -->
                       <th scope="col">Masa Berlaku</th>
@@ -50,24 +51,12 @@
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
                       <th scope="col">Modified By</th>
-                      <th scope="col">Handle</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php $i = 1; ?>
                     <?php foreach ($lifetime as $lt) : ?>
                       <tr class="text-nowrap">
-                        <th scope="row"><?= $i++; ?></th>
-                        <!-- <td>?= esc($lt['kode_lifetime']); ?></td> -->
-                        <td><?= esc($lt['masa_berlaku']); ?></td>
-                        <td>
-                          <span class="badge <?= $lt['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
-                            <?= $lt['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
-                          </span>
-                        </td>
-                        <td><?= (new DateTime($lt['created_at']))->format('d-m-Y H:i');  ?></td>
-                        <td><?= (new DateTime($lt['updated_at']))->format('d-m-Y H:i');  ?></td>
-                        <td><?= $lt['modified_by']; ?></td>
                         <td>
                           <a href="/lifetime/edit/<?= $lt['id_lifetime']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
                           <form action="/lifetime/<?= $lt['id_lifetime']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
@@ -77,6 +66,18 @@
                             <!-- delete permanen karena model tidak disetting -->
                           </form>
                         </td>
+                        <th scope="row"><?= $i++; ?></th>
+                        <!-- <td>?= esc($lt['kode_lifetime']); ?></td> -->
+                        <td><?= esc($lt['masa_berlaku']); ?> Tahun</td>
+                        <td>
+                          <span class="badge <?= $lt['status'] == 1 ? 'bg-success' : 'bg-danger'; ?> rounded-2">
+                            <?= $lt['status'] == 1 ? 'Aktif' : 'Tidak Aktif'; ?>
+                          </span>
+                        </td>
+                        <td><?= (new DateTime($lt['created_at']))->format('d-m-Y H:i');  ?></td>
+                        <td><?= (new DateTime($lt['updated_at']))->format('d-m-Y H:i');  ?></td>
+                        <td><?= $lt['modified_by']; ?></td>
+
                       </tr>
                     <?php endforeach; ?>
                   </tbody>

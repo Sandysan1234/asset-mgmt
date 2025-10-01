@@ -39,7 +39,10 @@ class TransactionModel extends Model
         'upload_img',
         'catatan',
         'status',
-        'created_by'
+        'created_by',
+        'dibatalkan_oleh',
+        'dibatalkan_at',
+        'catatan_pembatalan'
 
     ];
 

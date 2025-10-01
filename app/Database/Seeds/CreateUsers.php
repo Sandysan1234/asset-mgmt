@@ -13,6 +13,7 @@ class CreateUsers extends Seeder
 {
 	public function run()
 	{
+		
 		$data = [
 			[
 				'email'         => 'sandy@gmail.com',
@@ -35,7 +36,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'nazilla@example.com',
+				'email'         => 'fa2.jmi@onemed.co.id',
 				'username'      => 'nazilla',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -45,7 +46,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'afif@example.com',
+				'email'         => 'afif.nuzia@onemed.co.id',
 				'username'      => 'afif',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'fullname'      => null,
@@ -95,7 +96,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'okmah@example.com',
+				'email'         => 'sap.care@onemed.co.id',
 				'username'      => 'okmah',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -105,7 +106,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'ferdy@example.com',
+				'email'         => 'it.jmi@onemed.co.id',
 				'username'      => 'ferdy',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -135,7 +136,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'hazmi@example.com',
+				'email'         => 'it3.jmi@onemed.co.id',
 				'username'      => 'hazmi',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -155,7 +156,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'nia@example.com',
+				'email'         => 'QC nia.qc@onemed.co.id',
 				'username'      => 'nia',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -175,7 +176,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'ana@example.com',
+				'email'         => 'anna_pajak@onemed.co.id',
 				'username'      => 'ana',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -195,7 +196,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'ariesta@example.com',
+				'email'         => 'co.2000.jmi@onemed.co.id',
 				'username'      => 'ariesta',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -225,7 +226,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'sudar@example.com',
+				'email'         => 'mgr.prodkrian@onemed.co.id',
 				'username'      => 'sudar',
 				'fullname'      => 'Sudar Wiyono',
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -235,7 +236,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'riza@example.com',
+				'email'         => 'riza.jmi@onemed.co.id',
 				'username'      => 'riza',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -245,7 +246,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'apit@example.com',
+				'email'         => 'ka.injection@onemed.co.id',
 				'username'      => 'apit',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -255,7 +256,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'hanif@example.com',
+				'email'         => 'produksi.assembling@onemed.co.id',
 				'username'      => 'hanif',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -265,7 +266,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'mervin@example.com',
+				'email'         => 'mervin@onemed.co.id',
 				'username'      => 'mervin',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -285,7 +286,7 @@ class CreateUsers extends Seeder
 				'updated_at'    => Time::now()
 			],
 			[
-				'email'         => 'haida@example.com',
+				'email'         => 'fa1.jmi@onemed.co.id',
 				'username'      => 'haida',
 				'fullname'      => null,
 				'password_hash' => Password::hash('Jayamas2025'),
@@ -298,6 +299,56 @@ class CreateUsers extends Seeder
 				'email'         => 'hilda@example.com',
 				'username'      => 'hilda',
 				'fullname'      => null,
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'qa.jmi@onemed.co.id',
+				'username'      => 'rizky',
+				'fullname'      => 'Rizky Heru',
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'dept.itjmi@gmail.com',
+				'username'      => 'tka',
+				'fullname'      => 'test kabag asal',
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'nsyafriska@gmail.com',
+				'username'      => 'tkt',
+				'fullname'      => 'Tes Kabag Tujuan',
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => '221080200145@umsida.ac.id',
+				'username'      => 'tes_dir',
+				'fullname'      => 'Tes Direksi',
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'afinzdi@gmail.com',
+				'username'      => 'tes_fin',
+				'fullname'      => 'Tes Finanace Manager',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,

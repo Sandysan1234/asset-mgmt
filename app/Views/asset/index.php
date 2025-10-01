@@ -3,6 +3,23 @@
 <?= $this->section('page-content'); ?>
 <div class="pc-container">
   <div class="pc-content">
+    <!-- [ breadcrumb ] start -->
+    <!-- <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h5 class="m-b-10">Asset</h5>
+            </div>
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="/asset">Asset</a></li>
+              <!-- <li class="breadcrumb-item" aria-current="page">Sample Page</li> 
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div> -->
     <div class="row">
       <div class="col-sm-12">
         <div class="card">
@@ -78,40 +95,40 @@
 <script>
   $(function() {
     // mapping status -> badge
-      const statusMap = {
-        // 0: {
-        //   label: 'Proses Pelepasan',
-        //   cls: 'bg-primary'
-        // },
-        0: {
-          label: 'Pelepasan',
-          cls: 'bg-primary'
-        },
-        // 1: {
-        //   label: 'Proses Penghentian',
-        //   cls: 'text-dark bg-warning'
-        // },
-        1: {
-          label: 'Penghentian',
-          cls: 'text-dark bg-warning'
-        },
-        2: {
-          label: 'Penggabungan',
-          cls: 'bg-secondary'
-        },
-        3: {
-          label: 'Mutasi',
-          cls: 'bg-info'
-        },
-        4: {
-          label: 'Non-Aktif',
-          cls: 'bg-danger'
-        },
-        5: {
-          label: 'Aktif',
-          cls: 'bg-success'
-        }
-      };
+    const statusMap = {
+      // 0: {
+      //   label: 'Proses Pelepasan',
+      //   cls: 'bg-primary'
+      // },
+      0: {
+        label: 'Pelepasan',
+        cls: 'bg-primary'
+      },
+      // 1: {
+      //   label: 'Proses Penghentian',
+      //   cls: 'text-dark bg-warning'
+      // },
+      1: {
+        label: 'Penghentian',
+        cls: 'text-dark bg-warning'
+      },
+      2: {
+        label: 'Penggabungan',
+        cls: 'bg-secondary'
+      },
+      3: {
+        label: 'Mutasi',
+        cls: 'bg-info'
+      },
+      4: {
+        label: 'Non-Aktif',
+        cls: 'bg-danger'
+      },
+      5: {
+        label: 'Aktif',
+        cls: 'bg-success'
+      }
+    };
 
     // helper format
     const fmtDate = d => d ? new Date(d).toLocaleDateString('id-ID') : '';
@@ -295,9 +312,10 @@
           render: (d) => fmtDateTime(d)
         },
         {
-          data: 'modified_by',
-          name: 'asset.modified_by'
-        }
+          data: null,
+          name: 'm.username',
+          render: (__, _, row) => `${row.m_username ?? ''}`
+        },
       ]
     });
 

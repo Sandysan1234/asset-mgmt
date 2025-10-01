@@ -10,6 +10,10 @@ class AuthUsersPermission extends Seeder
     {
         $data = [
             [
+                'user_id' => '1',
+                'permission_id' => '19'
+            ],
+            [
                 'user_id' => '3',
                 'permission_id' => '16'
             ],
@@ -80,6 +84,34 @@ class AuthUsersPermission extends Seeder
             [
                 'user_id' => '29',
                 'permission_id' => '20'
+            ],
+            [
+                'user_id' => '1',
+                'permission_id' => '19'
+            ],
+            [
+                'user_id' => '4',
+                'permission_id' => '19'
+            ],
+            [
+                'user_id' => '9',
+                'permission_id' => '19'
+            ],
+            [
+                'user_id' => '10',
+                'permission_id' => '19'
+            ],
+            [
+                'user_id' => '11',
+                'permission_id' => '19'
+            ],
+            [
+                'user_id' => '13',
+                'permission_id' => '19'
+            ],
+            [
+                'user_id' => '26',
+                'permission_id' => '19'
             ],
         ];
         $this->db->table('auth_users_permissions')->insertBatch($data);

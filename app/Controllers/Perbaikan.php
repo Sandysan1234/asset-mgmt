@@ -27,7 +27,7 @@ class Perbaikan extends BaseController
 
         $repairs = $this->perbaikanModel->getAllWithAssetDetail();
         $data = [
-            'title'     => 'Repair | Asset Management System',
+            'title'     => 'Perbaikan | Asset Management System',
             'repairs' => $repairs,
             // 'assets' => $assets,
         ];
@@ -114,12 +114,14 @@ class Perbaikan extends BaseController
         ])) {
             return redirect()->to('/perbaikan/create')->withInput();
         }
+        $biayaRaw = $this->request->getPost('biaya');
+        $biaya = (int) str_replace('.', '', $biayaRaw);
 
         $this->perbaikanModel->save([
             'id_asset'         => $this->request->getPost('id_asset'),
             'jenis_perbaikan'  => $this->request->getPost('jenis_perbaikan'),
             'keterangan'       => $this->request->getPost('keterangan'),
-            'biaya'            => $this->request->getPost('biaya') ?: null,
+            'biaya'            => $biaya,
             'teknisi'          => $this->request->getPost('teknisi'),
             'durasi'           => $this->request->getPost('durasi'),
             'tgl_awal'         => $this->request->getPost('tgl_awal'),
@@ -226,6 +228,8 @@ class Perbaikan extends BaseController
             'tgl_akhir'         => $data['tgl_akhir'],
             'place'             => $data['place'],
             'status'           => $this->request->getPost('status'),
+            'modified_by'      => user()->email, // ✅ AMAN dengan fallback
+
         ]);
 
         session()->setFlashdata('pesan', 'Data berhasil ditambahkan');

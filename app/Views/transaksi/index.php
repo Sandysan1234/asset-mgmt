@@ -71,8 +71,8 @@
                       <th scope="col">Date CO</th>
                       <th scope="col">Created At</th>
                       <th scope="col">Updated At</th>
-                      <th scope="col">Modified By</th>
                       <th scope="col">Created By</th>
+                      <th scope="col">Modified By</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -157,8 +157,8 @@
                         <td><?= $tr['date_ack_ctrl'] ? (new DateTime($tr['date_ack_ctrl']))->format('d-m-Y H:i') : '<span class="badge bg-danger rounded-2">Pending</span>'; ?></td>
                         <td><?= (new DateTime($tr['created_at']))->format('d-m-Y H:i');  ?></td>
                         <td><?= (new DateTime($tr['updated_at']))->format('d-m-Y H:i');  ?></td>
+                        <td><?= $tr['created_by']; ?></td>
                         <td><?= $tr['modified_by']; ?></td>
-                        <td><?= $tr['username']; ?></td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>

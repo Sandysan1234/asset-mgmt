@@ -63,7 +63,13 @@
                         <td><?= $stock['no_asset']; ?></td>
                         <td><?= $stock['nama_asset']; ?></td>
                         <td>
-                          <?= $stock['status_asset'];?>
+                          <?php
+                          $badgeClass = ($stock['status_asset'] === 'Ada') ? 'bg-success' : 'bg-danger';
+                          ?>
+                          <span class="badge <?= $badgeClass; ?> rounded-2">
+                            <?= htmlspecialchars($stock['status_asset']); ?>
+                          </span>
+                        </td>
                         </td>
                         <td><?= $stock['tgl_stockopname'] ?></td>
                         <td><?= $stock['updated_at']; ?></td>

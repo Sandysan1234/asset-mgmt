@@ -18,14 +18,16 @@ class User extends BaseController
         $total_asset = $db->table('asset')
             ->where('deleted_at', null)
             ->countAllResults();
-
+        $total_transaction = $db->table('transaksi')->where('deleted_at', null)->countAllResults();
 
         $data = [
             'title' => 'User | Asset Management System',
             'total_asset' => $total_asset,
+            'total_transaction' => $total_transaction,
         ];
         return view('user/index', $data);
     }
+}
     // public function login(): string
     // {
     //     // return view('welcome_message');
@@ -55,4 +57,4 @@ class User extends BaseController
 
 
 
-}
+

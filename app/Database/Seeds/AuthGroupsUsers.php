@@ -19,12 +19,28 @@ class AuthGroupsUsers extends Seeder
                 'user_id' => '3'
             ],
             [
+                'group_id' => '1',
+                'user_id' => '10'
+            ],
+            [
+                'group_id' => '1',
+                'user_id' => '26'
+            ],
+            [
+                'group_id' => '1',
+                'user_id' => '4'
+            ],
+            [
                 'group_id' => '2',
                 'user_id' => '1'
             ],
             [
                 'group_id' => '2',
                 'user_id' => '3'
+            ],
+            [
+                'group_id' => '2',
+                'user_id' => '4'
             ],
             [
                 'group_id' => '2',
@@ -60,13 +76,22 @@ class AuthGroupsUsers extends Seeder
             ],
             [
                 'group_id' => '4',
+                'user_id' => '16'
+            ],
+            [
+                'group_id' => '4',
                 'user_id' => '24'
             ],
             [
                 'group_id' => '4',
-                'user_id' => '25'
+                'user_id' => '31'
             ],
+            [
+                'group_id' => '4',
+                'user_id' => '32'
+            ],
+
         ];
-        $this->db->table('auth_groups_permissions')->insertBatch($data);
+        $this->db->table('auth_groups_users')->insertBatch($data);
     }
 }

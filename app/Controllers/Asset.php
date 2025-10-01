@@ -308,20 +308,7 @@ class Asset extends BaseController
     ])) {
       return redirect()->to('/asset/create')->withInput();
     }
-    //     'no_asset',
-    // 'sub_asset',
-    // 'nama_asset',
-    // 'serial_number',
-    // 'batch_number',
-    // 'merek',
-    // 'spek',
-    // 'tgl_perolehan',
-    // 'harga',
-    // 'no_po',
-    // 'id_assetclass',
-    // 'id_vendor',
-    // 'id_lifetime',
-
+    
 
     $hargaRaw = $this->request->getPost('harga');
     $harga = (int) str_replace('.', '', $hargaRaw);
@@ -352,6 +339,7 @@ class Asset extends BaseController
       'status'           => $this->request->getPost('status') ?: 5,
       'modified_by'      => user_id(),
     ]);
+    
 
     $this->logChange('INSERT', $id_asset, $data);
 
@@ -379,6 +367,18 @@ class Asset extends BaseController
 
   public function edit($id)
   {
+    $picGroup = $this->groupModel->where('name', 'pic')->first();
+    $picUsers = [];
+
+    if ($picGroup) {
+
+      $picUsers = $this->userModel
+        ->select('users.id, users.fullname, users.username, users.email')
+        ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
+        ->where('auth_groups_users.group_id', $picGroup->id) // pastikan field: group_id
+        ->where('users.active', 1) // hanya user aktif
+        ->findAll();
+    }
     $data = [
       'title'        => 'Form Ubah Data Asset',
       'validation'   => \Config\Services::validation(),
@@ -388,9 +388,10 @@ class Asset extends BaseController
       'lifetime'     => $this->lifetimeModel->findAll(),
       'plant'        => $this->plantModel->findAll(),
       'pemasok'      => $this->pemasokModel->findAll(),
-      'lokasi_area'        => $this->locationModel->where('jenis_lokasi', 'Area')->findAll(),
-      'lokasi_gedung'      => $this->locationModel->where('jenis_lokasi', 'Gedung')->findAll(),
-      'lokasi_lantai'      => $this->locationModel->where('jenis_lokasi', 'Lantai')->findAll(),
+      'lokasi_area'  => $this->locationModel->where('jenis_lokasi', 'Area')->findAll(),
+      'lokasi_gedung' => $this->locationModel->where('jenis_lokasi', 'Gedung')->findAll(),
+      'lokasi_lantai' => $this->locationModel->where('jenis_lokasi', 'Lantai')->findAll(),
+      'pic_users'       => $picUsers
     ];
     return view('asset/edit', $data);
   }
@@ -484,6 +485,27 @@ class Asset extends BaseController
           'required'          => 'Pilih {field} yang sesuai'
         ]
       ],
+      'id_lokasi_area' => [
+        'label'               => 'Area',
+        'rules'               => 'required',
+        'errors'              => [
+          'required'          => 'Pilih {field} yang sesuai'
+        ]
+      ],
+      'id_lokasi_gedung' => [
+        'label'               => 'Gedung',
+        'rules'               => 'required',
+        'errors'              => [
+          'required'          => 'Pilih {field} yang sesuai'
+        ]
+      ],
+      'id_lokasi_lantai' => [
+        'label'               => 'Lantai',
+        'rules'               => 'required',
+        'errors'              => [
+          'required'          => 'Pilih {field} yang sesuai'
+        ]
+      ],
       // 'id_vendor' => [
       //   'label'               => 'Vendor',
       //   'rules'               => 'required',
@@ -505,7 +527,6 @@ class Asset extends BaseController
       'id_asset'        => $id,
       'no_asset'        => $existing['no_asset'],
       'sub_asset'       => $existing['sub_asset'],
-      'kategori_asset'  => $this->request->getPost('kategori_asset'),
       'nama_asset'      => $this->request->getPost('nama_asset'),
       'serial_number'   => $this->request->getPost('serial_number'),
       'batch_number'    => $this->request->getPost('batch_number'),
@@ -514,11 +535,19 @@ class Asset extends BaseController
       'tgl_perolehan'   => $this->request->getPost('tgl_perolehan'),
       'harga'           => $harga,
       'no_po'           => $this->request->getPost('no_po'),
+      'kategori_asset'  => $this->request->getPost('kategori_asset'),
       'id_assetclass'   => $this->request->getPost('id_assetclass'),
       'id_cost_center'  => $existing['id_cost_center'],
       'id_lifetime'     => $this->request->getPost('id_lifetime'),
       'id_vendor'       => $this->request->getPost('id_vendor'),
+      'id_lokasi_area'   => $this->request->getPost('id_lokasi_area'),
+      'id_lokasi_gedung' => $this->request->getPost('id_lokasi_gedung'),
+      'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai'),
+      'id_pic'           => $this->request->getPost('id_pic'),
       'id_plant'        => $existing['id_plant'],
+      'user_asset'       => $this->request->getPost('user_asset') ?: null,
+      'modified_by'      => user_id(),
+
     ]);
 
 

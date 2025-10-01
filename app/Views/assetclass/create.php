@@ -56,14 +56,14 @@
                 <legend class="col-form-label col-sm-3 pt-0">Status</legend>
                 <div class="col-sm-8">
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="status" id="status" value="1" checked>
-                    <label class="form-check-label" for="gridRadios1">
+                    <input class="form-check-input" type="radio" name="status" id="status1" value="1" checked>
+                    <label class="form-check-label" for="status1">
                       Aktif
                     </label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="status" id="status" value="0">
-                    <label class="form-check-label" for="gridRadios2">
+                    <input class="form-check-input" type="radio" name="status" id="status0" value="0">
+                    <label class="form-check-label" for="status0">
                       Nonaktif
                     </label>
                   </div>
