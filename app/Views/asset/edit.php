@@ -190,7 +190,7 @@
                 <label for="" class="col-sm-3 col-form-label">Vendor</label>
                 <div class="col-sm-6">
                   <select name="id_vendor" class="form-select col-sm-6 <?= (validation_show_error('id_vendor')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
-                    <option selected disabled>Pilih yang sesuai</option>
+                    <option value="0">Pilih yang sesuai</option>
                     <?php foreach ($pemasok as $p) : ?>
                       <option value="<?= $p['id_vendor']; ?>" <?= old('id_vendor', $asset['id_vendor']) == $p['id_vendor'] ? 'selected' : ''; ?>>
                         <?= $p['nama_vendor']; ?>

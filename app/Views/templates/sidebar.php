@@ -37,6 +37,9 @@
               <?php if (has_permission('finance')): ?>
                 <li class="pc-item"><a class="pc-link" href="/assetclass">Asset Class</a></li>
               <?php endif; ?>
+              <?php if (in_groups('admin')): ?>
+                <li class="pc-item"><a class="pc-link" href="/assetlog">Asset Log</a></li>
+              <?php endif; ?>
             </ul>
           </li>
           <?php if (in_groups(['pic', 'kabag', 'approval', 'admin'])): ?>

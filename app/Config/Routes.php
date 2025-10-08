@@ -90,12 +90,12 @@ $routes->delete('location/(:num)', 'Location::delete/$1', ['filter' => 'role:adm
 $routes->get('location/edit/(:segment)', 'Location::edit/$1', ['filter' => 'role:admin']);
 $routes->post('location/update/(:any)', 'Location::update/$1', ['filter' => 'role:admin']);
 
-$routes->get('assetclass', 'Assetclass::index', ['filter' => 'role:admin']);
-$routes->get('assetclass/create', 'Assetclass::create', ['filter' => 'role:admin']);
-$routes->post('assetclass/save', 'Assetclass::save', ['filter' => 'role:admin']);
-$routes->delete('assetclass/(:num)', 'Assetclass::delete/$1', ['filter' => 'role:admin']);
-$routes->get('assetclass/edit/(:segment)', 'Assetclass::edit/$1', ['filter' => 'role:admin']);
-$routes->post('assetclass/update/(:any)', 'Assetclass::update/$1', ['filter' => 'role:admin']);
+$routes->get('assetclass', 'Assetclass::index', ['filter' => 'role:admin,finance']);
+$routes->get('assetclass/create', 'Assetclass::create', ['filter' => 'role:admin,finance']);
+$routes->post('assetclass/save', 'Assetclass::save', ['filter' => 'role:admin,finance']);
+$routes->delete('assetclass/(:num)', 'Assetclass::delete/$1', ['filter' => 'role:admin,finance']);
+$routes->get('assetclass/edit/(:segment)', 'Assetclass::edit/$1', ['filter' => 'role:admin,finance']);
+$routes->post('assetclass/update/(:any)', 'Assetclass::update/$1', ['filter' => 'role:admin,finance']);
 
 
 
@@ -111,6 +111,9 @@ $routes->get('asset/dt', 'Asset::dt');   // endpoint server-side
 $routes->post('asset/dt', 'Asset::dt');   // endpoint server-side
 // untuk filter lokasi
 $routes->get('asset/lokasi-by-plant/(:num)', 'Asset::getLokasiByPlant/$1');
+
+$routes->get('assetlog', 'Assetlog::index', ['filter' => 'role:admin']);
+
 
 
 $routes->get('transaksi', 'Transaksi::index', ['filter' => 'role:pic,kabag,approval,admin']);

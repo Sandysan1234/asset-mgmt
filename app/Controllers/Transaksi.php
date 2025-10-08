@@ -371,11 +371,11 @@ class Transaksi extends BaseController
         }
       }
       return redirect()->to('/transaksi')
-        ->with('pesan', '✅ Transaksi disimpan & email dikirim ke ' . count($penerima) . ' penerima.');
+        ->with('pesan', 'Transaksi disimpan & email dikirim ke ' . count($penerima) . ' penerima.');
     } catch (\Exception $e) {
       log_message('error', 'Gagal kirim email: ' . $e->getMessage());
       return redirect()->to('/transaksi')
-        ->with('warning', '✅ Data disimpan, tapi gagal kirim email: ' . $e->getMessage());
+        ->with('warning', 'Data disimpan, tapi gagal kirim email: ' . $e->getMessage());
     }
 
     session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan & email terkirim');
@@ -456,13 +456,28 @@ class Transaksi extends BaseController
   {
     $email = \Config\Services::email();
 
+    // 🔍 Ambil data transaksi + aset terkait
+    $transaksi = $this->transactionModel->baseRelasi()->find($transaksiId);
+    if (!$transaksi) {
+      log_message('error', "Transaksi ID {$transaksiId} tidak ditemukan saat kirim email.");
+      return false;
+    }
+
+    // Ambil no_asset dan nama_asset
+    $noAsset = $transaksi['no_asset'] ?? '–';
+    $namaAsset = $transaksi['nama_asset'] ?? '–';
+
     $link = base_url("transaksi/edit/{$transaksiId}");
 
     $message = "
         <h3>Notifikasi Transaksi Baru</h3>
         <p>Halo,</p>
-        <p>Anda menerima notifikasi transaksi baru.</p>
-        <p><strong>Klik link berikut untuk approval:</strong>
+        <p>Anda menerima notifikasi transaksi baru untuk aset berikut:</p>
+        <ul>
+            <li><strong>No. Aset:</strong> {$noAsset}</li>
+            <li><strong>Nama Aset:</strong> {$namaAsset}</li>
+        </ul>
+        <p><strong>Klik link berikut untuk approval:</strong><br>
         <a href='{$link}'>
             Lihat Transaksi #{$transaksiId}
         </a></p>
@@ -569,27 +584,33 @@ class Transaksi extends BaseController
   // ✅ TAMBAHAN: Update data aset jika transaksi adalah mutasi
   private function updateAssetAfterMutation($transaksi)
   {
-    // dd($transaksi);
     $assetModel = new AssetModel();
+    $idAsset = $transaksi['id_asset'];
 
-    // Jika transaksi adalah MUTASI (3) → hanya update lokasi, TIDAK UBAH status
+    // 🔍 Ambil data LAMA dari database SEBELUM diubah
+    $dataLama = $assetModel->find($idAsset);
+    if (!$dataLama) {
+      log_message('error', "Asset ID {$idAsset} tidak ditemukan saat update after mutation.");
+      return;
+    }
+
+    // Siapkan data BARU
     if ($transaksi['transaksi'] == '3') {
-      // dd('Masuk ke if - update status'); // 🔥 Cek apakah muncul?
-
-      $dataUpdate = [
+      $dataBaru = [
         'id_plant'         => $transaksi['id_plant_baru'],
         'id_cost_center'   => $transaksi['id_cost_center_baru'],
       ];
-    }
-    // Jika transaksi BUKAN mutasi (0,1,2) → ubah STATUS aset sesuai transaksi
-    else {
-      // dd('Masuk ke else - update status'); // 🔥 Cek apakah muncul?
-
-      $dataUpdate = [
-        'status' => $transaksi['transaksi'], // ubah status aset → 0, 1, atau 2
+    } else {
+      $dataBaru = [
+        'status' => $transaksi['transaksi']
       ];
     }
-    $assetModel->update($transaksi['id_asset'], $dataUpdate);
+
+    // 🔥 Lakukan update ke database
+    $assetModel->update($idAsset, $dataBaru);
+
+    // 🔥 LOG PERUBAHAN
+    $this->logAssetChange($idAsset, array_merge($dataLama, $dataBaru), $dataLama);
   }
 
   // ✅ MODIFIKASI: Fungsi update() dengan tambahan otomatisasi
@@ -647,7 +668,6 @@ class Transaksi extends BaseController
     $id = $this->request->getPost('id_transaksi');
     $catatan = $this->request->getPost('catatan_pembatalan');
 
-    // dd($catatan);
     if (!$id) {
       return redirect()->back()->with('error', 'ID transaksi tidak ditemukan.');
     }
@@ -666,33 +686,32 @@ class Transaksi extends BaseController
     }
 
     $assetModel = new AssetModel();
-    $dataUpdate = [];
+    $idAsset = $transaksi['id_asset'];
 
+    // 🔍 Ambil data aset SAAT INI (ini adalah "nilai lama" untuk log)
+    $dataLama = $assetModel->find($idAsset);
+    if (!$dataLama) {
+      return redirect()->back()->with('error', 'Aset tidak ditemukan.');
+    }
+
+    // Siapkan data yang akan dikembalikan (nilai baru setelah cancel)
     if ($transaksi['transaksi'] == '3') {
-      // 🔁 Mutasi: kembalikan lokasi
-      $dataUpdate = [
+      $dataBaru = [
         'id_plant'         => $transaksi['id_plant_asal'],
         'id_cost_center'   => $transaksi['id_cost_center_asal'],
       ];
     } else {
-      // 🔁 Non-Mutasi: kembalikan STATUS aset ke saat transaksi dibuat
-      $dataUpdate = [
-        'status' => $transaksi['asset_status_awal'], // ✅
+      $dataBaru = [
+        'status' => $transaksi['asset_status_awal'],
       ];
     }
 
-    $assetModel->update($transaksi['id_asset'], $dataUpdate);
+    // 🔁 Lakukan update ke aset
+    $assetModel->update($idAsset, $dataBaru);
 
-    // dd([
-    //   'id_asset' => $transaksi['id_asset'],
-    //   'data_update_asset' => $dataUpdate,
-    //   'data_update_transaksi' => [
-    //     'status'                => '3',
-    //     'dibatalkan_oleh'       => user_id(),
-    //     'dibatalkan_at'         => date('Y-m-d H:i:s'),
-    //     'catatan_pembatalan'    => $catatan,
-    //   ]
-    // ]);
+    // 🔥 LOG PERUBAHAN SAAT PEMBATALAN
+    $this->logAssetChangeOnCancel($idAsset, $dataBaru, $dataLama);
+
     // 🚫 Batalkan transaksi
     $this->transactionModel->update($id, [
       'status'                => '3',
@@ -700,6 +719,7 @@ class Transaksi extends BaseController
       'dibatalkan_at'         => date('Y-m-d H:i:s'),
       'catatan_pembatalan'    => $catatan,
     ]);
+
     session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Status aset dikembalikan ke kondisi sebelumnya.');
     return redirect()->to('/transaksi');
   }
@@ -708,7 +728,7 @@ class Transaksi extends BaseController
   {
     $transaksi = $this->transactionModel->find($id);
     //hapus gambar 
-    if ($transaksi['upload_img'] != 'naruto.jpg') {
+    if ($transaksi['upload_img'] != 'logo-jmi.png') {
       # code...
       unlink('img/' . $transaksi['upload_img']);
     }
@@ -779,7 +799,70 @@ class Transaksi extends BaseController
   //   return redirect()->to('/transaksi');
   // }
   // app/Controllers/TransaksiController.php
+  private function logAssetChange($id_asset, $dataBaru, $dataLama)
+  {
+    $user = user()->email ?: 'System';
+    $waktu = date('Y-m-d H:i:s');
 
+    $fieldsToLog = [
+      'id_plant',
+      'id_cost_center',
+      // tambahkan lainnya jika perlu: 'status', dll
+    ];
+
+    foreach ($fieldsToLog as $field) {
+      $nilaiLama = $dataLama[$field] ?? null;
+      $nilaiBaru = $dataBaru[$field] ?? null;
+
+      if ($nilaiLama !== $nilaiBaru) {
+        // Pastikan logModel tersedia
+        $logModel = model('App\Models\LogModel'); // sesuaikan nama model logmu
+
+        $logModel->insert([
+          'id_asset' => $id_asset,
+          'kolom_yang_diubah' => $field,
+          'nilai_lama' => $nilaiLama,
+          'nilai_baru' => $nilaiBaru,
+          'waktu_perubahan' => $waktu,
+          'diubah_oleh' => $user,
+          'aksi' => 'UPDATE'
+        ]);
+      }
+    }
+  }
+  private function logAssetChangeOnCancel(int $id_asset, array $dataBaru, array $dataLama)
+  {
+    $user = user()->email ?: 'System';
+    $waktu = date('Y-m-d H:i:s');
+
+    // Kolom yang mungkin berubah saat cancel
+    $fieldsToLog = [
+      'id_plant',
+      'id_cost_center',
+      'status'
+    ];
+
+    // Load model log — sesuaikan dengan nama model logmu
+    $logModel = model('App\Models\LogModel'); // 👈 GANTI SESUAI NAMA MODEL LOGMU
+
+    foreach ($fieldsToLog as $field) {
+      $nilaiLama = $dataLama[$field] ?? null;
+      $nilaiBaru = $dataBaru[$field] ?? null;
+
+      // Hanya log jika benar-benar berbeda
+      if ($nilaiLama !== $nilaiBaru) {
+        $logModel->insert([
+          'id_asset'          => $id_asset,
+          'kolom_yang_diubah' => $field,
+          'nilai_lama'        => $nilaiLama,
+          'nilai_baru'        => $nilaiBaru,
+          'waktu_perubahan'   => $waktu,
+          'diubah_oleh'       => $user,
+          'aksi'              => 'CANCEL' // atau 'UPDATE', terserah kebijakanmu
+        ]);
+      }
+    }
+  }
   public function testKirim7Email()
   {
     // Daftar 7 email penerima (bisa ganti sesuai kebutuhan)

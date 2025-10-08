@@ -308,7 +308,7 @@ class Asset extends BaseController
     ])) {
       return redirect()->to('/asset/create')->withInput();
     }
-    
+
 
     $hargaRaw = $this->request->getPost('harga');
     $harga = (int) str_replace('.', '', $hargaRaw);
@@ -339,7 +339,7 @@ class Asset extends BaseController
       'status'           => $this->request->getPost('status') ?: 5,
       'modified_by'      => user_id(),
     ]);
-    
+
 
     $this->logChange('INSERT', $id_asset, $data);
 
@@ -634,9 +634,11 @@ class Asset extends BaseController
       ]
     ]);
   }
+
   private function logChange($aksi, $id_asset, $dataBaru, $dataLama = [])
   {
     $user = user()->email ?: 'System';
+    $waktu = date('Y-m-d H:i:s');
 
     $fieldsToLog = [
       'no_asset',
@@ -651,61 +653,49 @@ class Asset extends BaseController
       'no_po',
       'kategori_asset',
       'id_assetclass',
-      'id_cost_center',
+      // 'id_cost_center',
       'id_lifetime',
       'id_vendor',
-      'id_plant',
+      // 'id_plant',
       'id_lokasi_area',
       'id_lokasi_gedung',
       'id_lokasi_lantai',
       'id_pic',
       'user_asset',
-      'status'
+      // 'status'
     ];
 
     foreach ($fieldsToLog as $field) {
-      if ($aksi == 'INSERT') {
-        $nilaiLama = null;
-        $nilaiBaru = $dataBaru[$field] ?? null;
-        if ($nilaiBaru !== null) {
-          $this->logModel->insert([
-            'id_asset' => $id_asset,
-            'kolom_yang_diubah' => $field,
-            'nilai_lama' => $nilaiLama,
-            'nilai_baru' => $nilaiBaru,
-            'waktu_perubahan' => date('Y-m-d H:i:s'),
-            'diubah_oleh' => $user,
-            'aksi' => $aksi
-          ]);
-        }
-      } elseif ($aksi == 'UPDATE') {
-        $nilaiLama = $dataLama[$field] ?? null;
-        $nilaiBaru = $dataBaru[$field] ?? null;
-        if ($nilaiLama !== $nilaiBaru) {
-          $this->logModel->insert([
-            'id_asset' => $id_asset,
-            'kolom_yang_diubah' => $field,
-            'nilai_lama' => $nilaiLama,
-            'nilai_baru' => $nilaiBaru,
-            'waktu_perubahan' => date('Y-m-d H:i:s'),
-            'diubah_oleh' => $user,
-            'aksi' => $aksi
-          ]);
-        }
-      } elseif ($aksi == 'DELETE') {
-        $nilaiLama = $dataLama[$field] ?? null;
-        $nilaiBaru = null;
-        if ($nilaiLama !== null) {
-          $this->logModel->insert([
-            'id_asset' => $id_asset,
-            'kolom_yang_diubah' => $field,
-            'nilai_lama' => $nilaiLama,
-            'nilai_baru' => $nilaiBaru,
-            'waktu_perubahan' => date('Y-m-d H:i:s'),
-            'diubah_oleh' => $user,
-            'aksi' => $aksi
-          ]);
-        }
+      $nilaiLama = $dataLama[$field] ?? null;
+      $nilaiBaru = $dataBaru[$field] ?? null;
+
+      $shouldLog = false;
+
+      if ($aksi === 'INSERT') {
+        $shouldLog = $nilaiBaru !== null;
+        $logNilaiLama = null;
+        $logNilaiBaru = $nilaiBaru;
+      } elseif ($aksi === 'UPDATE') {
+        $shouldLog = $nilaiLama !== $nilaiBaru;
+        $logNilaiLama = $nilaiLama;
+        $logNilaiBaru = $nilaiBaru;
+        
+      } elseif ($aksi === 'DELETE') {
+        $shouldLog = $nilaiLama !== null;
+        $logNilaiLama = $nilaiLama;
+        $logNilaiBaru = null;
+      }
+
+      if ($shouldLog) {
+        $this->logModel->insert([
+          'id_asset' => $id_asset,
+          'kolom_yang_diubah' => $field,
+          'nilai_lama' => $logNilaiLama,
+          'nilai_baru' => $logNilaiBaru,
+          'waktu_perubahan' => $waktu,
+          'diubah_oleh' => $user,
+          'aksi' => $aksi
+        ]);
       }
     }
   }
