@@ -121,7 +121,7 @@ $routes->get('transaksi/create', 'Transaksi::create', ['filter' => 'role:pic,adm
 $routes->post('transaksi/save', 'Transaksi::save');
 $routes->get('transaksi/edit/(:segment)', 'Transaksi::edit/$1', ['filter' => 'role:pic,kabag,approval']);
 $routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
-$routes->post('transaksi/cancel', 'Transaksi::cancel', ['filter'=> 'role:pic,admin']);
+$routes->post('transaksi/cancel', 'Transaksi::cancel', ['filter' => 'role:pic,admin']);
 $routes->delete('transaksi/(:num)', 'Transaksi::delete/$1', ['filter' => 'role:pic']);
 
 // $routes->get('test-email', 'Transaksi::testKirim7Email');
@@ -143,7 +143,7 @@ $routes->delete('perbaikan/(:num)', 'Perbaikan::delete/$1', ['filter' => 'permis
 // $routes->get('perbaikan/create', 'Perbaikan::create', ['filter' => 'permission:it']); 
 
 
-$routes->get('qr', 'Qrbarcode::index',['filter' => 'role:admin,pic']);
+$routes->get('qr', 'Qrbarcode::index', ['filter' => 'role:admin,pic']);
 $routes->post('qr/save', 'Qrbarcode::multiple');
 
 $routes->get('users', 'Users::index', ['filter' => 'role:admin']);
@@ -153,3 +153,29 @@ $routes->get('stock-opname', 'Stockopname::index');
 $routes->get('stock-opname/create', 'Stockopname::create');
 $routes->get('stock-opname/cekAsset', 'Stockopname::cekAsset');
 $routes->post('stock-opname/saveAll', 'Stockopname::saveAll');
+
+// $routes->get('roles', 'Admin\Roles::index');
+
+// $routes->get('roles/users/(:num)', 'Admin\Roles::users/$1');
+// $routes->post('roles/assign-user', 'Admin\Roles::assignUserToRole');
+// $routes->get('roles/remove-user/(:num)/(:num)', 'Admin\Roles::removeUserFromRole/$1/$2');
+
+
+$routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
+    // Role management
+    $routes->get('roles', 'Admin\Roles::index');
+    $routes->get('roles/manage/(:num)', 'Admin\Roles::manage/$1');
+    $routes->post('roles/create', 'Admin\Roles::createRole');
+    $routes->get('roles/delete/(:num)', 'Admin\Roles::deleteRole/$1');
+
+    // Permission
+    $routes->post('roles/add-permission', 'Admin\Roles::addPermission');
+    $routes->get('roles/remove-permission/(:num)/(:num)', 'Admin\Roles::removePermission/$1/$2');
+
+    // User
+    $routes->post('roles/add-user', 'Admin\Roles::addUser');
+    $routes->get('roles/remove-user/(:num)/(:num)', 'Admin\Roles::removeUser/$1/$2');
+
+    $routes->get('roles/edit/(:num)', 'Admin\Roles::edit/$1');
+    $routes->post('roles/update/(:num)', 'Admin\Roles::update/$1');
+});

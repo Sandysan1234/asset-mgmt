@@ -13,7 +13,7 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="d-print-inline">Form Pemindahan Asset</h5>
-                <?php if (in_groups(['admin', 'pic'])): ?>
+                <?php if (in_groups(['admin', 'pic']) && $transaksi['status']==2): ?>
                   <button type="button" class="btn btn-outline-secondary no-print" onclick="printTransaction()">
                     <i class="fas fa-print"></i> Print Form Ini
                   </button>
@@ -112,9 +112,6 @@
                     <select id="id_plant_baru" name="id_plant_baru" class="form-select d-print-none" disabled>
                       <option selected disabled>Pilih Plant</option>
                       <?php
-
-                      use App\Controllers\Transaksi;
-
                       foreach ($plants as $p): ?>
                         <option value="<?= esc($p['id_plant']) ?>" <?= old('id_plant_baru', $transaksi['id_plant_baru']) == $p['id_plant'] ? 'selected' : ''; ?>><?= esc($p['nama_plant']) ?></option>
                       <?php endforeach; ?>
@@ -266,7 +263,7 @@
                                 id="approve_dir" name="approve_dir" <?= $transaksi['date_direksi'] ? 'checked' : ''; ?> <?= $Approvedireksi ? '' : 'disabled'; ?>>
                             </div>
                           </div>
-                          
+
                           <div class="col-12">
                             <label for="date_direksi" class="form-label">Tanggal</label>
                             <input type="datetime-local" class="form-control no-click d-print-none"
@@ -453,10 +450,11 @@
 
                     <!-- Departemen Asal -->
                     <div style="flex: 1; text-align: center;">
+                      <?php $statustext = $transaksi['status'] == 2 ? 'APPROVED' : 'PENDING';?>
                       <h5 style="margin: 0 0 8px 0; font-size: 9pt; font-weight: bold;">DEPARTEMEN ASAL</h5>
                       <p style="margin: 0 0 15px 0; font-size: 9pt;">Menyetujui,</p>
                       <div style="text-align: center; margin: 10px 0 5px 0; font-weight: bold; font-size: 12pt; color: #000; letter-spacing: 3px; text-transform: uppercase; font-family: 'Arial', sans-serif;">
-                        APPROVED
+                        <?= $statustext ;?>
                       </div>
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_ttd_asal']) ?></small><br>
@@ -465,7 +463,7 @@
                       <br>
                       <p style="margin: 0 0 8px 0; font-size: 9pt; font-weight: bold;">PIC</p>
                       <div style="text-align: center; margin: 10px 0 5px 0; font-weight: bold; font-size: 12pt; color: #000; letter-spacing: 3px; text-transform: uppercase; font-family: 'Arial', sans-serif;">
-                        APPROVED
+                        <?= $statustext ;?>
                       </div>
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_pic']) ?></small><br>
@@ -478,7 +476,7 @@
                       <h5 style="margin: 0 0 8px 0; font-size: 9pt; font-weight: bold;">DEPARTEMEN TUJUAN</h5>
                       <p style="margin: 0 0 15px 0; font-size: 9pt;">Menyetujui,</p>
                       <div style="text-align: center; margin: 10px 0 5px 0; font-weight: bold; font-size: 12pt; color: #000; letter-spacing: 3px; text-transform: uppercase; font-family: 'Arial', sans-serif;">
-                        APPROVED
+                        <?= $statustext ;?>
                       </div>
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_ttd_tujuan']) ?></small><br>
@@ -487,7 +485,7 @@
                       <br>
                       <p style="margin: 0 0 8px 0; font-size: 9pt; font-weight: bold;">Plant Manager</p>
                       <div style="text-align: center; margin: 10px 0 5px 0; font-weight: bold; font-size: 12pt; color: #000; letter-spacing: 3px; text-transform: uppercase; font-family: 'Arial', sans-serif;">
-                        APPROVED
+                        <?= $statustext ;?>
                       </div>
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_direksi']) ?></small><br>
@@ -500,21 +498,21 @@
                       <h5 style="margin: 0 0 8px 0; font-size: 9pt; font-weight: bold;">MENGETAHUI</h5>
                       <p style="margin: 0 0 15px 0; font-size: 9pt;">Finance</p>
                       <div style="text-align: center; margin: 10px 0 5px 0; font-weight: bold; font-size: 12pt; color: #000; letter-spacing: 3px; text-transform: uppercase; font-family: 'Arial', sans-serif;">
-                        APPROVED
+                        <?= $statustext ;?>
                       </div>
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_ack_fin']) ?></small><br>
                       <br>
                       <p style="margin: 0 0 8px 0; font-size: 9pt;">Accounting</p>
                       <div style="text-align: center; margin: 10px 0 5px 0; font-weight: bold; font-size: 12pt; color: #000; letter-spacing: 3px; text-transform: uppercase; font-family: 'Arial', sans-serif;">
-                        APPROVED
+                        <?= $statustext ;?>
                       </div>
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_ack_acc']) ?></small><br>
                       <br>
                       <p style="margin: 0 0 8px 0; font-size: 9pt;">Controlling</p>
                       <div style="text-align: center; margin: 10px 0 5px 0; font-weight: bold; font-size: 12pt; color: #000; letter-spacing: 3px; text-transform: uppercase; font-family: 'Arial', sans-serif;">
-                        APPROVED
+                        <?= $statustext ;?>
                       </div>
                       <!-- <small><strong>Tanggal</strong></small><br> -->
                       <small><?= esc($transaksi['date_ack_ctrl']) ?></small>
@@ -638,7 +636,7 @@
               $(dateInputSelector).val('');
               $(nameInputSelector).val('');
             }
-            
+
           });
         }
 

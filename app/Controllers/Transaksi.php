@@ -332,6 +332,7 @@ class Transaksi extends BaseController
       'created_by'             => user()->email,
       'modified_by'            => user()->email,
       'asset_status_awal'      => $asset['status'],
+      
 
     ]);
 
@@ -356,12 +357,12 @@ class Transaksi extends BaseController
 
       // === 3. Gabung semua email & hapus duplikat ===
       $penerima = array_unique([
-        $emailKabagAsal,
-        $emailKabagTujuan,
-        $emailDireksi,
-        ...$emailsFinance,
-        ...$emailsAccounting,
-        ...$emailsControlling
+        // $emailKabagAsal,
+        // $emailKabagTujuan,
+        // $emailDireksi,
+        // ...$emailsFinance,
+        // ...$emailsAccounting,
+        // ...$emailsControlling
       ]);
 
       // === 4. Kirim email ke semua ===

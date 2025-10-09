@@ -109,11 +109,14 @@
                 <span class="pc-mtext">Vendor</span>
               </a>
             </li>
-            <li class="pc-item">
-              <a href="/users" class="pc-link">
-                <span class="pc-micon"><i class="ti ti-users"></i></span>
-                <span class="pc-mtext">Users</span>
-              </a>
+            <li class="pc-item pc-hasmenu">
+              <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-users"></i></span><span class="pc-mtext">Users</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+              <ul class="pc-submenu">
+                <li class="pc-item"><a class="pc-link" href="/users">List users</a></li>
+                <?php if (in_groups('admin')): ?>
+                  <li class="pc-item"><a class="pc-link" href="/admin/roles">Manage Roles</a></li>
+                <?php endif; ?>
+              </ul>
             </li>
           <?php endif; ?>
           <!-- <li class="pc-item">
