@@ -5,22 +5,25 @@
 <div class="pc-container">
   <div class="pc-content">
     <!-- [ breadcrumb ] start -->
-    <!-- <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Dashboard</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <!-- <li class="breadcrumb-item"><a href="javascript: void(0)">Other</a></li>
-                <li class="breadcrumb-item" aria-current="page">Sample Page</li> 
-              </ul>
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <!-- <li class="breadcrumb-item"><a href="javascript: void(0)">Pages</a></li>
+              <li class="breadcrumb-item" aria-current="page">Tambah Asset</li> -->
+            </ul>
+          </div>
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h2 class="m-b-10">Welcome in, Jayamas Asset Management</h5>
             </div>
+
           </div>
         </div>
-      </div> -->
+      </div>
+    </div>
     <!-- [ breadcrumb ] end -->
 
     <!-- [ Main Content ] start -->
@@ -34,36 +37,34 @@
           <div class="card-body">
           </div>
         </div> -->
-        <h3 class="mb-3">Welcome in, Jayamas Asset Management </h3>
-        <div class="card tbl-card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-xl-4 col-md-12">
-                <div class="card comp-card">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class="col">
-                        <h5 class="m-b-20">Total Asset</h5>
-                        <h3><?= $total_asset; ?></h3>
-                      </div>
-                      <div class="col-auto">
-                        <div class="ti ti-report-money text-primary f-36"></div>
-                      </div>
+        <!-- <h3 class="mb-3">Welcome in, Jayamas Asset Management </h3> -->
+        <div class="card-body tbl-card">
+          <div class="row">
+            <div class="col-xl-4 col-md-12">
+              <div class="card comp-card">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h5 class="m-b-20">Total Asset</h5>
+                      <h3><?= $total_asset; ?></h3>
+                    </div>
+                    <div class="col-auto">
+                      <div class="ti ti-report-money text-primary f-36"></div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-xl-4 col-md-12">
-                <div class="card comp-card">
-                  <div class="card-body">
-                    <div class="row align-items-center">
-                      <div class="col">
-                        <h5 class="m-b-20">Total Transaction</h5>
-                        <h3><?= $total_transaction;?></h3>
-                      </div>
-                      <div class="col-auto">
-                        <div class="ti ti-chart-bar text-success f-36"></div>
-                      </div>
+            </div>
+            <div class="col-xl-4 col-md-12">
+              <div class="card comp-card">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h5 class="m-b-20">Total Transaction</h5>
+                      <h3><?= $total_transaction; ?></h3>
+                    </div>
+                    <div class="col-auto">
+                      <div class="ti ti-chart-bar text-success f-36"></div>
                     </div>
                   </div>
                 </div>

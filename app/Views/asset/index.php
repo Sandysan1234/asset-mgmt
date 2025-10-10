@@ -14,69 +14,85 @@
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
               <li class="breadcrumb-item"><a href="/asset">Asset</a></li>
-              <!-- <li class="breadcrumb-item" aria-current="page">Sample Page</li> 
+              <li class="breadcrumb-item" aria-current="page">Sample Page</li> 
             </ul>
           </div>
         </div>
       </div>
     </div> -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0)">Pages</a></li>
+              <li class="breadcrumb-item" aria-current="page">List Asset</li>
+            </ul>
+          </div>
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h2 class="m-b-10">List Asset</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Asset</h5>
+            <h5 class="mb-0">List Asset</h5>
           </div>
 
-          <div class="card tbl-card">
-            <div class="card-body">
-              <?php if (in_groups('pic')) : ?>
-                <a href="/asset/create" class="btn btn-outline-primary mb-3">Tambah Data Asset</a>
-              <?php endif; ?>
+          <div class="card-body tbl-card">
+            <?php if (in_groups('pic')) : ?>
+              <a href="/asset/create" class="btn btn-outline-primary mb-3">Tambah Data Asset</a>
+            <?php endif; ?>
 
-              <?php if (session()->getFlashdata('pesan')): ?>
-                <div class="alert alert-success mb-3">
-                  <?= session()->getFlashdata('pesan'); ?>
-                </div>
-              <?php endif; ?>
-
-              <div class="table-responsive">
-                <table id="myTable" class="table table-hover table-borderless w-100">
-                  <thead class="bg-light">
-                    <tr class="text-nowrap">
-                      <th>Handle</th>
-                      <th>No</th>
-                      <th>Kategori Asset</th>
-                      <th>No Asset</th>
-                      <th>Sub Asset</th>
-                      <th>Nama Asset</th>
-                      <th>Serial Number</th>
-                      <th>Batch Number</th>
-                      <th>Merek</th>
-                      <th>Spesifikasi</th>
-                      <th>Tanggal Perolehan</th>
-                      <th>Harga</th>
-                      <th>No Purchase Order</th>
-                      <th>Asset Class</th>
-                      <th>Cost Center</th>
-                      <th>Plant</th>
-                      <th>Vendor</th>
-                      <th>Lifetime</th>
-                      <th>Status</th>
-                      <th>PIC</th>
-                      <th>User Asset</th>
-                      <th>Area</th>
-                      <th>Gedung</th>
-                      <th>Lantai</th>
-                      <th>Created At</th>
-                      <th>Updated At</th>
-                      <th>Modified By</th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-nowrap"></tbody> <!-- tbody dikosongkan: DataTables yang isi -->
-                </table>
+            <?php if (session()->getFlashdata('pesan')): ?>
+              <div class="alert alert-success mb-3">
+                <?= session()->getFlashdata('pesan'); ?>
               </div>
+            <?php endif; ?>
 
+            <div class="table-responsive">
+              <table id="myTable" class="table table-hover table-borderless w-100">
+                <thead class="bg-light">
+                  <tr class="text-nowrap">
+                    <th>Handle</th>
+                    <th>No</th>
+                    <th>Kategori Asset</th>
+                    <th>No Asset</th>
+                    <th>Sub Asset</th>
+                    <th>Nama Asset</th>
+                    <th>Serial Number</th>
+                    <th>Batch Number</th>
+                    <th>Merek</th>
+                    <th>Spesifikasi</th>
+                    <th>Tanggal Perolehan</th>
+                    <th>Harga</th>
+                    <th>No Purchase Order</th>
+                    <th>Asset Class</th>
+                    <th>Cost Center</th>
+                    <th>Plant</th>
+                    <th>Vendor</th>
+                    <th>Lifetime</th>
+                    <th>Status</th>
+                    <th>PIC</th>
+                    <th>User Asset</th>
+                    <th>Area</th>
+                    <th>Gedung</th>
+                    <th>Lantai</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Modified By</th>
+                  </tr>
+                </thead>
+                <tbody class="text-nowrap"></tbody> <!-- tbody dikosongkan: DataTables yang isi -->
+              </table>
             </div>
+
           </div>
         </div>
       </div>

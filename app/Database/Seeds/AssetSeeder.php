@@ -11,7 +11,7 @@ class AssetSeeder extends Seeder
     {
         $faker = \Faker\Factory::create('id_ID');
 
-        for ($i=0; $i <10 ; $i++) { 
+        for ($i=0; $i <100 ; $i++) { 
             $data=[
                 'no_asset'          => $faker->regexify('[A-Z]{3}[0-9]{3}'),
                 'sub_asset'         => $faker->regexify('[A-Z]{3}[0-9]{3}'),
@@ -29,8 +29,9 @@ class AssetSeeder extends Seeder
                 'id_cost_center'    => $faker->numberBetween(1, 10),
                 'id_plant'          => $faker->numberBetween(1, 10),
                 'id_lifetime'       => $faker->numberBetween(1, 10),
-                'id_pic'            => $faker->numberBetween(1, 10),
-                'user_asset'        => $faker->firstName($gender = null|'male'|'female'),
+                // 'id_pic'            => $faker->numberBetween(1, 10),
+                'id_pic'            => 4,
+                'user_asset'        => $faker->firstName(),
                 'id_lokasi_area'    => $faker->numberBetween(18, 25),
                 'id_lokasi_gedung'  => $faker->numberBetween(1, 12),
                 'id_lokasi_lantai'  => $faker->numberBetween(13, 17),

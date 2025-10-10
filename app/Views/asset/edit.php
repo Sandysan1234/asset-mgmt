@@ -218,7 +218,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="row mb-3">
                 <label for="" class="col-sm-3 col-form-label">Area</label>
                 <div class="col-sm-6">

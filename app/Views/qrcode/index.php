@@ -2,24 +2,104 @@
 
 <?= $this->section('page-content'); ?>
 <div class="pc-container">
-  <div class="card ">
-    <div class="card-header">
-      <h5>Generate Qr Code</h5>
+
+
+  <div class="pc-content">
+    <!-- [ breadcrumb ] start -->
+    <!-- <div class="page-header">
+        <div class="page-block">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <div class="page-header-title">
+                <h5 class="m-b-10">Sample Page</h5>
+              </div>
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript: void(0)">Other</a></li>
+                <li class="breadcrumb-item" aria-current="page">Sample Page</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    <!-- [ breadcrumb ] end -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0)">Pages</a></li>
+              <li class="breadcrumb-item" aria-current="page">Generate Qr Code</li>
+            </ul>
+          </div>
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h2 class="m-b-10">Generate Qr Code</h5>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card tbl-card">
-      <div class="card-body">
+    <!-- [ Main Content ] start -->
+    <div class="card ">
+      <div class="card-header">
+        <h5>Generate Qr Code</h5>
+      </div>
+      <div class="card-body tbl-card">
         <div class="col-12">
-          <form action="<?= base_url('qr/save') ?>" method="post">
+
+          <form method="post" class="d-print-none row g-3" action="<?= base_url('qr/save') ?>">
             <?= csrf_field() ?>
-            <div class="mb-3 d-print-none">
-              <label for="no_asset" class="form-label">Cari QR berdasarkan Nomor Asset</label>
-              <input type="text" class="form-control" id="no_asset" name="no_asset" placeholder="Masukkan nomor asset">
+            <!-- Filter PIC -->
+            <div class="col-md-4 mb-3">
+              <label>PIC:</label>
+              <select name="id_pic" class="form-control">
+                <option value="">-- Semua PIC --</option>
+                <?php foreach ($picList as $pic): ?>
+                  <option value="<?= $pic->id ?>"><?= esc($pic->username) ?></option>
+                <?php endforeach; ?>
+              </select>
             </div>
-            <div class="mb-3 d-print-none">
-              <label for="jumlah" class="form-label">Atau generate banyak sekaligus</label>
-              <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Misal: 10">
+
+            <!-- Filter Cost Center -->
+            <div class="col-md-4 mb-3">
+              <label>Cost Center:</label>
+              <select name="id_cost_center" class="form-control">
+                <option value="">-- Semua Cost Center --</option>
+                <?php foreach ($costCenterList as $cc): ?>
+                  <option value="<?= $cc['id_cost_center'] ?>">
+                    <?= esc($cc['kode'] ?? $cc['nama_cost_center']) ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
             </div>
-            <button type="submit" class="btn btn-primary ">Generate QR</button>
+
+            <!-- Filter Lokasi -->
+            <div class="col-md-4 mb-3">
+              <label>Plant:</label>
+              <select name="id_plant" class="form-control">
+                <option value="">-- Semua Plant --</option>
+                <?php foreach ($plants as $lok): ?>
+                  <option value="<?= $lok['id_plant'] ?>"><?= esc($lok['nama_plant']) ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+
+            <!-- Jumlah Maksimal -->
+            <div class="mb-3">
+              <label>Jumlah QR (opsional, maks 100):</label>
+              <input type="number" name="limit" class="form-control" min="1" max="100" placeholder="Contoh: 10">
+            </div>
+
+            <!-- Alternatif: input manual no_asset -->
+            <div class="mb-3">
+              <label>Atau masukkan Nomor Asset (pisahkan koma):</label>
+              <input type="text" name="no_asset" class="form-control" placeholder="A001, A002">
+              <button type="submit" class="btn mt-3 btn-primary">Generate QR</button>
+            </div>
+
           </form>
         </div>
         <div class="col-12 mt-3 p-3">
@@ -54,31 +134,7 @@
           </div>
         </div>
       </div>
-
     </div>
-  </div>
-  <div class="pc-content">
-    <!-- [ breadcrumb ] start -->
-    <!-- <div class="page-header">
-        <div class="page-block">
-          <div class="row align-items-center">
-            <div class="col-md-12">
-              <div class="page-header-title">
-                <h5 class="m-b-10">Sample Page</h5>
-              </div>
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
-                <li class="breadcrumb-item"><a href="javascript: void(0)">Other</a></li>
-                <li class="breadcrumb-item" aria-current="page">Sample Page</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div> -->
-    <!-- [ breadcrumb ] end -->
-
-    <!-- [ Main Content ] start -->
-
     <!-- [ sample-page ] end -->
   </div>
   <!-- [ Main Content ] end -->

@@ -17,7 +17,7 @@
           <li class="pc-item">
             <a href="/" class="pc-link">
               <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
-              <span class="pc-mtext">Dashboard</span>
+              <span class="pc-mtext">Home</span>
             </a>
           </li>
 

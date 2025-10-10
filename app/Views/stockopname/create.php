@@ -21,7 +21,25 @@
         </div>
       </div> -->
     <!-- [ breadcrumb ] end -->
+    <div class="page-header">
+      <div class="page-block">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="javascript: void(0)">Pages</a></li>
+              <li class="breadcrumb-item" aria-current="page">Buat Stock Opname</li>
+            </ul>
+          </div>
+          <div class="col-md-12">
+            <div class="page-header-title">
+              <h2 class="m-b-10">Buat Stock Opname </h5>
+            </div>
 
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- [ Main Content ] start -->
     <div class="row">
       <!-- [ sample-page ] start -->
@@ -30,83 +48,80 @@
           <div class="card-header">
             <h5>Stock Opname</h5>
           </div>
-          <div class="card tbl-card">
-            <div class="card-body">
-              <!-- <div class="col-12">
-                <h2>Stock Opname Asset</h2>
-                <p>Scan QR atau masukkan URL asset:</p>
-                <form action="">
-                  <input type="text" id="qrInput" placeholder="https://domain/asset/detail/11" />
-                  <button class="btn btn-primary" id="cekBtn">Cek Asset</button>
-                </form>
+          <div class="card-body tbl-card">
+            <!-- <div class="col-12">
+              <h2>Stock Opname Asset</h2>
+              <p>Scan QR atau masukkan URL asset:</p>
+              <form action="">
+                <input type="text" id="qrInput" placeholder="https://domain/asset/detail/11" />
+                <button class="btn btn-primary" id="cekBtn">Cek Asset</button>
+              </form>
 
-                <div class="col-12">
-                  <div id="result"></div>
-                  <button id="saveBtn" class="btn btn-light-success">Simpan ke Stock Opname</button>
+              <div class="col-12">
+                <div id="result"></div>
+                <button id="saveBtn" class="btn btn-light-success">Simpan ke Stock Opname</button>
 
-                </div>
-              </div> -->
-              <!-- <div class="col-12">
-                <form action="/stockopnamelalalla" method="get">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Masukkan URL Asset" aria-label="Recipient’s username" aria-describedby="button-addon2">
-                    <small class="text-muted">Contoh: <code>/asset/detail/123</code></small>
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
-                  </div>
-                </form>
-
-                disini untuk table listnya lalu bisa disimpan
-              </div> -->
-              <!-- Form Input QR -->
-
-
-              <!-- Tabel List Stock Opname -->
-              <h5>Tanggal: <?= date('d-m-y'); ?></h5>
-              <div class="table-responsive mt-4">
-                <table class="table">
-                  <thead class="table-light">
-                    <tr>
-                      <th>No Asset</th>
-                      <th>Nama Asset</th>
-                      <th>Status Asset</th>
-                    </tr>
-                  </thead>
-                  <tbody id="listTable">
-                    <tr>
-                      <td colspan="3" class="text-center text-muted">List data</td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
-              <form id="formCekAsset">
-                <div class="mb-3">
-                  <label for="qrInput" class="form-label">Scan QR atau Masukkan URL Asset</label>
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      id="qrInput"
-                      class="form-control"
-                      placeholder="https://asset.jmiis.com/asset/detail/1"
-                      aria-label="Masukkan URL asset"
-                      required autofocus>
-                    <button class="btn btn-primary" type="submit" id="button-addon2">
-                      Tambahkan
-                    </button>
-                  </div>
-                  <p class="text-muted mt-1 d-block">Contoh: <code>/asset/detail/123</code> </p>
+            </div> -->
+            <!-- <div class="col-12">
+              <form action="/stockopnamelalalla" method="get">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Masukkan URL Asset" aria-label="Recipient’s username" aria-describedby="button-addon2">
+                  <small class="text-muted">Contoh: <code>/asset/detail/123</code></small>
+                  <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
                 </div>
               </form>
 
-              <!-- Tombol Simpan Semua -->
-              <div class="mt-3 text-end">
-                <button id="saveAllBtn" class="btn btn-success" disabled>
-                  <i class="fas fa-save"></i> Simpan Data
-                </button>
-              </div>
-            </div>
-            <div id="alertToast" class="alert alert-warning alert-fixed d-none"></div>
+              disini untuk table listnya lalu bisa disimpan
+            </div> -->
+            <!-- Form Input QR -->
 
+
+            <!-- Tabel List Stock Opname -->
+            <h5>Tanggal: <?= date('d-m-y'); ?></h5>
+            <div class="table-responsive mt-4">
+              <table class="table">
+                <thead class="table-light">
+                  <tr>
+                    <th>No Asset</th>
+                    <th>Nama Asset</th>
+                    <th>Status Asset</th>
+                  </tr>
+                </thead>
+                <tbody id="listTable">
+                  <tr>
+                    <td colspan="3" class="text-center text-muted">List data</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <form id="formCekAsset">
+              <div class="mb-3">
+                <label for="qrInput" class="form-label">Scan QR atau Masukkan URL Asset</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    id="qrInput"
+                    class="form-control"
+                    placeholder="https://asset.jmiis.com/asset/detail/1"
+                    aria-label="Masukkan URL asset"
+                    required autofocus>
+                  <button class="btn btn-primary" type="submit" id="button-addon2">
+                    Tambahkan
+                  </button>
+                </div>
+                <p class="text-muted mt-1 d-block">Contoh: <code>/asset/detail/123</code> </p>
+              </div>
+            </form>
+
+            <!-- Tombol Simpan Semua -->
+            <div class="mt-3 text-end">
+              <button id="saveAllBtn" class="btn btn-success" disabled>
+                <i class="fas fa-save"></i> Simpan Data
+              </button>
+            </div>
           </div>
+          <div id="alertToast" class="alert alert-warning alert-fixed d-none"></div>
         </div>
       </div>
     </div>
