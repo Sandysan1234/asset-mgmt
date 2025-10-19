@@ -30,12 +30,12 @@
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
               <li class="breadcrumb-item"><a href="javascript: void(0)">Pages</a></li>
-              <li class="breadcrumb-item" aria-current="page">Generate Qr Code</li>
+              <li class="breadcrumb-item" aria-current="page">Generate QR Code</li>
             </ul>
           </div>
           <div class="col-md-12">
             <div class="page-header-title">
-              <h2 class="m-b-10">Generate Qr Code</h5>
+              <h2 class="m-b-10">Generate QR Code</h5>
             </div>
 
           </div>
@@ -45,7 +45,7 @@
     <!-- [ Main Content ] start -->
     <div class="card ">
       <div class="card-header">
-        <h5>Generate Qr Code</h5>
+        <h5>Generate QR Code</h5>
       </div>
       <div class="card-body tbl-card">
         <div class="col-12">

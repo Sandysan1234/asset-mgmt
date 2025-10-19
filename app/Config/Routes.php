@@ -58,12 +58,12 @@ $routes->delete('pemasok/(:num)', 'Pemasok::delete/$1', ['filter' => 'role:admin
 // $routes->get('costcenter/edit/(:segment)', 'Costcenter::edit/$1');
 // $routes->post('costcenter/update/(:any)', 'Costcenter::update/$1');
 
-$routes->get('costcenter', 'Costcenter::index', ['filter' => 'permission:ack_controlling']);
-$routes->get('costcenter/create', 'Costcenter::create', ['filter' => 'permission:ack_controlling']);
-$routes->post('costcenter/save', 'Costcenter::save', ['filter' => 'permission:ack_controlling']);
-$routes->delete('costcenter/(:num)', 'Costcenter::delete/$1', ['filter' => 'permission:ack_controlling']);
-$routes->get('costcenter/edit/(:segment)', 'Costcenter::edit/$1', ['filter' => 'permission:ack_controlling']);
-$routes->post('costcenter/update/(:any)', 'Costcenter::update/$1', ['filter' => 'permission:ack_controlling']);
+$routes->get('costcenter', 'Costcenter::index', ['filter' => 'permission:ttd_controlling']);
+$routes->get('costcenter/create', 'Costcenter::create', ['filter' => 'permission:ttd_controlling']);
+$routes->post('costcenter/save', 'Costcenter::save', ['filter' => 'permission:ttd_controlling']);
+$routes->delete('costcenter/(:num)', 'Costcenter::delete/$1', ['filter' => 'permission:ttd_controlling']);
+$routes->get('costcenter/edit/(:segment)', 'Costcenter::edit/$1', ['filter' => 'permission:ttd_controlling']);
+$routes->post('costcenter/update/(:any)', 'Costcenter::update/$1', ['filter' => 'permission:ttd_controlling']);
 
 
 
@@ -90,12 +90,12 @@ $routes->delete('location/(:num)', 'Location::delete/$1', ['filter' => 'role:adm
 $routes->get('location/edit/(:segment)', 'Location::edit/$1', ['filter' => 'role:admin']);
 $routes->post('location/update/(:any)', 'Location::update/$1', ['filter' => 'role:admin']);
 
-$routes->get('assetclass', 'Assetclass::index', ['filter' => 'role:admin,finance']);
-$routes->get('assetclass/create', 'Assetclass::create', ['filter' => 'role:admin,finance']);
-$routes->post('assetclass/save', 'Assetclass::save', ['filter' => 'role:admin,finance']);
-$routes->delete('assetclass/(:num)', 'Assetclass::delete/$1', ['filter' => 'role:admin,finance']);
-$routes->get('assetclass/edit/(:segment)', 'Assetclass::edit/$1', ['filter' => 'role:admin,finance']);
-$routes->post('assetclass/update/(:any)', 'Assetclass::update/$1', ['filter' => 'role:admin,finance']);
+$routes->get('assetclass', 'Assetclass::index', ['filter' => 'role:admin,finance,finance-manager']);
+$routes->get('assetclass/create', 'Assetclass::create', ['filter' => 'role:admin,finance,finance-manager']);
+$routes->post('assetclass/save', 'Assetclass::save', ['filter' => 'role:admin,finance,finance-manager']);
+$routes->delete('assetclass/(:num)', 'Assetclass::delete/$1', ['filter' => 'role:admin,finance,finance-manager']);
+$routes->get('assetclass/edit/(:segment)', 'Assetclass::edit/$1', ['filter' => 'role:admin,finance,finance-manager']);
+$routes->post('assetclass/update/(:any)', 'Assetclass::update/$1', ['filter' => 'role:admin,finance,finance-manager']);
 
 
 
@@ -123,6 +123,8 @@ $routes->get('transaksi/edit/(:segment)', 'Transaksi::edit/$1', ['filter' => 'ro
 $routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
 $routes->post('transaksi/cancel', 'Transaksi::cancel', ['filter' => 'role:pic,admin']);
 $routes->delete('transaksi/(:num)', 'Transaksi::delete/$1', ['filter' => 'role:pic']);
+$routes->get('transaksi/request-cancel/(:num)', 'Transaksi::requestCancel/$1');
+
 
 // $routes->get('test-email', 'Transaksi::testKirim7Email');
 
@@ -178,4 +180,11 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
 
     $routes->get('roles/edit/(:num)', 'Admin\Roles::edit/$1');
     $routes->post('roles/update/(:num)', 'Admin\Roles::update/$1');
+    
+    $routes->get('users', 'Admin\Users::index');
+    $routes->get('users/create', 'Admin\Users::create');
+    $routes->post('users/store', 'Admin\Users::store');
+    $routes->get('users/edit/(:num)', 'Admin\Users::edit/$1');
+    $routes->post('users/update/(:num)', 'Admin\Users::update/$1');
+    $routes->get('users/delete/(:num)', 'Admin\Users::delete/$1');
 });

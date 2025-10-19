@@ -351,9 +351,9 @@ class Transaksi extends BaseController
       $emailDireksi     = $this->validateAndGetUserEmail($post['nama_direksi'], 'Direksi');
 
       // === 2. Ambil 3 email dari permission (otomatis dari DB) ===
-      $emailsFinance    = $this->getEmailsByPermission('ack_finance');
-      $emailsAccounting = $this->getEmailsByPermission('ack_accounting');
-      $emailsControlling = $this->getEmailsByPermission('ack_controlling');
+      $emailsFinance    = $this->getEmailsByPermission('ttd_finance');
+      $emailsAccounting = $this->getEmailsByPermission('ttd_accounting');
+      $emailsControlling = $this->getEmailsByPermission('ttd_controlling');
 
       // === 3. Gabung semua email & hapus duplikat ===
       $penerima = array_unique([
@@ -662,68 +662,170 @@ class Transaksi extends BaseController
 
     return redirect()->to('/transaksi');
   }
-
+// disini=============================
   //======================================cancel==========
-  public function cancel()
-  {
-    $id = $this->request->getPost('id_transaksi');
-    $catatan = $this->request->getPost('catatan_pembatalan');
-
-    if (!$id) {
-      return redirect()->back()->with('error', 'ID transaksi tidak ditemukan.');
+  // Ajukan pembatalan oleh PIC
+public function requestCancel($id)
+{
+    if (!in_groups('pic')) {
+        return redirect()->back()->with('error', 'Hanya PIC yang bisa mengajukan pembatalan.');
     }
 
     $transaksi = $this->transactionModel->find($id);
-    if (!$transaksi) {
-      return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
-    }
-
-    if ($transaksi['status'] == '3') {
-      return redirect()->back()->with('error', 'Transaksi sudah dibatalkan.');
+    if (!$transaksi) { 
+        return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
     }
 
     if ($transaksi['status'] != '2') {
-      return redirect()->back()->with('error', 'Hanya transaksi yang sudah selesai bisa dibatalkan.');
+        return redirect()->back()->with('error', 'Hanya transaksi selesai yang bisa diajukan pembatalan.');
     }
 
-    $assetModel = new AssetModel();
-    $idAsset = $transaksi['id_asset'];
-
-    // 🔍 Ambil data aset SAAT INI (ini adalah "nilai lama" untuk log)
-    $dataLama = $assetModel->find($idAsset);
-    if (!$dataLama) {
-      return redirect()->back()->with('error', 'Aset tidak ditemukan.');
+    if ($transaksi['pic_cancel_requested']) {
+        return redirect()->back()->with('error', 'Pembatalan sudah diajukan sebelumnya.');
     }
 
-    // Siapkan data yang akan dikembalikan (nilai baru setelah cancel)
-    if ($transaksi['transaksi'] == '3') {
-      $dataBaru = [
-        'id_plant'         => $transaksi['id_plant_asal'],
-        'id_cost_center'   => $transaksi['id_cost_center_asal'],
-      ];
-    } else {
-      $dataBaru = [
-        'status' => $transaksi['asset_status_awal'],
-      ];
-    }
-
-    // 🔁 Lakukan update ke aset
-    $assetModel->update($idAsset, $dataBaru);
-
-    // 🔥 LOG PERUBAHAN SAAT PEMBATALAN
-    $this->logAssetChangeOnCancel($idAsset, $dataBaru, $dataLama);
-
-    // 🚫 Batalkan transaksi
     $this->transactionModel->update($id, [
-      'status'                => '3',
-      'dibatalkan_oleh'       => user_id(),
-      'dibatalkan_at'         => date('Y-m-d H:i:s'),
-      'catatan_pembatalan'    => $catatan,
+        'pic_cancel_requested' => 1,
+        'pic_cancel_at'        => date('Y-m-d H:i:s')
     ]);
 
-    session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Status aset dikembalikan ke kondisi sebelumnya.');
-    return redirect()->to('/transaksi');
+    return redirect()->back()->with('pesan', 'Permintaan pembatalan berhasil diajukan ke Finance.');
+}
+
+// Eksekusi pembatalan oleh Finance (via modal)
+  public function cancel()
+  {
+      $id = $this->request->getPost('id_transaksi');
+      $catatan = trim($this->request->getPost('catatan_pembatalan'));
+
+      if (!$id) {
+          return redirect()->back()->with('error', 'ID transaksi tidak ditemukan.');
+      }
+
+      $transaksi = $this->transactionModel->find($id);
+      if (!$transaksi) {
+          return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
+      }
+
+      // 🔒 Validasi: hanya Finance yang boleh
+      if (!has_permission('ttd_finance')) {
+          return redirect()->back()->with('error', 'Hanya Finance yang bisa membatalkan transaksi.');
+      }
+
+      // 🔒 Validasi: hanya transaksi selesai
+      if ($transaksi['status'] != '2') {
+          return redirect()->back()->with('error', 'Hanya transaksi selesai yang bisa dibatalkan.');
+      }
+
+      // 🔒 Validasi: PIC harus sudah ajukan
+      if (!$transaksi['pic_cancel_requested']) {
+          return redirect()->back()->with('error', 'PIC belum mengajukan permintaan pembatalan.');
+      }
+
+      // 🔒 Validasi: catatan wajib
+      if (empty($catatan)) {
+          return redirect()->back()->with('error', 'Catatan pembatalan wajib diisi.');
+      }
+
+      // --- ROLLBACK ASET ---
+      $assetModel = new \App\Models\AssetModel();
+      $idAsset = $transaksi['id_asset'];
+      $dataLama = $assetModel->find($idAsset);
+
+      if (!$dataLama) {
+          return redirect()->back()->with('error', 'Aset tidak ditemukan.');
+      }
+
+      // Siapkan data rollback
+      if ($transaksi['transaksi'] == '3') { // misal: mutasi
+          $dataBaru = [
+              'id_plant'         => $transaksi['id_plant_asal'],
+              'id_cost_center'   => $transaksi['id_cost_center_asal'],
+          ];
+      } else {
+          $dataBaru = [
+              'status' => $transaksi['asset_status_awal'],
+          ];
+      }
+
+      // Update aset
+      $assetModel->update($idAsset, $dataBaru);
+
+      // Log perubahan (opsional)
+      // $this->logAssetChangeOnCancel($idAsset, $dataBaru, $dataLama);
+
+      // Update transaksi jadi dibatalkan
+      $this->transactionModel->update($id, [
+          'status'                => '3',
+          'dibatalkan_oleh'       => user_id(),
+          'dibatalkan_at'         => date('Y-m-d H:i:s'),
+          'catatan_pembatalan'    => $catatan,
+      ]);
+
+      return redirect()->to('/transaksi')->with('pesan', 'Transaksi berhasil dibatalkan. Status aset dikembalikan.');
   }
+
+
+  // public function cancel()
+  // {
+  //   $id = $this->request->getPost('id_transaksi');
+  //   $catatan = $this->request->getPost('catatan_pembatalan');
+
+  //   if (!$id) {
+  //     return redirect()->back()->with('error', 'ID transaksi tidak ditemukan.');
+  //   }
+
+  //   $transaksi = $this->transactionModel->find($id);
+  //   if (!$transaksi) {
+  //     return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
+  //   }
+
+  //   if ($transaksi['status'] == '3') {
+  //     return redirect()->back()->with('error', 'Transaksi sudah dibatalkan.');
+  //   }
+
+  //   if ($transaksi['status'] != '2') {
+  //     return redirect()->back()->with('error', 'Hanya transaksi yang sudah selesai bisa dibatalkan.');
+  //   }
+
+  //   $assetModel = new AssetModel();
+  //   $idAsset = $transaksi['id_asset'];
+
+  //   // 🔍 Ambil data aset SAAT INI (ini adalah "nilai lama" untuk log)
+  //   $dataLama = $assetModel->find($idAsset);
+  //   if (!$dataLama) {
+  //     return redirect()->back()->with('error', 'Aset tidak ditemukan.');
+  //   }
+
+  //   // Siapkan data yang akan dikembalikan (nilai baru setelah cancel)
+  //   if ($transaksi['transaksi'] == '3') {
+  //     $dataBaru = [
+  //       'id_plant'         => $transaksi['id_plant_asal'],
+  //       'id_cost_center'   => $transaksi['id_cost_center_asal'],
+  //     ];
+  //   } else {
+  //     $dataBaru = [
+  //       'status' => $transaksi['asset_status_awal'],
+  //     ];
+  //   }
+
+  //   // 🔁 Lakukan update ke aset
+  //   $assetModel->update($idAsset, $dataBaru);
+
+  //   // 🔥 LOG PERUBAHAN SAAT PEMBATALAN
+  //   $this->logAssetChangeOnCancel($idAsset, $dataBaru, $dataLama);
+
+  //   // 🚫 Batalkan transaksi
+  //   $this->transactionModel->update($id, [
+  //     'status'                => '3',
+  //     'dibatalkan_oleh'       => user_id(),
+  //     'dibatalkan_at'         => date('Y-m-d H:i:s'),
+  //     'catatan_pembatalan'    => $catatan,
+  //   ]);
+
+  //   session()->setFlashdata('pesan', 'Transaksi berhasil dibatalkan. Status aset dikembalikan ke kondisi sebelumnya.');
+  //   return redirect()->to('/transaksi');
+  // }
 
   public function delete($id)
   {

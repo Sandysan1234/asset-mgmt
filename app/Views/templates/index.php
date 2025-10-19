@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.bootstrap5.min.css">
 
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <?= $this->renderSection('styles'); ?>
 
 
 
@@ -113,8 +114,38 @@
     $(document).ready(function() {
       $('#myTable-client').DataTable({
         dom: 'Bfrtipl',
-        buttons: [
-          'copy', 'csv', 'excel', 'pdf', 'print',
+        // buttons: [
+        //   'copy', 'csv', 'excel', 'pdf', 'print',
+        //   {
+        //     extend: 'colvis',
+        //     text: 'Column Visibility'
+        //   }
+        // ],
+        buttons: [{
+            extend: 'copy',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'csv',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'excel',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'pdf',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          'print',
           {
             extend: 'colvis',
             text: 'Column Visibility'
@@ -124,7 +155,7 @@
       });
     });
   </script>
-  <!-- <script>
+  <script>
     // Disable right-click
     document.addEventListener('contextmenu', (e) => e.preventDefault());
 
@@ -140,10 +171,11 @@
         ctrlShiftKey(e, 'J') ||
         ctrlShiftKey(e, 'C') ||
         (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
+
       )
         return false;
     };
-  </script> -->
+  </script>
 
   <?= $this->renderSection('scripts-extra'); ?>
 

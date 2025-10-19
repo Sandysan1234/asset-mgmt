@@ -9,14 +9,17 @@ class AuthGroupsUsers extends Seeder
     public function run()
     {
         $data = [
-
             [
                 'group_id' => '1',
                 'user_id' => '1'
             ],
             [
                 'group_id' => '1',
-                'user_id' => '3'
+                'user_id' => '4'
+            ],
+            [
+                'group_id' => '1',
+                'user_id' => '9'
             ],
             [
                 'group_id' => '1',
@@ -24,15 +27,24 @@ class AuthGroupsUsers extends Seeder
             ],
             [
                 'group_id' => '1',
-                'user_id' => '26'
+                'user_id' => '11'
             ],
             [
                 'group_id' => '1',
-                'user_id' => '4'
+                'user_id' => '13'
             ],
+            [
+                'group_id' => '1',
+                'user_id' => '26'
+            ],
+            
             [
                 'group_id' => '2',
                 'user_id' => '1'
+            ],
+            [
+                'group_id' => '2',
+                'user_id' => '2'
             ],
             [
                 'group_id' => '2',
@@ -44,7 +56,27 @@ class AuthGroupsUsers extends Seeder
             ],
             [
                 'group_id' => '2',
+                'user_id' => '5'
+            ],
+            [
+                'group_id' => '2',
+                'user_id' => '6'
+            ],
+            [
+                'group_id' => '2',
+                'user_id' => '7'
+            ],
+            [
+                'group_id' => '2',
                 'user_id' => '8'
+            ],
+            [
+                'group_id' => '2',
+                'user_id' => '12'
+            ],
+            [
+                'group_id' => '2',
+                'user_id' => '14'
             ],
             [
                 'group_id' => '3',
@@ -75,6 +107,14 @@ class AuthGroupsUsers extends Seeder
                 'user_id' => '23'
             ],
             [
+                'group_id' => '3',
+                'user_id' => '33'
+            ],
+            [
+                'group_id' => '3',
+                'user_id' => '35'
+            ],
+            [
                 'group_id' => '4',
                 'user_id' => '16'
             ],
@@ -84,11 +124,55 @@ class AuthGroupsUsers extends Seeder
             ],
             [
                 'group_id' => '4',
+                'user_id' => '25'
+            ],
+            [
+                'group_id' => '4',
                 'user_id' => '31'
             ],
             [
                 'group_id' => '4',
                 'user_id' => '32'
+            ],
+            [
+                'group_id' => '5',
+                'user_id' => '18'
+            ],
+            [
+                'group_id' => '5',
+                'user_id' => '19'
+            ],
+            [
+                'group_id' => '6',
+                'user_id' => '3'
+            ],
+            [
+                'group_id' => '6',
+                'user_id' => '27'
+            ],
+            [
+                'group_id' => '6',
+                'user_id' => '28'
+            ],
+            [
+                'group_id' => '7',
+                'user_id' => '3'
+            ],
+            [
+                'group_id' => '8',
+                'user_id' => '21'
+            ],
+            [
+                'group_id' => '9',
+                'user_id' => '22'
+            ],
+            [
+                'group_id' => '9',
+                'user_id' => '23'
+            ],
+            [
+                'group_id' => '10',
+                'user_id' => '17'
             ],
 
         ];

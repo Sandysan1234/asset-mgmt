@@ -2,14 +2,14 @@
 
 <?= $this->section('content'); ?>
 <div class="auth-header">
-  <!-- <a href="#"><img src="?= base_url(); ?>/assets/images/logo-dark.svg" alt="img"></a> -->
+  <a class="" href="#"><img width="30%" src="<?= base_url(); ?>/assets/images/logo-jmi.svg" alt="img"></a>
 </div>
 <div class="card my-5">
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-end mb-4">
       <h3 class="mb-0"><b><?= lang('Auth.loginTitle') ?></b></h3>
       <?php if ($config->allowRegistration) : ?>
-        <p><a href="<?= url_to('register') ?>"><?= lang('Auth.needAnAccount') ?></a></p>
+        <!-- <p><a href="?= url_to('register') ?>">?= lang('Auth.needAnAccount') ?></a></p> -->
       <?php endif; ?>
     </div>
     <?= view('Myth\Auth\Views\_message_block') ?>
@@ -61,7 +61,7 @@
     </div>
     <hr>
     <div class="d-grid mt-4">
-      <button type="submit" class="btn btn-success"><a href="https://jmiis.com/" class="text-white">Kembali ke JMIIS Home</a></button>
+      <button type="submit" class="btn btn-secondary"><a href="https://jmiis.com/" class="text-white">Kembali ke JMIIS Home</a></button>
     </div>
 
   </div>

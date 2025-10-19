@@ -27,8 +27,8 @@ class CreateUsers extends Seeder
 			],
 			[
 				'email'         => 'santi@example.com',
-				'username'      => 'santi',
-				'fullname'      => 'santi',
+				'username'      => 'shanti',
+				'fullname'      => 'Shanti Rachimiwati',
 				'password_hash' => Password::hash('Jayamas2025'), // password di-hash
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -38,7 +38,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'fa2.jmi@onemed.co.id',
 				'username'      => 'nazilla',
-				'fullname'      => null,
+				'fullname'      => 'Nazilla Deva',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -49,7 +49,7 @@ class CreateUsers extends Seeder
 				'email'         => 'afif.nuzia@onemed.co.id',
 				'username'      => 'afif',
 				'password_hash' => Password::hash('Jayamas2025'),
-				'fullname'      => null,
+				'fullname'      => 'Afif Nuzia A',
 				'active'        => 1,
 				'force_pass_reset' => 0,
 				'created_at'    => Time::now(),
@@ -58,7 +58,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'ayunda@example.com',
 				'username'      => 'ayunda',
-				'fullname'      => null,
+				'fullname'      => 'Ayunda Nevy',
 				'password_hash' => Password::hash('Jayamas2025'), // password di-hash
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -68,7 +68,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'baktiar@example.com',
 				'username'      => 'baktiar',
-				'fullname'      => null,
+				'fullname'      => 'Ahmad Baktiar Kris Aziz',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -78,7 +78,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'annisa@example.com',
 				'username'      => 'annisa',
-				'fullname'      => null,
+				'fullname'      => 'Annisa Sahara',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -88,7 +88,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'sasa@example.com',
 				'username'      => 'sasa',
-				'fullname'      => null,
+				'fullname'      => 'Salsabila',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -98,7 +98,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'sap.care@onemed.co.id',
 				'username'      => 'okmah',
-				'fullname'      => null,
+				'fullname'      => 'Okmah Indah M',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -108,7 +108,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'it.jmi@onemed.co.id',
 				'username'      => 'ferdy',
-				'fullname'      => null,
+				'fullname'      => 'Ferdy Agung',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -118,7 +118,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'dian@example.com',
 				'username'      => 'dian',
-				'fullname'      => null,
+				'fullname'      => 'Dian Rizky W',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -128,7 +128,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'rinda@example.com',
 				'username'      => 'rinda',
-				'fullname'      => null,
+				'fullname'      => 'Rindha Dhea Rosalia',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -138,7 +138,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'it3.jmi@onemed.co.id',
 				'username'      => 'hazmi',
-				'fullname'      => null,
+				'fullname'      => 'M. Hazmi',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -148,7 +148,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'iswatun@example.com',
 				'username'      => 'iswatun',
-				'fullname'      => null,
+				'fullname'      => 'Iswatun Chasanah',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -158,7 +158,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'QC nia.qc@onemed.co.id',
 				'username'      => 'nia',
-				'fullname'      => null,
+				'fullname'      => 'Nia Wahyu Distyarini',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -168,7 +168,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'dwiky@example.com',
 				'username'      => 'dwiky',
-				'fullname'      => null,
+				'fullname'      => 'Ainur Dwiky',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -178,7 +178,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'anna_pajak@onemed.co.id',
 				'username'      => 'ana',
-				'fullname'      => null,
+				'fullname'      => 'Ana Pratiwi',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -188,7 +188,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'retno@example.com',
 				'username'      => 'retno',
-				'fullname'      => null,
+				'fullname'      => 'Retnowati',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -198,7 +198,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'co.2000.jmi@onemed.co.id',
 				'username'      => 'ariesta',
-				'fullname'      => null,
+				'fullname'      => 'Ariesta Maharani W',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -208,7 +208,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'sony@example.com',
 				'username'      => 'sony',
-				'fullname'      => null,
+				'fullname'      => 'Sony Raharjo',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -218,7 +218,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'herlien@example.com',
 				'username'      => 'herlien',
-				'fullname'      => null,
+				'fullname'      => 'Herlien Sri A',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -228,7 +228,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'mgr.prodkrian@onemed.co.id',
 				'username'      => 'sudar',
-				'fullname'      => 'Sudar Wiyono',
+				'fullname'      => 'Sudarwiyono',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -238,7 +238,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'riza.jmi@onemed.co.id',
 				'username'      => 'riza',
-				'fullname'      => null,
+				'fullname'      => 'Riza Hasyim',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -248,7 +248,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'ka.injection@onemed.co.id',
 				'username'      => 'apit',
-				'fullname'      => null,
+				'fullname'      => 'Apit Agus Saputra',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -258,7 +258,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'produksi.assembling@onemed.co.id',
 				'username'      => 'hanif',
-				'fullname'      => null,
+				'fullname'      => 'Achmad Hanif Arianto',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -268,7 +268,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'mervin@onemed.co.id',
 				'username'      => 'mervin',
-				'fullname'      => null,
+				'fullname'      => 'Mervin Jordan J',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -278,7 +278,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'yeni@example.com',
 				'username'      => 'yeni',
-				'fullname'      => null,
+				'fullname'      => 'Yeni Noviyanti',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -288,7 +288,7 @@ class CreateUsers extends Seeder
 			[
 				'email'         => 'fa1.jmi@onemed.co.id',
 				'username'      => 'haida',
-				'fullname'      => null,
+				'fullname'      => 'Nur Haida Hafni',
 				'password_hash' => Password::hash('Jayamas2025'),
 				'active'        => 1,
 				'force_pass_reset' => 0,
@@ -355,9 +355,46 @@ class CreateUsers extends Seeder
 				'created_at'    => Time::now(),
 				'updated_at'    => Time::now()
 			],
-			
-			
-
+			[
+				'email'         => 'nanang@example.com',
+				'username'      => 'nanang',
+				'fullname'      => 'Nanang Purwantoko',
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'erif@example.com',
+				'username'      => 'erif',
+				'fullname'      => 'Erif Yudiono',
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'satiyo@example.com',
+				'username'      => 'satiyo',
+				'fullname'      => 'Satiyo',
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
+			[
+				'email'         => 'joko@example.com',
+				'username'      => 'joko',
+				'fullname'      => 'Joko Sugiyanto',
+				'password_hash' => Password::hash('Jayamas2025'),
+				'active'        => 1,
+				'force_pass_reset' => 0,
+				'created_at'    => Time::now(),
+				'updated_at'    => Time::now()
+			],
 		];
 		$this->db->table('users')->insertBatch($data);
 	}

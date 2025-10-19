@@ -268,7 +268,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_fin" name="ack_fin" <?= has_permission('ack_finance') ? '' : 'disabled' ?>>
+                            id="ack_fin" name="ack_fin" <?= has_permission('ttd_finance') ? '' : 'disabled' ?>>
                           <label class="form-check-label" for="ack_fin"> Manager Finance</label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -284,7 +284,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_acc" name="ack_acc" <?= has_permission('ack_accounting') ? '' : 'disabled' ?>>
+                            id="ack_acc" name="ack_acc" <?= has_permission('ttd_accounting') ? '' : 'disabled' ?>>
                           <label class="form-check-label" for="ack_acc"> Accounting </label>
                         </div>
                         <input type="datetime-local" class="form-control"
@@ -300,7 +300,7 @@
                         <h6>Mengetahui</h6>
                         <div class="form-check form-switch custom-switch-v1 my-3">
                           <input class="form-check-input" type="checkbox" role="switch"
-                            id="ack_ctrl" name="ack_ctrl" <?= has_permission('ack_controlling') ? '' : 'disabled' ?>>
+                            id="ack_ctrl" name="ack_ctrl" <?= has_permission('ttd_controlling') ? '' : 'disabled' ?>>
                           <label class="form-check-label" for="ack_ctrl"> Controlling </label>
                         </div>
                         <input type="datetime-local" class="form-control"

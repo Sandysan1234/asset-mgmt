@@ -109,6 +109,10 @@
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script> -->
 
 <script>
+  // Kirim permission ke JS
+  window.canEditAsset = <?= in_groups(['admin', 'pic']) ? 'true' : 'false' ?>;
+</script>
+<script>
   $(function() {
     // mapping status -> badge
     const statusMap = {
@@ -172,8 +176,31 @@
         [2, 'asc']
       ], // default urut berdasarkan No Asset
       dom: 'Bfrtipl',
-      buttons: [
-        'copy', 'csv', 'excel', 'pdf', 'print',
+      buttons: [{
+          extend: 'copy',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+        {
+          extend: 'csv',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+        {
+          extend: 'excel',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+        {
+          extend: 'pdf',
+          exportOptions: {
+            columns: ':visible'
+          }
+        },
+        'print',
         {
           extend: 'colvis',
           text: 'Column Visibility'
@@ -186,13 +213,19 @@
           orderable: false,
           searchable: true,
           render: function(id, type, row) {
-            const assetId = row.id_asset;
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            return `
-            <a href="/asset/detail/${id}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-file-search"></i></a>
-            <a href="/asset/edit/${id}" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-edit"></i></a>
-            `;
+            let html = `<a href="/asset/detail/${id}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-file-search"></i></a>`
+            if (window.canEditAsset) {
+              html += `<a href="/asset/edit/${id}" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-edit"></i></a>`
+            }
+            return html;
+            // const assetId = row.id_asset;
+            // const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            // return `
+            // <a href="/asset/detail/${id}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-file-search"></i></a>
+            // <a href="/asset/edit/${id}" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-edit"></i></a>
+            // `;
             // <a href="/asset/perbaikan/${id}" class="btn btn-icon btn-light-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Repair"><i class="ti ti-tool"></i></a>
+
           }
         },
         // No (nomor urut)

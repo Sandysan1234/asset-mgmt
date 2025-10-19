@@ -127,14 +127,25 @@ class Roles extends BaseController
     public function deleteRole($id)
     {
 
-        $usersInGroup = $this->groupModel->getGroupsForUser($id);
-        if (!empty($usersInGroup)) {
-            return redirect()->back()->with('error', 'Tidak bisa hapus role yang masih digunakan.');
+        $usersInGroup = $this->groupModel->getUsersForGroup((int) $id);
+
+        // Hanya anggap "ada user" jika user_id TIDAK NULL
+        $hasRealUser = false;
+        foreach ($usersInGroup as $row) {
+            if (!empty($row['user_id'])) {
+                $hasRealUser = true;
+                break;
+            }
         }
 
+        if ($hasRealUser) {
+            return redirect()->back()->with('error', 'Tidak bisa hapus role yang masih digunakan.');
+        }
         $this->groupModel->delete($id);
         return redirect()->to('/admin/roles')->with('message', 'Role dihapus.');
     }
+
+
     // Tampilkan form edit
     public function edit($id)
     {
@@ -145,7 +156,7 @@ class Roles extends BaseController
 
         return view('admin/roles/edit', [
             'role' => $role,
-            'title'=> "Edit Roles | Jayamas Management Asset"
+            'title' => "Edit Roles | Jayamas Management Asset"
         ]);
     }
 

@@ -42,7 +42,9 @@ class TransactionModel extends Model
         'created_by',
         'dibatalkan_oleh',
         'dibatalkan_at',
-        'catatan_pembatalan'
+        'catatan_pembatalan',
+        'pic_cancel_requested',
+        'pic_cancel_at',
 
     ];
 

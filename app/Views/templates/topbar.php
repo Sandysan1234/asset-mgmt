@@ -143,7 +143,7 @@ use App\Database\Seeds\AuthGroups;
                 </div>
                 <div class="flex-grow-1 ms-3">
                   <h6 class="mb-1 text-capitalize"><?= user()->username; ?></h6>
-                  <span class="text-capitalize"><?= implode(', ', user()->getRoles()); ?></span>
+                  <span class="text-capitalize text-wrap"><?= implode(', ', user()->getRoles()); ?></span>
                 </div>
                 <a href="<?= base_url('logout'); ?>" class="pc-head-link bg-transparent"><i class="ti ti-power text-danger"></i></a>
               </div>

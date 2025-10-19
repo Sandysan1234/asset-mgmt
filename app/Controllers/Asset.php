@@ -141,6 +141,7 @@ class Asset extends BaseController
   public function save()
   {
     $data = $this->request->getPost();
+    
 
     // dd($data);
     if (!$this->validateData($data, [
@@ -268,13 +269,13 @@ class Asset extends BaseController
       //     'required'          => 'Pilih {field} yang sesuai'
       //   ]
       // ],
-      'id_pic' => [
-        'label'               => 'PIC',
-        'rules'               => 'required',
-        'errors'              => [
-          'required'          => 'Pilih {field} yang sesuai'
-        ]
-      ],
+      // 'id_pic' => [
+      //   'label'               => 'PIC',
+      //   'rules'               => 'required',
+      //   'errors'              => [
+      //     'required'          => 'Pilih {field} yang sesuai'
+      //   ]
+      // ],
       // 'id_user_asset' => [
       //   'label'               => 'User Asset',
       //   'rules'               => 'required',
@@ -334,7 +335,7 @@ class Asset extends BaseController
       'id_lokasi_area'   => $this->request->getPost('id_lokasi_area'),
       'id_lokasi_gedung' => $this->request->getPost('id_lokasi_gedung'),
       'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai'),
-      'id_pic'           => $this->request->getPost('id_pic'),
+      'id_pic'           => user_id(),
       'user_asset'       => $this->request->getPost('user_asset') ?: null,
       'status'           => $this->request->getPost('status') ?: 5,
       'modified_by'      => user_id(),
@@ -543,7 +544,7 @@ class Asset extends BaseController
       'id_lokasi_area'   => $this->request->getPost('id_lokasi_area'),
       'id_lokasi_gedung' => $this->request->getPost('id_lokasi_gedung'),
       'id_lokasi_lantai' => $this->request->getPost('id_lokasi_lantai'),
-      'id_pic'           => $this->request->getPost('id_pic'),
+      // 'id_pic'           => $this->request->getPost('id_pic'),
       'id_plant'        => $existing['id_plant'],
       'user_asset'       => $this->request->getPost('user_asset') ?: null,
       'modified_by'      => user_id(),

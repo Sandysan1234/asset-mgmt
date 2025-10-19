@@ -67,15 +67,15 @@ class AuthPermission extends Seeder
                 'description' => 'Menyetujui oleh Direksi'
             ],
             [
-                'name' => 'ack_finance',
+                'name' => 'ttd_finance',
                 'description' => 'Finance Manager Acknowledge'
             ],
             [
-                'name' => 'ack_accounting',
+                'name' => 'ttd_accounting',
                 'description' => 'Accounting Acknowledge'
             ],
             [
-                'name' => 'ack_controlling',
+                'name' => 'ttd_controlling',
                 'description' => 'Controlling Acknowledge'
             ],
             [

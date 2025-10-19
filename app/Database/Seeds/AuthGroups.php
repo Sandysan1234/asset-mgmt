@@ -29,6 +29,26 @@ class AuthGroups extends Seeder
         'name'   => 'user',
         'description'  => 'Regular user',
       ],
+      [
+        'name'   => 'finance',
+        'description'  => 'assetclass,ttd, list asset',
+      ],
+      [
+        'name'   => 'pic-accounting',
+        'description'  => 'pic dan ttd accounting',
+      ],
+      [
+        'name'   => 'direksi',
+        'description'  => 'ttd direksi',
+      ],
+      [
+        'name'   => 'plant-manager',
+        'description'  => 'ttd plant manager',
+      ],
+      [
+        'name'   => 'finance-manager',
+        'description'  => 'list asset, ttd finance, crud assetclass',
+      ],
 
     ];
     $this->db->table('auth_groups')->insertBatch($data);

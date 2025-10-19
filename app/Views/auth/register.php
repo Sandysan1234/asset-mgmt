@@ -3,7 +3,7 @@
 <?= $this->section('content'); ?>
 
 <div class="auth-header">
-	<!-- <a href="#"><img src="../assets/images/logo-dark.svg" alt="img"></a> -->
+	<a href="#"><img width="30%" src="../assets/images/logo-jmi.svg" alt="img"></a>
 </div>
 <div class="card my-5">
 	<div class="card-body">

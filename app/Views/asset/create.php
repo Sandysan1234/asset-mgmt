@@ -40,7 +40,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="kategori_asset" class="form-label">Kategori Asset</label>
-                  <select name="kategori_asset" class="form-select <?= validation_show_error('kategori_asset') ? 'is-invalid' : ''; ?>" aria-label="Pilih kategori asset">
+                  <select name="kategori_asset" class="form-select <?= validation_show_error('kategori_asset') ? 'is-invalid' : ''; ?>" aria-label="Pilih kategori asset" required>
                     <option value="" disabled <?= old('kategori_asset') === null ? 'selected' : ''; ?>>Pilih yang sesuai</option>
                     <option value="asset" <?= old('kategori_asset') == 'asset' ? 'selected' : ''; ?>>Asset</option>
                     <option value="non" <?= old('kategori_asset') == 'non' ? 'selected' : ''; ?>>Non-Asset</option>
@@ -53,7 +53,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="" class="form-label">Asset Class</label>
-                  <select name="id_assetclass" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example">
+                  <select name="id_assetclass" class="form-select col-sm-6 <?= (validation_show_error('id_assetclass')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" required>
                     <option selected disabled>Pilih yang sesuai</option>
                     <?php foreach ($assetclass as $as) : ?>
                       <option value="<?= $as['id_assetclass']; ?>" <?= old('id_assetclass') == $as['id_assetclass'] ? 'selected' : ''; ?>>
@@ -68,12 +68,10 @@
               </div>
 
 
-
-
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="no_asset" class="form-label">No Asset</label>
-                  <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" autofocus value="<?= old('no_asset'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" value="<?= old('no_asset'); ?>" required>
                   <div class="invalid-feedback">
                     <?= validation_show_error('no_asset'); ?>
                   </div>
@@ -91,7 +89,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="nama_asset" class="form-label">Nama Asset</label>
-                  <input type="text" class="form-control <?= (validation_show_error('nama_asset')) ? 'is-invalid' : ''; ?>" id="nama_asset" name="nama_asset" value="<?= old('nama_asset'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('nama_asset')) ? 'is-invalid' : ''; ?>" id="nama_asset" name="nama_asset" value="<?= old('nama_asset'); ?>" required>
                   <div class="invalid-feedback">
                     <?= validation_show_error('nama_asset'); ?>
                   </div>
@@ -136,7 +134,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="tgl_perolehan" class="form-label">Tanggal Perolehan</label>
-                  <input type="datetime-local" class="form-control <?= (validation_show_error('tgl_perolehan')) ? 'is-invalid' : ''; ?>" id="tgl_perolehan" name="tgl_perolehan" value="<?= old('tgl_perolehan'); ?>">
+                  <input type="datetime-local" class="form-control <?= (validation_show_error('tgl_perolehan')) ? 'is-invalid' : ''; ?>" id="tgl_perolehan" name="tgl_perolehan" value="<?= old('tgl_perolehan'); ?>" required>
                   <div class="invalid-feedback">
                     <?= validation_show_error('tgl_perolehan'); ?>
                   </div>
@@ -192,20 +190,11 @@
                   </div>
                 </div>
               </div>
+
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="" class="form-label">PIC</label>
-                  <select name="id_pic" id="id_pic" class="form-select col-sm-6 <?= (validation_show_error('id_pic')) ? 'is-invalid' : ''; ?>" aria-label="Default select example" required>
-                    <option selected disabled>Pilih yang sesuai</option>
-                    <?php foreach ($pic_users as $user): ?>
-                      <option value="<?= $user->id ?>" <?= old('id_pic') == $user->id ? 'selected' : ''; ?>>
-                        <?= esc($user->fullname ?? $user->username) ?>
-                        <?php if (!empty($user->email)): ?>
-                          (<?= esc($user->email) ?>)
-                        <?php endif ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
+                  <label for="id_pic" class="form-label">PIC</label>
+                  <input type="text" class="form-control <?= (validation_show_error('id_pic')) ? 'is-invalid' : ''; ?>" id="id_pic" name="id_pic" disabled value="<?= !empty(user()->fullname) ? user()->fullname : user()->email; ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('id_pic'); ?>
                   </div>

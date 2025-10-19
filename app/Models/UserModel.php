@@ -17,7 +17,7 @@ class UserModel extends Model
     protected $table          = 'users';
     protected $primaryKey     = 'id';
     protected $returnType     = 'App\Entities\User';
-    // protected $returnType     = 'array';
+    // protected $returnType     = 'object';
     protected $useSoftDeletes = true;
     protected $allowedFields  = [
         'email',
@@ -33,14 +33,16 @@ class UserModel extends Model
         'force_pass_reset',
         'permissions',
         'deleted_at',
+        'fullname',
         'active_login', // <-- INI!
     ];
     protected $useTimestamps   = true;
-    protected $validationRules = [
-        'email'         => 'required|valid_email|is_unique[users.email,id,{id}]',
-        'username'      => 'required|alpha_numeric_punct|min_length[3]|max_length[30]|is_unique[users.username,id,{id}]',
-        'password_hash' => 'required',
-    ];
+    // protected $validationRules = [
+    //     'email'         => 'required|valid_email|is_unique[users.email,id,{id}]',
+    //     'email'         => 'required|is_unique[users.email,id,{id}]',
+    //     'username'      => 'required|is_unique[users.username,id,{id}]',
+        // 'password_hash' => 'required',
+    // ];
     protected $validationMessages = [];
     protected $skipValidation     = false;
     protected $afterInsert        = ['addToGroup'];

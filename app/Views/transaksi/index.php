@@ -29,12 +29,12 @@
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
               <li class="breadcrumb-item"><a href="javascript: void(0)">Pages</a></li>
-              <li class="breadcrumb-item" aria-current="page">List Transaksi</li>
+              <li class="breadcrumb-item" aria-current="page"> Transaksi</li>
             </ul>
           </div>
           <div class="col-md-12">
             <div class="page-header-title">
-              <h2 class="m-b-10">List Transaksi</h5>
+              <h2 class="m-b-10"> Transaksi</h5>
             </div>
 
           </div>
@@ -98,7 +98,7 @@
                   <?php foreach ($transaksi as $tr) : ?>
                     <tr class="text-nowrap">
                       <td>
-                        <a href="/transaksi/edit/<?= $tr['id_transaksi']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit"><i class="ti ti-edit"></i></a>
+                        <a href="/transaksi/edit/<?= $tr['id_transaksi']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit / Approval"><i class="ti ti-edit"></i></a>
                         <?php if (in_groups('pic')): ?>
                           <form action="/transaksi/<?= $tr['id_transaksi']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                             <?= csrf_field(); ?>
@@ -107,21 +107,43 @@
                             <!-- delete permanen karena model tidak disetting -->
                           </form>
                         <?php endif; ?>
-                        <?php if (has_permission('ack_finance')): ?>
-                          <?php if ($tr['status'] == '2'): ?>
+
+                        <?php if ($tr['status'] == '2'): ?>
+                          <?php if (in_groups('pic') && empty($tr['pic_cancel_requested'])): ?>
+                            <a href="<?= base_url("transaksi/request-cancel/{$tr['id_transaksi']}"); ?>"
+                              class="btn btn-icon btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Ajukan Pembatalan ke Finanace" onclick="return confirm('Ajukan Pembatalan Transaksi ini ke Finance?')">
+                              <i class="ti ti-message-plus"></i></a>
+                          <?php elseif (has_permission('ttd_finance') && !empty($tr['pic_cancel_requested'])): ?>
+                            <a href="#"
+                              class="btn btn-icon btn-outline-danger"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalCancel"
+                              data-id="<?= $tr['id_transaksi']; ?>"
+                              data-asset="<?= esc($tr['no_asset'] . ' — ' . $tr['nama_asset']); ?>"
+                              title="Setuju & Batalkan Transaksi">
+                              <i class="ti ti-checks"></i></a>
+                          <?php elseif (!empty($tr['pic_cancel_requested'])): ?>
+                            <!-- User lain: lihat status -->
+                            <span class="badge rounded-pill text-bg-info">Menunggu </span>
+                          <?php endif; ?>
+                        <?php endif; ?>
+
+
+                        <!-- ?php if (has_permission('ttd_finance')): ?>
+                          ?php if ($tr['status'] == '2'): ?>
                             <a href="#"
                               class="btn btn-icon btn-light-info"
                               data-bs-toggle="modal"
                               data-bs-target="#modalCancel"
-                              data-id="<?= $tr['id_transaksi'] ?>"
-                              data-asset="<?= $tr['no_asset'] ?> — <?= $tr['nama_asset'] ?>"
+                              data-id="?= $tr['id_transaksi'] ?>"
+                              data-asset="?= $tr['no_asset'] ?> — ?= $tr['nama_asset'] ?>"
                               data-bs-placement="top"
                               data-bs-title="Batalkan Transaksi"
-                              data-bs-toggle-tooltip="tooltip"> <!-- tambahkan ini agar tooltip aktif -->
-                              <i class="ti ti-arrow-back"></i> <!-- atau gunakan ikon lain: fa-trash, fa-ban -->
+                              data-bs-toggle-tooltip="tooltip"> <!-- tambahkan ini agar tooltip aktif 
+                              <i class="ti ti-arrow-back"></i> <!-- atau gunakan ikon lain: fa-trash, fa-ban 
                             </a>
-                          <?php endif; ?>
-                        <?php endif; ?>
+                          <php endif; ?>
+                        <php endif; ?> -->
                       </td>
                       <th scope="row"><?= $i++; ?></th>
                       <td><?= $tr['no_asset']; ?></td>

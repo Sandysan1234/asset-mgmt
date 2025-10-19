@@ -59,7 +59,7 @@
             </li>
           <?php endif; ?>
 
-          <?php if (has_permission('ack_controlling')): ?>
+          <?php if (has_permission('ttd_controlling')): ?>
             <li class="pc-item">
               <a href="/costcenter" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-aperture"></i></span>
@@ -85,7 +85,7 @@
             <li class="pc-item">
               <a href="/location" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-map-pins"></i></span>
-                <span class="pc-mtext">Location</span>
+                <span class="pc-mtext">Lokasi</span>
               </a>
             </li>
 
@@ -112,9 +112,10 @@
             <li class="pc-item pc-hasmenu">
               <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-users"></i></span><span class="pc-mtext">Users</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
               <ul class="pc-submenu">
-                <li class="pc-item"><a class="pc-link" href="/users">List users</a></li>
                 <?php if (in_groups('admin')): ?>
-                  <li class="pc-item"><a class="pc-link" href="/admin/roles">Manage Roles</a></li>
+                  <li class="pc-item"><a class="pc-link" href="/users">List User</a></li>
+                  <li class="pc-item"><a class="pc-link" href="/admin/roles">Manajemen Roles</a></li>
+                  <li class="pc-item"><a class="pc-link" href="/admin/users">Manajemen User</a></li>
                 <?php endif; ?>
               </ul>
             </li>
