@@ -97,20 +97,25 @@
             </div>
             <form id="formCekAsset">
               <div class="mb-3">
-                <label for="qrInput" class="form-label">Scan QR atau Masukkan URL Asset</label>
+                <label for="qrInput" class="form-label">Masukkan No Asset atau URL</label>
                 <div class="input-group">
+                  <!-- <input type="text" id="no_asset" name="no_asset" class="form-control" required autofocus placeholder="Cari No Asset..."> -->
+
                   <input
                     type="text"
                     id="qrInput"
                     class="form-control"
-                    placeholder="https://asset.jmiis.com/asset/detail/1"
-                    aria-label="Masukkan URL asset"
-                    required autofocus>
+                    autofocus
+                    required
+                    placeholder="Contoh: 61000000 atau /asset/detail/123"
+                    aria-label="Masukkan No Asset atau URL">
                   <button class="btn btn-primary" type="submit" id="button-addon2">
                     Tambahkan
                   </button>
                 </div>
-                <p class="text-muted mt-1 d-block">Contoh: <code>/asset/detail/123</code> </p>
+                <p class="text-muted mt-1 d-block">
+                  Contoh No/Nama Asset: <code>laptop</code> |<code>61000000</code> atau URL: <code>/asset/detail/123</code>
+                </p>
               </div>
             </form>
 
@@ -129,7 +134,45 @@
   </div>
   <!-- [ Main Content ] end -->
 </div>
+<?= $this->endSection('page-content'); ?>
 
+<?= $this->section('scripts-extra'); ?>
+
+<script>
+  jQuery(function($) {
+    if (!$('#qrInput').length) return; // <— guard
+    if (!$.ui || !$.ui.autocomplete) return; // UI must be loaded
+
+    $("#qrInput").autocomplete({
+      source: "<?= base_url('api/assets/suggest') ?>",
+      minLength: 2,
+      delay: 200,
+      select: function(event, ui) {
+        if (!ui.item) return false;
+        $("#qrInput").val(ui.item.no_asset);
+        $("#asset_class").val(ui.item.asset_class);
+        $("#plant_asal").val(ui.item.plant);
+        $("#cost_center_asal").val(ui.item.cost_center);
+        $("#sub_asset").val(ui.item.sub_asset);
+        $("#nama_asset").val(ui.item.nama_asset);
+        $("#tgl_perolehan").val(ui.item.tgl_perolehan);
+        $("#area").val(ui.item.area);
+        $("#gedung").val(ui.item.gedung);
+        $("#lantai").val(ui.item.lantai);
+        $("#id_asset").val(ui.item.id_asset);
+        $("#id_assetclass").val(ui.item.id_assetclass);
+        $("#id_plant_asal").val(ui.item.id_plant);
+        $("#id_cost_center_asal").val(ui.item.id_cost_center);
+        $("#id_lokasi_area").val(ui.item.id_lokasi_area);
+        $("#id_lokasi_gedung").val(ui.item.id_lokasi_gedung);
+        $("#id_lokasi_lantai").val(ui.item.id_lokasi_lantai);
+        $("#no_asset_tujuan").val(ui.item.no_asset);
+        $("#nama_asset_tujuan").val(ui.item.nama_asset);
+        return false;
+      }
+    });
+  });
+</script>
 <script>
   const baseUrl = '<?= base_url() ?>';
   const qrInput = document.getElementById('qrInput');
@@ -169,32 +212,42 @@
     let noAsset, namaAsset, status;
 
     const assetId = extractId(url);
-
-    if (!assetId) {
-      // Jika format salah, minta No Asset manual
-      noAsset = prompt("URL tidak valid. Masukkan No Asset:", "");
-      if (!noAsset) return;
-      namaAsset = "(Tidak Dikenal)";
-      status = "Tidak Ada";
-    } else {
+    // ==========================================/////////
+    if (assetId) {
+      // Input berupa URL → ambil via ID
       try {
-        const response = await fetch(`${baseUrl}/stock-opname/cekAsset?id=${assetId}`);
+        const response = await fetch(`${baseUrl}stock-opname/cekAsset?id=${assetId}`);
         const data = await response.json();
-
         if (data.status === 'success') {
           const asset = data.data;
           noAsset = asset.no_asset;
           namaAsset = asset.nama_asset;
           status = "Ada";
         } else {
-          noAsset = prompt("Asset tidak ditemukan. No Asset?", assetId);
-          if (!noAsset) return;
+          noAsset = assetId; // fallback
           namaAsset = "(Tidak Ditemukan)";
           status = "Tidak Ada";
         }
       } catch (err) {
-        noAsset = prompt("Gagal koneksi. No Asset?", assetId);
-        if (!noAsset) return;
+        noAsset = assetId;
+        namaAsset = "(Error)";
+        status = "Tidak Ada";
+      }
+    } else {
+      // Input dianggap sebagai No Asset → cek langsung via no_asset
+      noAsset = url; // gunakan input langsung sebagai no_asset
+      try {
+        const response = await fetch(`${baseUrl}/stock-opname/cekAssetByNo?no_asset=${encodeURIComponent(noAsset)}`);
+        const data = await response.json();
+        if (data.status === 'success') {
+          const asset = data.data;
+          namaAsset = asset.nama_asset;
+          status = "Ada";
+        } else {
+          namaAsset = "(Tidak Ditemukan)";
+          status = "Tidak Ada";
+        }
+      } catch (err) {
         namaAsset = "(Error)";
         status = "Tidak Ada";
       }
@@ -242,7 +295,7 @@
     // Reset input
     qrInput.value = '';
     qrInput.focus();
-    showToast("✅ Berhasil ditambahkan!", "success");
+    showToast("Berhasil ditambahkan!", "success");
   });
 
   // Simpan Semua ke Database
@@ -265,233 +318,17 @@
       const result = await response.json();
 
       if (result.status === 'success') {
-        showToast(`✅ Berhasil simpan ${result.saved} item!`, 'success');
+        showToast(`Berhasil simpan ${result.saved} item!`, 'success');
         opnameList = [];
         saveAllBtn.disabled = true;
         // Kosongkan input
         document.getElementById('formCekAsset').reset();
       } else {
-        showToast('❌ Gagal: ' + result.message, 'danger');
+        showToast('Gagal: ' + result.message, 'danger');
       }
     } catch (err) {
-      showToast('❌ Error: ' + err.message, 'danger');
+      showToast('Error: ' + err.message, 'danger');
     }
   });
 </script>
-<!-- <script>
-  const baseUrl = '<?= base_url() ?>';
-  const qrInput = document.getElementById('qrInput');
-  const cekBtn = document.getElementById('cekBtn');
-  const saveBtn = document.getElementById('saveBtn');
-  const listTable = document.querySelector('#listTable tbody');
-  const messageDiv = document.getElementById('message');
-
-  // Simpan list asset sementara
-  let opnameList = [];
-
-  // Ekstrak ID dari URL
-  function extractId(url) {
-    const match = url.toString().match(/\/asset\/detail\/(\d+)$/);
-    return match ? match[1] : null;
-  }
-
-  // Tampilkan pesan
-  function showMessage(text, type = 'error') {
-    messageDiv.innerHTML = `<p class="${type}">${text}</p>`;
-    setTimeout(() => {
-      messageDiv.innerHTML = '';
-    }, 3000);
-  }
-
-  // Cek Asset
-  cekBtn.addEventListener('click', async () => {
-    const url = qrInput.value.trim();
-    if (!url) {
-      showMessage('Masukkan URL terlebih dahulu!', 'error');
-      return;
-    }
-
-    const assetId = extractId(url);
-    if (!assetId) {
-      showMessage('URL tidak valid. Pastikan mengandung /detail/{id}', 'error');
-      return;
-    }
-
-    try {
-      const response = await fetch(`${baseUrl}/stock-opname/cekAsset?id=${assetId}`);
-      const data = await response.json();
-
-      if (data.status === 'success') {
-        const asset = data.data;
-
-        // Cek duplikat
-        if (opnameList.some(a => a.asset_id == asset.id)) {
-          showMessage('Asset ini sudah ada di list!', 'error');
-          qrInput.value = '';
-          qrInput.focus();
-          return;
-        }
-
-        // Tambah ke list
-        opnameList.push({
-          asset_id: asset.id,
-          no_asset: asset.no_asset,
-          nama_asset: asset.nama_asset
-        });
-
-        // Tambah ke tabel
-        const row = document.createElement('tr');
-        row.dataset.id = asset.id;
-        row.innerHTML = `
-                <td>${asset.no_asset}</td>
-                <td>${asset.nama_asset}</td>
-                <td><button class="hapus-btn" data-id="${asset.id}">Hapus</button></td>
-            `;
-        listTable.appendChild(row);
-
-        // Aktifkan tombol simpan
-        saveBtn.disabled = false;
-
-        // Kosongkan input
-        qrInput.value = '';
-        qrInput.focus();
-        showMessage('Asset berhasil ditambahkan!', 'success');
-
-      } else {
-        showMessage(data.message, 'error');
-      }
-    } catch (err) {
-      showMessage('Gagal terhubung ke server.', 'error');
-    }
-  });
-
-  // Hapus item dari list
-  listTable.addEventListener('click', (e) => {
-    if (e.target.classList.contains('hapus-btn')) {
-      const assetId = e.target.dataset.id;
-      opnameList = opnameList.filter(a => a.asset_id != assetId);
-      e.target.closest('tr').remove();
-
-      if (opnameList.length === 0) {
-        saveBtn.disabled = true;
-      }
-    }
-  });
-
-  // Simpan Semua ke Database
-  saveBtn.addEventListener('click', async () => {
-    if (opnameList.length === 0) return;
-
-    try {
-      const response = await fetch(`${baseUrl}/stock-opname/saveAll`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(opnameList)
-      });
-
-      const result = await response.json();
-
-      if (result.status === 'success') {
-        showMessage(`Berhasil simpan ${result.saved} item!`, 'success');
-        opnameList = [];
-        listTable.innerHTML = '';
-        saveBtn.disabled = true;
-        qrInput.focus();
-      } else {
-        showMessage('Gagal menyimpan: ' + (result.message || ''), 'error');
-      }
-    } catch (err) {
-      showMessage('Error koneksi: ' + err.message, 'error');
-    }
-  });
-</script> -->
-<!-- <script>
-  const baseUrl = '<?= base_url() ?>';
-  const qrInput = document.getElementById('qrInput');
-  const cekBtn = document.getElementById('cekBtn');
-  const saveBtn = document.getElementById('saveBtn');
-  const resultDiv = document.getElementById('result');
-
-  let currentAsset = null;
-
-  // Ekstrak ID dari URL
-  function extractId(url) {
-    const match = url.match(/\/asset\/detail\/(\d+)$/);
-    return match ? match[1] : null;
-  }
-
-  // Cek Asset
-  cekBtn.addEventListener('click', async () => {
-    const url = qrInput.value.trim();
-    if (!url) {
-      resultDiv.innerHTML = '<p class="error">Masukkan URL terlebih dahulu!</p>';
-      return;
-    }
-
-    const assetId = extractId(url);
-    if (!assetId) {
-      resultDiv.innerHTML = '<p class="error">URL tidak valid atau ID tidak ditemukan.</p>';
-      return;
-    }
-
-    try {
-      const response = await fetch(`${baseUrl}/stock-opname/cekAsset?id=${assetId}`);
-      const data = await response.json();
-
-      if (data.status === 'success') {
-        currentAsset = data.data;
-        resultDiv.innerHTML = `
-          <p><strong>Asset Ditemukan:</strong></p>
-          <div class="asset-item">
-            <strong>No Asset:</strong> ${data.data.no_asset} <br>
-            <strong>Nama Asset:</strong> ${data.data.nama_asset}
-          </div>
-        `;
-        saveBtn.style.display = 'block';
-      } else {
-        resultDiv.innerHTML = `<p class="error">${data.message}</p>`;
-        saveBtn.style.display = 'none';
-        currentAsset = null;
-      }
-    } catch (err) {
-      resultDiv.innerHTML = `<p class="error">Error: ${err.message}</p>`;
-      saveBtn.style.display = 'none';
-    }
-  });
-
-  // Simpan Stock Opname
-  saveBtn.addEventListener('click', async () => {
-    if (!currentAsset) return;
-
-    const payload = {
-      asset_id: currentAsset.id,
-      no_asset: currentAsset.no_asset,
-      nama_asset: currentAsset.nama_asset
-    };
-
-    try {
-      const response = await fetch(`${baseUrl}/stock-opname/saveOpname`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      const result = await response.json();
-      if (result.status === 'success') {
-        alert('Berhasil disimpan!');
-        saveBtn.style.display = 'none';
-        resultDiv.innerHTML += '<p class="success">✓ Data telah disimpan ke stock opname.</p>';
-      } else {
-        alert('Gagal menyimpan: ' + (result.message || 'Unknown error'));
-      }
-    } catch (err) {
-      alert('Error: ' + err.message);
-    }
-  });
-</script> -->
-<!-- [ Main Content ] end -->
-<?= $this->endSection('page-content'); ?>
+<?= $this->endSection(); ?>

@@ -45,6 +45,7 @@ class TransactionModel extends Model
         'catatan_pembatalan',
         'pic_cancel_requested',
         'pic_cancel_at',
+        'pic_cancel_by',
 
     ];
 

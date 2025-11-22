@@ -19,41 +19,27 @@ class User extends BaseController
             ->where('deleted_at', null)
             ->countAllResults();
         $total_transaction = $db->table('transaksi')->where('deleted_at', null)->countAllResults();
+        $chartData = [
+            'labels' => ['Mutasi', 'Pelepasan', 'Aktif', 'penggabugan'],
+            'values' => [15, 15, 50, 20], // bisa dari database
+            'colors' => ['#03d8f9ff', '#ff2200ff', '#4CAF50','#f59c02ff']
+        ];
+        $pindaiData = [
+            'labels' => ['Belum Diaudit', 'Tidak ditemukan', 'Terverifikasi'],
+            'values' => [25, 25, 50,], // bisa dari database
+            'colors' => ['#03d8f9ff', '#0b0b0bff', '#4CAF50']
+        ];
 
         $data = [
             'title' => 'User | Asset Management System',
             'total_asset' => $total_asset,
             'total_transaction' => $total_transaction,
+            'chartData' => $chartData,
+            'pindaiData' => $pindaiData,
         ];
         return view('user/index', $data);
     }
 }
-    // public function login(): string
-    // {
-    //     // return view('welcome_message');
-    //     $data =[
-    //         'title'=> 'Login',
-    //     ];
-    //     return view('auth/login', $data);
-
-    // }
-
-    // public function register(): string
-    // {
-    //     // return view('welcome_message');
-    //     $data =[
-    //         'title'=> 'Register',
-    //     ];
-    //     return view('auth/register', $data);
-    // }
-    // public function forgot(): string
-    // {
-    //     // return view('welcome_message');
-    //     $data =[
-    //         'title'=> 'Forgot',
-    //     ];
-    //     return view('auth/forgot', $data);
-    // }
 
 
 

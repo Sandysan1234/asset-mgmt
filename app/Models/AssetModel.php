@@ -149,27 +149,50 @@ class AssetModel extends Model
 
     return $b;
   }
-  public function dtData(array $req): array
+  public function dtData(array $req):array
   {
-    $b = $this->baseRelasi();
-    if (!$this->canViewAllAssets()) { // ← sekarang pakai Myth:Auth
+    $length = (int)($req['length']?? 25);
+    $start =  (int)($req['start']?? 0);
+    if ($length >200) $length = 200;
+
+    $builderIds = $this->db->table('asset');
+    
+    // Terapkan Filter (PENTING: Gunakan builderIds ini)
+    $this->applyFilters($builderIds, $req); 
+
+    // Filter PIC (jika ada)
+    if (!$this->canViewAllAssets()) { 
       $userId = $this->getCurrentUserId();
-      if ($userId) {
-        $b->where('asset.id_pic', $userId);
-      } else {
-        $b->where('asset.id_pic', 0);
-      }
+      $builderIds->where('asset.id_pic', $userId ?: 0);
+    } 
+
+    // Ambil hanya ID yang diperlukan sesuai Paging (LIMIT & OFFSET)
+    $idsResult = $builderIds->select('id_asset')
+                            ->limit($length, $start)
+                            ->get()
+                            ->getResultArray();
+
+    if (empty($idsResult)) {
+        return []; // Tidak ada data, kembalikan array kosong
     }
-    $this->applyFilters($b, $req);
 
-    // Paging + hard cap
-    $length = (int)($req['length'] ?? 25);
-    $start  = (int)($req['start']  ?? 0);
-    if ($length > 200) $length = 200;   // hard cap
+    // Ekstrak semua ID ke dalam array
+    $ids = array_column($idsResult, 'id_asset'); 
+    
+    // =======================================================
+    // --- TAHAP 2: BERAT (JOIN hanya pada ID yang terpilih) ---
+    // =======================================================
 
-    $b->limit($length, $start);
+    // Panggil baseRelasi() yang berisi semua 10 JOIN
+    $b = $this->baseRelasi();
+    
+    // Filter kunci: Lakukan JOIN hanya untuk ID yang ada di array $ids
+    $b->whereIn('asset.id_asset', $ids); 
+
+    // Kembalikan hasil tanpa LIMIT/OFFSET (karena sudah dibatasi di Tahap 1)
     return $b->get()->getResultArray();
   }
+  
 
   public function dtCountAll(): int
   {

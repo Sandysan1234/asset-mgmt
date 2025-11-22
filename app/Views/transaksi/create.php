@@ -419,9 +419,6 @@
             }
           });
         }
-
-
-
         toggleDateName('#approve_it', '#date_pic', '#nama_pic');
         toggleDateName('#approve_dir', '#date_direksi');
         toggleDateName('#approve_kabag_asal', '#date_ttd_asal');

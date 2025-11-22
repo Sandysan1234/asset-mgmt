@@ -108,5 +108,5 @@
     </div>
     <!-- [ Main Content ] end -->
   </div>
-
-  <?= $this->endSection('page-content'); ?>
+</div>
+<?= $this->endSection('page-content'); ?>

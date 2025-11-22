@@ -40,30 +40,6 @@ class Pemasok extends BaseController
         return view('pemasok/create', $data);
     }
 
-    // public function save()
-    // {
-    //     if (!$this->validate([
-    //         'kode_vendor' => 'required|is_unique[pemasok.kode_vendor]',
-    //         'nama_vendor' => 'required',
-    //         'alamat'      => 'required',
-    //         'status'      => 'required',
-    //     ])) {
-    //         $validation = \config\Services::validation();
-    //         // Kirim error validasi ke halaman create
-    //         return redirect()->to('/pemasok/create')->withInput()->with('validation', $validation);
-    //         // return redirect()->to(base_url('/pemasok/create'))->withInput();
-    //     }
-
-    //     $this->pemasokModel->save([
-    //         'kode_vendor' => $this->request->getPost('kode_vendor'),
-    //         'nama_vendor' => $this->request->getPost('nama_vendor'),
-    //         'alamat'      => $this->request->getPost('alamat'),
-    //         'status'      => $this->request->getPost('status'),
-    //     ]);
-
-    //     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
-    //     return redirect()->to('/pemasok');
-    // }
     public function save()
     {
         $data = $this->request->getPost();

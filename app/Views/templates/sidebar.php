@@ -69,11 +69,23 @@
           <?php endif; ?>
           <?php if (in_groups(['pic', 'admin'])): ?>
             <li class="pc-item">
+              <a href="/admin/sesi-audit" class="pc-link">
+                <span class="pc-micon"><i class="ti ti-report"></i></span>
+                <span class="pc-mtext">Jadwal Stockopname</span>
+              </a>
+            </li>
+            <li class="pc-item">
+              <a href="/pic/audit" class="pc-link">
+                <span class="pc-micon"><i class="ti ti-list-search"></i></span>
+                <span class="pc-mtext">PIC Stockopname</span>
+              </a>
+            </li>
+            <!-- <li class="pc-item">
               <a href="/stock-opname" class="pc-link">
                 <span class="pc-micon"><i class="ti ti-report"></i></span>
                 <span class="pc-mtext">Stock Opname</span>
               </a>
-            </li>
+            </li> -->
           <?php endif; ?>
           <?php if (in_groups('admin')): ?>
             <li class="pc-item">

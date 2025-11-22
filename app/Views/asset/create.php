@@ -71,7 +71,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="no_asset" class="form-label">No Asset</label>
-                  <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" name="no_asset" id="no_asset" value="<?= old('no_asset'); ?>" required>
+                  <input type="text" class="form-control <?= (validation_show_error('no_asset')) ? 'is-invalid' : ''; ?>" maxlength="10" name="no_asset" id="no_asset" value="<?= old('no_asset'); ?>" required>
                   <div class="invalid-feedback">
                     <?= validation_show_error('no_asset'); ?>
                   </div>
@@ -80,7 +80,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="sub_asset" class="form-label">Sub Asset</label>
-                  <input type="text" class="form-control <?= (validation_show_error('sub_asset')) ? 'is-invalid' : ''; ?>" id="sub_asset" name="sub_asset" value="<?= old('sub_asset'); ?>">
+                  <input type="text" class="form-control <?= (validation_show_error('sub_asset')) ? 'is-invalid' : ''; ?>" maxlength="6" id="sub_asset" name="sub_asset" value="<?= old('sub_asset'); ?>">
                   <div class="invalid-feedback">
                     <?= validation_show_error('sub_asset'); ?>
                   </div>

@@ -118,12 +118,12 @@ $routes->get('assetlog', 'Assetlog::index', ['filter' => 'role:admin']);
 
 $routes->get('transaksi', 'Transaksi::index', ['filter' => 'role:pic,kabag,approval,admin']);
 $routes->get('transaksi/create', 'Transaksi::create', ['filter' => 'role:pic,admin']);
-$routes->post('transaksi/save', 'Transaksi::save');
+$routes->post('transaksi/save', 'Transaksi::save',['filter' => 'role:pic,admin']);
 $routes->get('transaksi/edit/(:segment)', 'Transaksi::edit/$1', ['filter' => 'role:pic,kabag,approval']);
-$routes->post('transaksi/update/(:any)', 'Transaksi::update/$1');
-$routes->post('transaksi/cancel', 'Transaksi::cancel', ['filter' => 'role:pic,admin']);
+$routes->post('transaksi/update/(:any)', 'Transaksi::update/$1',['filter' => 'role:pic,kabag,approval']);
+$routes->post('transaksi/cancel', 'Transaksi::cancel', ['filter' => 'role:finance,admin']);
 $routes->delete('transaksi/(:num)', 'Transaksi::delete/$1', ['filter' => 'role:pic']);
-$routes->get('transaksi/request-cancel/(:num)', 'Transaksi::requestCancel/$1');
+$routes->get('transaksi/request-cancel/(:num)', 'Transaksi::requestCancel/$1', ['filter'=>'role:pic']);
 
 
 // $routes->get('test-email', 'Transaksi::testKirim7Email');
@@ -136,9 +136,9 @@ $routes->get('api/assets/suggest', 'Transaksi::suggestAsset');
 
 $routes->get('perbaikan', 'Perbaikan::index', ['filter' => 'permission:it']); //['filter' => 'permission:it'] atau ['filter' => 'role:admin']//
 $routes->get('perbaikan/create', 'Perbaikan::create', ['filter' => 'permission:it']); //['filter' => 'permission:it'] atau ['filter' => 'role:admin']//
-$routes->post('perbaikan/save', 'Perbaikan::save');
+$routes->post('perbaikan/save', 'Perbaikan::save',['filter' => 'permission:it']);
 $routes->get('perbaikan/edit/(:segment)', 'Perbaikan::edit/$1', ['filter' => 'permission:it']);
-$routes->post('perbaikan/update/(:any)', 'Perbaikan::update/$1');
+$routes->post('perbaikan/update/(:any)', 'Perbaikan::update/$1',['filter' => 'permission:it']);
 $routes->delete('perbaikan/(:num)', 'Perbaikan::delete/$1', ['filter' => 'permission:it']);
 
 // $routes->get('perbaikan', 'Perbaikan::index', ['filter' => 'permission:it']); 
@@ -155,6 +155,7 @@ $routes->get('stock-opname', 'Stockopname::index');
 $routes->get('stock-opname/create', 'Stockopname::create');
 $routes->get('stock-opname/cekAsset', 'Stockopname::cekAsset');
 $routes->post('stock-opname/saveAll', 'Stockopname::saveAll');
+$routes->get('stock-opname/cekAssetByNo', 'Stockopname::cekAssetByNo');
 
 // $routes->get('roles', 'Admin\Roles::index');
 
@@ -173,7 +174,6 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
     // Permission
     $routes->post('roles/add-permission', 'Admin\Roles::addPermission');
     $routes->get('roles/remove-permission/(:num)/(:num)', 'Admin\Roles::removePermission/$1/$2');
-
     // User
     $routes->post('roles/add-user', 'Admin\Roles::addUser');
     $routes->get('roles/remove-user/(:num)/(:num)', 'Admin\Roles::removeUser/$1/$2');
@@ -187,4 +187,23 @@ $routes->group('admin', ['filter' => 'role:admin'], function ($routes) {
     $routes->get('users/edit/(:num)', 'Admin\Users::edit/$1');
     $routes->post('users/update/(:num)', 'Admin\Users::update/$1');
     $routes->get('users/delete/(:num)', 'Admin\Users::delete/$1');
+
+    
+    $routes->get('sesi-audit', 'Admin\SesiAudit::index');
+    $routes->get('sesi-audit/new', 'Admin\SesiAudit::new');
+    $routes->post('sesi-audit/create', 'Admin\SesiAudit::create');
+    $routes->get('sesi-audit/detail/(:num)', 'Admin\SesiAudit::detail/$1');
+    $routes->post('sesi-audit/close/(:num)', 'Admin\SesiAudit::close/$1');
+    $routes->delete('sesi-audit/delete/(:num)', 'Admin\SesiAudit::delete/$1');
+
+
+});
+
+$routes->group('pic', ['filter'=> 'role:pic'], function($routes){
+    $routes->get('audit', 'PIC\AuditController::index'); // Dashboard PIC
+    $routes->get('audit/scan', 'PIC\AuditController::scan'); 
+});
+$routes->group('api', ['filter' => 'role:pic'], static function ($routes) {
+    $routes->post('audit/check', 'PIC\AuditController::checkAsset');
+    $routes->post('audit/manual-verify', 'PIC\AuditController::verifyByInput'); // Untuk Input Manual (BARU)
 });

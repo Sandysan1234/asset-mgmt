@@ -213,7 +213,7 @@
           orderable: false,
           searchable: true,
           render: function(id, type, row) {
-            let html = `<a href="/asset/detail/${id}" class="btn btn-icon btn-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-file-search"></i></a>`
+            let html = `<a href="/asset/detail/${id}" class="btn btn-icon btn-info me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"><i class="ti ti-file-search"></i></a>`
             if (window.canEditAsset) {
               html += `<a href="/asset/edit/${id}" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ti ti-edit"></i></a>`
             }

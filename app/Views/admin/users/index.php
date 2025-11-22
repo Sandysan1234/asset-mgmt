@@ -57,9 +57,9 @@
                         <?php endif; ?>
                       </td>
                       <td>
-                        <a href="<?= base_url("admin/users/edit/{$user->id}") ?>" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="<?= base_url("admin/users/edit/{$user->id}") ?>" class="btn btn-sm btn-shadow btn-warning">Edit</a>
                         <a href="<?= base_url("admin/users/delete/{$user->id}") ?>"
-                          class="btn btn-sm btn-danger"
+                          class="btn btn-sm btn-shadow btn-danger"
                           onclick="return confirm('Yakin hapus user ini?')">
                           Hapus
                         </a>

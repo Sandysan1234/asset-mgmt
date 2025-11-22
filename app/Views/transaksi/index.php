@@ -36,7 +36,6 @@
             <div class="page-header-title">
               <h2 class="m-b-10"> Transaksi</h5>
             </div>
-
           </div>
         </div>
       </div>
@@ -76,17 +75,17 @@
                     <th scope="col">Tanggal Transaksi</th>
                     <th scope="col">Alasan</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Date Dept Asal</th>
-                    <th scope="col">Nama Dept Asal</th>
-                    <th scope="col">Date Dept Tujuan</th>
-                    <th scope="col">Nama Dept Tujuan</th>
+                    <th scope="col">Date Departemen Asal</th>
+                    <th scope="col">Nama Departemen Asal</th>
+                    <th scope="col">Date Departemen Tujuan</th>
+                    <th scope="col">Nama Departemen Tujuan</th>
                     <th scope="col">Date PIC</th>
                     <th scope="col">Nama PIC</th>
                     <th scope="col">Date Direksi</th>
-                    <th scope="col">Nama Dir/PM</th>
-                    <th scope="col">Date MGR FIN</th>
-                    <th scope="col">Date ACC</th>
-                    <th scope="col">Date CO</th>
+                    <th scope="col">Nama Direksi/Plant Manager</th>
+                    <th scope="col">Date Manager FIN</th>
+                    <th scope="col">Date Accounting</th>
+                    <th scope="col">Date Controlling</th>
                     <th scope="col">Created At</th>
                     <th scope="col">Updated At</th>
                     <th scope="col">Created By</th>
@@ -98,8 +97,10 @@
                   <?php foreach ($transaksi as $tr) : ?>
                     <tr class="text-nowrap">
                       <td>
-                        <a href="/transaksi/edit/<?= $tr['id_transaksi']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit / Approval"><i class="ti ti-edit"></i></a>
-                        <?php if (in_groups('pic')): ?>
+                        <?php if ($tr['status'] != 2): ?>
+                          <a href="/transaksi/edit/<?= $tr['id_transaksi']; ?>" class="btn btn-icon btn-warning" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit / Approval"><i class="ti ti-edit"></i></a>
+                        <?php endif; ?>
+                        <?php if (in_groups('pic') && $tr['status'] != 2): ?>
                           <form action="/transaksi/<?= $tr['id_transaksi']; ?>" method="post" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="DELETE">
@@ -111,7 +112,7 @@
                         <?php if ($tr['status'] == '2'): ?>
                           <?php if (in_groups('pic') && empty($tr['pic_cancel_requested'])): ?>
                             <a href="<?= base_url("transaksi/request-cancel/{$tr['id_transaksi']}"); ?>"
-                              class="btn btn-icon btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Ajukan Pembatalan ke Finanace" onclick="return confirm('Ajukan Pembatalan Transaksi ini ke Finance?')">
+                              class="btn btn-icon btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Ajukan Pembatalan ke Finance" onclick="return confirm('Ajukan Pembatalan Transaksi ini ke Finance?')">
                               <i class="ti ti-message-plus"></i></a>
                           <?php elseif (has_permission('ttd_finance') && !empty($tr['pic_cancel_requested'])): ?>
                             <a href="#"
@@ -120,6 +121,7 @@
                               data-bs-target="#modalCancel"
                               data-id="<?= $tr['id_transaksi']; ?>"
                               data-asset="<?= esc($tr['no_asset'] . ' — ' . $tr['nama_asset']); ?>"
+                              data-pic="<?= esc($tr['pic_cancel_by'] ?? 'PIC'); ?>"
                               title="Setuju & Batalkan Transaksi">
                               <i class="ti ti-checks"></i></a>
                           <?php elseif (!empty($tr['pic_cancel_requested'])): ?>
@@ -127,23 +129,6 @@
                             <span class="badge rounded-pill text-bg-info">Menunggu </span>
                           <?php endif; ?>
                         <?php endif; ?>
-
-
-                        <!-- ?php if (has_permission('ttd_finance')): ?>
-                          ?php if ($tr['status'] == '2'): ?>
-                            <a href="#"
-                              class="btn btn-icon btn-light-info"
-                              data-bs-toggle="modal"
-                              data-bs-target="#modalCancel"
-                              data-id="?= $tr['id_transaksi'] ?>"
-                              data-asset="?= $tr['no_asset'] ?> — ?= $tr['nama_asset'] ?>"
-                              data-bs-placement="top"
-                              data-bs-title="Batalkan Transaksi"
-                              data-bs-toggle-tooltip="tooltip"> <!-- tambahkan ini agar tooltip aktif 
-                              <i class="ti ti-arrow-back"></i> <!-- atau gunakan ikon lain: fa-trash, fa-ban 
-                            </a>
-                          <php endif; ?>
-                        <php endif; ?> -->
                       </td>
                       <th scope="row"><?= $i++; ?></th>
                       <td><?= $tr['no_asset']; ?></td>
@@ -162,7 +147,6 @@
                           <?= $transaksistate['label'] ?>
                         </span>
                       </td>
-
                       <td><?= (new DateTime($tr['tgl_transaksi']))->format('d-m-Y H:i'); ?></td>
                       <td><?= $tr['alasan']; ?></td>
                       <?php $statuslist = [
@@ -170,7 +154,6 @@
                         1 => ['label' => 'approve',        'class' => 'bg-warning'],
                         2 => ['label' => 'complete',       'class' => 'bg-success'],
                         3 => ['label' => 'cancelled ',       'class' => 'bg-danger'],
-
                       ];
                       $currentstatus = $statuslist[$tr['status']] ?? ['label' => 'Unknown', 'class' => 'bg-dark'];
                       ?>
@@ -226,10 +209,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
+          <p>Diajukan oleh: <strong id="cancel_pic">PIC</strong></p> <!-- 👈 ISI DINAMIS -->
           <p>Yakin ingin membatalkan transaksi untuk aset:</p>
           <strong id="cancel_asset"></strong>
-          <p class="mt-3">Catatan pembatalan (opsional):</p>
-          <textarea name="catatan_pembatalan" class="form-control" rows="3"></textarea>
+          <p class="mt-3">Catatan pembatalan:</p>
+          <textarea name="catatan_pembatalan" class="form-control" rows="3" placeholder="Wajib diisi"></textarea>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -239,7 +223,6 @@
     </div>
   </div>
 </div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Inisialisasi tooltip untuk semua elemen dengan [data-bs-toggle-tooltip="tooltip"]
@@ -253,9 +236,13 @@
         const button = event.relatedTarget;
         const id = button.getAttribute('data-id');
         const asset = button.getAttribute('data-asset');
+        const pic = button.getAttribute('data-pic'); // 👈 AMBIL DATA PIC
+
 
         document.getElementById('cancel_id').value = id;
         document.getElementById('cancel_asset').textContent = asset;
+        document.getElementById('cancel_pic').textContent = pic || 'PIC'; // fallback
+
       });
     }
   });

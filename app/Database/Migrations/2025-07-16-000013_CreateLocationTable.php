@@ -35,6 +35,11 @@ class CreateLocationTable extends Migration
                 'constraint' => 1,
                 'default'    => 0
             ],
+            'id_plant' => [
+                'type'           => 'INT',
+                'unsigned'       => true,
+                'constraint'     => 3,
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true

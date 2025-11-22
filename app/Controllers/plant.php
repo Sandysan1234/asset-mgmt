@@ -14,9 +14,6 @@ class Plant extends BaseController
     $this->plantModel = new PlantModel();
   }
 
-
-
-
   public function index()
   {
     $plant = $this->plantModel->findAll();
@@ -24,7 +21,7 @@ class Plant extends BaseController
       'title'     => 'Plant | Asset Management System',
       'plant' => $plant,
     ];
-    return view('plant/index', $data);
+    return view('Plant/index', $data);
   }
   // ===============create======//
 
@@ -35,7 +32,7 @@ class Plant extends BaseController
       'validation' =>  \Config\Services::validation()
     ];
 
-    return view('plant/create', $data);
+    return view('Plant/create', $data);
   }
 
   // ===============save======//
@@ -104,7 +101,7 @@ class Plant extends BaseController
       'validation' =>  \Config\Services::validation(),
       'plant'      => $this->plantModel->find($id),
     ];
-    return view('plant/edit', $data);
+    return view('Plant/edit', $data);
   }
 
 
