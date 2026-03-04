@@ -206,4 +206,9 @@ $routes->group('pic', ['filter'=> 'role:pic'], function($routes){
 $routes->group('api', ['filter' => 'role:pic'], static function ($routes) {
     $routes->post('audit/check', 'PIC\AuditController::checkAsset');
     $routes->post('audit/manual-verify', 'PIC\AuditController::verifyByInput'); // Untuk Input Manual (BARU)
+    $routes->post('audit/report-missing', 'PIC\AuditController::reportMissing');
 });
+
+$routes->get('manual/download', 'Manual::download');
+$routes->get('hitung', 'Hitung::index');
+$routes->get('asset/getDetail/(:num)', 'Hitung::getDetail/$1');

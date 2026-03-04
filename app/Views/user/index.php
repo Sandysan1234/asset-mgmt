@@ -17,7 +17,7 @@
           </div>
           <div class="col-md-12">
             <div class="page-header-title">
-              <h2 class="m-b-10">Welcome in, Jayamas Asset Management</h5>
+              <h2 class="m-b-10">Welcome in, RFHM Asset Management</h5>
             </div>
 
           </div>
@@ -40,7 +40,7 @@
         <!-- <h3 class="mb-3">Welcome in, Jayamas Asset Management </h3> -->
         <div class="card-body tbl-card">
           <div class="row">
-            <div class="col-xl-4 col-md-12">
+            <div class="col-lg-4 col-md-6">
               <div class="card comp-card">
                 <div class="card-body">
                   <div class="row align-items-center">
@@ -54,9 +54,7 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-xl-4 col-md-12">
-              <div class="card comp-card">
+              <div class="card">
                 <div class="card-body">
                   <div class="row align-items-center">
                     <div class="col">
@@ -70,16 +68,11 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
-
-              <!-- <canvas id="categoryChart" width="400" height="400"></canvas> -->
-            </div>
-            <div class="col-md-5 col-xxl-4">
+            <div class="col-lg-4 col-md-4">
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h5>Status Asset</h5>
-                    <div class="dropdown"></div>
+                    <h5 class="mb-0">Status Asset</h5>
                   </div>
                   <div class="" id="">
                     <canvas id="categoryChart"></canvas>
@@ -87,7 +80,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-5 col-xxl-4">
+            
+            <div class="col-lg-4 col-md-4">
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-3">

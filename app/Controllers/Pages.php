@@ -7,7 +7,7 @@ class Pages extends BaseController
     public function index()
     {
         $data =[
-            'title'=> 'Web | Jayamas Asset',
+            'title'=> 'Web | RFHM Asset',
         ];
         return view('pages/home', $data);
     }

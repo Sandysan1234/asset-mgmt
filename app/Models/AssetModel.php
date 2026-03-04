@@ -155,7 +155,16 @@ class AssetModel extends Model
     $start =  (int)($req['start']?? 0);
     if ($length >200) $length = 200;
 
-    $builderIds = $this->db->table('asset');
+    $builderIds = $this->db->table('asset')
+        ->join('assetclass ac', 'ac.id_assetclass = asset.id_assetclass', 'left')
+        ->join('cost_center cc', 'cc.id_cost_center = asset.id_cost_center', 'left')
+        ->join('plant p', 'p.id_plant = asset.id_plant', 'left')
+        ->join('pemasok v', 'v.id_vendor = asset.id_vendor', 'left')
+        ->join('lifetime lf', 'lf.id_lifetime = asset.id_lifetime', 'left')
+        ->join('lokasi la', 'la.id_lokasi = asset.id_lokasi_area', 'left')
+        ->join('lokasi lg', 'lg.id_lokasi = asset.id_lokasi_gedung', 'left')
+        ->join('lokasi ll', 'll.id_lokasi = asset.id_lokasi_lantai', 'left')
+        ->join('users pic', 'pic.id = asset.id_pic', 'left');
     
     // Terapkan Filter (PENTING: Gunakan builderIds ini)
     $this->applyFilters($builderIds, $req); 
@@ -167,7 +176,7 @@ class AssetModel extends Model
     } 
 
     // Ambil hanya ID yang diperlukan sesuai Paging (LIMIT & OFFSET)
-    $idsResult = $builderIds->select('id_asset')
+    $idsResult = $builderIds->select('asset.id_asset')
                             ->limit($length, $start)
                             ->get()
                             ->getResultArray();
@@ -315,4 +324,15 @@ class AssetModel extends Model
 
     return $builder->get()->getRowArray() ?: null;
   }
+  public function getStatusCounts()
+  {
+    // Query: SELECT status, COUNT(*) AS jumlah FROM table_asset GROUP BY status ORDER BY status;
+    return $this->db->table($this->table)
+                    ->select('status, COUNT(*) as jumlah')
+                    ->groupBy('status')
+                    ->orderBy('status', 'ASC')
+                    ->get()
+                    ->getResultArray();
+  }
+  
 }

@@ -7,7 +7,7 @@
             <div class="col-md-8">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        <h5 class="mb-0">Audit Aset: Scan & Verifikasi</h5>
+                        <h5 class="mb-0">Stockopname Aset: Scan & Verifikasi</h5>
                     </div>
                     <div class="card-body">
                         

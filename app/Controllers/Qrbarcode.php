@@ -43,6 +43,7 @@ class Qrbarcode extends BaseController
                 ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
                 ->where('auth_groups_users.group_id', $picGroup->id)
                 ->where('users.active', 1)
+                ->groupBy('users.id')
                 ->findAll();
         }
 
@@ -158,6 +159,7 @@ class Qrbarcode extends BaseController
             ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
             ->where('auth_groups_users.group_id', $picGroup->id)
             ->where('users.active', 1)
+            ->groupBy('users.id') // <--- TAMBAHKAN INI untuk menghilangkan duplikat
             ->findAll()
             : [];
 

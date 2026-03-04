@@ -26,7 +26,7 @@ class Roles extends BaseController
     {
         $data = [
             'groups' => $this->groupModel->orderBy('name', 'ASC')->findAll(),
-            'title' => 'Roles | Jayamas Management System',
+            'title' => 'Roles | RFHM Management System',
         ];
         return view('admin/roles/index', $data);
     }
@@ -57,7 +57,7 @@ class Roles extends BaseController
             'assignedPermIds' => $assignedPermIds,
             'allUsers' => $allUsers,
             'userIdsInGroup' => $userIdsInGroup,
-            'title' => 'Manage Roles | Jayamas Management Asset'
+            'title' => 'Manage Roles | RFHM Management Asset'
         ];
 
         return view('admin/roles/manage', $data);
@@ -156,7 +156,7 @@ class Roles extends BaseController
 
         return view('admin/roles/edit', [
             'role' => $role,
-            'title' => "Edit Roles | Jayamas Management Asset"
+            'title' => "Edit Roles | RFHM Management Asset"
         ]);
     }
 

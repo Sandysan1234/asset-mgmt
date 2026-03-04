@@ -62,7 +62,7 @@
           <div class="auth-footer row">
             <!-- <div class=""> -->
             <div class="col-auto my-1">
-              <p class="m-0"><a href="#">&copy; <?= date('Y'); ?> PT Jayamas Medica Industri Tbk. All Rights Reserved</a></p>
+              <p class="m-0"><a href="#">&copy; <?= date('Y'); ?> RFHM. All Rights Reserved</a></p>
             </div>
             <div class="col-auto my-1">
               <p class="m-0"><a href="#">Department Information Technology</a></p>

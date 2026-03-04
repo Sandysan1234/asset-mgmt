@@ -13,7 +13,7 @@
             </div>
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Informasi Audit</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Informasi Stockopname</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -35,7 +35,7 @@
                                 
                                 <?= csrf_field() ?>
                                 <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-stop-circle"></i> Tutup Sesi Audit
+                                    <i class="fas fa-stop-circle"></i> Tutup Stockopname
                                 </button>
                             </form>
                         <?php else: ?>
@@ -60,7 +60,7 @@
                                     <th>Aset (No/Nama)</th>
                                     <th>PIC</th>
                                     <th>Lokasi</th>
-                                    <th>Status Audit</th>
+                                    <th>Status Stockopname</th>
                                     <th>Waktu Cek</th>
                                 </tr>
                             </thead>

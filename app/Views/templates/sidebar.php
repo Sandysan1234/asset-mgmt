@@ -8,7 +8,7 @@
       <div class="m-header">
         <a href="/" class="b-brand text-primary">
           <!-- ========   Change your logo from here   ============ -->
-          <img src="<?= base_url(); ?>assets/images/logo-jmi.svg" width="90" class="img-fluid-logo-lg" alt="logo">
+          <img src="<?= base_url(); ?>assets/images/logo-jmi.svg" width="150" class="img-fluid-logo-lg" alt="logo">
         </a>
       </div>
       <div class="navbar-content">
@@ -27,8 +27,24 @@
           </li> -->
 
           <li class="pc-item pc-caption">
+            <label>Dokumentasi</label>
+            <i class="ti ti-news"></i>
+          </li>
+          <li class="pc-item pchasmenu">
+            <a href="<?= base_url('manual/download') ?>" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-book"></i></span>
+              <span class="pc-mtext">Buku Manual</span>
+            </a>
+          </li>
+          <li class="pc-item pc-caption">
             <label>Pages</label>
             <i class="ti ti-news"></i>
+          </li>
+          <li class="pc-item pchasmenu">
+            <a href="<?= base_url('hitung') ?>" class="pc-link">
+              <span class="pc-micon"><i class="ti ti-book"></i></span>
+              <span class="pc-mtext">Hitung Depresiasi Aset</span>
+            </a>
           </li>
           <li class="pc-item pc-hasmenu">
             <a href="#!" class="pc-link"><span class="pc-micon"><i class="ti ti-zoom-money"></i></span><span class="pc-mtext">Assets</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
@@ -67,6 +83,7 @@
               </a>
             </li>
           <?php endif; ?>
+          <!-- ?php if (in_groups(['pic', 'admin'])): ?> -->
           <?php if (in_groups(['pic', 'admin'])): ?>
             <li class="pc-item">
               <a href="/admin/sesi-audit" class="pc-link">

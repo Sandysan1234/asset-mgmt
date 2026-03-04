@@ -389,7 +389,8 @@
                 <div class="d-none d-print-block print-page" data-status="<?= $bgStatus; ?>" style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 10pt; line-height: 1.4; margin: 0; padding: 0mm 10mm 0mm 10mm; width: 100%; box-sizing: border-box;">
                   <!-- Header Perusahaan -->
                   <div style="text-align: center; margin-bottom: 15px;">
-                    <h3 style="margin: 0; font-weight: bold; font-size: 14pt;">PT. JAYAMAS MEDICA INDUSTRI, Tbk</h3>
+                    <h3 style="margin: 0; font-weight: bold; font-size: 14pt;">RFHM</h3>
+                    <!-- <h3 style="margin: 0; font-weight: bold; font-size: 14pt;">PT. JAYAMAS MEDICA INDUSTRI, Tbk</h3> -->
                     <p style="margin: 5px 0 0 0; font-weight: bold; font-size: 12pt;">FORM PEMINDAHAN ASSET</p>
                   </div>
 

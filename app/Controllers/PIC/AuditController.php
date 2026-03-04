@@ -77,7 +77,7 @@ class AuditController extends BaseController
             'title'=> 'Scan | Asset Management System'
         ];
         if (!$this->sesiAktif) {
-            return redirect()->to('/pic/audit')->with('error', 'Tidak ada sesi audit aktif.');
+            return redirect()->to('/pic/audit')->with('error', 'Tidak ada Jadwal Stockopname aktif.');
         }
         return view('pic/scan_page', $data);
     }
@@ -120,7 +120,7 @@ class AuditController extends BaseController
         // Skenario 1: Aset tidak ada di "daftar tugas" audit ini
         if (!$assetStatus) {
             $this->log($qrUrl, 'ASET_TIDAK_TERDAFTAR');
-            return $this->failNotFound('Aset tidak terdaftar di sesi audit ini.');
+            return $this->failNotFound('Aset tidak terdaftar di Stockopname ini.');
         }
 
         // Skenario 2: Otorisasi (Aset bukan milik PIC yang login)
@@ -192,7 +192,7 @@ class AuditController extends BaseController
 
         // 3. Validasi
         if (!$tugas) {
-            return $this->failNotFound("Aset tidak ditemukan di daftar tugas audit Anda.");
+            return $this->failNotFound("Aset tidak ditemukan di daftar Stockopname Anda.");
         }
 
         if ($tugas['status_audit'] == 'TERVERIFIKASI') {
@@ -229,6 +229,48 @@ class AuditController extends BaseController
             'id_pic'            => $this->id_pic,
             'hasil_klasifikasi' => $hasil,
             'waktu_audit'       => date('Y-m-d H:i:s')
+        ]);
+    }
+    public function reportMissing()
+    {
+        // 1. Cek Request AJAX
+        if (!$this->request->isAJAX()) return $this->failForbidden();
+        if (!$this->sesiAktif) return $this->fail('Tidak ada sesi audit aktif.');
+
+        $idEventAsset = $this->request->getPost('id_event_asset');
+
+        $eventAssetModel = new AuditEventAssetModel();
+
+        // 2. Cari Data di Daftar Tugas (Pastikan milik PIC ini & Sesi ini)
+        $tugas = $eventAssetModel->where('id', $idEventAsset)
+                                 ->where('id_sesi', $this->sesiAktif['id_sesi'])
+                                 ->where('id_pic', $this->id_pic)
+                                 ->first();
+
+        // 3. Validasi
+        if (!$tugas) {
+            return $this->failNotFound("Data tidak ditemukan atau bukan milik Anda.");
+        }
+
+        if ($tugas['status_audit'] == 'TERVERIFIKASI') {
+            return $this->fail("Aset ini sudah terverifikasi ADA, tidak bisa ditandai hilang.");
+        }
+
+        // 4. Update Status jadi HILANG
+        $eventAssetModel->update($idEventAsset, [
+            'status_audit'  => 'HILANG',
+            'last_audit_at' => date('Y-m-d H:i:s'),
+            'catatan'       => 'Dilaporkan HILANG oleh PIC'
+        ]);
+
+        // 5. Catat Log (Penting!)
+        // Kita butuh data aset aslinya untuk log (QR Scanned diisi string khusus)
+        $this->log('LAPOR_HILANG_ID_' . $tugas['id_asset'], 'HILANG');
+
+        return $this->respond([
+            'status' => 'success',
+            'message' => 'Aset berhasil ditandai HILANG.',
+            'data' => $tugas
         ]);
     }
 }

@@ -82,6 +82,8 @@ class Filters extends BaseFilters
               'api/audit/check',
               'api/audit/check/*',
               'api/audit/manual-verify',  // Untuk Input Manual
+              'api/audit/report-missing',
+              'asset/getDetail/*'
           ]
       ],
       'invalidchars',

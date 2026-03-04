@@ -141,7 +141,7 @@ class Asset extends BaseController
   public function save()
   {
     $data = $this->request->getPost();
-    
+
 
     // dd($data);
     if (!$this->validateData($data, [
@@ -252,7 +252,7 @@ class Asset extends BaseController
     $harga = (int) str_replace('.', '', $hargaRaw);
 
 
-    $id_asset = $this->assetModel->save([
+    $this->assetModel->save([
       'no_asset'         => $this->request->getPost('no_asset'),
       'sub_asset'        => $this->request->getPost('sub_asset'),
       'nama_asset'       => $this->request->getPost('nama_asset'),
@@ -278,8 +278,8 @@ class Asset extends BaseController
       'modified_by'      => user_id(),
     ]);
 
-
-    $this->logChange('INSERT', $id_asset, $data);
+    $id_asset_baru = $this->assetModel->getInsertID();
+    $this->logChange('INSERT', $id_asset_baru, $data);
 
     session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
     return redirect()->to('/asset');
@@ -288,8 +288,15 @@ class Asset extends BaseController
   {
     $existing = $this->assetModel->delete($id);
     if ($existing) {
-      // === LOGGING DELETE ===
+      // 2. Catat Log dulu
       $this->logChange('DELETE', $id, [], $existing);
+
+      // 3. Baru hapus datanya
+      $this->assetModel->delete($id);
+
+      session()->setFlashdata('pesan', 'Data berhasil dihapus');
+    } else {
+      session()->setFlashdata('error', 'Data gagal dihapus atau tidak ditemukan');
     }
     session()->setFlashdata('pesan', 'Data berhasil dihapus');
     return redirect()->to('/asset');
@@ -617,7 +624,6 @@ class Asset extends BaseController
         $shouldLog = $nilaiLama !== $nilaiBaru;
         $logNilaiLama = $nilaiLama;
         $logNilaiBaru = $nilaiBaru;
-        
       } elseif ($aksi === 'DELETE') {
         $shouldLog = $nilaiLama !== null;
         $logNilaiLama = $nilaiLama;

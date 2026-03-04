@@ -15,9 +15,12 @@ class AssetlogModel extends Model
     {
         return $this->select('
             asset_log.*,
-            asset.nama_asset
+            asset.nama_asset,
+            asset_log.log_id
         ')
             ->join('asset', 'asset.id_asset = asset_log.id_asset', 'left')
+            ->orderBy('asset_log.log_id', 'DESC')
+            // ->where('asset_log.log_id', $id) // Menegaskan log_id milik asset_log
             ->findAll();
     }
 

@@ -104,6 +104,7 @@ class Transaksi extends BaseController
         ->join('auth_groups_users', 'auth_groups_users.user_id = users.id')
         ->where('auth_groups_users.group_id', $kabagGroup->id) // pastikan field: group_id
         ->where('users.active', 1) // hanya user aktif
+        ->groupBy('users.id') // <--- TAMBAHKAN INI untuk menghilangkan duplikat
         ->findAll();
     }
 
