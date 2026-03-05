@@ -137,65 +137,10 @@ class Transaksi extends BaseController
   }
 
 
-  // public function save()
-  // {
-
-  //   $data = $this->request->getPost();
-
-  //   $rules = [
-
-  //     'transaksi' => [
-  //       'label'               => 'No Asset',
-  //       'rules'               => 'required',
-  //       'errors'              => [
-  //         'required'          => '{field} harus diisi'
-  //       ]
-  //     ],
-
-  //   ];
-
-  //   if (!$this->validateData($data, $rules)) {
-  //     return redirect()->to('/transaksi/create')->withInput();
-  //   }
-  //   $this->transactionModel->save([
-  //     'id_asset'              => $this->request->getPost('id_asset'),
-  //     'transaksi'             => $this->request->getPost('transaksi'),
-  //     'tgl_transaksi'         => $this->request->getPost('tgl_transaksi'),
-  //     'alasan'                => $this->request->getPost('alasan'),
-  //     'id_plant_asal'         => $this->request->getPost('id_plant_asal'),
-  //     'id_cost_center_asal'   => $this->request->getPost('id_cost_center_asal'),
-  //     'id_lokasi_area_asal'   => $this->request->getPost('id_lokasi_area_asal'),
-  //     'id_lokasi_gedung_asal' => $this->request->getPost('id_lokasi_gedung_asal'),
-  //     'id_lokasi_lantai_asal' => $this->request->getPost('id_lokasi_lantai_asal'),
-  //     'id_plant_baru'         => $this->request->getPost('id_plant_baru'),
-  //     'id_cost_center_baru'   => $this->request->getPost('id_cost_center_baru'),
-  //     'id_lokasi_area_baru'   => $this->request->getPost('id_lokasi_area_baru'),
-  //     'id_lokasi_gedung_baru' => $this->request->getPost('id_lokasi_gedung_baru'),
-  //     'id_lokasi_lantai_baru' => $this->request->getPost('id_lokasi_lantai_baru'),
-  //     'status'                => $this->request->getPost('status') ?: 0,
-  //     'catatan'               => $this->request->getPost('catatan'),
-  //   ]);
-  //   session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
-  //   return redirect()->to('/transaksi');
-  // }
-
   public function save()
   {
     $post = $this->request->getPost();
-    // dd($post);
-
-    // $idKabagAsal = $post['user_kabag_asal'];        // ini ID, bukan email
-    // $idKabagTujuan = $post['user_kabag_tujuan'];
-    // // $id_direksi = $post['user_kabag_tujuan'];
-
-    // $kabagAsal = $this->userModel->find($idKabagAsal);
-    // $emailAsal = $kabagAsal ? $kabagAsal['email'] : null;
-    // $kabagTujuan = $this->userModel->find($idKabagTujuan);
-    // $emailTujuan = $kabagTujuan ? $kabagTujuan['email'] : null;
-
-
-
-    // 1) Validasi minimal: transaksi wajib
+   
     $rules = [
 
       'transaksi' => [

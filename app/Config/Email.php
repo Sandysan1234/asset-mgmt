@@ -6,8 +6,8 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = 'noreplyemailtojmi@gmail.com';
-    public string $fromName   = 'Asset Management System JMI';
+    public string $fromEmail  = env('email.fromEmail', 'default@example.com');
+    public string $fromName   = env('email.fromName', 'Nama Default');
     public string $recipients = '';
 
     /**
@@ -29,20 +29,18 @@ class Email extends BaseConfig
      * SMTP Server Hostname
      */
     // public string $SMTPHost = '';
-    public string $SMTPHost = 'smtp.gmail.com';
+    public string $SMTPHost = env('email.SMTPHost', 'smtp.gmail.com');
 
     /**
      * SMTP Username
      */
     // public string $SMTPUser = '';
-    public string $SMTPUser = 'noreplyemailtojmi@gmail.com';
-
+    public string $SMTPUser = env('email.SMTPUser', '');
     /**
      * SMTP Password
      */
     // public string $SMTPPass = '';
-    public string $SMTPPass = 'gxbkjwgdgkzgauuu';
-
+    public string $SMTPPass = env('email.SMTPPass', '');
     /**
      * SMTP Port
      */
